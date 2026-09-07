@@ -15,22 +15,23 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
-    const userExists = await User.findOne({ email: email.toLowerCase() });
+    const cleanEmail = email.toLowerCase().trim();
+    const userExists = await User.findOne({ email: cleanEmail });
     if (userExists) {
       return res.status(400).json({ message: 'An account with this email already exists' });
     }
 
     const user = await User.create({
-      name: name || email.split('@')[0],
-      email: email.toLowerCase(),
-      password,
-      phone: phone || '',
+      name: name ? name.trim() : cleanEmail.split('@')[0],
+      email: cleanEmail,
+      password: String(password),
+      phone: phone ? phone.trim() : '',
       role: 'customer',
     });
 
     // Trigger non-blocking Welcome Registration Email to user with website link button
     sendWelcomeRegistrationNotification({ user }).catch(err => {
-      console.error('Error sending welcome email:', err.message);
+      console.warn('Error sending welcome email (non-blocking):', err.message);
     });
 
     res.status(201).json({
@@ -42,7 +43,11 @@ router.post('/register', async (req, res) => {
       token: 'session_' + user._id + '_' + Date.now(),
     });
   } catch (error) {
-    res.status(400).json({ message: 'Registration failed', error: error.message });
+    console.error('Registration error:', error);
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'An account with this email already exists' });
+    }
+    res.status(400).json({ message: error.message || 'Registration failed', error: error.message });
   }
 });
 
