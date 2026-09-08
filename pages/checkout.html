@@ -899,6 +899,12 @@
                 const dbOrderId = createData.dbOrderId;
                 const rzpKey = createData.key;
 
+                console.log("🛒 [Razorpay Order Created on Server]:", {
+                    razorpayOrderId: rzpOrder.id,
+                    dbOrderId: dbOrderId,
+                    amount: rzpOrder.amount
+                });
+
                 // Step B: Open Razorpay Standard Checkout
                 const options = {
                     key: rzpKey,
@@ -917,14 +923,22 @@
                         color: "#0f7139"
                     },
                     handler: async function (response) {
-                        btnText.textContent = "Verifying payment...";
+                        console.log("\n==========================================");
+                        console.log("💳 [Razorpay Checkout Success Handler]");
+                        console.log("   razorpay_order_id:  ", response.razorpay_order_id || rzpOrder.id);
+                        console.log("   razorpay_payment_id:", response.razorpay_payment_id);
+                        console.log("   razorpay_signature: ", response.razorpay_signature ? "RECEIVED ✓" : "MISSING ❌");
+                        console.log("   Preserved dbOrderId:", dbOrderId);
+                        console.log("==========================================\n");
+
+                        btnText.textContent = "Verifying payment with server...";
                         try {
                             // Step C: Verify Payment Signature on Backend
                             const verifyRes = await fetch(`${API_BASE}/api/payment/verify`, {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({
-                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_order_id: response.razorpay_order_id || rzpOrder.id,
                                     razorpay_payment_id: response.razorpay_payment_id,
                                     razorpay_signature: response.razorpay_signature,
                                     dbOrderId: dbOrderId
@@ -932,15 +946,19 @@
                             });
 
                             const verifyData = await verifyRes.json();
+                            console.log("📡 [POST /api/payment/verify Response]:", verifyData);
+
                             if (verifyRes.ok && verifyData.success) {
+                                console.log(`🎉 [Payment Verified & Order Confirmed!] MongoDB Order ID: ${verifyData.orderId || dbOrderId}`);
                                 finishOrder(dbOrderId || verifyData.orderId, "Razorpay (Online)", response.razorpay_payment_id, finalTotal);
                             } else {
+                                console.error("❌ Payment verification failed on backend:", verifyData);
                                 alert("Payment verification error: " + (verifyData.message || "Invalid signature. Payment could not be verified."));
                                 btn.disabled = false;
                                 btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                             }
                         } catch (vErr) {
-                            console.error("Verification network error:", vErr);
+                            console.error("❌ Verification network error:", vErr);
                             alert("Payment verification network error: " + vErr.message);
                             btn.disabled = false;
                             btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
@@ -948,6 +966,7 @@
                     },
                     modal: {
                         ondismiss: function () {
+                            console.log("ℹ️ Razorpay checkout modal dismissed by user.");
                             btn.disabled = false;
                             btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                             showToast("Payment checkout was cancelled.");
