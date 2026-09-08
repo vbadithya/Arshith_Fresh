@@ -481,7 +481,7 @@
         let selectedBillingOption = "same";
         let appliedCouponCode = "";
         let appliedDiscount = 0;
-        const API_BASE = window.location.origin.includes(":5000") ? "" : "http://localhost:5000";
+        const API_BASE = "";
 
         function selectPaymentMethod(method) {
             selectedPayment = method;
@@ -907,7 +907,7 @@
                     name: "Arshith Fresh",
                     description: "Fresh & Organic Groceries Order",
                     image: "https://arshithfresh.com/cdn/shop/files/Arshithlogo111.jpg?v=1755685028&width=600",
-                    order_id: rzpOrder.id.startsWith("order_mock_") ? undefined : rzpOrder.id,
+                    order_id: rzpOrder.id,
                     prefill: {
                         name: fullName,
                         email: contact.includes("@") ? contact : "customer@example.com",
@@ -924,22 +924,26 @@
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({
-                                    razorpay_order_id: response.razorpay_order_id || rzpOrder.id,
-                                    razorpay_payment_id: response.razorpay_payment_id || `pay_mock_${Date.now()}`,
-                                    razorpay_signature: response.razorpay_signature || "mock_sig",
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature,
                                     dbOrderId: dbOrderId
                                 })
                             });
 
                             const verifyData = await verifyRes.json();
                             if (verifyRes.ok && verifyData.success) {
-                                finishOrder(dbOrderId || verifyData.orderId, "Razorpay (Online)", response.razorpay_payment_id || "pay_verified", finalTotal);
+                                finishOrder(dbOrderId || verifyData.orderId, "Razorpay (Online)", response.razorpay_payment_id, finalTotal);
                             } else {
-                                alert("Payment verification error: " + (verifyData.message || "Please contact support"));
+                                alert("Payment verification error: " + (verifyData.message || "Invalid signature. Payment could not be verified."));
+                                btn.disabled = false;
+                                btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                             }
                         } catch (vErr) {
-                            console.error("Verification error:", vErr);
-                            finishOrder(dbOrderId, "Razorpay (Online)", response.razorpay_payment_id || "pay_demo", finalTotal);
+                            console.error("Verification network error:", vErr);
+                            alert("Payment verification network error: " + vErr.message);
+                            btn.disabled = false;
+                            btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                         }
                     },
                     modal: {
@@ -951,9 +955,7 @@
                     }
                 };
 
-                const isPlaceholderKey = !rzpKey || rzpKey.includes("Example") || rzpKey.includes("your_key") || rzpOrder.id.startsWith("order_mock_");
-
-                if (typeof Razorpay !== "undefined" && !isPlaceholderKey) {
+                if (typeof Razorpay !== "undefined" && rzpKey) {
                     const rzp = new Razorpay(options);
                     rzp.on('payment.failed', function (resp){
                         alert('Payment Failed: ' + (resp.error ? resp.error.description : 'Transaction declined'));
@@ -962,13 +964,14 @@
                     });
                     rzp.open();
                 } else {
-                    // Open Official-Style Razorpay Modal with Bank OTP Verification
-                    openOfficialRazorpayModal(finalTotal, rzpOrder.id, dbOrderId, fullName, contact, phone, options.handler);
+                    alert("Razorpay checkout SDK is unavailable or key is missing. Please check credentials.");
+                    btn.disabled = false;
+                    btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                 }
 
             } catch (err) {
                 console.error("Checkout error:", err);
-                alert("Checkout initialization failed: " + err.message);
+                alert("Checkout failed: " + err.message);
                 btn.disabled = false;
                 btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
             }
