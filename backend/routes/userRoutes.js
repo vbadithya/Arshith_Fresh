@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Order = require('../models/Order');
 const { sendWelcomeRegistrationNotification } = require('../utils/notificationService');
@@ -11,20 +12,33 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
+    if (!name || !name.trim()) {
+      return res.status(400).json({ message: 'Please enter your full name' });
     }
 
-    const cleanEmail = email.toLowerCase().trim();
+    if (!email || !email.trim()) {
+      return res.status(400).json({ message: 'Please enter an email address' });
+    }
+
+    if (!password || password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters long' });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+
     const userExists = await User.findOne({ email: cleanEmail });
     if (userExists) {
-      return res.status(400).json({ message: 'An account with this email already exists' });
+      return res.status(400).json({ message: `An account with ${cleanEmail} already exists. Please log in.` });
     }
+
+    // Hash password securely with bcryptjs
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await User.create({
       name: name ? name.trim() : cleanEmail.split('@')[0],
       email: cleanEmail,
-      password: String(password),
+      password: hashedPassword,
       phone: phone ? phone.trim() : '',
       role: 'customer',
     });
@@ -33,6 +47,8 @@ router.post('/register', async (req, res) => {
     sendWelcomeRegistrationNotification({ user }).catch(err => {
       console.warn('Error sending welcome email (non-blocking):', err.message);
     });
+
+    console.log(`✅ [USER REGISTERED IN MONGODB] ID: ${user._id}, Name: ${user.name}, Email: ${user.email}`);
 
     res.status(201).json({
       _id: user._id,
@@ -43,11 +59,12 @@ router.post('/register', async (req, res) => {
       token: 'session_' + user._id + '_' + Date.now(),
     });
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error('❌ Registration error:', error);
     if (error.code === 11000) {
       return res.status(400).json({ message: 'An account with this email already exists' });
     }
     res.status(400).json({ message: error.message || 'Registration failed', error: error.message });
+  }
   }
 });
 
@@ -58,12 +75,30 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: 'Please provide email and password' });
+      return res.status(400).json({ message: 'Please provide both email and password' });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const cleanEmail = email.trim().toLowerCase();
+    const user = await User.findOne({ email: cleanEmail });
 
-    if (user && user.password === password) {
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Compare password with bcrypt
+    let isMatch = await bcrypt.compare(password, user.password);
+
+    // Fallback for legacy plain-text password upgrade
+    if (!isMatch && user.password === password) {
+      isMatch = true;
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+      await user.save();
+      console.log(`🔒 Upgraded legacy plain-text password to bcrypt hash for user: ${user.email}`);
+    }
+
+    if (isMatch) {
+      console.log(`✅ [USER LOGGED IN] ID: ${user._id}, Name: ${user.name}, Email: ${user.email}`);
       res.json({
         _id: user._id,
         name: user.name,
@@ -80,6 +115,7 @@ router.post('/login', async (req, res) => {
       res.status(401).json({ message: 'Invalid email or password' });
     }
   } catch (error) {
+    console.error('❌ Login error:', error);
     res.status(500).json({ message: 'Login server error', error: error.message });
   }
 });
@@ -98,10 +134,14 @@ router.post('/google-auth', async (req, res) => {
 
     if (!user) {
       // Create new user automatically from Google Profile
+      const randomPassword = crypto.randomBytes(16).toString('hex');
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(randomPassword, salt);
+
       user = await User.create({
         name: name || email.split('@')[0],
         email: email.toLowerCase(),
-        password: crypto.randomBytes(16).toString('hex'), // Random password for OAuth users
+        password: hashedPassword,
         avatar: picture || '',
         googleId: googleId || '',
         role: 'customer'
@@ -258,7 +298,8 @@ router.post('/reset-password/:token', async (req, res) => {
       return res.status(400).json({ message: 'Password reset token is invalid or has expired. Please request a new link.' });
     }
 
-    user.password = password;
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
 
@@ -344,11 +385,17 @@ router.put('/change-password/:id', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    if (user.password !== currentPassword) {
+    let isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch && user.password === currentPassword) {
+      isMatch = true;
+    }
+
+    if (!isMatch) {
       return res.status(400).json({ message: 'Current password is incorrect' });
     }
 
-    user.password = newPassword;
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
     await user.save();
 
     res.json({ message: 'Password updated successfully!' });

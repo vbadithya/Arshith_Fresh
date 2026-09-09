@@ -428,7 +428,7 @@
 
   <script src="../assets/js/admin-bulk.js"></script>
   <script>
-    const API_BASE = 'http://localhost:5000/api';
+    const API_BASE = (window.location.origin && window.location.origin.startsWith('http')) ? `${window.location.origin}/api` : 'http://localhost:5000/api';
     const tableBody = document.getElementById('productsTableBody');
     const searchInput = document.getElementById('productSearchInput');
     const selectAllCheckbox = document.getElementById('selectAllCheckbox');
