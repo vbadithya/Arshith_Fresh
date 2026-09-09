@@ -65,7 +65,6 @@ router.post('/register', async (req, res) => {
     }
     res.status(400).json({ message: error.message || 'Registration failed', error: error.message });
   }
-  }
 });
 
 // @route   POST /api/users/login
