@@ -171,6 +171,149 @@
         .btn-continue-store:hover {
             background: #0b3718;
         }
+
+        /* CLASSIC IMPULSE ADD-ONS STYLING */
+        .checkout-addons-box {
+            background: #ffffff;
+            border: 1.5px solid #c7d4b2;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 14px rgba(15, 113, 57, 0.06);
+            margin-bottom: 24px;
+        }
+        .checkout-addons-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f4e8;
+        }
+        .checkout-addons-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f7139;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .checkout-addons-badge {
+            background: #dcfce7;
+            color: #166534;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .checkout-addons-subtitle {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .addons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .addon-item-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: #fafcf7;
+            border: 1px solid #e2ebd6;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+        .addon-item-card:hover {
+            border-color: #0f7139;
+            background: #ffffff;
+            box-shadow: 0 3px 10px rgba(15, 113, 57, 0.08);
+        }
+        .addon-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .addon-img-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .addon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .addon-info-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0 0 2px 0;
+            line-height: 1.3;
+        }
+        .addon-info-sub {
+            font-size: 11.5px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .addon-rating {
+            color: #d97706;
+            font-weight: 700;
+            font-size: 11px;
+        }
+        .addon-price-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        .addon-curr-price {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f7139;
+        }
+        .addon-orig-price {
+            font-size: 11px;
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+        .addon-add-btn {
+            background: #ffffff;
+            border: 1.5px solid #0f7139;
+            color: #0f7139;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .addon-add-btn:hover {
+            background: #0f7139;
+            color: #ffffff;
+        }
+        .addon-add-btn.added {
+            background: #0f7139;
+            color: #ffffff;
+            border-color: #0f7139;
+            box-shadow: 0 2px 6px rgba(15, 113, 57, 0.2);
+        }
     </style>
 </head>
 
@@ -411,6 +554,18 @@
         <!-- RIGHT COLUMN ORDER SUMMARY PANE -->
         <div class="checkout-summary-pane">
             <div id="checkoutSummaryList" class="summary-items-list"></div>
+
+            <!-- CLASSIC IMPULSE ADD-ONS CONTAINER -->
+            <div id="checkoutAddonsContainer" class="checkout-addons-box">
+                <div class="checkout-addons-header">
+                    <div class="checkout-addons-title">
+                        <span>✨ Complete Your Order</span>
+                        <span class="checkout-addons-badge">Classic Add-ons</span>
+                    </div>
+                    <span class="checkout-addons-subtitle">Special Checkout Prices</span>
+                </div>
+                <div id="checkoutAddonsList" class="addons-list"></div>
+            </div>
 
             <!-- APPLIED COUPON TAG (Hidden by default) -->
             <div id="appliedCouponTag" class="applied-coupon-tag" style="display: none;">
@@ -1254,8 +1409,133 @@
             }
         }
 
+        const CLASSIC_ADDONS = [
+            {
+                id: "addon_ghee_250",
+                product: "664c12345678901234567891",
+                title: "Pure A2 Desi Cow Ghee",
+                weight: "250ml Jar",
+                rating: "4.9 ★",
+                price: 299,
+                originalPrice: 350,
+                image: "https://arshithfresh.com/cdn/shop/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png",
+                badge: "Bestseller"
+            },
+            {
+                id: "addon_honey_250",
+                product: "664c12345678901234567892",
+                title: "Wild Organic Raw Honey",
+                weight: "250g Bottle",
+                rating: "4.8 ★",
+                price: 199,
+                originalPrice: 249,
+                image: "https://arshithfresh.com/cdn/shop/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png",
+                badge: "Pure Organic"
+            },
+            {
+                id: "addon_turmeric_100",
+                product: "664c12345678901234567893",
+                title: "Lakadong Organic Turmeric",
+                weight: "100g Pack",
+                rating: "4.9 ★",
+                price: 89,
+                originalPrice: 110,
+                image: "https://arshithfresh.com/cdn/shop/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png",
+                badge: "Immunity"
+            },
+            {
+                id: "addon_sesame_oil_250",
+                product: "664c12345678901234567894",
+                title: "Cold-Pressed Sesame Oil",
+                weight: "250ml Bottle",
+                rating: "4.9 ★",
+                price: 149,
+                originalPrice: 180,
+                image: "https://arshithfresh.com/cdn/shop/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png",
+                badge: "Traditional"
+            }
+        ];
+
+        function renderClassicAddons() {
+            const container = document.getElementById("checkoutAddonsList");
+            if (!container) return;
+
+            const cartItems = getActiveCartItems();
+
+            container.innerHTML = CLASSIC_ADDONS.map(addon => {
+                const isAdded = cartItems.some(item => 
+                    String(item.title || item.name || '').trim().toLowerCase() === addon.title.toLowerCase() ||
+                    (item.addonId && item.addonId === addon.id)
+                );
+
+                const btnLabel = isAdded ? `✓ Added` : `+ Add`;
+                const btnClass = isAdded ? `addon-add-btn added` : `addon-add-btn`;
+
+                return `
+                    <div class="addon-item-card">
+                        <div class="addon-item-left">
+                            <div class="addon-img-wrap">
+                                <img src="${addon.image}" alt="${addon.title}" class="addon-img">
+                            </div>
+                            <div>
+                                <h5 class="addon-info-title">${addon.title}</h5>
+                                <div class="addon-info-sub">
+                                    <span>${addon.weight}</span> • <span class="addon-rating">${addon.rating}</span>
+                                </div>
+                                <div class="addon-price-box">
+                                    <span class="addon-curr-price">₹${addon.price}</span>
+                                    <span class="addon-orig-price">₹${addon.originalPrice}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="${btnClass}" onclick="toggleAddonItem('${addon.id}')">${btnLabel}</button>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function toggleAddonItem(addonId) {
+            const addon = CLASSIC_ADDONS.find(a => a.id === addonId);
+            if (!addon) return;
+
+            let items = getActiveCartItems();
+            const itemIndex = items.findIndex(item => 
+                String(item.title || item.name || '').trim().toLowerCase() === addon.title.toLowerCase() ||
+                (item.addonId && item.addonId === addonId)
+            );
+
+            if (itemIndex > -1) {
+                items.splice(itemIndex, 1);
+                if (typeof showToast === 'function') showToast(`Removed "${addon.title}" from your order.`);
+            } else {
+                items.push({
+                    id: addon.product,
+                    product: addon.product,
+                    title: addon.title,
+                    name: addon.title,
+                    quantity: 1,
+                    qty: 1,
+                    price: addon.price,
+                    weight: addon.weight,
+                    image: addon.image,
+                    addonId: addonId
+                });
+                if (typeof showToast === 'function') showToast(`✨ Added "${addon.title}" to your order!`);
+            }
+
+            window.CART_ITEMS = items;
+            try {
+                localStorage.setItem("arshith_cart", JSON.stringify(items));
+            } catch(e) {}
+
+            renderCheckoutPage();
+            renderClassicAddons();
+            renderAvailableCoupons();
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             renderCheckoutPage();
+            renderClassicAddons();
             renderAvailableCoupons();
         });
     </script>
