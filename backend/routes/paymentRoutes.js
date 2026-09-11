@@ -312,7 +312,6 @@ router.post('/verify', async (req, res) => {
       console.log(`   paidAt:         ${updatedOrder.paidAt}`);
       console.log(`   transactionId:  "${updatedOrder.transactionId}"`);
 
-<<<<<<< HEAD
       // Trigger non-blocking email notifications
       sendOrderPlacedNotification({ order: updatedOrder }).catch(err => {
         console.error('Error dispatching customer payment invoice email:', err.message);
@@ -322,17 +321,6 @@ router.post('/verify', async (req, res) => {
       });
 
       // Automatically push confirmed order to Shiprocket
-=======
-      // Dispatch order placement confirmation email & admin notification
-      sendOrderPlacedNotification({ order: updatedOrder }).catch(err => {
-        console.error('Error dispatching payment confirmed order email to customer:', err.message);
-      });
-      sendAdminOrderPlacedNotification({ order: updatedOrder }).catch(err => {
-        console.error('Error dispatching payment confirmed order email to admin:', err.message);
-      });
-
-      // Trigger Shiprocket Order ONLY after payment verification succeeds
->>>>>>> upstream/main
       createShiprocketOrder(updatedOrder).catch(err => {
         console.warn('[Shiprocket] Auto push payment notice:', err.message);
       });
