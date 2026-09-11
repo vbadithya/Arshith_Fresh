@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page & Festive Banners - Arshith Fresh Admin</title>
+  
+  <!-- Shared Admin Theme Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* KPI Stats Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1024px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color, #e1e3e5);
+      border-radius: var(--radius-md, 8px);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    }
+    .kpi-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .kpi-icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .kpi-icon-green { background: #e8f5e9; color: #0f7139; }
+    .kpi-icon-amber { background: #fef3c7; color: #d97706; }
+    .kpi-icon-purple { background: #f3e8ff; color: #9333ea; }
+    .kpi-icon-blue { background: #e0f2fe; color: #0284c7; }
+
+    /* Live Preview Section */
+    .preview-card-wrap {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .preview-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+
+    /* Mini Live Banner Box */
+    .live-banner-box {
+      background: linear-gradient(135deg, #022c22 0%, #064e3b 40%, #005d4a 75%, #042f24 100%);
+      border: 2px solid rgba(251, 191, 36, 0.45);
+      border-radius: 20px;
+      padding: 28px 32px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 16px 36px rgba(2, 44, 34, 0.35);
+    }
+    @media (max-width: 850px) {
+      .live-banner-box { grid-template-columns: 1fr; }
+    }
+    .live-pill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.5);
+      color: #fef08a;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .live-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fef08a;
+      margin: 0 0 6px 0;
+      line-height: 1.2;
+    }
+    .live-subtitle {
+      font-size: 13.5px;
+      color: #d1fae5;
+      margin: 0 0 16px 0;
+    }
+    .live-offer-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .live-discount-badge {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 14px;
+      border: 1px solid #fef08a;
+    }
+    .live-code-box {
+      background: rgba(255,255,255,0.1);
+      border: 1px dashed rgba(251,191,36,0.6);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .live-code-box strong {
+      background: rgba(245,158,11,0.35);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #fff;
+    }
+    .live-img-frame {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(251,191,36,0.5);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      max-height: 180px;
+      background: #064e3b;
+    }
+    .live-img-frame img {
+      width: 100%;
+      height: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Modal Dialog */
+    .admin-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .admin-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .admin-modal-card {
+      background: #ffffff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 820px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+    }
+    .admin-modal-overlay.active .admin-modal-card {
+      transform: scale(1);
+    }
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+    .modal-close-btn {
+      background: #f1f5f9;
+      border: none;
+      font-size: 20px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    .modal-body {
+      padding: 24px;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #f8fafc;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.15s;
+    }
+    .form-control:focus {
+      border-color: #0f7139;
+      box-shadow: 0 0 0 3px rgba(15, 113, 57, 0.12);
+    }
+    .img-upload-dropzone {
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      background: #f8fafc;
+      transition: all 0.2s;
+    }
+    .img-upload-dropzone:hover {
+      border-color: #0f7139;
+      background: #f0fdf4;
+    }
+    .image-preview-box {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    .image-preview-box img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Switch Toggle */
+    .switch-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .switch-input {
+      appearance: none;
+      width: 40px;
+      height: 22px;
+      background: #cbd5e1;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .switch-input:checked {
+      background: #0f7139;
+    }
+    .switch-input::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      background: white;
+      transition: transform 0.2s;
+    }
+    .switch-input:checked::before {
+      transform: translateX(18px);
+    }
+
+    /* Action Buttons */
+    .btn-primary {
+      background: #0f7139;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #0b572b; }
+    .btn-secondary {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover { background: #f8fafc; border-color: #94a3b8; }
+    .btn-danger-sm {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .btn-danger-sm:hover {
+      background: #fecaca;
+      color: #b91c1c;
+    }
+
+    /* Section Accordion for Deals */
+    .deal-card-fieldset {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #fafafa;
+    }
+    .deal-card-fieldset legend {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0f7139;
+      padding: 0 6px;
+    }
+
+    /* Table styling */
+    .data-table-container {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+    .custom-table th {
+      background: #f8fafc;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: #475569;
+      border-bottom: 1px solid #e2e8f0;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+    }
+    .custom-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+      vertical-align: middle;
+    }
+    .custom-table tr:hover td {
+      background: #f8fafc;
+    }
+    .banner-thumb {
+      width: 56px;
+      height: 38px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+    }
+    .badge-status {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-active { background: #dcfce7; color: #15803d; }
+    .badge-inactive { background: #f1f5f9; color: #64748b; }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. GLOBAL TOP HEADER
+       ========================================================================= -->
+  <header class="global-topbar">
+    <div class="topbar-left">
+      <div class="shopify-logo">
+        <svg viewBox="0 0 109.5 124.5">
+          <path d="M74.7 14.1c-.2 0-.4.1-.5.1-.2-.8-.6-1.5-1.1-2.2-2.1-2.9-5.7-4.4-10.7-4.4-1.2 0-2.5.1-3.7.4-4.8 1.1-9.4 3.9-13.6 8.3-3 3.1-6.1 7.6-7.8 11.2-.8 1.7-1.5 3.3-2.1 4.7l-15.6 4.8c-4.8 1.5-5 1.9-5.6 6.9L.1 113.1c-.5 4.3 2.5 8 6.8 8.4.4 0 .9 0 1.3-.1l74-15.3c4.5-.9 7.7-4.9 7.4-9.5l-14.9-82.5z"/>
+        </svg>
+        <span>admin</span>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <div class="search-box-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="global-search-input" placeholder="Search banners, offers, coupons...">
+        <span class="kbd-shortcut">CTRL K</span>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <a href="../index.html" class="view-store-btn" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        <span>View Store</span>
+      </a>
+
+      <div class="store-profile-dropdown">
+        <div class="store-avatar">AF</div>
+        <span class="store-name-text">Arshith Fresh</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       2. APP CONTAINER & SIDEBAR
+       ========================================================================= -->
+  <div class="app-container">
+    <aside class="app-sidebar">
+      <div class="sidebar-menu">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <a href="orders.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span>Orders</span>
+          </div>
+        </a>
+
+        <a href="products.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55L16.5 14.6a1.78 1.78 0 0 0 0-3.2z"></path></svg>
+            <span>Products</span>
+          </div>
+        </a>
+
+        <div class="submenu-list">
+          <a href="collections.html" class="submenu-item">Collections / Categories</a>
+          <a href="inventory.html" class="submenu-item">Inventory</a>
+        </div>
+
+        <a href="customers.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            <span>Customers</span>
+          </div>
+        </a>
+
+        <a href="discounts.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            <span>Discounts</span>
+          </div>
+        </a>
+
+        <!-- Home Page Banners (Active Menu) -->
+        <a href="banners.html" class="menu-item active">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-image" style="font-size:16px;"></i>
+            <span>Home Page Banners</span>
+          </div>
+          <span class="badge-count" style="background:#0f7139; color:#fff;">Live</span>
+        </a>
+
+        <a href="reviews.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Reviews</span>
+          </div>
+        </a>
+
+        <a href="analytics.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            <span>Analytics</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div style="padding: 10px 14px; background: #e2e8f0; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #334155;">
+          <div style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></div>
+          <span>MongoDB Live (5000)</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =======================================================================
+         3. MAIN VIEWPORT
+         ======================================================================= -->
+    <main class="main-viewport">
+      
+      <!-- Top Title Bar -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h1 style="font-size:22px; font-weight:700; color:#0f172a; margin:0 0 4px 0;">Home Page Banner & Festive Offer</h1>
+          <p style="font-size:13.5px; color:#64748b; margin:0;">Add, change image, update festival discounts, or delete homepage banners dynamically.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-primary" onclick="openBannerModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add New Banner</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Status Row -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Active Banner</div>
+            <div class="kpi-value" id="kpiActiveTitle" style="font-size:17px; font-weight:700; color:#0f7139;">Festive Offers</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-green"><i class="fa-solid fa-bullhorn"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Current Promo Code</div>
+            <div class="kpi-value" id="kpiPromoCode" style="font-family:monospace; color:#d97706;">FESTIVE40</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-amber"><i class="fa-solid fa-tag"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Offer Discount</div>
+            <div class="kpi-value" id="kpiDiscountText">UP TO 40% OFF</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-purple"><i class="fa-solid fa-percent"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Popup Modal Status</div>
+            <div class="kpi-value" id="kpiPopupStatus" style="font-size:16px; color:#0284c7;">Active on Store</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-blue"><i class="fa-solid fa-window-restore"></i></div>
+        </div>
+      </div>
+
+      <!-- Live Active Banner Preview & Quick Edit -->
+      <div class="preview-card-wrap">
+        <div class="preview-header">
+          <h3><i class="fa-solid fa-eye" style="color:#0f7139;"></i> Live Active Banner Preview (Storefront & Blink-Up Modal)</h3>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-secondary" onclick="editCurrentActiveBanner()"><i class="fa-solid fa-pen-to-square"></i> Edit Active Banner</button>
+            <a href="../index.html" target="_blank" class="btn-primary" style="text-decoration:none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Test on Website</a>
+          </div>
+        </div>
+
+        <div class="live-banner-box" id="liveBannerPreview">
+          <div>
+            <div class="live-pill-tag">
+              <span>✨</span>
+              <span id="prevBadgeText">Grand Festive Celebration</span>
+            </div>
+            <h2 class="live-headline" id="prevHeadline">Festive Offers Are Here!</h2>
+            <p class="live-subtitle" id="prevSubtitle">Celebrate More. Save More. Shop Your Favorites.</p>
+            <div class="live-offer-row">
+              <div class="live-discount-badge" id="prevDiscountText">UP TO 40% OFF</div>
+              <div class="live-code-box">
+                <span>Use Code:</span>
+                <strong id="prevCodeText">FESTIVE40</strong>
+              </div>
+            </div>
+          </div>
+          <div class="live-img-frame">
+            <img id="prevHamperImg" src="../assets/images/festive-hamper-banner.jpg" alt="Active Banner Image">
+          </div>
+        </div>
+      </div>
+
+      <!-- Saved Banners Table -->
+      <div class="data-table-container">
+        <div style="padding:16px 20px; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+          <h3 style="font-size:15px; font-weight:700; color:#0f172a; margin:0;">All Configured Festival & Home Banners</h3>
+          <span style="font-size:12.5px; color:#64748b;" id="bannerCountText">Loading banners...</span>
+        </div>
+        
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Banner Title</th>
+              <th>Discount / Code</th>
+              <th>Popup Modal</th>
+              <th>Status</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bannersTableBody">
+            <tr>
+              <td colspan="6" style="text-align:center; padding:30px; color:#64748b;">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading banners from database...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       4. ADD / EDIT BANNER MODAL
+       ========================================================================= -->
+  <div class="admin-modal-overlay" id="bannerModalOverlay">
+    <div class="admin-modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitleText">Add New Home Page Banner</h3>
+        <button type="button" class="modal-close-btn" onclick="closeBannerModal()">&times;</button>
+      </div>
+
+      <form id="bannerForm" onsubmit="handleSaveBanner(event)">
+        <input type="hidden" id="bannerId">
+
+        <div class="modal-body">
+          
+          <!-- Basic Info -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="bannerTitleInput">Banner Title <span style="color:#ef4444;">*</span></label>
+              <input type="text" id="bannerTitleInput" required class="form-control" placeholder="e.g. Festive Offers Are Here! / Diwali Mega Sale">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="bannerBadgeInput">Top Badge Tag</label>
+              <input type="text" id="bannerBadgeInput" class="form-control" placeholder="e.g. Grand Festive Celebration / Special Welcome Deal">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="bannerSubtitleInput">Subtitle / Tagline</label>
+            <input type="text" id="bannerSubtitleInput" class="form-control" placeholder="e.g. Celebrate More. Save More. Shop Your Favorites.">
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="bannerDiscountInput">Offer Badge Text</label>
+              <input type="text" id="bannerDiscountInput" class="form-control" placeholder="e.g. UP TO 40% OFF / FLAT ₹200 OFF">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="bannerCodeInput">Coupon Code</label>
+              <input type="text" id="bannerCodeInput" class="form-control" placeholder="e.g. FESTIVE40 / DIWALI50" style="text-transform:uppercase;">
+            </div>
+          </div>
+
+          <!-- Banner Image Upload & URL -->
+          <div class="form-group">
+            <label class="form-label">Banner / Hamper Showcase Image</label>
+            
+            <div class="img-upload-dropzone" onclick="document.getElementById('bannerFileInput').click()">
+              <i class="fa-solid fa-cloud-arrow-up" style="font-size:28px; color:#0f7139; margin-bottom:8px;"></i>
+              <div style="font-size:14px; font-weight:600; color:#1e293b;">Click to upload image from computer</div>
+              <div style="font-size:12px; color:#64748b;">Supports PNG, JPG, WEBP</div>
+              <input type="file" id="bannerFileInput" accept="image/*" style="display:none;" onchange="handleBannerFileSelect(event)">
+            </div>
+
+            <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+              <span style="font-size:12px; color:#64748b; font-weight:600;">OR Image URL:</span>
+              <input type="text" id="bannerImageUrlInput" class="form-control" placeholder="assets/images/festive-hamper-banner.jpg or https://..." oninput="updateImagePreview(this.value)">
+            </div>
+
+            <div class="image-preview-box" id="formImgPreviewBox">
+              <img id="formImgPreview" src="../assets/images/festive-hamper-banner.jpg" alt="Preview">
+              <div>
+                <div style="font-size:12.5px; font-weight:600; color:#1e293b;" id="formImgName">Current Image</div>
+                <div style="font-size:11px; color:#64748b;">Will be displayed in banner showcase & blink-up modal</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 Deal Cards Section -->
+          <div style="margin-top:20px;">
+            <label class="form-label" style="font-size:14px; font-weight:700; color:#0f172a;">3 Featured Discount Deal Cards</label>
+            
+            <!-- Deal 1 -->
+            <fieldset class="deal-card-fieldset">
+              <legend>Deal Card 1</legend>
+              <div class="form-grid-2">
+                <input type="text" id="deal1Title" class="form-control" placeholder="Deal 1 Title (e.g. 20% OFF on Fresh Fruits)">
+                <input type="text" id="deal1Badge" class="form-control" placeholder="Badge (e.g. 20% OFF)">
+              </div>
+              <div class="form-grid-2" style="margin-top:8px;">
+                <input type="text" id="deal1Sub" class="form-control" placeholder="Subtitle (e.g. Almonds, Cashews & Fruits)">
+                <input type="text" id="deal1Link" class="form-control" placeholder="Target Link (e.g. pages/categories/dry-fruits-nuts.html)">
+              </div>
+            </fieldset>
+
+            <!-- Deal 2 -->
+            <fieldset class="deal-card-fieldset">
+              <legend>Deal Card 2</legend>
+              <div class="form-grid-2">
+                <input type="text" id="deal2Title" class="form-control" placeholder="Deal 2 Title (e.g. 30% OFF on Vegetables)">
+                <input type="text" id="deal2Badge" class="form-control" placeholder="Badge (e.g. 30% OFF)">
+              </div>
+              <div class="form-grid-2" style="margin-top:8px;">
+                <input type="text" id="deal2Sub" class="form-control" placeholder="Subtitle (e.g. Farm Vegetables & Cooking Essentials)">
+                <input type="text" id="deal2Link" class="form-control" placeholder="Target Link (e.g. pages/categories/cooking-essentials.html)">
+              </div>
+            </fieldset>
+
+            <!-- Deal 3 -->
+            <fieldset class="deal-card-fieldset">
+              <legend>Deal Card 3</legend>
+              <div class="form-grid-2">
+                <input type="text" id="deal3Title" class="form-control" placeholder="Deal 3 Title (e.g. 40% OFF on Combo Offers)">
+                <input type="text" id="deal3Badge" class="form-control" placeholder="Badge (e.g. 40% OFF)">
+              </div>
+              <div class="form-grid-2" style="margin-top:8px;">
+                <input type="text" id="deal3Sub" class="form-control" placeholder="Subtitle (e.g. A2 Bilona Ghee + Oils Hamper)">
+                <input type="text" id="deal3Link" class="form-control" placeholder="Target Link (e.g. pages/collections.html)">
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Toggles -->
+          <div style="display:flex; gap:28px; margin-top:20px; flex-wrap:wrap;">
+            <label class="switch-label">
+              <input type="checkbox" id="bannerActiveSwitch" class="switch-input" checked>
+              <span>Set as Active Live Banner</span>
+            </label>
+
+            <label class="switch-label">
+              <input type="checkbox" id="bannerPopupSwitch" class="switch-input" checked>
+              <span>Enable Blink-Up Popup Modal on Store</span>
+            </label>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeBannerModal()">Cancel</button>
+          <button type="submit" class="btn-primary" id="saveBannerBtn">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span>Save Banner</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="adminToastContainer" style="position:fixed; bottom:24px; right:24px; z-index:100000; display:flex; flex-direction:column; gap:10px;"></div>
+
+  <!-- Scripts -->
+  <script>
+    let allBanners = [];
+    let activeBanner = null;
+
+    function showAdminToast(message, type = 'success') {
+      const container = document.getElementById('adminToastContainer');
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        background: ${type === 'success' ? '#0f7139' : '#dc2626'};
+        color: #ffffff;
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 13.5px;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        animation: slideInRight 0.3s ease;
+      `;
+      toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'}"></i> ${message}`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    async function loadBanners() {
+      try {
+        const res = await fetch('/api/banners');
+        if (!res.ok) throw new Error('Failed to fetch banners');
+        allBanners = await res.json();
+        
+        renderBannersTable();
+        updateActivePreview();
+      } catch (err) {
+        console.error(err);
+        document.getElementById('bannersTableBody').innerHTML = `
+          <tr><td colspan="6" style="text-align:center; padding:20px; color:#dc2626;">Error loading banners: ${err.message}</td></tr>
+        `;
+      }
+    }
+
+    function renderBannersTable() {
+      const tbody = document.getElementById('bannersTableBody');
+      document.getElementById('bannerCountText').textContent = `${allBanners.length} banner(s) configured`;
+
+      if (allBanners.length === 0) {
+        tbody.innerHTML = `
+          <tr><td colspan="6" style="text-align:center; padding:30px; color:#64748b;">No banners configured yet. Click "Add New Banner" to create one.</td></tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = allBanners.map(b => {
+        const imgSrc = b.image && b.image.startsWith('http') ? b.image : `../${b.image || 'assets/images/festive-hamper-banner.jpg'}`;
+        return `
+          <tr>
+            <td>
+              <img src="${imgSrc}" class="banner-thumb" onerror="this.src='../assets/images/Arshithlogo111.jpg'" alt="${b.title}">
+            </td>
+            <td>
+              <div style="font-weight:700; color:#0f172a;">${b.title}</div>
+              <div style="font-size:12px; color:#64748b;">${b.subtitle || ''}</div>
+            </td>
+            <td>
+              <span style="font-weight:700; color:#d97706; background:#fef3c7; padding:2px 6px; border-radius:4px; font-size:12px;">${b.discountText || 'OFFER'}</span>
+              <strong style="margin-left:4px; font-family:monospace;">${b.couponCode || 'N/A'}</strong>
+            </td>
+            <td>
+              ${b.showPopupModal ? '<span style="color:#0f7139; font-weight:600; font-size:12px;"><i class="fa-solid fa-check"></i> Enabled</span>' : '<span style="color:#94a3b8; font-size:12px;">Disabled</span>'}
+            </td>
+            <td>
+              <span class="badge-status ${b.isActive ? 'badge-active' : 'badge-inactive'}">
+                <i class="fa-solid ${b.isActive ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
+                ${b.isActive ? 'Active (Live)' : 'Inactive'}
+              </span>
+            </td>
+            <td style="text-align:right;">
+              <div style="display:inline-flex; gap:6px;">
+                <button class="btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="toggleBannerActive('${b._id}')" title="${b.isActive ? 'Deactivate' : 'Set as Active'}">
+                  <i class="fa-solid fa-power-off" style="color:${b.isActive ? '#0f7139' : '#64748b'};"></i>
+                </button>
+                <button class="btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="openBannerModal('${b._id}')" title="Edit Banner">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="btn-danger-sm" onclick="deleteBanner('${b._id}', '${b.title}')" title="Delete Banner">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateActivePreview() {
+      activeBanner = allBanners.find(b => b.isActive) || allBanners[0];
+      if (!activeBanner) return;
+
+      document.getElementById('kpiActiveTitle').textContent = activeBanner.title;
+      document.getElementById('kpiPromoCode').textContent = activeBanner.couponCode || 'FESTIVE40';
+      document.getElementById('kpiDiscountText').textContent = activeBanner.discountText || 'UP TO 40% OFF';
+      document.getElementById('kpiPopupStatus').textContent = activeBanner.showPopupModal ? 'Active on Store' : 'Modal Disabled';
+      document.getElementById('kpiPopupStatus').style.color = activeBanner.showPopupModal ? '#0284c7' : '#64748b';
+
+      document.getElementById('prevHeadline').textContent = activeBanner.title;
+      document.getElementById('prevSubtitle').textContent = activeBanner.subtitle || 'Celebrate More. Save More.';
+      document.getElementById('prevBadgeText').textContent = activeBanner.badgeText || 'Grand Festive Celebration';
+      document.getElementById('prevDiscountText').textContent = activeBanner.discountText || 'UP TO 40% OFF';
+      document.getElementById('prevCodeText').textContent = activeBanner.couponCode || 'FESTIVE40';
+
+      const imgSrc = activeBanner.image && activeBanner.image.startsWith('http') ? activeBanner.image : `../${activeBanner.image || 'assets/images/festive-hamper-banner.jpg'}`;
+      document.getElementById('prevHamperImg').src = imgSrc;
+    }
+
+    function editCurrentActiveBanner() {
+      if (activeBanner && activeBanner._id) {
+        openBannerModal(activeBanner._id);
+      } else {
+        openBannerModal();
+      }
+    }
+
+    function openBannerModal(id = null) {
+      const modal = document.getElementById('bannerModalOverlay');
+      const titleElem = document.getElementById('modalTitleText');
+      const form = document.getElementById('bannerForm');
+      form.reset();
+
+      if (id) {
+        const b = allBanners.find(x => x._id === id);
+        if (b) {
+          titleElem.textContent = 'Edit Home Page Banner';
+          document.getElementById('bannerId').value = b._id;
+          document.getElementById('bannerTitleInput').value = b.title || '';
+          document.getElementById('bannerBadgeInput').value = b.badgeText || '';
+          document.getElementById('bannerSubtitleInput').value = b.subtitle || '';
+          document.getElementById('bannerDiscountInput').value = b.discountText || '';
+          document.getElementById('bannerCodeInput').value = b.couponCode || '';
+          document.getElementById('bannerImageUrlInput').value = b.image || '';
+          document.getElementById('bannerActiveSwitch').checked = !!b.isActive;
+          document.getElementById('bannerPopupSwitch').checked = !!b.showPopupModal;
+
+          document.getElementById('deal1Title').value = b.deal1Title || '';
+          document.getElementById('deal1Badge').value = b.deal1Badge || '';
+          document.getElementById('deal1Sub').value = b.deal1Sub || '';
+          document.getElementById('deal1Link').value = b.deal1Link || '';
+
+          document.getElementById('deal2Title').value = b.deal2Title || '';
+          document.getElementById('deal2Badge').value = b.deal2Badge || '';
+          document.getElementById('deal2Sub').value = b.deal2Sub || '';
+          document.getElementById('deal2Link').value = b.deal2Link || '';
+
+          document.getElementById('deal3Title').value = b.deal3Title || '';
+          document.getElementById('deal3Badge').value = b.deal3Badge || '';
+          document.getElementById('deal3Sub').value = b.deal3Sub || '';
+          document.getElementById('deal3Link').value = b.deal3Link || '';
+
+          updateImagePreview(b.image);
+        }
+      } else {
+        titleElem.textContent = 'Add New Home Page Banner';
+        document.getElementById('bannerId').value = '';
+        document.getElementById('bannerTitleInput').value = 'Festive Offers Are Here!';
+        document.getElementById('bannerBadgeInput').value = 'Grand Festive Celebration';
+        document.getElementById('bannerSubtitleInput').value = 'Celebrate More. Save More. Shop Your Favorites.';
+        document.getElementById('bannerDiscountInput').value = 'UP TO 40% OFF';
+        document.getElementById('bannerCodeInput').value = 'FESTIVE40';
+        document.getElementById('bannerImageUrlInput').value = 'assets/images/festive-hamper-banner.jpg';
+        document.getElementById('bannerActiveSwitch').checked = true;
+        document.getElementById('bannerPopupSwitch').checked = true;
+
+        document.getElementById('deal1Title').value = '20% OFF on Fresh Fruits';
+        document.getElementById('deal1Badge').value = '20% OFF';
+        document.getElementById('deal1Sub').value = 'Almonds, Cashews & Native Organic Fruits';
+        document.getElementById('deal1Link').value = 'pages/categories/dry-fruits-nuts.html';
+
+        document.getElementById('deal2Title').value = '30% OFF on Vegetables';
+        document.getElementById('deal2Badge').value = '30% OFF';
+        document.getElementById('deal2Sub').value = 'Farm Vegetables & Pure Cooking Essentials';
+        document.getElementById('deal2Link').value = 'pages/categories/cooking-essentials.html';
+
+        document.getElementById('deal3Title').value = '40% OFF on Combo Offers';
+        document.getElementById('deal3Badge').value = '40% OFF';
+        document.getElementById('deal3Sub').value = 'A2 Bilona Ghee + Wood-Pressed Oils Hamper';
+        document.getElementById('deal3Link').value = 'pages/collections.html?category=all';
+
+        updateImagePreview('assets/images/festive-hamper-banner.jpg');
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeBannerModal() {
+      document.getElementById('bannerModalOverlay').classList.remove('active');
+    }
+
+    function updateImagePreview(val) {
+      const img = document.getElementById('formImgPreview');
+      if (!val) {
+        img.src = '../assets/images/festive-hamper-banner.jpg';
+        return;
+      }
+      const fullSrc = val.startsWith('http') || val.startsWith('data:') ? val : `../${val}`;
+      img.src = fullSrc;
+    }
+
+    function handleBannerFileSelect(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const base64Data = evt.target.result;
+        document.getElementById('bannerImageUrlInput').value = base64Data;
+        updateImagePreview(base64Data);
+        document.getElementById('formImgName').textContent = file.name;
+        showAdminToast(`Selected image "${file.name}" ready to save!`, 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function handleSaveBanner(e) {
+      e.preventDefault();
+      const btn = document.getElementById('saveBannerBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+      const id = document.getElementById('bannerId').value;
+      const payload = {
+        title: document.getElementById('bannerTitleInput').value.trim(),
+        badgeText: document.getElementById('bannerBadgeInput').value.trim(),
+        subtitle: document.getElementById('bannerSubtitleInput').value.trim(),
+        discountText: document.getElementById('bannerDiscountInput').value.trim(),
+        couponCode: document.getElementById('bannerCodeInput').value.trim().toUpperCase(),
+        image: document.getElementById('bannerImageUrlInput').value.trim(),
+        isActive: document.getElementById('bannerActiveSwitch').checked,
+        showPopupModal: document.getElementById('bannerPopupSwitch').checked,
+        deal1Title: document.getElementById('deal1Title').value.trim(),
+        deal1Badge: document.getElementById('deal1Badge').value.trim(),
+        deal1Sub: document.getElementById('deal1Sub').value.trim(),
+        deal1Link: document.getElementById('deal1Link').value.trim(),
+        deal2Title: document.getElementById('deal2Title').value.trim(),
+        deal2Badge: document.getElementById('deal2Badge').value.trim(),
+        deal2Sub: document.getElementById('deal2Sub').value.trim(),
+        deal2Link: document.getElementById('deal2Link').value.trim(),
+        deal3Title: document.getElementById('deal3Title').value.trim(),
+        deal3Badge: document.getElementById('deal3Badge').value.trim(),
+        deal3Sub: document.getElementById('deal3Sub').value.trim(),
+        deal3Link: document.getElementById('deal3Link').value.trim()
+      };
+
+      try {
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `/api/banners/${id}` : '/api/banners';
+
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+        if (!res.ok || !result.success) throw new Error(result.message || 'Save failed');
+
+        showAdminToast(id ? 'Banner updated successfully!' : 'New banner created successfully!', 'success');
+        closeBannerModal();
+        await loadBanners();
+      } catch (err) {
+        showAdminToast(err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Banner';
+      }
+    }
+
+    async function toggleBannerActive(id) {
+      try {
+        const res = await fetch(`/api/banners/${id}/toggle`, { method: 'PATCH' });
+        const result = await res.json();
+        if (!res.ok || !result.success) throw new Error(result.message || 'Failed to toggle status');
+
+        showAdminToast(`Banner status updated to ${result.banner.isActive ? 'Active (Live)' : 'Inactive'}!`, 'success');
+        await loadBanners();
+      } catch (err) {
+        showAdminToast(err.message, 'error');
+      }
+    }
+
+    async function deleteBanner(id, title) {
+      if (!confirm(`Are you sure you want to delete banner "${title}"?`)) return;
+
+      try {
+        const res = await fetch(`/api/banners/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (!res.ok || !result.success) throw new Error(result.message || 'Delete failed');
+
+        showAdminToast(`Banner "${title}" deleted successfully.`, 'success');
+        await loadBanners();
+      } catch (err) {
+        showAdminToast(err.message, 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadBanners();
+    });
+  </script>
+</body>
+</html>

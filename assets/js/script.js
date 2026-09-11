@@ -936,12 +936,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const inStock = (p.countInStock === undefined || p.countInStock === null) ? true : (Number(p.countInStock) > 0);
+            const isWishlisted = typeof isItemInWishlist === 'function' ? isItemInWishlist(id) : false;
 
             return `
                 <div class="product-card ${inStock ? '' : 'product-card-out-of-stock'}">
-                    <a href="${productUrl}" class="product-card-link" style="text-decoration: none; color: inherit; display: block; cursor: pointer;">
+                    <a href="${productUrl}" class="product-card-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 1 1 auto; cursor: pointer;">
                         <div class="product-image-container ${hasSecondImage ? 'has-second-img' : ''}">
                             ${discount > 0 ? `<span class="card-discount-tag">${discount}% Off</span>` : ''}
+                            <button type="button" class="product-card-wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlistFromCard('${id}', '${safeNameForJs}', ${price}, '${safeImgForJs}', this)" title="${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}" aria-label="Wishlist">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="${isWishlisted ? '#ef4444' : 'none'}" stroke="${isWishlisted ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </button>
                             ${!inStock ? `<span class="card-out-of-stock-tag" style="position: absolute; top: 10px; right: 10px; background: #dc2626; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 4px; z-index: 2; letter-spacing: 0.5px;">OUT OF STOCK</span>` : ''}
                             <img src="${image}" alt="${name}" class="primary-img" style="${inStock ? '' : 'opacity: 0.7;'}" onerror="this.onerror=null; this.src='${fallbackImg}';">
                             ${hasSecondImage ? `<img src="${secondImage}" alt="${name}" class="hover-img" onerror="this.style.display='none';">` : ''}
@@ -1319,7 +1325,7 @@ function initAutoSignupPopup() {
     } catch (e) {}
 
     const path = window.location.pathname.toLowerCase();
-    if (path.includes('/auth/') || path.includes('login.html') || path.includes('register.html') || path.includes('checkout.html') || path.includes('/admin/')) {
+    if (path.includes('/auth/') || path.includes('login.html') || path.includes('register.html') || path.includes('checkout.html') || path.includes('/admin/') || path.includes('profile.html') || path.includes('/profile') || path.includes('/account')) {
         return;
     }
 
@@ -1400,7 +1406,341 @@ function closeSignupModal() {
     try {
         sessionStorage.setItem('arshith_signup_popup_dismissed', 'true');
     } catch (e) {}
+    
+    // Smoothly reveal the Festive Offers popup modal dialog after welcome popup closes
+    setTimeout(() => {
+        showFestiveOfferModal();
+    }, 400);
 }
+
+let currentActiveBannerConfig = null;
+
+async function fetchActiveBannerConfig() {
+    if (currentActiveBannerConfig) return currentActiveBannerConfig;
+    try {
+        const res = await fetch('/api/banners/active');
+        if (res.ok) {
+            const data = await res.json();
+            if (data && data.banner) {
+                currentActiveBannerConfig = data.banner;
+                return currentActiveBannerConfig;
+            }
+        }
+    } catch (e) {}
+
+    currentActiveBannerConfig = {
+        title: 'Festive Offers Are Here!',
+        subtitle: 'Celebrate More. Save More. Shop Your Favorites.',
+        badgeText: 'Grand Festive Celebration',
+        discountText: 'UP TO 40% OFF',
+        couponCode: 'FESTIVE40',
+        buttonText: 'SHOP NOW',
+        buttonLink: 'pages/collections.html?category=all',
+        image: 'assets/images/festive-hamper-banner.jpg',
+        isActive: true,
+        showPopupModal: true,
+        deal1Title: '20% OFF on Fresh Fruits',
+        deal1Sub: 'Almonds, Cashews & Native Organic Fruits',
+        deal1Badge: '20% OFF',
+        deal1Link: 'pages/categories/dry-fruits-nuts.html',
+        deal1Image: 'https://arshithfresh.com/cdn/shop/collections/seeds_dry_fruits_nuts_webp_200x200_crop_center.jpg?v=1746963459',
+        deal2Title: '30% OFF on Vegetables',
+        deal2Sub: 'Farm Vegetables & Pure Cooking Essentials',
+        deal2Badge: '30% OFF',
+        deal2Link: 'pages/categories/cooking-essentials.html',
+        deal2Image: 'https://arshithfresh.com/cdn/shop/collections/groceries_200x200_crop_center.jpg?v=1746965740',
+        deal3Title: '40% OFF on Combo Offers',
+        deal3Sub: 'A2 Bilona Ghee + Wood-Pressed Oils Hamper',
+        deal3Badge: '40% OFF',
+        deal3Link: 'pages/collections.html?category=all',
+        deal3Image: 'https://arshithfresh.com/cdn/shop/collections/ghee_1_200x200_crop_center.jpg?v=1746964905'
+    };
+    return currentActiveBannerConfig;
+}
+
+async function showFestiveOfferModal(force = false) {
+    const path = window.location.pathname.toLowerCase();
+    // CRITICAL: NEVER display festive popup on user profile, account, or admin pages
+    if (path.includes('profile.html') || path.includes('/profile') || path.includes('/account') || path.includes('/admin/')) {
+        return;
+    }
+
+    if (!force) {
+        try {
+            if (sessionStorage.getItem('arshith_festive_popup_dismissed') === 'true') return;
+        } catch (e) {}
+    }
+
+    if (document.getElementById('arshithFestiveModalOverlay')) return;
+
+    const banner = await fetchActiveBannerConfig();
+    if (!banner || banner.isActive === false || banner.showPopupModal === false) {
+        return;
+    }
+
+    // Detect path depth for assets & links
+    const isSubpage = path.includes('/pages/');
+    const isDeep = path.includes('/categories/') || path.includes('/policies/') || path.includes('/auth/');
+    const rootPath = isDeep ? '../../' : (isSubpage ? '../' : '');
+
+    const resolveImg = (img) => {
+        if (!img) return rootPath + 'assets/images/festive-hamper-banner.jpg';
+        if (img.startsWith('http') || img.startsWith('data:')) return img;
+        return rootPath + img.replace(/^\/+/, '');
+    };
+
+    const resolveLink = (link) => {
+        if (!link) return rootPath + 'pages/collections.html?category=all';
+        if (link.startsWith('http')) return link;
+        return rootPath + link.replace(/^\/+/, '');
+    };
+
+    const imgHamper = resolveImg(banner.image);
+    const collectionsUrl = resolveLink(banner.buttonLink);
+    const fruitsUrl = resolveLink(banner.deal1Link);
+    const veggiesUrl = resolveLink(banner.deal2Link);
+    const comboUrl = resolveLink(banner.deal3Link);
+    const couponCode = (banner.couponCode || 'FESTIVE40').toUpperCase();
+
+    const modalHTML = `
+        <div id="arshithFestiveModalOverlay" class="festive-modal-overlay">
+            <div class="festive-modal-container">
+                <button type="button" class="festive-modal-close" onclick="closeFestiveOfferModal()" title="Close Festive Offer">&times;</button>
+                
+                <div class="festive-promo-card festive-modal-card">
+                    <!-- Subtle Festive Mandala & Sparkle Backgrounds -->
+                    <div class="festive-mandala-watermark"></div>
+                    <div class="festive-sparkle sparkle-1">✦</div>
+                    <div class="festive-sparkle sparkle-2">✨</div>
+                    <div class="festive-sparkle sparkle-3">✦</div>
+                    <div class="festive-sparkle sparkle-4">✨</div>
+                    <div class="festive-sparkle sparkle-5">✦</div>
+
+                    <!-- Hanging Traditional Festive Lanterns with Animated Flames -->
+                    <div class="festive-lanterns-wrapper">
+                        <div class="festive-lantern lantern-1">
+                            <div class="lantern-rope"></div>
+                            <div class="lantern-body"><div class="lantern-flame"></div></div>
+                        </div>
+                        <div class="festive-lantern lantern-2">
+                            <div class="lantern-rope"></div>
+                            <div class="lantern-body"><div class="lantern-flame"></div></div>
+                        </div>
+                        <div class="festive-lantern lantern-3">
+                            <div class="lantern-rope"></div>
+                            <div class="lantern-body"><div class="lantern-flame"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Left Main Content Column -->
+                    <div class="festive-main-content">
+                        <div class="festive-header-block">
+                            <div class="festive-pill-tag">
+                                <span class="tag-icon">✨</span>
+                                <span>${banner.badgeText || 'Grand Festive Celebration'}</span>
+                            </div>
+
+                            <h2 class="festive-headline">${banner.title || 'Festive Offers Are Here!'}</h2>
+                            <p class="festive-subtitle">${banner.subtitle || 'Celebrate More. Save More. Shop Your Favorites.'}</p>
+
+                            <div class="festive-hero-offer-row">
+                                <div class="festive-discount-pill">
+                                    <span>${banner.discountText || 'UP TO 40% OFF'}</span>
+                                </div>
+                                <div class="festive-code-box" id="festiveCodeBoxModal" onclick="copyFestiveCode('${couponCode}')" title="Click to copy coupon code" style="cursor:pointer;">
+                                    <span>Use Code:</span>
+                                    <strong id="festiveCodeText">${couponCode}</strong>
+                                    <span id="festiveCopyBadge" class="festive-copy-hint"><i class="fa-regular fa-copy"></i> Copy</span>
+                                </div>
+                                <a href="${collectionsUrl}" class="festive-shop-btn" onclick="closeFestiveOfferModal()">
+                                    <span>${banner.buttonText || 'SHOP NOW'}</span>
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 3 Specific Festive Category Discount Cards -->
+                        <div class="festive-deals-grid">
+                            <!-- Card 1 -->
+                            <a href="${fruitsUrl}" class="festive-deal-card" onclick="closeFestiveOfferModal()">
+                                <span class="deal-card-badge">${banner.deal1Badge || '20% OFF'}</span>
+                                <div class="deal-card-icon-wrap">
+                                    <img src="${banner.deal1Image || 'https://arshithfresh.com/cdn/shop/collections/seeds_dry_fruits_nuts_webp_200x200_crop_center.jpg?v=1746963459'}" alt="${banner.deal1Title || 'Fresh Fruits'}" class="deal-card-img">
+                                </div>
+                                <div class="deal-card-info">
+                                    <h4 class="deal-title">${banner.deal1Title || '20% OFF on Fresh Fruits'}</h4>
+                                    <p class="deal-sub">${banner.deal1Sub || 'Almonds, Cashews & Native Organic Fruits'}</p>
+                                    <span class="deal-link-text">Shop Deal ➔</span>
+                                </div>
+                            </a>
+
+                            <!-- Card 2 -->
+                            <a href="${veggiesUrl}" class="festive-deal-card" onclick="closeFestiveOfferModal()">
+                                <span class="deal-card-badge badge-green">${banner.deal2Badge || '30% OFF'}</span>
+                                <div class="deal-card-icon-wrap">
+                                    <img src="${banner.deal2Image || 'https://arshithfresh.com/cdn/shop/collections/groceries_200x200_crop_center.jpg?v=1746965740'}" alt="${banner.deal2Title || 'Vegetables'}" class="deal-card-img">
+                                </div>
+                                <div class="deal-card-info">
+                                    <h4 class="deal-title">${banner.deal2Title || '30% OFF on Vegetables'}</h4>
+                                    <p class="deal-sub">${banner.deal2Sub || 'Farm Vegetables & Pure Cooking Essentials'}</p>
+                                    <span class="deal-link-text">Shop Deal ➔</span>
+                                </div>
+                            </a>
+
+                            <!-- Card 3 -->
+                            <a href="${comboUrl}" class="festive-deal-card" onclick="closeFestiveOfferModal()">
+                                <span class="deal-card-badge badge-gold">${banner.deal3Badge || '40% OFF'}</span>
+                                <div class="deal-card-icon-wrap">
+                                    <img src="${banner.deal3Image || 'https://arshithfresh.com/cdn/shop/collections/ghee_1_200x200_crop_center.jpg?v=1746964905'}" alt="${banner.deal3Title || 'Combo Offers'}" class="deal-card-img">
+                                </div>
+                                <div class="deal-card-info">
+                                    <h4 class="deal-title">${banner.deal3Title || '40% OFF on Combo Offers'}</h4>
+                                    <p class="deal-sub">${banner.deal3Sub || 'A2 Bilona Ghee + Wood-Pressed Oils Hamper'}</p>
+                                    <span class="deal-link-text">Shop Deal ➔</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Festive Hamper Visual Showcase -->
+                    <div class="festive-visual-showcase">
+                        <div class="festive-card-frame">
+                            <div class="festive-img-wrap">
+                                <img src="${imgHamper}" alt="${banner.title || 'Royal Festive Organic Hamper'}" class="festive-hamper-img" onerror="this.onerror=null;this.src='${rootPath}assets/images/Arshithlogo111.jpg';">
+                                <div class="festive-floating-badge">
+                                    <span class="badge-icon">🎁</span>
+                                    <div class="badge-meta">
+                                        <strong>Royal Festive Hamper</strong>
+                                        <span>Ghee • Cold Pressed Oils • Dry Fruits</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="festive-modal-footer">
+                    <button type="button" class="festive-skip-link" onclick="closeFestiveOfferModal()">No thanks, continue browsing</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    setTimeout(() => {
+        const overlay = document.getElementById('arshithFestiveModalOverlay');
+        if (overlay) overlay.classList.add('show');
+    }, 50);
+}
+
+function closeFestiveOfferModal() {
+    const overlay = document.getElementById('arshithFestiveModalOverlay');
+    if (overlay) {
+        overlay.classList.remove('show');
+        setTimeout(() => overlay.remove(), 380);
+    }
+    try {
+        sessionStorage.setItem('arshith_festive_popup_dismissed', 'true');
+    } catch (e) {}
+}
+
+function copyFestiveCode(customCode = null) {
+    const code = customCode || (currentActiveBannerConfig && currentActiveBannerConfig.couponCode) || 'FESTIVE40';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).catch(() => {});
+    }
+    const badge = document.getElementById('festiveCopyBadge');
+    if (badge) {
+        badge.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        badge.style.background = '#10b981';
+        badge.style.color = '#ffffff';
+        setTimeout(() => {
+            if (badge) {
+                badge.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                badge.style.background = '';
+                badge.style.color = '';
+            }
+        }, 2200);
+    }
+    if (typeof showToast === 'function') {
+        showToast(`Coupon code ${code} copied to clipboard!`, 'success');
+    }
+}
+
+async function initFestiveBannerDisplay() {
+    const path = window.location.pathname.toLowerCase();
+    // STRICT CHECK: User profile, account, or admin pages must NEVER display the festive popup
+    if (path.includes('profile.html') || path.includes('/profile') || path.includes('/account') || path.includes('/admin/')) {
+        return;
+    }
+
+    const banner = await fetchActiveBannerConfig();
+
+    // Dynamically update static festive section if on index.html
+    const festiveSection = document.getElementById('festiveOffers');
+    if (festiveSection) {
+        if (!banner || banner.isActive === false) {
+            festiveSection.style.display = 'none';
+        } else {
+            festiveSection.style.display = 'block';
+            festiveSection.classList.add('festive-visible');
+
+            const headline = festiveSection.querySelector('.festive-headline');
+            if (headline && banner.title) headline.textContent = banner.title;
+            const subtitle = festiveSection.querySelector('.festive-subtitle');
+            if (subtitle && banner.subtitle) subtitle.textContent = banner.subtitle;
+            const pillTag = festiveSection.querySelector('.festive-pill-tag span:last-child');
+            if (pillTag && banner.badgeText) pillTag.textContent = banner.badgeText;
+            const discountPill = festiveSection.querySelector('.festive-discount-pill span');
+            if (discountPill && banner.discountText) discountPill.textContent = banner.discountText;
+            const codeBox = festiveSection.querySelector('.festive-code-box strong');
+            if (codeBox && banner.couponCode) codeBox.textContent = banner.couponCode;
+            const hamperImg = festiveSection.querySelector('.festive-hamper-img');
+            if (hamperImg && banner.image) {
+                hamperImg.src = banner.image.startsWith('http') || banner.image.startsWith('data:') ? banner.image : banner.image;
+            }
+        }
+    }
+
+    if (!banner || banner.isActive === false || banner.showPopupModal === false) return;
+
+    let isSignupDismissed = false;
+    try {
+        isSignupDismissed = sessionStorage.getItem('arshith_signup_popup_dismissed') === 'true';
+    } catch(e) {}
+
+    let isFestiveDismissed = false;
+    try {
+        isFestiveDismissed = sessionStorage.getItem('arshith_festive_popup_dismissed') === 'true';
+    } catch(e) {}
+
+    if (isFestiveDismissed) return;
+
+    let currentUser = null;
+    try {
+        currentUser = JSON.parse(localStorage.getItem('arshith_user'));
+    } catch(e) {}
+
+    const isLoggedIn = !!(currentUser && (currentUser._id || currentUser.email));
+
+    // If user is already logged in or previously dismissed signup, pop up festive offers after 2 seconds
+    if (isLoggedIn || isSignupDismissed) {
+        setTimeout(() => {
+            showFestiveOfferModal();
+        }, 2000);
+    }
+}
+
+window.showFestiveOfferModal = showFestiveOfferModal;
+window.closeFestiveOfferModal = closeFestiveOfferModal;
+window.copyFestiveCode = copyFestiveCode;
+
+document.addEventListener('DOMContentLoaded', () => {
+    initFestiveBannerDisplay();
+});
+
 
 async function handleModalSignup(e) {
     e.preventDefault();
@@ -2646,7 +2986,248 @@ async function syncHomepageRealRatingsAndReviews() {
 
 // Automatically trigger on page load
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', syncHomepageRealRatingsAndReviews);
+    document.addEventListener('DOMContentLoaded', () => {
+        syncHomepageRealRatingsAndReviews();
+        updateWishlistBadgeCount();
+    });
 } else {
     syncHomepageRealRatingsAndReviews();
+    updateWishlistBadgeCount();
+}
+
+/* ====================================================
+   INTERACTIVE STOREFRONT WISHLIST MODULE
+   ==================================================== */
+
+function getStoredWishlist() {
+    try {
+        return JSON.parse(localStorage.getItem('arshith_wishlist')) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveStoredWishlist(items) {
+    try {
+        localStorage.setItem('arshith_wishlist', JSON.stringify(items));
+    } catch (e) {}
+    updateWishlistBadgeCount();
+}
+
+function updateWishlistBadgeCount() {
+    const items = getStoredWishlist();
+    const count = items.length;
+    const countBadges = document.querySelectorAll('.wishlist-count, #headerWishlistCount');
+    countBadges.forEach(badge => {
+        if (count > 0) {
+            badge.textContent = count;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    });
+}
+
+function isItemInWishlist(id) {
+    if (!id) return false;
+    const wishlist = getStoredWishlist();
+    return wishlist.some(item => String(item.id || item._id) === String(id));
+}
+
+function toggleWishlistFromCard(id, name, price, image, btnElement) {
+    const isSaved = isItemInWishlist(id);
+    let wishlist = getStoredWishlist();
+
+    if (isSaved) {
+        wishlist = wishlist.filter(item => String(item.id || item._id) !== String(id));
+        saveStoredWishlist(wishlist);
+        if (btnElement) {
+            btnElement.classList.remove('active');
+            const svg = btnElement.querySelector('svg');
+            if (svg) {
+                svg.setAttribute('fill', 'none');
+                svg.setAttribute('stroke', 'currentColor');
+            }
+        }
+        if (typeof showToast === 'function') {
+            showToast(`Removed "${name}" from your Wishlist.`);
+        }
+    } else {
+        wishlist.push({
+            id: String(id),
+            _id: String(id),
+            name: name || 'Arshith Fresh Product',
+            price: Number(price) || 0,
+            image: image || 'https://arshithfresh.com/cdn/shop/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png',
+            weight: 'Standard'
+        });
+        saveStoredWishlist(wishlist);
+        if (btnElement) {
+            btnElement.classList.add('active');
+            const svg = btnElement.querySelector('svg');
+            if (svg) {
+                svg.setAttribute('fill', '#ef4444');
+                svg.setAttribute('stroke', '#ef4444');
+            }
+        }
+        if (typeof showToast === 'function') {
+            showToast(`❤️ Added "${name}" to your Wishlist!`, 'success');
+        }
+    }
+
+    // Sync all matching heart buttons on the page
+    document.querySelectorAll('.product-card-wishlist-btn').forEach(btn => {
+        const onclickAttr = btn.getAttribute('onclick') || '';
+        if (onclickAttr.includes(`'${id}'`)) {
+            const activeNow = isItemInWishlist(id);
+            if (activeNow) {
+                btn.classList.add('active');
+                const svg = btn.querySelector('svg');
+                if (svg) { svg.setAttribute('fill', '#ef4444'); svg.setAttribute('stroke', '#ef4444'); }
+            } else {
+                btn.classList.remove('active');
+                const svg = btn.querySelector('svg');
+                if (svg) { svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', 'currentColor'); }
+            }
+        }
+    });
+
+    renderWishlistDrawerContent();
+}
+
+function toggleWishlist(product) {
+    if (!product || (!product.id && !product._id && !product.name)) return;
+    const prodId = String(product.id || product._id || product.name).trim();
+    let wishlist = getStoredWishlist();
+    const existingIndex = wishlist.findIndex(item => String(item.id || item._id || item.name).trim() === prodId);
+
+    if (existingIndex > -1) {
+        wishlist.splice(existingIndex, 1);
+        saveStoredWishlist(wishlist);
+        if (typeof showToast === 'function') {
+            showToast(`Removed "${product.name || product.title || 'Product'}" from your Wishlist.`);
+        }
+    } else {
+        wishlist.push({
+            id: prodId,
+            _id: prodId,
+            name: product.name || product.title || 'Arshith Fresh Product',
+            price: Number(product.price) || 0,
+            image: product.image || 'https://arshithfresh.com/cdn/shop/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png',
+            weight: product.weight || product.unit || 'Standard'
+        });
+        saveStoredWishlist(wishlist);
+        if (typeof showToast === 'function') {
+            showToast(`❤️ Added "${product.name || product.title || 'Product'}" to your Wishlist!`, 'success');
+        }
+    }
+    renderWishlistDrawerContent();
+}
+
+function openWishlistModal() {
+    let modal = document.getElementById('wishlistModalDrawer');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'wishlistModalDrawer';
+        modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(4px);z-index:999999;display:flex;justify-content:flex-end;animation:fadeIn 0.2s ease-out;';
+        modal.innerHTML = `
+            <div style="background:#ffffff;width:100%;max-width:420px;height:100%;display:flex;flex-direction:column;box-shadow:-5px 0 25px rgba(0,0,0,0.15);position:relative;">
+                <!-- Header -->
+                <div style="padding:18px 20px;background:#0f7139;color:#ffffff;display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" stroke="#ffffff" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        <h3 style="margin:0;font-size:17px;font-weight:700;letter-spacing:-0.2px;">My Wishlist</h3>
+                    </div>
+                    <button type="button" onclick="closeWishlistModal()" style="background:none;border:none;color:#ffffff;font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+                </div>
+                <!-- Body -->
+                <div id="wishlistDrawerBody" style="flex:1;overflow-y:auto;padding:16px;">
+                    <!-- Rendered Items -->
+                </div>
+                <!-- Footer -->
+                <div style="padding:14px 20px;border-top:1px solid #e2e8f0;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;">
+                    <button type="button" onclick="closeWishlistModal()" style="background:none;border:none;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;">Continue Shopping</button>
+                    <a href="${window.location.pathname.includes('/pages/') ? 'collections.html?category=all' : 'pages/collections.html?category=all'}" style="background:#0f7139;color:#ffffff;padding:8px 16px;border-radius:6px;font-size:12.5px;font-weight:700;text-decoration:none;">Explore Products &rarr;</a>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.onclick = (e) => {
+            if (e.target === modal) closeWishlistModal();
+        };
+    }
+
+    modal.style.display = 'flex';
+    renderWishlistDrawerContent();
+}
+
+function closeWishlistModal() {
+    const modal = document.getElementById('wishlistModalDrawer');
+    if (modal) modal.style.display = 'none';
+}
+
+function renderWishlistDrawerContent() {
+    const container = document.getElementById('wishlistDrawerBody');
+    if (!container) return;
+
+    const items = getStoredWishlist();
+    if (items.length === 0) {
+        container.innerHTML = `
+            <div style="text-align:center;padding:48px 20px;">
+                <div style="width:64px;height:64px;border-radius:50%;background:#fef2f2;color:#ef4444;display:flex;align-items:center;justify-content:center;margin:0 auto 16px auto;font-size:28px;">
+                    ❤️
+                </div>
+                <h4 style="margin:0 0 6px 0;font-size:16px;font-weight:700;color:#1e293b;">Your Wishlist is Empty</h4>
+                <p style="font-size:13px;color:#64748b;margin:0 0 20px 0;">Save your favorite organic groceries, dry fruits, oils & spices to buy them anytime!</p>
+                <a href="${window.location.pathname.includes('/pages/') ? 'collections.html?category=all' : 'pages/collections.html?category=all'}" onclick="closeWishlistModal()" style="display:inline-block;background:#0f7139;color:#ffffff;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 3px 10px rgba(15,113,57,0.25);">
+                    Start Shopping
+                </a>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = items.map(item => `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <img src="${item.image || 'https://arshithfresh.com/cdn/shop/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png'}" alt="${escapeHtml(item.name)}" style="width:55px;height:55px;border-radius:8px;object-fit:cover;border:1px solid #f1f5f9;background:#fafbfc;">
+            <div style="flex:1;min-width:0;">
+                <h4 style="margin:0 0 3px 0;font-size:13px;font-weight:700;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(item.name)}</h4>
+                <div style="font-size:13.5px;font-weight:800;color:#0f7139;margin-bottom:6px;">₹${Number(item.price).toFixed(2)}</div>
+                <button type="button" onclick="moveWishlistItemToCart('${item.id || item._id}', '${escapeHtml(item.name).replace(/'/g, "\\'")}', ${item.price}, '${item.image}')" style="background:#0f7139;color:#ffffff;border:none;padding:5px 12px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+                    🛒 Move to Cart
+                </button>
+            </div>
+            <button type="button" onclick="removeWishlistItem('${item.id || item._id}')" title="Remove from Wishlist" style="background:none;border:none;color:#94a3b8;font-size:18px;cursor:pointer;padding:4px;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">&times;</button>
+        </div>
+    `).join('');
+}
+
+function removeWishlistItem(id) {
+    let items = getStoredWishlist();
+    items = items.filter(item => String(item.id || item._id) !== String(id));
+    saveStoredWishlist(items);
+    renderWishlistDrawerContent();
+    if (typeof showToast === 'function') showToast('Removed from Wishlist.');
+}
+
+function moveWishlistItemToCart(id, name, price, image) {
+    if (typeof addToStoreCart === 'function') {
+        addToStoreCart(id, name, price, image);
+    } else {
+        let cart = [];
+        try { cart = JSON.parse(localStorage.getItem('arshith_cart')) || []; } catch(e) {}
+        cart.push({ id, title: name, price, image, quantity: 1 });
+        try { localStorage.setItem('arshith_cart', JSON.stringify(cart)); } catch(e) {}
+        if (typeof updateCartCount === 'function') updateCartCount();
+        if (typeof showToast === 'function') showToast(`Added "${name}" to your cart!`, 'success');
+    }
+    removeWishlistItem(id);
+}
+
+// ----------------------------------------------------
+// HERITAGE FARMLAND & ANIMATED NATURE AMBIANCE
+// ----------------------------------------------------
+function initFarm3DParallax() {
+    // Keep image completely stable and grounded
 }

@@ -14,6 +14,7 @@ const reviewRoutes     = require('./routes/reviewRoutes');
 const analyticsRoutes  = require('./routes/analyticsRoutes');
 const paymentRoutes    = require('./routes/paymentRoutes');
 const shiprocketRoutes = require('./routes/shiprocketRoutes');
+const bannerRoutes     = require('./routes/bannerRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,7 +25,7 @@ connectDB();
 // Middlewares
 app.use(cors({
   origin: '*', // Allow frontend HTML pages to call the API
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-dev']
 }));
 app.use(express.json({ limit: '50mb' }));
@@ -40,6 +41,7 @@ app.use('/api/reviews',     reviewRoutes);
 app.use('/api/analytics',   analyticsRoutes);
 app.use('/api/payment',     paymentRoutes);
 app.use('/api/shiprocket',  shiprocketRoutes);
+app.use('/api/banners',     bannerRoutes);
 
 
 const path = require('path');
