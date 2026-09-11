@@ -66,10 +66,16 @@ async function sendOrderPlacedNotification({ order, user }) {
 
     const orderId = order._id || order.transactionId || 'N/A';
     const orderCode = 'AF-' + String(orderId).substring(0, 8).toUpperCase();
+    const invoiceNumber = 'INV-' + orderCode;
     const dateStr = new Date(order.createdAt || Date.now()).toLocaleString('en-IN', {
       dateStyle: 'medium',
       timeStyle: 'short'
     });
+
+    const isPaid = Boolean(order.isPaid || order.paymentStatus === 'paid');
+    const paidAtStr = order.paidAt
+      ? new Date(order.paidAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+      : dateStr;
 
     const customerPhone = order.customerPhone || (user && user.phone) || 'N/A';
 
@@ -83,7 +89,7 @@ async function sendOrderPlacedNotification({ order, user }) {
     const shippingPrice = Number(order.shippingPrice || 0).toFixed(2);
     const totalPrice = Number(order.totalPrice || 0).toFixed(2);
     const paymentMethod = order.paymentMethod || 'Razorpay Secure';
-    const transactionId = order.transactionId ? order.transactionId : 'N/A';
+    const transactionId = (order.transactionId || order.razorpayPaymentId) ? (order.transactionId || order.razorpayPaymentId) : 'N/A';
 
     const orderLink = `${baseUrl}/pages/profile.html#orders`;
 
@@ -100,37 +106,44 @@ async function sendOrderPlacedNotification({ order, user }) {
       </tr>
     `).join('');
 
-    // Plain-Text Version (Anti-Spam Fallback for Inbox Delivery)
+    // Plain-Text Version
     const textFallback = `
-Order Placed & Payment Invoice - Arshith Fresh
+${isPaid ? '[PAID TAX INVOICE]' : 'ORDER CONFIRMATION'} - Arshith Fresh
 
 Thank you for your order, ${customerName}!
 Order Number: ${orderCode}
+Invoice Number: ${invoiceNumber}
 Date: ${dateStr}
+Payment Status: ${isPaid ? 'PAID ✓' : 'PENDING / CASH ON DELIVERY'}
+Payment Method: ${paymentMethod}
+Transaction Ref ID: ${transactionId}
 
 ORDER DETAILS:
 ${(order.orderItems || []).map(i => `- ${i.name || i.title} (Qty: ${i.qty || 1}) - ₹${((i.price || 0) * (i.qty || 1)).toFixed(2)}`).join('\n')}
 
 Subtotal: ₹${itemsPrice}
 ${Number(discountPrice) > 0 ? `Discount: -₹${discountPrice}\n` : ''}Shipping: ${Number(shippingPrice) > 0 ? '₹' + shippingPrice : 'FREE'}
-Total Paid: ₹${totalPrice}
-Payment Method: ${paymentMethod}
+Total ${isPaid ? 'Paid' : 'Amount'}: ₹${totalPrice}
 
 Shipping Address:
 ${customerName} (${customerPhone})
 ${fullAddress}
 
-View your order & invoice: ${orderLink}
+View & download your official tax invoice: ${orderLink}
 
 Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka - 560076
 Support: support@arshithfresh.com | +91 8618471424
 `;
 
+    const mailSubject = isPaid
+      ? `🧾 Official Payment Invoice & Order Confirmation #${orderCode}`
+      : `Order Confirmation #${orderCode} - Arshith Fresh`;
+
     const mailOptions = {
       from: `"Arshith Fresh" <${emailUser}>`,
       to: recipientEmail,
       replyTo: emailUser,
-      subject: `Order Confirmation & Payment Invoice #${orderCode}`,
+      subject: mailSubject,
       text: textFallback,
       headers: {
         'X-Entity-Ref-ID': orderCode,
@@ -150,37 +163,71 @@ Support: support@arshithfresh.com | +91 8618471424
           <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
             
             <!-- Header Banner -->
-            <div style="background-color: #0f7139; padding: 24px; text-align: center;">
+            <div style="background: linear-gradient(135deg, #0f7139 0%, #16a34a 100%); padding: 24px; text-align: center;">
               <h1 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 800; letter-spacing: 0.5px;">Arshith Fresh</h1>
               <p style="color: #e6f4ea; margin: 4px 0 0 0; font-size: 13px; font-weight: 500;">100% Pure, Authentic & Fresh Natural Products</p>
             </div>
 
-            <!-- Confirmation Banner -->
             <div style="padding: 24px 28px 12px 28px;">
-              <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 18px 20px; margin-bottom: 24px;">
-                <h2 style="color: #15803d; margin: 0 0 6px 0; font-size: 19px; font-weight: 700;">🎉 Order Placed Successfully!</h2>
+              
+              <!-- Payment Status Banner -->
+              ${isPaid ? `
+              <div style="background-color: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 10px; padding: 18px 20px; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <h2 style="color: #15803d; margin: 0; font-size: 19px; font-weight: 800;">🎉 Payment Received & Order Confirmed!</h2>
+                  <span style="background-color: #16a34a; color: #ffffff; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">✓ PAID INVOICE</span>
+                </div>
                 <p style="color: #166534; margin: 0; font-size: 14px; line-height: 1.5;">
-                  Hello <strong>${customerName}</strong>, thank you for shopping with Arshith Fresh! We have confirmed your order <strong>#${orderCode}</strong> and are packing it with care.
+                  Hello <strong>${customerName}</strong>, thank you for your payment! We have received your payment of <strong>₹${totalPrice}</strong> for order <strong>#${orderCode}</strong> and are preparing your order for shipment.
                 </p>
               </div>
+              ` : `
+              <div style="background-color: #fffbeb; border: 1.5px solid #fef3c7; border-radius: 10px; padding: 18px 20px; margin-bottom: 24px;">
+                <h2 style="color: #b45309; margin: 0 0 6px 0; font-size: 19px; font-weight: 700;">🎉 Order Placed Successfully!</h2>
+                <p style="color: #92400e; margin: 0; font-size: 14px; line-height: 1.5;">
+                  Hello <strong>${customerName}</strong>, thank you for shopping with Arshith Fresh! We have confirmed your order <strong>#${orderCode}</strong> (${paymentMethod}).
+                </p>
+              </div>
+              `}
 
-              <!-- Order Summary Meta Grid -->
-              <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; background: #f8fafc; border-radius: 10px; border: 1px solid #edf2f7; font-size: 13px;">
-                <tr>
-                  <td style="padding: 14px; border-right: 1px solid #edf2f7;">
-                    <span style="color: #718096; font-size: 11px; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px;">Order Code</span>
-                    <strong style="color: #0f7139; font-size: 15px;">#${orderCode}</strong>
-                  </td>
-                  <td style="padding: 14px; border-right: 1px solid #edf2f7;">
-                    <span style="color: #718096; font-size: 11px; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px;">Purchase Date</span>
-                    <strong style="color: #2d3748;">${dateStr}</strong>
-                  </td>
-                  <td style="padding: 14px;">
-                    <span style="color: #718096; font-size: 11px; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px;">Payment Method</span>
-                    <strong style="color: #2d3748;">${paymentMethod}</strong>
-                  </td>
-                </tr>
-              </table>
+              <!-- Official Payment Invoice Box -->
+              <div style="background-color: #f8fafc; border: 1.5px solid ${isPaid ? '#0f7139' : '#cbd5e1'}; border-radius: 10px; padding: 18px; margin-bottom: 24px; position: relative;">
+                <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 12px;">
+                  <h3 style="color: #0f7139; font-size: 15px; font-weight: 800; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
+                    🧾 ${isPaid ? 'Official Tax Payment Invoice' : 'Order Payment Summary'}
+                  </h3>
+                </div>
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #334155; line-height: 1.8;">
+                  <tr>
+                    <td style="color: #64748b; font-weight: 600;">Invoice Reference:</td>
+                    <td style="font-weight: 700; text-align: right; color: #0f7139;">${invoiceNumber}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; font-weight: 600;">Order Code:</td>
+                    <td style="font-weight: 700; text-align: right; color: #1e293b;">#${orderCode}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; font-weight: 600;">Date / Time:</td>
+                    <td style="text-align: right; color: #1e293b;">${isPaid ? paidAtStr : dateStr}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; font-weight: 600;">Payment Status:</td>
+                    <td style="text-align: right; font-weight: 800; color: ${isPaid ? '#16a34a' : '#d97706'};">
+                      ${isPaid ? '✓ PAID IN FULL' : '⏳ PENDING (COD / UNPAID)'}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; font-weight: 600;">Payment Method:</td>
+                    <td style="text-align: right; color: #1e293b;">${paymentMethod}</td>
+                  </tr>
+                  ${transactionId !== 'N/A' ? `
+                  <tr>
+                    <td style="color: #64748b; font-weight: 600;">Transaction Ref ID:</td>
+                    <td style="text-align: right;"><code style="background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px;">${transactionId}</code></td>
+                  </tr>
+                  ` : ''}
+                </table>
+              </div>
 
               <!-- Customer & Shipping Details -->
               <div style="background-color: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 18px 20px; margin-bottom: 24px;">
@@ -196,7 +243,7 @@ Support: support@arshithfresh.com | +91 8618471424
 
               <!-- Itemized Invoice Table -->
               <h3 style="color: #1a202c; font-size: 15px; font-weight: 700; margin: 0 0 12px 0; border-left: 4px solid #0f7139; padding-left: 10px;">
-                Itemized Payment Invoice
+                Itemized Invoice Breakdown
               </h3>
 
               <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
@@ -229,19 +276,15 @@ Support: support@arshithfresh.com | +91 8618471424
                   <span>${Number(shippingPrice) > 0 ? '₹' + shippingPrice : '<strong style="color: #0f7139;">FREE</strong>'}</span>
                 </div>
                 <div style="border-top: 2px dashed #cbd5e1; margin-top: 10px; padding-top: 12px; display: flex; justify-content: space-between; font-size: 17px; font-weight: 800; color: #0f7139;">
-                  <span>Grand Total Paid:</span>
+                  <span>${isPaid ? 'Grand Total Paid:' : 'Grand Total Amount:'}</span>
                   <span>₹${totalPrice}</span>
                 </div>
-                ${transactionId !== 'N/A' ? `
-                <div style="font-size: 12px; color: #718096; margin-top: 8px;">
-                  Transaction Reference ID: <code>${transactionId}</code>
-                </div>` : ''}
               </div>
 
-              <!-- Call To Action Button -->
+              <!-- Call To Action Buttons -->
               <div style="text-align: center; margin: 32px 0 24px 0;">
-                <a href="${orderLink}" style="background-color: #0f7139; color: #ffffff; padding: 15px 36px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 4px 14px rgba(15,113,57,0.3); transition: background-color 0.2s ease;">
-                  📦 View & Track Order Details
+                <a href="${orderLink}" style="background-color: #0f7139; color: #ffffff !important; padding: 15px 36px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 4px 14px rgba(15,113,57,0.3);">
+                  🧾 View & Print Payment Invoice
                 </a>
               </div>
 
@@ -260,7 +303,7 @@ Support: support@arshithfresh.com | +91 8618471424
     };
 
     await transporter.sendMail(mailOptions);
-    console.log(`📧 [Email Sent] Instant Order Confirmation & Invoice delivered to registered email ${recipientEmail}!`);
+    console.log(`📧 [Email Sent] ${isPaid ? 'PAID TAX INVOICE' : 'Order Confirmation'} delivered to registered email ${recipientEmail}!`);
   } catch (emailErr) {
     console.error('❌ [Email Error] Error sending order placement email:', emailErr.message);
   }
@@ -769,11 +812,194 @@ async function sendWelcomeRegistrationNotification({ user }) {
   }
 }
 
+/**
+ * Send Order Delivered Email Notification asking for Product Reviews
+ * @param {Object} params - { order, user }
+ */
+async function sendOrderDeliveredNotification({ order, user }) {
+  try {
+    const baseUrl = process.env.FRONTEND_URL || 'http://localhost:5000';
+    const emailUser = process.env.EMAIL_USER;
+    const transporter = getTransporter();
+
+    let recipientEmail = order.customerEmail || '';
+    let customerName = order.customerName || 'Valued Customer';
+
+    const userId = order.user || (user && user._id);
+    if (userId) {
+      try {
+        const regUser = await User.findById(userId);
+        if (regUser) {
+          if (regUser.email) recipientEmail = regUser.email;
+          if (regUser.name) customerName = regUser.name;
+        }
+      } catch (e) {}
+    }
+
+    if (!recipientEmail && user && user.email) {
+      recipientEmail = user.email;
+    }
+
+    if (!recipientEmail) {
+      console.warn('⚠️ [Email Service] No recipient email address found for order delivery notification.');
+      return;
+    }
+
+    const orderId = order._id || order.transactionId || 'N/A';
+    const orderCode = 'AF-' + String(orderId).substring(0, 8).toUpperCase();
+    const dateStr = new Date().toLocaleString('en-IN', {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    });
+
+    const addr = order.shippingAddress || {};
+    const fullAddress = [addr.address, addr.apartment, addr.city, addr.state, addr.postalCode, addr.country || 'India']
+      .filter(Boolean)
+      .join(', ');
+
+    const reviewProfileLink = `${baseUrl}/pages/profile.html#orders`;
+
+    // Itemized HTML Rows with Rate & Review button for each product
+    const itemsTableRows = (order.orderItems || []).map(item => {
+      const prodId = item.product || '';
+      const prodName = item.name || item.title || 'Product';
+      const reviewItemLink = prodId ? `${baseUrl}/pages/product.html?id=${prodId}#reviews` : reviewProfileLink;
+      return `
+        <tr>
+          <td style="padding: 14px 10px; border-bottom: 1px solid #edf2f7; font-size: 14px; color: #2d3748;">
+            <strong style="color: #1a202c;">${prodName}</strong><br>
+            <span style="font-size: 12px; color: #718096;">Qty: ${item.qty || item.quantity || 1} | Size/Unit: ${item.unit || 'Standard'}</span>
+          </td>
+          <td style="padding: 14px 10px; border-bottom: 1px solid #edf2f7; font-size: 14px; color: #0f7139; font-weight: bold; text-align: right;">
+            <a href="${reviewItemLink}" style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: 700; display: inline-block;">
+              ⭐ Rate & Review
+            </a>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    const textFallback = `
+Order Delivered! - Arshith Fresh
+
+Hello ${customerName},
+Great news! Your order #${orderCode} has been delivered successfully.
+
+WE VALUE YOUR FEEDBACK! ⭐⭐⭐⭐⭐
+How were your products? We would love to hear your feedback on freshness, taste, and quality!
+
+Rate & Review Your Products:
+${reviewProfileLink}
+
+Delivery Address:
+${fullAddress}
+
+Thank you for shopping with Arshith Fresh!
+Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka - 560076
+Support: support@arshithfresh.com | +91 8618471424
+`;
+
+    console.log(`📧 [Delivered Email Prepared] Notification for ${recipientEmail} (Order #${orderCode})`);
+
+    if (!transporter || !emailUser) {
+      console.log(`📧 [Email Simulation] Delivered email notification created for ${recipientEmail}. Review Link: ${reviewProfileLink}`);
+      return;
+    }
+
+    const mailOptions = {
+      from: `"Arshith Fresh" <${emailUser}>`,
+      to: recipientEmail,
+      replyTo: emailUser,
+      subject: `🎉 Delivered: Your Order #${orderCode} + Please Leave a Product Review! ⭐`,
+      text: textFallback,
+      headers: {
+        'X-Entity-Ref-ID': orderCode,
+        'Auto-Submitted': 'auto-generated',
+        'X-Auto-Response-Suppress': 'OOF, AutoReply',
+        'List-Unsubscribe': `<mailto:${emailUser}?subject=unsubscribe>`
+      },
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Order Delivered - Product Review Request</title>
+        </head>
+        <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f7fafc; margin: 0; padding: 20px; color: #2d3748;">
+          <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
+            
+            <!-- Header Banner -->
+            <div style="background: linear-gradient(135deg, #0f7139 0%, #16a34a 100%); padding: 28px 24px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 26px; font-weight: 800; letter-spacing: 0.5px;">Arshith Fresh</h1>
+              <p style="color: #e6f4ea; margin: 4px 0 0 0; font-size: 14px; font-weight: 500;">100% Pure, Authentic & Fresh Natural Products</p>
+            </div>
+
+            <!-- Delivery Banner -->
+            <div style="padding: 28px 28px 16px 28px;">
+              <div style="background-color: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: center;">
+                <div style="font-size: 36px; margin-bottom: 6px;">📦🎉</div>
+                <h2 style="color: #15803d; margin: 0 0 6px 0; font-size: 22px; font-weight: 800;">Your Order Has Been Delivered!</h2>
+                <p style="color: #166534; margin: 0; font-size: 14.5px; line-height: 1.6;">
+                  Hello <strong>${customerName}</strong>, your order <strong>#${orderCode}</strong> was successfully delivered on <strong>${dateStr}</strong>. We hope you love your fresh products!
+                </p>
+              </div>
+
+              <!-- Delivered Items List -->
+              <h3 style="color: #1a202c; font-size: 15px; font-weight: 700; margin: 0 0 12px 0; border-left: 4px solid #0f7139; padding-left: 10px;">
+                Delivered Items Summary
+              </h3>
+
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; background: #f8fafc; border-radius: 10px; border: 1px solid #edf2f7;">
+                <tbody>
+                  ${itemsTableRows}
+                </tbody>
+              </table>
+
+              <!-- Review Request Banner -->
+              <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 1.5px solid #fde68a; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 28px; box-shadow: 0 4px 12px rgba(217,119,6,0.08);">
+                <div style="font-size: 28px; margin-bottom: 6px;">⭐⭐⭐⭐⭐</div>
+                <h3 style="color: #92400e; margin: 0 0 8px 0; font-size: 19px; font-weight: 800;">How were your products?</h3>
+                <p style="color: #78350f; margin: 0 0 18px 0; font-size: 14px; line-height: 1.6;">
+                  Your genuine review helps us maintain pure farm-fresh quality and guides fellow food lovers! Take 30 seconds to share your rating and review.
+                </p>
+                <a href="${reviewProfileLink}" target="_blank" style="background-color: #0f7139; color: #ffffff !important; padding: 14px 36px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 4px 14px rgba(15,113,57,0.3);">
+                  ✍️ Rate & Review Purchased Items
+                </a>
+              </div>
+
+              <!-- Delivery Address Box -->
+              <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; font-size: 13.5px; color: #4a5568;">
+                <strong>Delivered Address:</strong> ${fullAddress}
+              </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div style="background-color: #f7fafc; padding: 20px; text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #edf2f7;">
+              <p style="margin: 0 0 6px 0;"><strong>Arshith Fresh India Pvt. Ltd.</strong> Corporate Office — Bengaluru, Karnataka, India - 560076</p>
+              <p style="margin: 0;">Need help? Email <a href="mailto:support@arshithfresh.com" style="color: #0f7139;">support@arshithfresh.com</a> or call <a href="tel:+918618471424" style="color: #0f7139;">+91 8618471424</a></p>
+            </div>
+
+          </div>
+        </body>
+        </html>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`📧 [Email Sent] Order Delivery & Review request email delivered to ${recipientEmail}!`);
+  } catch (emailErr) {
+    console.error('❌ [Email Error] Error sending order delivery notification:', emailErr.message);
+  }
+}
+
 module.exports = {
   sendOrderPlacedNotification,
   sendOrderCancelledNotification,
   sendAdminOrderPlacedNotification,
   sendStockAlertNotification,
-  sendWelcomeRegistrationNotification
+  sendWelcomeRegistrationNotification,
+  sendOrderDeliveredNotification
 };
 

@@ -124,21 +124,20 @@ router.put('/bulk-stock', async (req, res) => {
     const targetQty = Number(quantity);
     let updatedCount = 0;
 
-    if (operation === 'add') {
-      const products = await Product.find({ _id: { $in: ids } });
-      for (const p of products) {
-        const cur = Number(p.countInStock || 0);
-        p.countInStock = Math.max(0, cur + targetQty);
-        await p.save();
-        updatedCount++;
+    const products = await Product.find({ _id: { $in: ids } });
+    for (const p of products) {
+      const cur = Number(p.countInStock || 0);
+      const newSt = operation === 'add' ? Math.max(0, cur + targetQty) : Math.max(0, targetQty);
+      p.countInStock = newSt;
+      await p.save();
+      updatedCount++;
+
+      // Trigger low stock / out of stock email alert to admin if stock <= 10
+      if (newSt <= 10) {
+        sendStockAlertNotification({ product: p, newStock: newSt }).catch(err => {
+          console.error('Error sending stock alert notification on bulk stock update:', err.message);
+        });
       }
-    } else {
-      // 'set' fixed stock
-      const result = await Product.updateMany(
-        { _id: { $in: ids } },
-        { $set: { countInStock: Math.max(0, targetQty) } }
-      );
-      updatedCount = result.modifiedCount;
     }
 
     res.json({ success: true, message: `Updated stock for ${updatedCount} products`, count: updatedCount });

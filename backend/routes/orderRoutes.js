@@ -7,7 +7,8 @@ const {
   sendOrderPlacedNotification, 
   sendOrderCancelledNotification,
   sendAdminOrderPlacedNotification,
-  sendStockAlertNotification 
+  sendStockAlertNotification,
+  sendOrderDeliveredNotification
 } = require('../utils/notificationService');
 const { createShiprocketOrder } = require('../utils/shiprocketService');
 
@@ -282,6 +283,14 @@ router.put('/bulk-status', async (req, res) => {
       order.status = newStatus;
       if (newStatus === 'Delivered') order.isDelivered = true;
       await order.save();
+
+      // Trigger delivery email with review link if status transitioned to Delivered
+      if (newStatus === 'Delivered' && oldStatus !== 'Delivered') {
+        sendOrderDeliveredNotification({ order }).catch(err => {
+          console.error('Error dispatching bulk order delivery notification:', err.message);
+        });
+      }
+
       updatedCount++;
     }
 
@@ -369,6 +378,13 @@ router.put('/:id/status', async (req, res) => {
     if (newStatus === 'Cancelled' && oldStatus !== 'Cancelled') {
       sendOrderCancelledNotification({ order: updatedOrder }).catch(err => {
         console.error('Error dispatching order cancellation notifications:', err.message);
+      });
+    }
+
+    // Trigger non-blocking delivery notification asking for product review if status was changed to Delivered
+    if (newStatus === 'Delivered' && oldStatus !== 'Delivered') {
+      sendOrderDeliveredNotification({ order: updatedOrder }).catch(err => {
+        console.error('Error dispatching order delivery review email:', err.message);
       });
     }
 
