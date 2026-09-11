@@ -4,6 +4,7 @@ const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const Order = require('../models/Order');
+const { sendOrderPlacedNotification, sendAdminOrderPlacedNotification } = require('../utils/notificationService');
 const { createShiprocketOrder } = require('../utils/shiprocketService');
 
 // Helper to initialize Razorpay instance strictly using process.env
@@ -249,6 +250,14 @@ router.post('/verify', async (req, res) => {
       console.log(`   paymentStatus:  "${updatedOrder.paymentStatus}"`);
       console.log(`   paidAt:         ${updatedOrder.paidAt}`);
       console.log(`   transactionId:  "${updatedOrder.transactionId}"`);
+
+      // Dispatch order placement confirmation email & admin notification
+      sendOrderPlacedNotification({ order: updatedOrder }).catch(err => {
+        console.error('Error dispatching payment confirmed order email to customer:', err.message);
+      });
+      sendAdminOrderPlacedNotification({ order: updatedOrder }).catch(err => {
+        console.error('Error dispatching payment confirmed order email to admin:', err.message);
+      });
 
       // Trigger Shiprocket Order ONLY after payment verification succeeds
       createShiprocketOrder(updatedOrder).catch(err => {
