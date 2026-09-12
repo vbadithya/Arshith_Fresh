@@ -410,6 +410,26 @@
             border-color: #0f7139;
             box-shadow: 0 2px 6px rgba(15, 113, 57, 0.25);
         }
+
+        /* HEADER COINS WALLET PILL STYLING */
+        .header-coins-wallet-pill {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1.5px solid #fde68a;
+            border-radius: 20px;
+            padding: 4px 12px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.12);
+            transition: all 0.2s ease;
+        }
+
+        .header-coins-wallet-pill:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 
@@ -420,16 +440,25 @@
         <a href="../index.html">
             <img src="https://arshithfresh.com/cdn/shop/files/Arshithlogo111.jpg?v=1755685028&width=600" alt="Arshith Fresh Logo" class="checkout-header-logo-img">
         </a>
-        <a href="cart.html" class="checkout-header-cart-link" title="View Cart">
-            <div class="cart-icon-badge">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-                <span id="checkoutTopCartCount" class="cart-badge-num">0</span>
+        <div style="display: flex; align-items: center; gap: 14px;">
+            <!-- REWARDS COINS WALLET PILL -->
+            <div id="headerCoinsWalletPill" class="header-coins-wallet-pill" onclick="alert('Arshith Rewards Wallet Balance: ' + (localStorage.getItem('arshith_user_coins')||'0') + ' Fresh Coins (100 Coins = ₹100 Value). Earn 100 Coins for every ₹10,000 shopped!')" title="Arshith Rewards Wallet Balance">
+                <span style="font-size: 15px;">🪙</span>
+                <span id="headerCoinsBalance" style="font-weight: 800; color: #92400e; font-size: 13px;">0</span>
+                <span style="font-size: 11px; font-weight: 700; color: #78350f;">Coins</span>
             </div>
-        </a>
+
+            <a href="cart.html" class="checkout-header-cart-link" title="View Cart">
+                <div class="cart-icon-badge">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="checkoutTopCartCount" class="cart-badge-num">0</span>
+                </div>
+            </a>
+        </div>
     </header>
 
     <!-- MAIN TWO COLUMN GRID -->
@@ -697,6 +726,39 @@
                 <div id="availableCouponsList" class="coupons-chips-grid" style="display: none; margin-top: 10px;"></div>
             </div>
 
+            <!-- ARSHITH FRESH COINS REWARDS CARD -->
+            <div class="fresh-coins-loyalty-card" id="freshCoinsCard">
+                <div class="fresh-coins-header">
+                    <div class="fresh-coins-title-wrap">
+                        <span class="fresh-coins-badge-icon">🪙</span>
+                        <div>
+                            <h4 class="fresh-coins-title">Arshith Fresh Rewards</h4>
+                            <p class="fresh-coins-sub">Earn 100 Fresh Coins for every ₹10,000 shopped!</p>
+                        </div>
+                    </div>
+                    <span id="earnedCoinsTag" class="earned-coins-tag">+0 Coins</span>
+                </div>
+                <div class="fresh-coins-body">
+                    <div class="coins-earning-info">
+                        <span>You will earn <strong id="checkoutEarnedCoins" style="color: #b45309;">0 Coins</strong> on this order</span>
+                        <span style="font-size: 11px; color: #78350f;">(100 Coins = ₹100 value)</span>
+                    </div>
+
+                    <!-- REDEEM EXISTING COINS OPTION (Only visible when user has coins) -->
+                    <div id="redeemCoinsRow" class="redeem-coins-checkbox-wrap" style="display: none;">
+                        <label class="redeem-coins-label">
+                            <input type="checkbox" id="redeemCoinsCheckbox" onchange="toggleRedeemCoins(this.checked)">
+                            <span>Redeem <strong id="userAvailableCoinsText">0</strong> Fresh Coins (<span id="userCoinsValueText">Save ₹0</span>)</span>
+                        </label>
+                    </div>
+
+                    <!-- INFO ROW FOR NEW USERS WITH 0 COINS -->
+                    <div id="noCoinsInfoRow" class="redeem-coins-checkbox-wrap" style="display: none; font-size: 11.5px; color: #78350f; font-weight: 500;">
+                        <span>💡 Complete this order to add <strong id="nextEarnedCoinsMsg" style="color: #b45309;">0 Fresh Coins</strong> to your wallet balance for future savings!</span>
+                    </div>
+                </div>
+            </div>
+
             <!-- BILL DETAILS CARD -->
             <div class="bill-details-card">
                 <h3 class="bill-details-title">Bill details</h3>
@@ -723,6 +785,17 @@
                         </div>
                         <div class="bill-row-value" style="color: #0f7139; font-weight: 600;">
                             <span id="checkoutDiscount">-₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- REWARDS COINS REDEEMED ROW -->
+                    <div class="bill-row" id="coinsDiscountRow" style="display: none;">
+                        <div class="bill-row-label" style="color: #b45309;">
+                            <span class="bill-icon">🪙</span>
+                            <span>Fresh Coins Redeemed</span>
+                        </div>
+                        <div class="bill-row-value" style="color: #b45309; font-weight: 700;">
+                            <span id="billCoinsDiscount">-₹0</span>
                         </div>
                     </div>
 
@@ -937,6 +1010,13 @@
             return items;
         }
 
+        let isRedeemCoinsChecked = false;
+
+        function toggleRedeemCoins(checked) {
+            isRedeemCoinsChecked = checked;
+            renderCheckoutPage();
+        }
+
         function renderCheckoutPage() {
             const summaryList = document.getElementById("checkoutSummaryList");
             const subtotalEl = document.getElementById("checkoutSubtotal");
@@ -949,14 +1029,56 @@
             const items = getActiveCartItems();
             const totalCount = items.reduce((sum, item) => sum + (item.quantity || item.qty || 1), 0);
             const subtotal = items.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || item.qty || 1)), 0);
-            const handlingCharge = 0;
             const itemsOriginalMRP = items.reduce((sum, item) => {
                 const orig = item.compareAtPrice || item.mrp || item.originalPrice || Math.round((item.price || 0) * 1.15);
                 return sum + (orig * (item.quantity || item.qty || 1));
             }, 0);
+
+            // Fresh Rewards Coins calculation: 100 Coins for every ₹10,000 spent (pro-rata 1 coin per ₹100)
+            const earnedCoins = Math.floor(subtotal / 100);
+            const earnedCoinsEl = document.getElementById("checkoutEarnedCoins");
+            const earnedCoinsTagEl = document.getElementById("earnedCoinsTag");
+            const nextEarnedCoinsMsg = document.getElementById("nextEarnedCoinsMsg");
+
+            if (earnedCoinsEl) earnedCoinsEl.textContent = `${earnedCoins} Coins`;
+            if (earnedCoinsTagEl) earnedCoinsTagEl.textContent = `+${earnedCoins} Coins`;
+            if (nextEarnedCoinsMsg) nextEarnedCoinsMsg.textContent = `${earnedCoins} Fresh Coins`;
+
+            // User coins balance handling (default 0 for new customers)
+            let userCoinsBalance = parseInt(localStorage.getItem('arshith_user_coins') || '0', 10);
+            const headerCoinsEl = document.getElementById("headerCoinsBalance");
+            if (headerCoinsEl) headerCoinsEl.textContent = userCoinsBalance;
+
+            const redeemRowEl = document.getElementById("redeemCoinsRow");
+            const noCoinsInfoEl = document.getElementById("noCoinsInfoRow");
+            const userCoinsTextEl = document.getElementById("userAvailableCoinsText");
+            const userCoinsValueEl = document.getElementById("userCoinsValueText");
+
+            if (userCoinsBalance > 0 && subtotal > 0) {
+                if (redeemRowEl) redeemRowEl.style.display = 'block';
+                if (noCoinsInfoEl) noCoinsInfoEl.style.display = 'none';
+                if (userCoinsTextEl) userCoinsTextEl.textContent = userCoinsBalance;
+                if (userCoinsValueEl) userCoinsValueEl.textContent = `Save ₹${userCoinsBalance}`;
+            } else {
+                if (redeemRowEl) redeemRowEl.style.display = 'none';
+                if (noCoinsInfoEl) noCoinsInfoEl.style.display = 'block';
+            }
+
+            let redeemedCoinsDiscount = 0;
+            const coinsDiscountRowEl = document.getElementById("coinsDiscountRow");
+            const billCoinsDiscountEl = document.getElementById("billCoinsDiscount");
+
+            if (isRedeemCoinsChecked && userCoinsBalance > 0) {
+                redeemedCoinsDiscount = Math.min(userCoinsBalance, Math.max(0, subtotal - appliedDiscount));
+                if (coinsDiscountRowEl) coinsDiscountRowEl.style.display = 'flex';
+                if (billCoinsDiscountEl) billCoinsDiscountEl.textContent = `-₹${Math.round(redeemedCoinsDiscount)}`;
+            } else {
+                if (coinsDiscountRowEl) coinsDiscountRowEl.style.display = 'none';
+            }
+
             const itemSavings = Math.max(0, itemsOriginalMRP - subtotal);
-            const finalTotal = Math.max(0, subtotal - appliedDiscount + selectedDonationAmount);
-            const totalSavings = itemSavings + appliedDiscount;
+            const finalTotal = Math.max(0, subtotal - appliedDiscount - redeemedCoinsDiscount + selectedDonationAmount);
+            const totalSavings = itemSavings + appliedDiscount + redeemedCoinsDiscount;
 
             summaryList.innerHTML = items.map(item => `
                 <div class="summary-item-row">
@@ -991,7 +1113,7 @@
                 }
             }
 
-            const directSavings = itemSavings + appliedDiscount;
+            const directSavings = itemSavings + appliedDiscount + redeemedCoinsDiscount;
             if (savedPillEl) {
                 if (directSavings > 0) {
                     savedPillEl.textContent = `Saved ₹${Math.round(directSavings)}`;
@@ -1678,6 +1800,20 @@
             if (elPayId) elPayId.textContent = paymentId;
             const elTotal = document.getElementById("confirmedTotal");
             if (elTotal) elTotal.textContent = `₹${Number(total).toFixed(2)}`;
+
+            // 4. Update user's Fresh Rewards Coins balance
+            try {
+                let userCoinsBalance = parseInt(localStorage.getItem('arshith_user_coins') || '0', 10);
+                if (typeof isRedeemCoinsChecked !== 'undefined' && isRedeemCoinsChecked) {
+                    userCoinsBalance = 0;
+                }
+                const earnedCoins = Math.floor(Number(total) / 100);
+                userCoinsBalance += earnedCoins;
+                localStorage.setItem('arshith_user_coins', String(userCoinsBalance));
+                if (typeof showToast === 'function') {
+                    showToast(`🎉 Earned +${earnedCoins} Fresh Coins! Total Balance: ${userCoinsBalance} Coins`);
+                }
+            } catch(e) {}
 
             const modal = document.getElementById("orderSuccessModal");
             if (modal) {
