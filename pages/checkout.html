@@ -1044,6 +1044,16 @@
             if (earnedCoinsTagEl) earnedCoinsTagEl.textContent = `+${earnedCoins} Coins`;
             if (nextEarnedCoinsMsg) nextEarnedCoinsMsg.textContent = `${earnedCoins} Fresh Coins`;
 
+            // Clean up legacy dummy 100 test coins if present from initial prototype version
+            if (!localStorage.getItem('arshith_coins_cleaned_v2')) {
+                let legacyCoins = parseInt(localStorage.getItem('arshith_user_coins') || '0', 10);
+                if (legacyCoins >= 100) {
+                    legacyCoins = legacyCoins - 100;
+                    localStorage.setItem('arshith_user_coins', String(legacyCoins));
+                }
+                localStorage.setItem('arshith_coins_cleaned_v2', 'true');
+            }
+
             // User coins balance handling (default 0 for new customers)
             let userCoinsBalance = parseInt(localStorage.getItem('arshith_user_coins') || '0', 10);
             const headerCoinsEl = document.getElementById("headerCoinsBalance");
@@ -1807,7 +1817,8 @@
                 if (typeof isRedeemCoinsChecked !== 'undefined' && isRedeemCoinsChecked) {
                     userCoinsBalance = 0;
                 }
-                const earnedCoins = Math.floor(Number(total) / 100);
+                const orderSubtotal = (typeof items !== 'undefined' && items && items.length) ? items.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || item.qty || 1)), 0) : Number(total);
+                const earnedCoins = Math.floor(orderSubtotal / 100);
                 userCoinsBalance += earnedCoins;
                 localStorage.setItem('arshith_user_coins', String(userCoinsBalance));
                 if (typeof showToast === 'function') {
