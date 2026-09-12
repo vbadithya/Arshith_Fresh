@@ -956,7 +956,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <h3 class="card__heading" title="${name}">${name}</h3>
                             <div class="rating-box">
                                 <span class="rating-stars">★★★★★</span>
-                                <span class="rating-text">(${reviewsCount})</span>
+                                <span class="rating-text">4.9 / 5.0 (${reviewsCount})</span>
                             </div>
                             <div class="price-box">
                                 ${originalPrice > price ? `<span class="regular-price">Rs. ${originalPrice.toFixed(2)}</span>` : ''}
