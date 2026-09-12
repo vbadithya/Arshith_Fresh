@@ -1695,3 +1695,104 @@
             color: #ffffff;
             border-color: #0f7139;
         }
+
+        /* ARSHITH FRESH COINS REWARDS CARD */
+        .fresh-coins-loyalty-card {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1.5px solid #fde68a;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-top: 14px;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.08);
+            transition: all 0.2s ease;
+        }
+
+        .fresh-coins-loyalty-card:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 6px 18px rgba(217, 119, 6, 0.14);
+        }
+
+        .fresh-coins-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .fresh-coins-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fresh-coins-badge-icon {
+            font-size: 22px;
+            line-height: 1;
+            background: #ffffff;
+            padding: 6px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.15);
+        }
+
+        .fresh-coins-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #92400e;
+            margin: 0 0 1px 0;
+        }
+
+        .fresh-coins-sub {
+            font-size: 11px;
+            color: #78350f;
+            margin: 0;
+        }
+
+        .earned-coins-tag {
+            background: #f59e0b;
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+        }
+
+        .fresh-coins-body {
+            background: #ffffff;
+            border: 1px solid #fef3c7;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .coins-earning-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #451a03;
+            font-weight: 600;
+        }
+
+        .redeem-coins-checkbox-wrap {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #fde68a;
+        }
+
+        .redeem-coins-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #92400e;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .redeem-coins-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #d97706;
+            cursor: pointer;
+        }
