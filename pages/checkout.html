@@ -410,26 +410,6 @@
             border-color: #0f7139;
             box-shadow: 0 2px 6px rgba(15, 113, 57, 0.25);
         }
-
-        /* HEADER COINS WALLET PILL STYLING */
-        .header-coins-wallet-pill {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-            border: 1.5px solid #fde68a;
-            border-radius: 20px;
-            padding: 4px 12px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.12);
-            transition: all 0.2s ease;
-        }
-
-        .header-coins-wallet-pill:hover {
-            border-color: #f59e0b;
-            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
-            transform: translateY(-1px);
-        }
     </style>
 </head>
 
@@ -440,25 +420,16 @@
         <a href="../index.html">
             <img src="https://arshithfresh.com/cdn/shop/files/Arshithlogo111.jpg?v=1755685028&width=600" alt="Arshith Fresh Logo" class="checkout-header-logo-img">
         </a>
-        <div style="display: flex; align-items: center; gap: 14px;">
-            <!-- REWARDS COINS WALLET PILL -->
-            <div id="headerCoinsWalletPill" class="header-coins-wallet-pill" onclick="alert('Arshith Rewards Wallet Balance: ' + (localStorage.getItem('arshith_user_coins')||'0') + ' Fresh Coins (100 Coins = ₹100 Value). Earn 100 Coins for every ₹10,000 shopped!')" title="Arshith Rewards Wallet Balance">
-                <span style="font-size: 15px;">🪙</span>
-                <span id="headerCoinsBalance" style="font-weight: 800; color: #92400e; font-size: 13px;">0</span>
-                <span style="font-size: 11px; font-weight: 700; color: #78350f;">Coins</span>
+        <a href="cart.html" class="checkout-header-cart-link" title="View Cart">
+            <div class="cart-icon-badge">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span id="checkoutTopCartCount" class="cart-badge-num">0</span>
             </div>
-
-            <a href="cart.html" class="checkout-header-cart-link" title="View Cart">
-                <div class="cart-icon-badge">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                    <span id="checkoutTopCartCount" class="cart-badge-num">0</span>
-                </div>
-            </a>
-        </div>
+        </a>
     </header>
 
     <!-- MAIN TWO COLUMN GRID -->
