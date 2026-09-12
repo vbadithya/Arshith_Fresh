@@ -173,146 +173,242 @@
         }
 
         /* CLASSIC IMPULSE ADD-ONS STYLING */
+        /* MODERN E-COMMERCE CHECKOUT ADD-ONS CAROUSEL */
         .checkout-addons-box {
             background: #ffffff;
-            border: 1.5px solid #c7d4b2;
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 4px 14px rgba(15, 113, 57, 0.06);
-            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            position: relative;
         }
+
         .checkout-addons-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f0f4e8;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #e2e8f0;
         }
+
         .checkout-addons-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #0f7139;
             display: flex;
             align-items: center;
             gap: 6px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
         }
+
         .checkout-addons-badge {
             background: #dcfce7;
-            color: #166534;
+            color: #0f7139;
             font-size: 10px;
             font-weight: 700;
             padding: 2px 7px;
             border-radius: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-        .checkout-addons-subtitle {
-            font-size: 11px;
-            color: #64748b;
-            font-weight: 500;
-        }
-        .addons-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .addon-item-card {
+
+        .addons-carousel-wrapper {
+            position: relative;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
-            background: #fafcf7;
-            border: 1px solid #e2ebd6;
-            border-radius: 10px;
-            transition: all 0.2s ease;
         }
-        .addon-item-card:hover {
-            border-color: #0f7139;
+
+        .addon-scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             background: #ffffff;
-            box-shadow: 0 3px 10px rgba(15, 113, 57, 0.08);
-        }
-        .addon-item-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .addon-img-wrap {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #cbd5e1;
+            color: #0f7139;
+            font-size: 18px;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1;
         }
+
+        .addon-scroll-btn.btn-left {
+            left: -12px;
+        }
+
+        .addon-scroll-btn.btn-right {
+            right: -12px;
+        }
+
+        .addon-scroll-btn:hover {
+            background: #0f7139;
+            color: #ffffff;
+            border-color: #0f7139;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(15, 113, 57, 0.3);
+        }
+
+        .addon-scroll-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .addons-list {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 4px 2px 8px 2px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .addons-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .addon-item-card {
+            flex: 0 0 148px;
+            scroll-snap-align: start;
+            background: #ffffff;
+            border: 1px solid #e2ebd6;
+            border-radius: 12px;
+            padding: 10px 8px 8px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .addon-item-card:hover {
+            border-color: #0f7139;
+            box-shadow: 0 4px 14px rgba(15, 113, 57, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .addon-card-badge {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 5px;
+            border-radius: 4px;
+            z-index: 2;
+            letter-spacing: 0.3px;
+        }
+
+        .addon-img-box {
+            width: 100%;
+            height: 72px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
         .addon-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
+
+        .addon-item-card:hover .addon-img {
+            transform: scale(1.05);
+        }
+
+        .addon-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex-grow: 1;
+            margin-bottom: 8px;
+        }
+
         .addon-info-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1e293b;
-            margin: 0 0 2px 0;
-            line-height: 1.3;
-        }
-        .addon-info-sub {
             font-size: 11.5px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 29px;
+        }
+
+        .addon-info-meta {
+            font-size: 10px;
             color: #64748b;
+            font-weight: 500;
+        }
+
+        .addon-price-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
+            margin-top: 4px;
         }
-        .addon-rating {
-            color: #d97706;
-            font-weight: 700;
-            font-size: 11px;
-        }
-        .addon-price-box {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 2px;
-        }
+
         .addon-curr-price {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 12.5px;
+            font-weight: 800;
             color: #0f7139;
         }
+
         .addon-orig-price {
-            font-size: 11px;
+            font-size: 10px;
             color: #94a3b8;
             text-decoration: line-through;
         }
+
         .addon-add-btn {
             background: #ffffff;
             border: 1.5px solid #0f7139;
             color: #0f7139;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 0;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s ease;
-            white-space: nowrap;
-            display: inline-flex;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
             align-items: center;
-            gap: 4px;
+            justify-content: center;
+            width: 100%;
         }
+
         .addon-add-btn:hover {
             background: #0f7139;
             color: #ffffff;
         }
+
         .addon-add-btn.added {
             background: #0f7139;
             color: #ffffff;
             border-color: #0f7139;
-            box-shadow: 0 2px 6px rgba(15, 113, 57, 0.2);
+            box-shadow: 0 2px 6px rgba(15, 113, 57, 0.25);
         }
     </style>
 </head>
@@ -560,11 +656,15 @@
                 <div class="checkout-addons-header">
                     <div class="checkout-addons-title">
                         <span>✨ Complete Your Order</span>
-                        <span class="checkout-addons-badge">Classic Add-ons</span>
+                        <span class="checkout-addons-badge">Add-ons</span>
                     </div>
-                    <span class="checkout-addons-subtitle">Special Checkout Prices</span>
                 </div>
-                <div id="checkoutAddonsList" class="addons-list"></div>
+                
+                <div class="addons-carousel-wrapper">
+                    <button type="button" class="addon-scroll-btn btn-left" onclick="scrollAddonsList(-1)" title="Previous items" aria-label="Previous items">‹</button>
+                    <div id="checkoutAddonsList" class="addons-list"></div>
+                    <button type="button" class="addon-scroll-btn btn-right" onclick="scrollAddonsList(1)" title="Next items" aria-label="Next items">›</button>
+                </div>
             </div>
 
             <!-- APPLIED COUPON TAG (Hidden by default) -->
@@ -584,29 +684,113 @@
 
             <!-- AVAILABLE COUPONS CHIPS BOX -->
             <div id="availableCouponsContainer" class="available-coupons-box" style="margin-top: 12px;">
-                <div class="available-coupons-header">
-                    <span>🎟️ Special Offers & Discounts</span>
-                    <span style="font-size: 11px; font-weight: 600; color: #0f7139;">Click to apply</span>
+                <div class="available-coupons-header" onclick="toggleCouponsDropdown()" title="Toggle available coupons dropdown">
+                    <div class="coupons-header-left">
+                        <span>🎟️ Special Offers & Discounts</span>
+                        <span id="couponsCountBadge" class="coupons-count-badge" style="display: none;"></span>
+                    </div>
+                    <div class="coupons-toggle-btn">
+                        <span id="couponsToggleText">Show all discounts & coupons</span>
+                        <span id="couponsToggleArrow" class="coupons-toggle-arrow">▼</span>
+                    </div>
                 </div>
-                <div id="availableCouponsList" class="coupons-chips-grid"></div>
+                <div id="availableCouponsList" class="coupons-chips-grid" style="display: none; margin-top: 10px;"></div>
             </div>
 
-            <div class="summary-totals-box">
-                <div class="totals-row">
-                    <span>Subtotal</span>
-                    <span id="checkoutSubtotal">₹0.00</span>
+            <!-- BILL DETAILS CARD -->
+            <div class="bill-details-card">
+                <h3 class="bill-details-title">Bill details</h3>
+                
+                <div class="bill-details-list">
+                    <!-- ITEMS TOTAL ROW -->
+                    <div class="bill-row">
+                        <div class="bill-row-label">
+                            <span class="bill-icon">📋</span>
+                            <span>Items total</span>
+                            <span id="billSavedPill" class="bill-saved-pill" style="display: none;">Saved ₹0</span>
+                        </div>
+                        <div class="bill-row-value">
+                            <span id="billOriginalMRP" class="bill-mrp-crossed" style="display: none;">₹0</span>
+                            <span id="checkoutSubtotal" class="bill-current-price">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- COUPON DISCOUNT ROW -->
+                    <div class="bill-row" id="couponRow" style="display: none;">
+                        <div class="bill-row-label" style="color: #0f7139;">
+                            <span class="bill-icon">🎟️</span>
+                            <span>Coupon Discount</span>
+                        </div>
+                        <div class="bill-row-value" style="color: #0f7139; font-weight: 600;">
+                            <span id="checkoutDiscount">-₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- DELIVERY CHARGE ROW -->
+                    <div class="bill-row">
+                        <div class="bill-row-label">
+                            <span class="bill-icon">🛵</span>
+                            <span>Delivery charge</span>
+                            <span class="bill-info-icon" title="Free delivery on orders">i</span>
+                        </div>
+                        <div class="bill-row-value">
+                            <span class="bill-mrp-crossed">₹30</span>
+                            <span class="bill-free-text" id="checkoutShipping">FREE</span>
+                        </div>
+                    </div>
+
+                    <!-- DONATION ROW -->
+                    <div class="bill-row" id="donationRow" style="display: none;">
+                        <div class="bill-row-label" style="color: #0f7139;">
+                            <span class="bill-icon">🍲</span>
+                            <span>Feeding Needy Donation</span>
+                        </div>
+                        <div class="bill-row-value" style="color: #0f7139; font-weight: 700;">
+                            <span id="billDonationAmount">+₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- GRAND TOTAL ROW -->
+                    <div class="bill-row grand-total-bill-row">
+                        <div class="bill-row-label">
+                            <span>Grand total</span>
+                            <span class="bill-info-icon" title="Final order amount">i</span>
+                        </div>
+                        <div class="bill-row-value">
+                            <strong id="checkoutGrandTotal" class="bill-grand-price">₹0</strong>
+                        </div>
+                    </div>
                 </div>
-                <div class="totals-row" id="couponRow" style="display: none; color: #0f7139;">
-                    <span>Discount</span>
-                    <span id="checkoutDiscount">-₹0.00</span>
+
+                <!-- WAVY TOTAL SAVINGS BANNER -->
+                <div id="billSavingsBanner" class="bill-savings-banner" style="display: none;">
+                    <div class="wavy-top-divider">
+                        <svg viewBox="0 0 1000 30" preserveAspectRatio="none">
+                            <path d="M0,30 L0,15 Q25,0 50,15 Q75,30 100,15 Q125,0 150,15 Q175,30 200,15 Q225,0 250,15 Q275,30 300,15 Q325,0 350,15 Q375,30 400,15 Q425,0 450,15 Q475,30 500,15 Q525,0 550,15 Q575,30 600,15 Q625,0 650,15 Q675,30 700,15 Q725,0 750,15 Q775,30 800,15 Q825,0 850,15 Q875,30 900,15 Q925,0 950,15 Q975,30 1000,15 L1000,30 Z"></path>
+                        </svg>
+                    </div>
+                    <div class="bill-savings-content">
+                        <span>Your total savings</span>
+                        <strong id="billTotalSavings">₹0</strong>
+                    </div>
                 </div>
-                <div class="totals-row">
-                    <span>Shipping</span>
-                    <span style="font-size: 13px; color: #0f7139; font-weight: 600;" id="checkoutShipping">FREE</span>
+            </div>
+
+            <!-- FEED NEEDY PEOPLE DONATION CARD -->
+            <div class="feed-needy-card" id="feedNeedyCard">
+                <div class="feed-needy-header">
+                    <div class="feed-needy-title-wrap">
+                        <span class="feed-needy-icon">🍲</span>
+                        <div>
+                            <h4 class="feed-needy-title">Feeding Needy People</h4>
+                            <p class="feed-needy-subtitle">Add a small contribution to support fresh meals for underprivileged families.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="totals-row grand-total-row">
-                    <span>Total</span>
-                    <span><span class="currency-symbol">INR</span> <strong id="checkoutGrandTotal">₹0.00</strong></span>
+                <div class="feed-needy-options">
+                    <button type="button" class="feed-chip" data-amount="10" onclick="selectDonation(10)">+ ₹10</button>
+                    <button type="button" class="feed-chip" data-amount="20" onclick="selectDonation(20)">+ ₹20</button>
+                    <button type="button" class="feed-chip" data-amount="50" onclick="selectDonation(50)">+ ₹50</button>
                 </div>
             </div>
         </div>
@@ -636,7 +820,39 @@
         let selectedBillingOption = "same";
         let appliedCouponCode = "";
         let appliedDiscount = 0;
+        let selectedDonationAmount = 0;
         const API_BASE = "";
+
+        function selectDonation(amount) {
+            if (selectedDonationAmount === amount) {
+                selectedDonationAmount = 0;
+            } else {
+                selectedDonationAmount = amount;
+            }
+            updateDonationUI();
+            renderCheckoutPage();
+        }
+
+        function updateDonationUI() {
+            const chips = document.querySelectorAll('.feed-chip');
+            chips.forEach(chip => {
+                const amt = parseInt(chip.getAttribute('data-amount'), 10);
+                if (amt === selectedDonationAmount) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+
+            const donationRow = document.getElementById('donationRow');
+            const donationAmtEl = document.getElementById('billDonationAmount');
+            if (selectedDonationAmount > 0) {
+                if (donationRow) donationRow.style.display = 'flex';
+                if (donationAmtEl) donationAmtEl.textContent = `+₹${selectedDonationAmount}`;
+            } else {
+                if (donationRow) donationRow.style.display = 'none';
+            }
+        }
 
         function selectPaymentMethod(method) {
             selectedPayment = method;
@@ -733,7 +949,14 @@
             const items = getActiveCartItems();
             const totalCount = items.reduce((sum, item) => sum + (item.quantity || item.qty || 1), 0);
             const subtotal = items.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || item.qty || 1)), 0);
-            const finalTotal = Math.max(0, subtotal - appliedDiscount);
+            const handlingCharge = 0;
+            const itemsOriginalMRP = items.reduce((sum, item) => {
+                const orig = item.compareAtPrice || item.mrp || item.originalPrice || Math.round((item.price || 0) * 1.15);
+                return sum + (orig * (item.quantity || item.qty || 1));
+            }, 0);
+            const itemSavings = Math.max(0, itemsOriginalMRP - subtotal);
+            const finalTotal = Math.max(0, subtotal - appliedDiscount + selectedDonationAmount);
+            const totalSavings = itemSavings + appliedDiscount;
 
             summaryList.innerHTML = items.map(item => `
                 <div class="summary-item-row">
@@ -747,24 +970,58 @@
                             <p class="summary-item-weight">${item.weight || item.unit || 'Standard'}</p>
                         </div>
                     </div>
-                    <div class="summary-item-price">₹${((item.price || 0) * (item.quantity || item.qty || 1)).toFixed(2)}</div>
+                    <div class="summary-item-price">₹${((item.price || 0) * (item.quantity || item.qty || 1)).toFixed(0)}</div>
                 </div>
             `).join("");
 
-            subtotalEl.textContent = `₹${subtotal.toFixed(2)}`;
+            subtotalEl.textContent = `₹${Math.round(subtotal)}`;
+
+            // Bill details elements
+            const mrpEl = document.getElementById('billOriginalMRP');
+            const savedPillEl = document.getElementById('billSavedPill');
+            const savingsBannerEl = document.getElementById('billSavingsBanner');
+            const totalSavingsEl = document.getElementById('billTotalSavings');
+
+            if (mrpEl) {
+                if (itemsOriginalMRP > subtotal) {
+                    mrpEl.textContent = `₹${Math.round(itemsOriginalMRP)}`;
+                    mrpEl.style.display = 'inline';
+                } else {
+                    mrpEl.style.display = 'none';
+                }
+            }
+
+            const directSavings = itemSavings + appliedDiscount;
+            if (savedPillEl) {
+                if (directSavings > 0) {
+                    savedPillEl.textContent = `Saved ₹${Math.round(directSavings)}`;
+                    savedPillEl.style.display = 'inline-block';
+                } else {
+                    savedPillEl.style.display = 'none';
+                }
+            }
+
+            if (savingsBannerEl && totalSavingsEl) {
+                if (totalSavings > 0) {
+                    totalSavingsEl.textContent = `₹${Math.round(totalSavings)}`;
+                    savingsBannerEl.style.display = 'block';
+                } else {
+                    savingsBannerEl.style.display = 'none';
+                }
+            }
             
             const couponRow = document.getElementById('couponRow');
             const checkoutDiscount = document.getElementById('checkoutDiscount');
             if (appliedDiscount > 0) {
                 if (couponRow) couponRow.style.display = 'flex';
-                if (checkoutDiscount) checkoutDiscount.textContent = `-₹${appliedDiscount.toFixed(2)}`;
+                if (checkoutDiscount) checkoutDiscount.textContent = `-₹${Math.round(appliedDiscount)}`;
             } else {
                 if (couponRow) couponRow.style.display = 'none';
             }
 
-            totalEl.textContent = `₹${finalTotal.toFixed(2)}`;
+            totalEl.textContent = `₹${Math.round(finalTotal)}`;
             if (countEl) countEl.textContent = totalCount;
-            if (btnText) btnText.textContent = selectedPayment === "Razorpay" ? `Pay ₹${finalTotal.toFixed(2)} via Razorpay` : "Place Cash on Delivery Order";
+            if (btnText) btnText.textContent = selectedPayment === "Razorpay" ? `Pay ₹${Math.round(finalTotal)} via Razorpay` : "Place Cash on Delivery Order";
 
             // Autofill user profile if logged in
             try {
@@ -859,6 +1116,24 @@
             if (notify) showToast("Coupon removed.");
         }
 
+        function toggleCouponsDropdown() {
+            const box = document.getElementById("availableCouponsContainer");
+            const list = document.getElementById("availableCouponsList");
+            const text = document.getElementById("couponsToggleText");
+            if (!list) return;
+
+            const isHidden = window.getComputedStyle(list).display === "none";
+            if (isHidden) {
+                list.style.display = "flex";
+                if (box) box.classList.add("open");
+                if (text) text.textContent = "Hide discounts & coupons";
+            } else {
+                list.style.display = "none";
+                if (box) box.classList.remove("open");
+                if (text) text.textContent = "Show all discounts & coupons";
+            }
+        }
+
         async function renderAvailableCoupons() {
             const container = document.getElementById("availableCouponsList");
             if (!container) return;
@@ -882,6 +1157,12 @@
                         { code: 'SAVE20', discountPercent: 20, minOrderAmount: 5000, description: '20% OFF > ₹5,000' },
                         { code: 'SAVE50', discountPercent: 50, minOrderAmount: 10000, description: '50% OFF > ₹10,000' }
                     ];
+                }
+
+                const badgeEl = document.getElementById("couponsCountBadge");
+                if (badgeEl) {
+                    badgeEl.textContent = `${coupons.length} Offers`;
+                    badgeEl.style.display = "inline-block";
                 }
 
                 container.innerHTML = coupons.map(c => {
@@ -927,7 +1208,7 @@
 
             const items = getActiveCartItems();
             const subtotal = items.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || item.qty || 1)), 0);
-            const finalTotal = Math.max(0, subtotal - appliedDiscount);
+            const finalTotal = Math.max(0, subtotal - appliedDiscount + selectedDonationAmount);
 
             // Format & consolidate items for Backend Order Model
             const itemMap = new Map();
@@ -1409,7 +1690,7 @@
             }
         }
 
-        const CLASSIC_ADDONS = [
+        let CLASSIC_ADDONS = [
             {
                 id: "addon_ghee_250",
                 product: "664c12345678901234567891",
@@ -1453,8 +1734,81 @@
                 originalPrice: 180,
                 image: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=300&auto=format&fit=crop&q=80",
                 badge: "Traditional"
+            },
+            {
+                id: "addon_coconut_oil_500",
+                product: "664c12345678901234567895",
+                title: "Cold-Pressed Coconut Oil",
+                weight: "500ml Bottle",
+                rating: "4.8 ★",
+                price: 165,
+                originalPrice: 214,
+                image: "https://arshithfresh.com/cdn/shop/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
+                badge: "Pure Copra"
+            },
+            {
+                id: "addon_groundnut_oil_1l",
+                product: "664c12345678901234567896",
+                title: "Groundnut Oil (Cold-Pressed)",
+                weight: "1 Litre",
+                rating: "4.9 ★",
+                price: 349,
+                originalPrice: 471,
+                image: "https://arshithfresh.com/cdn/shop/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
+                badge: "Top Seller"
+            },
+            {
+                id: "addon_flax_seeds_100",
+                product: "664c12345678901234567897",
+                title: "Golden Flax Seeds",
+                weight: "100g Pack",
+                rating: "4.9 ★",
+                price: 29,
+                originalPrice: 36,
+                image: "https://arshithfresh.com/cdn/shop/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
+                badge: "Omega-3"
+            },
+            {
+                id: "addon_chia_seeds_100",
+                product: "664c12345678901234567898",
+                title: "High Fiber Chia Seeds",
+                weight: "100g Pack",
+                rating: "4.9 ★",
+                price: 49,
+                originalPrice: 53,
+                image: "https://arshithfresh.com/cdn/shop/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
+                badge: "Superfood"
+            },
+            {
+                id: "addon_garlic_podi_100",
+                product: "664c12345678901234567899",
+                title: "Garlic Powder (Velluli Karam)",
+                weight: "100g Pack",
+                rating: "4.97 ★",
+                price: 59,
+                originalPrice: 80,
+                image: "https://arshithfresh.com/cdn/shop/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
+                badge: "Spicy Blend"
+            },
+            {
+                id: "addon_chana_podi_100",
+                product: "664c12345678901234567900",
+                title: "Chana Dal Podi (Pappula Podi)",
+                weight: "100g Pack",
+                rating: "5.0 ★",
+                price: 59,
+                originalPrice: 80,
+                image: "https://arshithfresh.com/cdn/shop/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
+                badge: "Authentic"
             }
         ];
+
+        function scrollAddonsList(direction) {
+            const list = document.getElementById("checkoutAddonsList");
+            if (list) {
+                list.scrollBy({ left: direction * 160, behavior: 'smooth' });
+            }
+        }
 
         function renderClassicAddons() {
             const container = document.getElementById("checkoutAddonsList");
@@ -1468,24 +1822,27 @@
                     (item.addonId && item.addonId === addon.id)
                 );
 
-                const btnLabel = isAdded ? `✓ Added` : `+ Add`;
+                const btnLabel = isAdded ? `Added ✓` : `+ Add`;
                 const btnClass = isAdded ? `addon-add-btn added` : `addon-add-btn`;
+
+                const discountPct = addon.originalPrice && addon.originalPrice > addon.price 
+                    ? Math.round(((addon.originalPrice - addon.price) / addon.originalPrice) * 100)
+                    : 0;
+
+                const badgeHtml = discountPct > 0 ? `<div class="addon-card-badge">${discountPct}% OFF</div>` : '';
 
                 return `
                     <div class="addon-item-card">
-                        <div class="addon-item-left">
-                            <div class="addon-img-wrap">
-                                <img src="${addon.image}" alt="${addon.title}" class="addon-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&auto=format&fit=crop&q=80';">
-                            </div>
-                            <div>
-                                <h5 class="addon-info-title">${addon.title}</h5>
-                                <div class="addon-info-sub">
-                                    <span>${addon.weight}</span> • <span class="addon-rating">${addon.rating}</span>
-                                </div>
-                                <div class="addon-price-box">
-                                    <span class="addon-curr-price">₹${addon.price}</span>
-                                    <span class="addon-orig-price">₹${addon.originalPrice}</span>
-                                </div>
+                        ${badgeHtml}
+                        <div class="addon-img-box">
+                            <img src="${addon.image}" alt="${addon.title}" class="addon-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&auto=format&fit=crop&q=80';">
+                        </div>
+                        <div class="addon-card-body">
+                            <h5 class="addon-info-title">${addon.title}</h5>
+                            <div class="addon-info-meta">${addon.weight} • ${addon.rating}</div>
+                            <div class="addon-price-row">
+                                <span class="addon-curr-price">₹${addon.price}</span>
+                                <span class="addon-orig-price">₹${addon.originalPrice}</span>
                             </div>
                         </div>
                         <button type="button" class="${btnClass}" onclick="toggleAddonItem('${addon.id}')">${btnLabel}</button>

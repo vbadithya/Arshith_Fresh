@@ -1301,8 +1301,9 @@
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
-            padding: 14px;
+            padding: 12px 14px;
             margin-bottom: 18px;
+            transition: all 0.2s ease;
         }
 
         .available-coupons-header {
@@ -1311,10 +1312,55 @@
             color: #334155;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            padding: 2px 0;
+            transition: color 0.2s ease;
+        }
+
+        .available-coupons-header:hover {
+            color: #0f7139;
+        }
+
+        .coupons-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .coupons-count-badge {
+            background: #dcfce7;
+            color: #0f7139;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .coupons-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #0f7139;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .coupons-toggle-arrow {
+            font-size: 10px;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .available-coupons-box.open .coupons-toggle-arrow {
+            transform: rotate(180deg);
         }
 
         .coupons-chips-grid {
@@ -1408,4 +1454,244 @@
             color: #ffffff;
             border-color: #0f7139;
             cursor: default;
+        }
+
+        /* BILL DETAILS CARD STYLING */
+        .bill-details-card {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .bill-details-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            padding: 16px 18px 8px 18px;
+            margin: 0;
+        }
+
+        .bill-details-list {
+            padding: 6px 18px 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bill-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13.5px;
+            color: #334155;
+        }
+
+        .bill-row-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 500;
+        }
+
+        .bill-icon {
+            font-size: 14px;
+        }
+
+        .bill-info-icon {
+            font-size: 11px;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            line-height: 1;
+            font-family: inherit;
+        }
+
+        .bill-saved-pill {
+            background: #e0edff;
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 4px;
+        }
+
+        .bill-row-value {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .bill-mrp-crossed {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        .bill-free-text {
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .grand-total-bill-row {
+            padding-top: 10px;
+            border-top: 1px dashed #e2e8f0;
+            font-weight: 700;
+        }
+
+        .grand-total-bill-row .bill-row-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .bill-grand-price {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        /* WAVY TOTAL SAVINGS BANNER */
+        .bill-savings-banner {
+            background: #e0edff;
+            position: relative;
+        }
+
+        .wavy-top-divider {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            margin-top: -1px;
+        }
+
+        .wavy-top-divider svg {
+            display: block;
+            width: 100%;
+            height: 12px;
+            fill: #e0edff;
+        }
+
+        .bill-savings-content {
+            padding: 8px 18px 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .bill-savings-content strong {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        /* FEED NEEDY PEOPLE CARD STYLING */
+        .feed-needy-card {
+            background: #f0fdf4;
+            border: 1.5px dashed #86efac;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-top: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .feed-needy-card:hover {
+            border-color: #4ade80;
+            box-shadow: 0 4px 12px rgba(15, 113, 57, 0.06);
+        }
+
+        .feed-needy-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .feed-needy-title-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .feed-needy-icon {
+            font-size: 20px;
+            line-height: 1;
+            background: #ffffff;
+            padding: 6px;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .feed-needy-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f7139;
+            margin: 0 0 2px 0;
+        }
+
+        .feed-needy-subtitle {
+            font-size: 11px;
+            color: #475569;
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .feed-needy-options {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .feed-chip {
+            flex: 1;
+            min-width: 60px;
+            background: #ffffff;
+            color: #0f7139;
+            border: 1.5px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 7px 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .feed-chip:hover {
+            border-color: #0f7139;
+            background: #fcfdfd;
+        }
+
+        .feed-chip.active {
+            background: #0f7139;
+            color: #ffffff;
+            border-color: #0f7139;
+            box-shadow: 0 2px 8px rgba(15, 113, 57, 0.25);
+        }
+
+        .feed-chip.custom-chip {
+            font-weight: 600;
+            color: #334155;
+            border-color: #cbd5e1;
+        }
+
+        .feed-chip.custom-chip.active {
+            background: #0f7139;
+            color: #ffffff;
+            border-color: #0f7139;
         }
