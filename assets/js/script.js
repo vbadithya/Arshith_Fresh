@@ -85,69 +85,69 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. Hero Banner Slider (Carousel)
-    const track = document.querySelector(".carousel-track");
-    const slides = document.querySelectorAll(".carousel-slide");
-    const prevBtn = document.querySelector(".carousel-control.prev");
-    const nextBtn = document.querySelector(".carousel-control.next");
-    const indicators = document.querySelectorAll(".carousel-indicators .indicator");
-    let currentSlide = 0;
-    let slideInterval;
+    // 2. Instamart-Style Hero Banner Carousel
+    const instamartTrack = document.getElementById("instamartTrack");
+    const instamartPrevBtn = document.getElementById("instamartPrevBtn");
+    const instamartNextBtn = document.getElementById("instamartNextBtn");
+    const instamartPillCounter = document.getElementById("instamartPillCounter");
 
-    function showSlide(index) {
-        currentSlide = (index + slides.length) % slides.length;
-        if (track) {
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    if (instamartTrack) {
+        const cards = instamartTrack.querySelectorAll(".instamart-banner-card");
+        const totalCards = cards.length;
+        let isHovered = false;
+
+        function updateCounter() {
+            if (!instamartPillCounter || totalCards === 0) return;
+            const scrollLeft = instamartTrack.scrollLeft;
+            const firstCard = cards[0];
+            const cardWidth = firstCard ? (firstCard.offsetWidth + 18) : 340;
+            const currentIndex = Math.min(totalCards, Math.max(1, Math.round(scrollLeft / cardWidth) + 1));
+            instamartPillCounter.textContent = `${currentIndex} / ${totalCards}`;
         }
-        slides.forEach((slide, i) => {
-            slide.classList.toggle("active", i === currentSlide);
-        });
-        indicators.forEach((ind, i) => {
-            ind.classList.toggle("active", i === currentSlide);
-        });
-    }
 
-    function changeSlide(direction) {
-        showSlide(currentSlide + direction);
-    }
+        instamartTrack.addEventListener("scroll", updateCounter, { passive: true });
 
-    function startAutoSlide() {
-        slideInterval = setInterval(() => {
-            changeSlide(1);
-        }, 5000); // Change slide every 5 seconds
-    }
+        function scrollInstamart(direction) {
+            const firstCard = cards[0];
+            const cardWidth = firstCard ? (firstCard.offsetWidth + 18) : 340;
+            const maxScroll = instamartTrack.scrollWidth - instamartTrack.clientWidth;
+            
+            if (direction > 0 && instamartTrack.scrollLeft >= maxScroll - 10) {
+                instamartTrack.scrollTo({ left: 0, behavior: "smooth" });
+            } else if (direction < 0 && instamartTrack.scrollLeft <= 10) {
+                instamartTrack.scrollTo({ left: maxScroll, behavior: "smooth" });
+            } else {
+                instamartTrack.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+            }
+        }
 
-    function resetSlideTimer() {
-        clearInterval(slideInterval);
-        startAutoSlide();
-    }
-
-    if (slides.length > 0) {
-        showSlide(currentSlide);
-        startAutoSlide();
-
-        if (prevBtn) {
-            prevBtn.addEventListener("click", (e) => {
+        if (instamartPrevBtn) {
+            instamartPrevBtn.addEventListener("click", (e) => {
                 e.preventDefault();
-                changeSlide(-1);
-                resetSlideTimer();
-            });
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                changeSlide(1);
-                resetSlideTimer();
+                scrollInstamart(-1);
             });
         }
 
-        indicators.forEach(indicator => {
-            indicator.addEventListener("click", () => {
-                const targetSlide = parseInt(indicator.getAttribute("data-slide"));
-                showSlide(targetSlide);
-                resetSlideTimer();
+        if (instamartNextBtn) {
+            instamartNextBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                scrollInstamart(1);
             });
-        });
+        }
+
+        // Auto slide every 4.5 seconds when not hovered
+        if (instamartTrack.parentElement) {
+            instamartTrack.parentElement.addEventListener("mouseenter", () => isHovered = true);
+            instamartTrack.parentElement.addEventListener("mouseleave", () => isHovered = false);
+        }
+
+        setInterval(() => {
+            if (!isHovered && document.visibilityState === "visible") {
+                scrollInstamart(1);
+            }
+        }, 4500);
+
+        updateCounter();
     }
 
     // 3. Product Shelves Slider Buttons

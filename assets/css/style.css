@@ -661,118 +661,331 @@ main {
 }
 
 /* Hero Banner Carousel */
-.hero-carousel-section {
+/* =======================================================
+   INSTAMART-STYLE MULTI-CARD HERO BANNER CAROUSEL (RICH GREEN THEME)
+   ======================================================= */
+.instamart-hero-section {
+    max-width: 1440px;
+    margin: 16px auto 26px;
+    padding: 0 20px;
     position: relative;
-    overflow: hidden;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
-    line-height: 0;
+    box-sizing: border-box;
 }
 
-.carousel-container {
+.instamart-carousel-wrapper {
     position: relative;
     width: 100%;
-    height: auto;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    line-height: 0;
-}
-
-.carousel-track {
     display: flex;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    align-items: center;
 }
 
-.carousel-slide {
-    flex: 0 0 100%;
-    min-width: 100%;
+.instamart-carousel-track {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 10px 4px 14px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+}
+
+.instamart-carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.instamart-banner-card {
+    flex: 0 0 calc(33.333% - 12px);
+    min-width: 340px;
+    height: 240px;
+    border-radius: 22px;
+    overflow: hidden;
     position: relative;
-    margin: 0;
-    padding: 0;
-    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    scroll-snap-align: start;
+    box-shadow: 0 6px 20px rgba(0, 45, 34, 0.15);
+    border: 1.5px solid rgba(189, 163, 128, 0.28);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
-.carousel-slide picture {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    line-height: 0;
+.instamart-banner-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 34px rgba(0, 45, 34, 0.28);
+    border-color: rgba(189, 163, 128, 0.6);
 }
 
-.carousel-img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-    margin: 0;
-    padding: 0;
+/* Card Themes - Signature Green Palette */
+.instamart-banner-card.card-oils {
+    background: linear-gradient(135deg, #022c1b 0%, #064e3b 55%, #005d4a 100%);
 }
 
-.carousel-control {
+.instamart-banner-card.card-podulu {
+    background: linear-gradient(135deg, #0b3718 0%, #0f5132 55%, #1b5b33 100%);
+}
+
+.instamart-banner-card.card-ghee {
+    background: linear-gradient(135deg, #012b1d 0%, #04432c 55%, #0d5e40 100%);
+}
+
+.instamart-banner-card.card-seeds {
+    background: linear-gradient(135deg, #043825 0%, #0c5738 55%, #156d47 100%);
+}
+
+.instamart-banner-card.card-nuts {
+    background: linear-gradient(135deg, #06311d 0%, #0d4d2e 55%, #13633c 100%);
+}
+
+.instamart-banner-card.card-spices {
+    background: linear-gradient(135deg, #022e1e 0%, #084931 55%, #0d5f40 100%);
+}
+
+/* Top Badge */
+.instamart-card-badge {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.85);
-    color: #004005;
-    width: 56px;
-    height: 56px;
+    top: 14px;
+    right: 14px;
+    background: rgba(0, 40, 30, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(189, 163, 128, 0.35);
+    padding: 4px 11px;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #BDA380;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.instamart-card-badge .badge-dot {
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    font-size: 2.5rem;
-    font-weight: bold;
+    background: #BDA380;
+    box-shadow: 0 0 6px #BDA380;
+}
+
+.instamart-card-badge strong {
+    color: #ffffff;
+    font-weight: 800;
+}
+
+/* Left Content */
+.instamart-card-content {
+    flex: 1 1 58%;
+    padding: 24px 16px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.instamart-card-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.18;
+    letter-spacing: -0.3px;
+    margin: 0 0 8px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.instamart-card-subtitle {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.84rem;
+    color: #d1fae5;
+    font-weight: 500;
+    line-height: 1.35;
+    margin: 0 0 16px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0.92;
+}
+
+.instamart-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #BDA380;
+    color: #022c1b;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 9px 22px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: all 0.25s ease;
+}
+
+.instamart-cta-btn:hover {
+    background: #ffffff;
+    color: #005d4a;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(189, 163, 128, 0.45);
+}
+
+/* Right Image Container */
+.instamart-card-img-wrap {
+    flex: 0 0 42%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    z-index: 10;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s ease;
-    line-height: 1;
+    position: relative;
+    padding: 10px 14px 10px 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.carousel-control:hover {
-    background-color: #ffffff;
-    color: #005d4a;
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+.instamart-card-img-wrap img {
+    max-height: 88%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.carousel-control.prev {
-    left: 24px;
+.instamart-banner-card:hover .instamart-card-img-wrap img {
+    transform: scale(1.08) rotate(1deg);
 }
 
-.carousel-control.next {
-    right: 24px;
-}
-
-.carousel-indicators {
+/* Arrow Controls */
+.instamart-arrow {
     position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 5;
-    line-height: 1;
-}
-
-.indicator {
-    width: 12px;
-    height: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background: #005d4a;
+    color: #ffffff;
+    border: 1.5px solid rgba(189, 163, 128, 0.45);
+    box-shadow: 0 4px 14px rgba(0, 45, 34, 0.35);
     cursor: pointer;
-    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    z-index: 10;
+    transition: all 0.2s ease;
+    line-height: 1;
+    padding: 0;
 }
 
-.indicator.active {
-    background-color: var(--color-primary);
+.instamart-arrow:hover {
+    background: #0f7139;
+    color: #BDA380;
+    border-color: #BDA380;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.instamart-arrow.prev {
+    left: -14px;
+}
+
+.instamart-arrow.next {
+    right: -14px;
+}
+
+/* Instamart Counter Pagination */
+.instamart-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.instamart-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #005d4a;
+    opacity: 0.5;
+    display: inline-block;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.instamart-pill-counter {
+    background: #005d4a;
+    color: #BDA380;
+    border: 1px solid rgba(189, 163, 128, 0.35);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 16px;
+    border-radius: 9999px;
+    letter-spacing: 0.8px;
+    box-shadow: 0 3px 8px rgba(0, 45, 34, 0.2);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+    .instamart-banner-card {
+        flex: 0 0 calc(50% - 10px);
+        min-width: 300px;
+        height: 220px;
+    }
+    .instamart-card-title {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .instamart-hero-section {
+        padding: 0 12px;
+        margin: 10px auto 16px;
+    }
+    .instamart-carousel-track {
+        gap: 12px;
+        padding: 6px 2px 10px;
+    }
+    .instamart-banner-card {
+        flex: 0 0 88%;
+        min-width: 270px;
+        height: 195px;
+        border-radius: 18px;
+    }
+    .instamart-card-content {
+        padding: 16px 12px 16px 16px;
+    }
+    .instamart-card-title {
+        font-size: 1.15rem;
+        margin-bottom: 4px;
+    }
+    .instamart-card-subtitle {
+        font-size: 0.78rem;
+        margin-bottom: 12px;
+    }
+    .instamart-cta-btn {
+        padding: 7px 16px;
+        font-size: 11px;
+    }
+    .instamart-arrow {
+        display: none !important;
+    }
+}
     transform: scale(1.2);
 }
 
@@ -5064,7 +5277,7 @@ main {
     position: relative;
     width: 100%;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 20px;
     margin-bottom: 28px;
     background: transparent;
 }
@@ -5082,14 +5295,166 @@ main {
     position: relative;
 }
 
-.collection-slide img {
-    width: 100%;
-    height: auto;
-    max-height: 480px;
-    display: block;
-    object-fit: contain;
-    object-position: center;
-    border-radius: 14px;
+/* =======================================================
+   COLLECTION LUXURY GREEN HERO BANNERS
+   ======================================================= */
+.collection-green-banner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: linear-gradient(135deg, #022c1b 0%, #064e3b 55%, #005d4a 100%) !important;
+    border-radius: 20px !important;
+    border: 1.5px solid rgba(189, 163, 128, 0.35) !important;
+    box-shadow: 0 8px 24px rgba(0, 45, 34, 0.2) !important;
+    min-height: 280px !important;
+    max-height: 320px !important;
+    padding: 28px 40px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.collection-green-banner.banner-variant-2 {
+    background: linear-gradient(135deg, #0b3718 0%, #0f5132 55%, #185a31 100%) !important;
+}
+
+.collection-green-banner.banner-variant-spice {
+    background: linear-gradient(135deg, #032e1e 0%, #094f34 55%, #0e6140 100%) !important;
+}
+
+.collection-green-banner.banner-variant-ghee {
+    background: linear-gradient(135deg, #022a1b 0%, #05482e 55%, #0b5e3e 100%) !important;
+}
+
+.collection-green-banner.banner-variant-seeds {
+    background: linear-gradient(135deg, #043825 0%, #0d5a3a 55%, #146e48 100%) !important;
+}
+
+.col-banner-content {
+    flex: 1 1 58% !important;
+    max-width: 580px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    z-index: 2 !important;
+}
+
+.col-banner-badge {
+    background: rgba(0, 40, 30, 0.85) !important;
+    border: 1px solid rgba(189, 163, 128, 0.4) !important;
+    backdrop-filter: blur(6px) !important;
+    color: #BDA380 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    padding: 4px 12px !important;
+    border-radius: 9999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 12px !important;
+}
+
+.col-banner-badge .badge-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #BDA380 !important;
+    box-shadow: 0 0 6px #BDA380 !important;
+}
+
+.col-banner-title {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.3px !important;
+    margin: 0 0 10px 0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+.col-banner-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.95rem !important;
+    color: #d1fae5 !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    margin: 0 0 16px 0 !important;
+    opacity: 0.95 !important;
+}
+
+.col-banner-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.col-tag {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(189, 163, 128, 0.3) !important;
+    color: #BDA380 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    letter-spacing: 0.4px !important;
+}
+
+.col-banner-img-wrap {
+    flex: 1 1 42% !important;
+    height: 100% !important;
+    min-height: 220px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.col-banner-img-wrap img {
+    max-height: 220px !important;
+    max-width: 100% !important;
+    width: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.35)) !important;
+    transition: transform 0.4s ease !important;
+}
+
+.collection-green-banner:hover .col-banner-img-wrap img {
+    transform: scale(1.05) !important;
+}
+
+@media (max-width: 768px) {
+    .collection-green-banner {
+        flex-direction: column !important;
+        padding: 20px 16px !important;
+        min-height: auto !important;
+        max-height: none !important;
+        text-align: center !important;
+    }
+    .col-banner-content {
+        align-items: center !important;
+        max-width: 100% !important;
+        margin-bottom: 12px !important;
+    }
+    .col-banner-title {
+        font-size: 1.4rem !important;
+    }
+    .col-banner-desc {
+        font-size: 0.85rem !important;
+    }
+    .col-banner-tags {
+        justify-content: center !important;
+    }
+    .col-banner-img-wrap {
+        min-height: 160px !important;
+    }
+    .col-banner-img-wrap img {
+        max-height: 150px !important;
+    }
 }
 
 .collection-slider-arrow {

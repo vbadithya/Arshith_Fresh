@@ -163,29 +163,117 @@
     <!-- Main Content -->
     <main id="MainContent">
 
-        <!-- Hero Banner Carousel Section -->
-        <section class="hero-carousel-section">
-            <div class="carousel-container">
-                <div class="carousel-track">
-                    <div class="carousel-slide active">
-                        <picture>
-                            <source media="(max-width: 767px)" srcset="assets/images/banners/oils_banner_mobile.jpg">
-                            <img src="assets/images/banners/oils_banner_desktop.jpg" alt="Banner 1" class="carousel-img">
-                        </picture>
+        <!-- Instamart-Style Multi-Card Hero Banner Section -->
+        <section class="instamart-hero-section">
+            <div class="instamart-carousel-wrapper">
+                <button class="instamart-arrow prev" id="instamartPrevBtn" aria-label="Previous Slide">&#8249;</button>
+                <div class="instamart-carousel-track" id="instamartTrack">
+                    
+                    <!-- Card 1: Cold Pressed Oils -->
+                    <div class="instamart-banner-card card-oils">
+                        <div class="instamart-card-badge">
+                            <span class="badge-dot"></span>
+                            <span>Powered by <strong>ARSHITH</strong></span>
+                        </div>
+                        <div class="instamart-card-content">
+                            <h2 class="instamart-card-title">Pure & Cold Pressed, Never Refined</h2>
+                            <p class="instamart-card-subtitle">Zero chemicals, 100% wooden pressed purity</p>
+                            <a href="pages/categories/oils-natural-extracts.html" class="instamart-cta-btn">SHOP NOW</a>
+                        </div>
+                        <div class="instamart-card-img-wrap">
+                            <img src="assets/images/banners/oils_banner_hero_golden.png" alt="Cold Pressed Oils" onerror="this.onerror=null; this.src='https://arshithfresh.com/cdn/shop/collections/oil_n_natural_extract_200x200_crop_center.jpg?v=1746964936';">
+                        </div>
                     </div>
-                    <div class="carousel-slide">
-                        <picture>
-                            <source media="(max-width: 767px)" srcset="assets/images/banners/green_banner_mobile.jpg">
-                            <img src="assets/images/banners/green_banner_desktop.jpg" alt="Banner 2" class="carousel-img">
-                        </picture>
+
+                    <!-- Card 2: Spice Powders (Podulu) -->
+                    <div class="instamart-banner-card card-podulu">
+                        <div class="instamart-card-badge">
+                            <span class="badge-dot"></span>
+                            <span>Grandma's <strong>RECIPE</strong></span>
+                        </div>
+                        <div class="instamart-card-content">
+                            <h2 class="instamart-card-title">From Pack To Plate In 1 Min</h2>
+                            <p class="instamart-card-subtitle">Authentic Andhra podulu & homemade spice blends</p>
+                            <a href="pages/categories/spice-powders-podulu.html" class="instamart-cta-btn">SHOP NOW</a>
+                        </div>
+                        <div class="instamart-card-img-wrap">
+                            <img src="assets/images/banners/spice_powders_banner_pouches.png" alt="Spice Powders Podulu" onerror="this.onerror=null; this.src='https://arshithfresh.com/cdn/shop/collections/powders_200x200_crop_center.jpg?v=1743477019';">
+                        </div>
                     </div>
+
+                    <!-- Card 3: Pure Ghee & Honey -->
+                    <div class="instamart-banner-card card-ghee">
+                        <div class="instamart-card-badge">
+                            <span class="badge-dot"></span>
+                            <span>100% Vedic <strong>PURITY</strong></span>
+                        </div>
+                        <div class="instamart-card-content">
+                            <h2 class="instamart-card-title">Golden Aroma, Farm Fresh</h2>
+                            <p class="instamart-card-subtitle">Pure Buffalo Ghee & raw unfiltered wild honey</p>
+                            <a href="pages/categories/ghee-and-honey.html" class="instamart-cta-btn">BUY NOW</a>
+                        </div>
+                        <div class="instamart-card-img-wrap">
+                            <img src="assets/images/banners/ghee_honey_banner_jars.png" alt="Pure Buffalo Ghee & Honey" onerror="this.onerror=null; this.src='https://arshithfresh.com/cdn/shop/collections/ghee_1_200x200_crop_center.jpg?v=1746964905';">
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Superfood Seeds -->
+                    <div class="instamart-banner-card card-seeds">
+                        <div class="instamart-card-badge">
+                            <span class="badge-dot"></span>
+                            <span>Omega-3 <strong>RICH</strong></span>
+                        </div>
+                        <div class="instamart-card-content">
+                            <h2 class="instamart-card-title">Freeze the Guilt, Power Up</h2>
+                            <p class="instamart-card-subtitle">Raw Chia, Flax, Pumpkin & Sunflower seeds</p>
+                            <a href="pages/categories/dry-seeds.html" class="instamart-cta-btn">SHOP NOW</a>
+                        </div>
+                        <div class="instamart-card-img-wrap">
+                            <img src="assets/images/banners/seeds_banner_blue_bowls.png" alt="Organic Seeds" onerror="this.onerror=null; this.src='https://arshithfresh.com/cdn/shop/collections/dry_seeds_200x200_crop_center.jpg?v=1746963515';">
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Dry Fruits & Nuts -->
+                    <div class="instamart-banner-card card-nuts">
+                        <div class="instamart-card-badge">
+                            <span class="badge-dot"></span>
+                            <span>Handpicked <strong>QUALITY</strong></span>
+                        </div>
+                        <div class="instamart-card-content">
+                            <h2 class="instamart-card-title">Crunchy Nutrition, Everyday</h2>
+                            <p class="instamart-card-subtitle">California Almonds, Cashews & Afghan Figs</p>
+                            <a href="pages/categories/dry-fruits-nuts.html" class="instamart-cta-btn">BUY NOW</a>
+                        </div>
+                        <div class="instamart-card-img-wrap">
+                            <img src="https://arshithfresh.com/cdn/shop/collections/seeds_dry_fruits_nuts_webp_200x200_crop_center.jpg?v=1746963459" alt="Dry Fruits & Nuts">
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Spices & Essentials -->
+                    <div class="instamart-banner-card card-spices">
+                        <div class="instamart-card-badge">
+                            <span class="badge-dot"></span>
+                            <span>Whole & <strong>AROMATIC</strong></span>
+                        </div>
+                        <div class="instamart-card-content">
+                            <h2 class="instamart-card-title">Freshly Packed, Not Stale</h2>
+                            <p class="instamart-card-subtitle">Aromatic cloves, cardamom & daily whole spices</p>
+                            <a href="pages/categories/spices.html" class="instamart-cta-btn">SHOP NOW</a>
+                        </div>
+                        <div class="instamart-card-img-wrap">
+                            <img src="assets/images/banners/spices_banner_pouches.png" alt="Whole Spices" onerror="this.onerror=null; this.src='https://arshithfresh.com/cdn/shop/collections/spice_200x200_crop_center.png?v=1746963495';">
+                        </div>
+                    </div>
+
                 </div>
-                <button class="carousel-control prev" aria-label="Previous slide">&#8249;</button>
-                <button class="carousel-control next" aria-label="Next slide">&#8250;</button>
-                <div class="carousel-indicators">
-                    <span class="indicator active" data-slide="0"></span>
-                    <span class="indicator" data-slide="1"></span>
-                </div>
+                <button class="instamart-arrow next" id="instamartNextBtn" aria-label="Next Slide">&#8250;</button>
+            </div>
+            
+            <!-- Modern Counter Pagination -->
+            <div class="instamart-pagination">
+                <span class="instamart-dot prev-dot" id="instamartPrevDot"></span>
+                <span class="instamart-pill-counter" id="instamartPillCounter">1 / 6</span>
+                <span class="instamart-dot next-dot" id="instamartNextDot"></span>
             </div>
         </section>
 
