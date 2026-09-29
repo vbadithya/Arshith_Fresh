@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Arshith Fresh</title>
+    <meta name="description" content="Register a new account on Arshith Fresh to enjoy easy ordering, fast tracking, and exclusive discounts.">
+
+    <!-- Twitter Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ArshithGroup">
+    <meta name="twitter:creator" content="@ArshithGroup">
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../../assets/css/style.css?v=3.5">
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+</head>
+
+<body>
+
+    <!-- Sticky Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="announcement-marquee">
+            <div class="announcement-track">
+                <span>Newly Arrived Fresh Homemade Veg Pickles | Natural Ingredients & Cold-Pressed Oils Only!</span>
+                <span class="announcement-separator">•</span>
+                <span>🚚 Free shipping on all orders ₹1000 & above! | Limited time festive deal 🥳</span>
+                <span class="announcement-separator">•</span>
+                <span>Newly Arrived Fresh Homemade Veg Pickles | Natural Ingredients & Cold-Pressed Oils Only!</span>
+                <span class="announcement-separator">•</span>
+                <span>🚚 Free shipping on all orders ₹1000 & above! | Limited time festive deal 🥳</span>
+                <span class="announcement-separator">•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="menu-icon-bar"></span>
+                <span class="menu-icon-bar"></span>
+                <span class="menu-icon-bar"></span>
+            </button>
+
+            <div class="header-logo">
+                <a href="../../index.html">
+                    <img src="../../assets/images/Arshithlogo111.jpg"
+                        alt="Arshith Fresh Logo" class="logo-img"
+                        onerror="this.onerror=null; this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/files/masaaaaa-removebg-preview.png?v=1760592733';">
+                </a>
+            </div>
+
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="../collections.html?category=all" class="dropdown-trigger">Collections <span class="arrow-down">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../categories/oils-natural-extracts.html">Oils</a></li>
+                            <li><a href="../categories/dry-fruits-nuts.html">Dry Fruits</a></li>
+                            <li><a href="../categories/dry-seeds.html">Dry Seeds</a></li>
+                            <li><a href="../categories/ghee-and-honey.html">Ghee and Honey</a></li>
+                            <li><a href="../categories/cooking-essentials.html">Cooking Essentials</a></li>
+                            <li><a href="../categories/spices.html">Spices</a></li>
+                            <li><a href="../categories/spice-powders-podulu.html">Spice Powders</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../seller.html">Become a Seller</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-bar-container">
+                    <form class="search-form" action="../collections.html" method="get">
+                        <input type="text" name="q" placeholder="Search..." aria-label="Search">
+                        <button type="submit" class="search-submit" aria-label="Submit search">
+                            <svg class="icon icon-search" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="9" r="6" />
+                                <line x1="14" y1="14" x2="19" y2="19" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <a href="login.html" class="action-btn login-btn" title="Log In">
+                    <svg class="icon icon-account" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </a>
+                <a href="../cart.html" class="action-btn cart-btn" title="Cart">
+                    <svg class="icon icon-cart" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1" />
+                        <circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Create Account Content -->
+    <main class="create-account-section">
+        <h1 class="create-account-heading">Create account</h1>
+
+        <div id="registerAlertBox" style="display: none; max-width: 440px; margin: 0 auto 16px auto; padding: 12px 16px; background: #fef2f2; border: 1.5px solid #fecaca; border-radius: 10px; color: #dc2626; font-size: 14px; text-align: center;"></div>
+
+        <form class="create-account-form" id="registerForm" onsubmit="handleRegisterForm(event)">
+            
+
+
+            <div class="form-field-wrapper">
+                <input type="text" id="regFirstName" placeholder="First name" required class="create-input-control" aria-label="First Name">
+            </div>
+
+            <div class="form-field-wrapper">
+                <input type="text" id="regLastName" placeholder="Last name" class="create-input-control" aria-label="Last Name">
+            </div>
+
+            <div class="form-field-wrapper">
+                <input type="email" id="regEmail" placeholder="Email" required class="create-input-control" aria-label="Email Address">
+            </div>
+
+            <div class="form-field-wrapper">
+                <input type="tel" id="regPhone" placeholder="Phone Number (optional)" class="create-input-control" aria-label="Phone Number">
+            </div>
+
+            <div class="form-field-wrapper">
+                <input type="password" id="regPassword" placeholder="Password (min 6 characters)" required minlength="6" class="create-input-control" aria-label="Password">
+            </div>
+
+            <div class="create-btn-wrap">
+                <button type="submit" id="regSubmitBtn" class="create-submit-btn">Create Account</button>
+            </div>
+
+            <div class="login-redirect-wrap">
+                <a href="login.html">Already have an account? Login</a>
+            </div>
+
+        </form>
+    </main>
+
+    <!-- Footer Banner Image -->
+    <div class="footer-banner-wrapper">
+        <img src="../../assets/images/footer-banner-transparent.png" alt="Traditional Farmland & Buffalo Cart" class="footer-banner-img">
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-top">
+            <!-- Column 1 -->
+            <div class="footer-col brand-info">
+                <a href="../../index.html">
+                    <img src="https://cdn.shopify.com/s/files/1/0858/0772/6869/files/masaaaaa-removebg-preview.png?v=1760592733" alt="Arshith Fresh Logo" class="brand-logo">
+                </a>
+                <p class="office-text"><strong>Corporate Office</strong> — Bengaluru, Karnataka, India - 560076</p>
+                <div class="footer-newsletter">
+                    <h3 class="newsletter-title">SUBSCRIBE TO OUR NEWSLETTER</h3>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); if (typeof showToast === 'function') showToast('Subscribed to newsletter!');">
+                        <input type="email" placeholder="Email" required aria-label="Email Address" class="footer-newsletter-input">
+                    </form>
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="footer-col links-col">
+                <h3 class="footer-accordion-btn">SERVICES <span class="footer-arrow">+</span></h3>
+                <ul class="footer-links-list">
+                    <li><a href="../about-us.html">About Us</a></li>
+                    <li><a href="../collections.html?category=all">Shop All</a></li>
+                    <li><a href="../blog.html">Blog</a></li>
+                    <li><a href="../seller.html">Franchise</a></li>
+                    <li><a href="http://suntechorganization.com/" target="_blank" rel="noopener noreferrer">Suntech Solutions</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="footer-col links-col">
+                <h3 class="footer-accordion-btn">POLICIES <span class="footer-arrow">+</span></h3>
+                <ul class="footer-links-list">
+                    <li><a href="../seller.html">Contact Us</a></li>
+                    <li><a href="../policies/privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="../policies/shipping-policy.html">Shipping Info</a></li>
+                    <li><a href="../policies/refund-policy.html">Returns & Refunds</a></li>
+                    <li><a href="../track-order.html">Track Your Order</a></li>
+                    <li><a href="../policies/terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4 -->
+            <div class="footer-col help-col">
+                <h3 class="footer-accordion-btn">NEED HELP?</h3>
+                <div class="help-box">
+                    <p class="help-item">📍 <span>Bengaluru, Karnataka, India - 560076</span></p>
+                    <p class="help-item">📞 <a href="tel:+918618471424">+91 8618471424</a></p>
+                    <p class="help-item">✉️ <a href="mailto:support@arshithfresh.com">support@arshithfresh.com</a></p>
+                </div>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/arshith_fresh" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/61594498851912/" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/ArshithGroup" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/arshith-fresh-india-pvt-ltd/posts/?feedView=all" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/@VamikaDurbar" class="social-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright-text">© 2025 Arshith Fresh India Pvt.Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+    <!-- Script -->
+    <script src="../../assets/js/script.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectDestination = urlParams.get('redirect') || '../../index.html';
+
+        async function handleRegisterForm(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('regFirstName').value.trim();
+            const lastName = document.getElementById('regLastName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const submitBtn = document.getElementById('regSubmitBtn');
+            const alertBox = document.getElementById('registerAlertBox');
+
+            const fullName = (firstName + ' ' + lastName).trim();
+
+            if (alertBox) alertBox.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Creating account...';
+
+            try {
+                const res = await fetch('/api/users/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: fullName, email, password, phone })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message || 'Registration failed');
+
+                localStorage.setItem('arshith_user', JSON.stringify(data));
+                if (typeof showToast === 'function') showToast('Account created! Welcome to Arshith Fresh.');
+                setTimeout(() => {
+                    window.location.href = redirectDestination;
+                }, 600);
+            } catch (err) {
+                const rawMsg = err.message || 'Registration failed';
+                const isExisting = rawMsg.toLowerCase().includes('already exist');
+                if (alertBox) {
+                    if (isExisting) {
+                        alertBox.innerHTML = `An account with <strong>${email}</strong> already exists. <a href="login.html" style="color:#0f7139;text-decoration:underline;font-weight:700;margin-left:4px;">Click here to Log In &rarr;</a>`;
+                    } else {
+                        alertBox.innerText = rawMsg;
+                    }
+                    alertBox.style.display = 'block';
+                }
+                const emailInp = document.getElementById('regEmail');
+                if (emailInp) {
+                    emailInp.style.borderColor = '#ef4444';
+                    emailInp.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.15)';
+                    emailInp.focus();
+                }
+                if (typeof showToast === 'function') {
+                    showToast(isExisting ? 'Account already exists! Please log in.' : rawMsg, 'error');
+                }
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Create Account';
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

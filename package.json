@@ -1,0 +1,18 @@
+{
+  "name": "arshith-fresh",
+  "version": "1.0.0",
+  "description": "Arshith Fresh E-Commerce Store & Admin Portal",
+  "main": "backend/server.js",
+  "scripts": {
+    "postinstall": "cd backend && npm install",
+    "start": "cd backend && node server.js"
+  },
+  "keywords": [
+    "render",
+    "express",
+    "mongodb",
+    "ecommerce"
+  ],
+  "author": "",
+  "license": "ISC"
+}
