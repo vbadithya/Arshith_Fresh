@@ -4365,4 +4365,281 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+/* ==========================================================================
+   UNIVERSAL TOP-RIGHT HAMBURGER BUTTON (☰) + FILTER & SORT DRAWER MANAGER
+   Consistently injects top-right hamburger & side drawer across all category pages
+   ========================================================================== */
+(function initFilterAndSortDrawer() {
+    function setupDrawer() {
+        const colGrid = document.getElementById("collectionsProductGrid");
+        if (!colGrid && !document.querySelector(".collections-page-wrapper, .collection-products-pane")) return;
+
+        // 1. Inject Top-Right Hamburger Button if not present
+        let topHamburgerBtn = document.getElementById("topHeaderFilterHamburgerBtn");
+        if (!topHamburgerBtn) {
+            topHamburgerBtn = document.createElement("button");
+            topHamburgerBtn.id = "topHeaderFilterHamburgerBtn";
+            topHamburgerBtn.className = "header-filter-hamburger-btn";
+            topHamburgerBtn.setAttribute("aria-label", "Open Filter & Sort Menu");
+            topHamburgerBtn.setAttribute("title", "Filter & Sort Products");
+            topHamburgerBtn.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="15" y2="18"></line>
+                </svg>
+                <span class="hamburger-label">Filter & Sort</span>
+                <span class="filter-active-dot" id="filterActiveDot" style="display:none;"></span>
+            `;
+
+            // Place directly inside category hero container right beside heading (e.g. Dry Seeds)
+            const heroContainer = document.querySelector(".collection-hero-container");
+            const headerActions = document.querySelector(".header-actions");
+            const topMetaRow = document.querySelector(".collection-top-meta");
+
+            if (heroContainer) {
+                heroContainer.appendChild(topHamburgerBtn);
+            } else if (headerActions) {
+                headerActions.appendChild(topHamburgerBtn);
+            } else if (topMetaRow) {
+                topMetaRow.appendChild(topHamburgerBtn);
+            } else {
+                document.body.appendChild(topHamburgerBtn);
+            }
+        }
+
+        // 2. Inject Drawer Overlay & Panel if not present
+        let overlay = document.getElementById("filterDrawerOverlay");
+        let panel = document.getElementById("filterDrawerPanel");
+
+        if (!overlay || !panel) {
+            const drawerContainer = document.createElement("div");
+            drawerContainer.innerHTML = `
+                <div class="filter-drawer-overlay" id="filterDrawerOverlay"></div>
+                <div class="filter-drawer-panel" id="filterDrawerPanel">
+                    <div class="filter-drawer-header">
+                        <h3 class="filter-drawer-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+                            Filter & Sort Products
+                        </h3>
+                        <button class="filter-drawer-close-btn" id="filterDrawerCloseBtn" aria-label="Close Filter Menu">&times;</button>
+                    </div>
+                    
+                    <div class="filter-drawer-body">
+                        <!-- SORT SECTION -->
+                        <div class="filter-drawer-section">
+                            <h4 class="drawer-section-heading">Sort Products By</h4>
+                            <select id="drawerSortSelect" class="drawer-sort-select">
+                                <option value="featured">Featured</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                                <option value="title-asc">Name: A to Z</option>
+                                <option value="title-desc">Name: Z to A</option>
+                            </select>
+                        </div>
+
+                        <!-- AVAILABILITY -->
+                        <div class="filter-drawer-section">
+                            <h4 class="drawer-section-heading">Availability</h4>
+                            <label class="drawer-checkbox-lbl"><input type="checkbox" id="drawerInStock" checked> <span>In Stock</span></label>
+                            <label class="drawer-checkbox-lbl"><input type="checkbox" id="drawerOutOfStock"> <span>Out of Stock</span></label>
+                        </div>
+
+                        <!-- PRICE RANGE -->
+                        <div class="filter-drawer-section">
+                            <h4 class="drawer-section-heading">Price Range (₹)</h4>
+                            <div class="drawer-price-row">
+                                <input type="number" id="drawerPriceFrom" placeholder="Min ₹" min="0">
+                                <span>to</span>
+                                <input type="number" id="drawerPriceTo" placeholder="Max ₹" min="0">
+                            </div>
+                        </div>
+
+                        <!-- QUANTITY / SIZE -->
+                        <div class="filter-drawer-section">
+                            <h4 class="drawer-section-heading">Quantity / Size</h4>
+                            <div class="drawer-tags-group">
+                                <label class="drawer-tag-lbl"><input type="checkbox" value="1l" class="drawer-qty-check"> <span>1L</span></label>
+                                <label class="drawer-tag-lbl"><input type="checkbox" value="5l" class="drawer-qty-check"> <span>5L</span></label>
+                                <label class="drawer-tag-lbl"><input type="checkbox" value="500ml" class="drawer-qty-check"> <span>500ml</span></label>
+                                <label class="drawer-tag-lbl"><input type="checkbox" value="250ml" class="drawer-qty-check"> <span>250ml</span></label>
+                                <label class="drawer-tag-lbl"><input type="checkbox" value="1kg" class="drawer-qty-check"> <span>1kg</span></label>
+                                <label class="drawer-tag-lbl"><input type="checkbox" value="500g" class="drawer-qty-check"> <span>500g</span></label>
+                                <label class="drawer-tag-lbl"><input type="checkbox" value="250g" class="drawer-qty-check"> <span>250g</span></label>
+                            </div>
+                        </div>
+
+                        <!-- SPECIAL FEATURES -->
+                        <div class="filter-drawer-section">
+                            <h4 class="drawer-section-heading">Special Attributes</h4>
+                            <label class="drawer-checkbox-lbl"><input type="checkbox" id="drawerOrganic"> <span>Organic</span></label>
+                            <label class="drawer-checkbox-lbl"><input type="checkbox" id="drawerColdPressed"> <span>Cold Pressed</span></label>
+                        </div>
+                    </div>
+
+                    <div class="filter-drawer-footer">
+                        <button class="drawer-reset-btn" id="drawerResetBtn">Reset All</button>
+                        <button class="drawer-apply-btn" id="drawerApplyBtn">Apply Filters</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(drawerContainer);
+
+            overlay = document.getElementById("filterDrawerOverlay");
+            panel = document.getElementById("filterDrawerPanel");
+        }
+
+        // 3. Event Listeners for Open / Close Drawer
+        const closeBtn = document.getElementById("filterDrawerCloseBtn");
+        const applyBtn = document.getElementById("drawerApplyBtn");
+        const resetBtn = document.getElementById("drawerResetBtn");
+
+        function openDrawer() {
+            if (overlay) overlay.classList.add("active");
+            if (panel) panel.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeDrawer() {
+            if (overlay) overlay.classList.remove("active");
+            if (panel) panel.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+        if (topHamburgerBtn) topHamburgerBtn.addEventListener("click", openDrawer);
+        if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+        if (overlay) overlay.addEventListener("click", closeDrawer);
+
+        // 4. Core Filter & Sort Execution Logic
+        function applyDrawerFiltersAndSort() {
+            if (!colGrid) return;
+            let baseProducts = window.activeCollectionsProducts || [];
+            
+            const sortVal = (document.getElementById("drawerSortSelect")?.value || "featured").toLowerCase();
+            const inStockChecked = document.getElementById("drawerInStock")?.checked ?? true;
+            const outOfStockChecked = document.getElementById("drawerOutOfStock")?.checked ?? false;
+            const priceFrom = parseFloat(document.getElementById("drawerPriceFrom")?.value) || 0;
+            const priceTo = parseFloat(document.getElementById("drawerPriceTo")?.value) || Infinity;
+            const organicChecked = document.getElementById("drawerOrganic")?.checked ?? false;
+            const coldPressedChecked = document.getElementById("drawerColdPressed")?.checked ?? false;
+
+            const selectedQtys = Array.from(document.querySelectorAll(".drawer-qty-check:checked")).map(cb => cb.value.toLowerCase());
+
+            const isFilterActive = !inStockChecked || outOfStockChecked || priceFrom > 0 || priceTo < Infinity || organicChecked || coldPressedChecked || selectedQtys.length > 0 || sortVal !== "featured";
+            
+            const activeDot = document.getElementById("filterActiveDot");
+            if (activeDot) {
+                activeDot.style.display = isFilterActive ? "block" : "none";
+            }
+
+            // If we have dynamic JS products array
+            if (baseProducts.length > 0) {
+                let filtered = baseProducts.filter(p => {
+                    // Price filter
+                    const pPrice = typeof p.salePrice === 'number' ? p.salePrice : (parseFloat(String(p.salePrice || p.price || 0).replace(/[^0-9.]/g, '')) || 0);
+                    if (pPrice < priceFrom || pPrice > priceTo) return false;
+
+                    // Quantity size filter
+                    if (selectedQtys.length > 0) {
+                        const titleLower = (p.title || p.name || "").toLowerCase();
+                        const qtyLower = (p.weight || p.size || "").toLowerCase();
+                        const matchesQty = selectedQtys.some(q => titleLower.includes(q) || qtyLower.includes(q));
+                        if (!matchesQty) return false;
+                    }
+
+                    // Organic / Cold Pressed
+                    if (organicChecked) {
+                        const txt = (p.title || p.name || "" + p.description || "").toLowerCase();
+                        if (!txt.includes("organic")) return false;
+                    }
+                    if (coldPressedChecked) {
+                        const txt = (p.title || p.name || "" + p.description || "").toLowerCase();
+                        if (!txt.includes("cold pressed") && !txt.includes("cold-pressed")) return false;
+                    }
+
+                    return true;
+                });
+
+                // Sort filtered products
+                if (typeof sortProductsList === 'function') {
+                    filtered = sortProductsList(filtered, sortVal);
+                }
+
+                if (typeof createProductCardHTML === 'function') {
+                    colGrid.innerHTML = filtered.length > 0 ? filtered.map(p => createProductCardHTML(p)).join('') : `
+                        <div class="empty-collection-state" style="grid-column: 1 / -1; padding: 60px 20px; text-align: center; background: #ffffff; border: 1.5px dashed #cbd5e1; border-radius: 16px; margin: 20px 0;">
+                            <h3 style="font-family:'Playfair Display', serif; font-size:20px; color:#0f7139; margin:0 0 8px 0;">No matching products</h3>
+                            <p style="color:#64748b; font-size:14px; margin:0;">Try adjusting your selected filters or price range.</p>
+                        </div>
+                    `;
+                }
+
+                const countElem = document.getElementById("collectionProductCount");
+                if (countElem) {
+                    countElem.textContent = `${filtered.length} products`;
+                }
+            } else {
+                // Fallback for static DOM cards
+                const cards = Array.from(colGrid.querySelectorAll(".product-card"));
+                cards.forEach(card => {
+                    let show = true;
+                    if (organicChecked && !card.textContent.toLowerCase().includes("organic")) show = false;
+                    if (coldPressedChecked && !card.textContent.toLowerCase().includes("cold")) show = false;
+                    card.style.display = show ? "" : "none";
+                });
+            }
+
+            // Sync legacy sort select if present
+            const legacySortSelect = document.getElementById("sortSelect");
+            if (legacySortSelect && legacySortSelect.value !== sortVal) {
+                legacySortSelect.value = sortVal;
+            }
+        }
+
+        if (applyBtn) {
+            applyBtn.addEventListener("click", () => {
+                applyDrawerFiltersAndSort();
+                closeDrawer();
+            });
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener("click", () => {
+                const sortSel = document.getElementById("drawerSortSelect");
+                if (sortSel) sortSel.value = "featured";
+                const inStock = document.getElementById("drawerInStock");
+                if (inStock) inStock.checked = true;
+                const outStock = document.getElementById("drawerOutOfStock");
+                if (outStock) outStock.checked = false;
+                const pFrom = document.getElementById("drawerPriceFrom");
+                if (pFrom) pFrom.value = "";
+                const pTo = document.getElementById("drawerPriceTo");
+                if (pTo) pTo.value = "";
+                const org = document.getElementById("drawerOrganic");
+                if (org) org.checked = false;
+                const cold = document.getElementById("drawerColdPressed");
+                if (cold) cold.checked = false;
+
+                document.querySelectorAll(".drawer-qty-check").forEach(cb => cb.checked = false);
+
+                applyDrawerFiltersAndSort();
+                if (typeof showToast === 'function') showToast("Filters reset to default");
+            });
+        }
+
+        // Live sort change inside drawer
+        const drawerSortSelect = document.getElementById("drawerSortSelect");
+        if (drawerSortSelect) {
+            drawerSortSelect.addEventListener("change", applyDrawerFiltersAndSort);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupDrawer);
+    } else {
+        setupDrawer();
+    }
+})();
+
 
