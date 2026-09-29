@@ -9658,21 +9658,23 @@ body {
 
     .sticky-cart-bar {
         position: fixed !important;
-        bottom: 60px !important;
-        right: 14px !important;
-        left: auto !important;
+        bottom: 10px !important;
+        left: 10px !important;
+        right: 10px !important;
+        top: auto !important;
         transform: none !important;
-        width: 260px !important;
-        max-width: calc(100vw - 28px) !important;
-        z-index: 9998 !important;
+        width: auto !important;
+        max-width: 480px !important;
+        margin: 0 auto !important;
+        z-index: 99998 !important;
         display: flex !important;
         flex-direction: column !important;
         border-radius: 12px !important;
         overflow: hidden !important;
-        box-shadow: 0 6px 20px rgba(15, 113, 57, 0.35) !important;
+        box-shadow: 0 8px 24px rgba(15, 113, 57, 0.4) !important;
         padding: 0 !important;
-        background: transparent !important;
-        border: 1.5px solid #0f7139 !important;
+        background: #0f7139 !important;
+        border: 1.5px solid #075a14 !important;
     }
 
     .sticky-cart-bar:hover {
@@ -9680,42 +9682,59 @@ body {
     }
 
     .sticky-cart-bar .cart-bar-header {
+        background: #e8f5e9 !important;
+        color: #0c831f !important;
         font-size: 11px !important;
-        font-weight: 600 !important;
-        padding: 4px 8px !important;
+        font-weight: 700 !important;
+        padding: 4px 10px !important;
         letter-spacing: 0.1px !important;
         line-height: 1.2 !important;
+        text-align: center !important;
     }
 
     .sticky-cart-bar .cart-bar-body {
-        padding: 6px 12px !important;
+        padding: 8px 14px !important;
         font-size: 13px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: #0f7139 !important;
+        color: #ffffff !important;
     }
 
     .sticky-cart-bar .cart-bar-left-group {
+        display: flex !important;
+        align-items: center !important;
         gap: 8px !important;
     }
 
     .sticky-cart-bar .cart-bar-icon-box {
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
 
     .sticky-cart-bar .cart-bar-count {
-        font-size: 12px !important;
-        font-weight: 600 !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
     }
 
     .sticky-cart-bar .cart-bar-price {
-        font-size: 14px !important;
-        font-weight: 700 !important;
+        font-size: 15px !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin-left: 4px !important;
     }
 
     .sticky-cart-bar .cart-bar-link {
         font-size: 12px !important;
-        font-weight: 700 !important;
-        background: rgba(255, 255, 255, 0.2) !important;
-        padding: 2px 8px !important;
-        border-radius: 5px !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        background: #0c831f !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        padding: 5px 12px !important;
+        border-radius: 6px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.4px !important;
     }
 
     /* 6. Mobile Footer Stack */
@@ -10733,6 +10752,147 @@ body {
 @keyframes fadeInFilter {
     from { opacity: 0; transform: translateY(-4px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   PERFECT MOBILE UI ENHANCEMENTS FOR COLLECTION & CATEGORY PAGES (< 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    /* Page Container Padding & Layout */
+    .collections-page-wrapper {
+        padding: 10px 12px 130px 12px !important;
+    }
+
+    /* Top Category Scroll Bar */
+    .collections-top-nav-bar {
+        margin-bottom: 12px !important;
+        padding: 4px 0 !important;
+    }
+
+    .category-circle-row {
+        display: flex !important;
+        overflow-x: auto !important;
+        gap: 10px !important;
+        padding: 4px 2px !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* Collection Hero Header & Banner */
+    .collection-hero-container {
+        margin-bottom: 14px !important;
+        text-align: left !important;
+    }
+
+    .collection-main-heading {
+        font-family: 'Playfair Display', Georgia, serif !important;
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        color: #0a4a23 !important;
+        margin: 4px 0 10px 0 !important;
+        letter-spacing: -0.3px !important;
+        line-height: 1.25 !important;
+    }
+
+    .category-featured-banner {
+        width: 100% !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+        margin-bottom: 12px !important;
+    }
+
+    .category-featured-banner img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 150px !important;
+        object-fit: cover !important;
+        display: block !important;
+        border-radius: 12px !important;
+    }
+
+    /* Body Layout & Mobile Filter Pane */
+    .collection-body-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .sidebar-filter-pane {
+        width: 100% !important;
+        margin-bottom: 12px !important;
+        border-radius: 12px !important;
+        border: 1.5px solid #cbd5e1 !important;
+        background: #ffffff !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    .filter-main-title {
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        color: #0f7139 !important;
+        height: 42px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin: 0 !important;
+    }
+
+    /* Sort By & Product Count Top Meta Bar Alignment */
+    .collection-top-meta {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin-bottom: 14px !important;
+        padding: 0 2px !important;
+        gap: 8px !important;
+    }
+
+    .collection-top-meta .sort-wrap {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #475569 !important;
+    }
+
+    .collection-top-meta .sort-select-box {
+        height: 34px !important;
+        padding: 2px 8px !important;
+        font-size: 12.5px !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        border: 1px solid #cbd5e1 !important;
+        background: #ffffff !important;
+        color: #1e293b !important;
+        outline: none !important;
+    }
+
+    .collection-top-meta .products-count-text,
+    #collectionProductCount {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #64748b !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+    }
+
+    /* Product Grid Alignment */
+    .collections-product-cards-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        width: 100% !important;
+    }
+
+    .collection-products-pane {
+        width: 100% !important;
+        padding-bottom: 40px !important;
+    }
 }
 
 
