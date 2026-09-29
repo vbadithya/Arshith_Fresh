@@ -2722,19 +2722,35 @@ main {
 }
 
 .process-images {
-    max-width: var(--max-width);
+    max-width: 1320px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 10px 16px 24px 16px;
+    scrollbar-width: thin;
+    scrollbar-color: #0f7139 #e2e8f0;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
 }
 
 .process-img-item {
-    border-radius: 20px;
+    flex: 0 0 380px;
+    min-width: 380px;
+    max-width: 380px;
+    height: 270px;
+    min-height: 270px;
+    max-height: 270px;
+    scroll-snap-align: center;
+    border-radius: 22px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    aspect-ratio: 16 / 10;
-    width: 100%;
+    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.16);
+    border: 2px solid #ffffff;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    position: relative;
+    flex-shrink: 0;
 }
 
 .process-img-item img {
@@ -2746,7 +2762,7 @@ main {
 }
 
 .process-img-item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
 /* Native Ingredients Section */
@@ -3844,12 +3860,21 @@ main {
         line-height: 1.4 !important;
     }
     .process-images {
-        grid-template-columns: 1fr;
-        gap: 15px;
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
+        padding: 6px 8px 18px 8px !important;
     }
     .process-img-item {
-        max-height: 200px;
-        border-radius: 14px;
+        flex: 0 0 85% !important;
+        min-width: 280px !important;
+        max-width: 320px !important;
+        height: 230px !important;
+        min-height: 230px !important;
+        max-height: 230px !important;
+        border-radius: 18px !important;
     }
     .native-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -10374,50 +10399,74 @@ body {
         font-size: 11px !important;
     }
 
-    /* Chilli Manufacturing Process Banner Mobile Layout (3-Column Horizontal Row) */
+    /* Chilli Manufacturing Process Banner Horizontal Scroll Layout */
     .process-banner,
     .chilli-banner {
-        padding: 24px 10px !important;
-        background: #fbf5dc !important;
+        padding: 24px 12px !important;
+        background: linear-gradient(180deg, #fdfbf5 0%, #fbf5dc 100%) !important;
         text-align: center !important;
-        margin: 10px 0 !important;
+        margin: 14px 0 !important;
+        overflow: hidden !important;
     }
 
     .chilli-premium-title {
         font-family: 'Playfair Display', Georgia, serif !important;
         color: #0f7139 !important;
-        font-size: 20px !important;
+        font-size: 22px !important;
         font-weight: 700 !important;
-        margin-bottom: 16px !important;
+        margin-bottom: 18px !important;
         line-height: 1.25 !important;
     }
 
     .chilli-premium-title span {
-        font-size: 15px !important;
+        font-size: 16px !important;
         font-weight: 600 !important;
         color: #334155 !important;
         display: block !important;
-        margin-top: 2px !important;
+        margin-top: 4px !important;
     }
 
     .process-images {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
         max-width: 100% !important;
         margin: 0 auto !important;
-        padding: 0 !important;
+        padding: 6px 8px 18px 8px !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: rgba(15, 113, 57, 0.4) rgba(0, 0, 0, 0.05) !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .process-images::-webkit-scrollbar {
+        height: 5px !important;
+    }
+
+    .process-images::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border-radius: 10px !important;
+    }
+
+    .process-images::-webkit-scrollbar-thumb {
+        background: rgba(15, 113, 57, 0.4) !important;
+        border-radius: 10px !important;
     }
 
     .process-img-item {
-        border-radius: 16px !important;
+        flex: 0 0 85% !important;
+        min-width: 280px !important;
+        max-width: 320px !important;
+        height: 230px !important;
+        min-height: 230px !important;
+        max-height: 230px !important;
+        scroll-snap-align: center !important;
+        border-radius: 18px !important;
         overflow: hidden !important;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1) !important;
-        height: auto !important;
-        min-height: initial !important;
-        max-height: initial !important;
-        aspect-ratio: 4 / 3 !important;
-        width: 100% !important;
+        box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.15) !important;
+        border: 2px solid #ffffff !important;
+        flex-shrink: 0 !important;
     }
 
     .process-img-item img {
