@@ -10587,7 +10587,7 @@ body {
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         justify-content: flex-start !important;
-        align-items: flex-start !important;
+        align-items: center !important;
         gap: 10px !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -10601,20 +10601,20 @@ body {
         scroll-snap-type: x mandatory !important;
     }
 
-    /* 3. Individual Category Items - Compact & Snug */
+    /* 3. Individual Category Items - Strictly Equal Dimensions */
     .category-circle-item,
     .category-card {
-        flex: 0 0 92px !important;
-        min-width: 92px !important;
-        max-width: 92px !important;
+        flex: 0 0 100px !important;
+        min-width: 100px !important;
+        max-width: 100px !important;
         flex-shrink: 0 !important;
         scroll-snap-align: start !important;
         box-sizing: border-box !important;
-        height: auto !important;
-        min-height: auto !important;
-        max-height: none !important;
-        padding: 8px 6px 8px 6px !important;
-        border-radius: 14px !important;
+        height: 120px !important;
+        min-height: 120px !important;
+        max-height: 120px !important;
+        padding: 10px 6px 10px 6px !important;
+        border-radius: 16px !important;
         text-decoration: none !important;
         display: flex !important;
         flex-direction: column !important;
@@ -10636,11 +10636,11 @@ body {
 
     .category-circle-item .circle-img-wrap,
     .category-card .category-img-container {
-        width: 52px !important;
-        height: 52px !important;
-        min-width: 52px !important;
-        min-height: 52px !important;
-        margin-bottom: 5px !important;
+        width: 50px !important;
+        height: 50px !important;
+        min-width: 50px !important;
+        min-height: 50px !important;
+        margin-bottom: 6px !important;
         flex-shrink: 0 !important;
         border-radius: 50% !important;
         overflow: hidden !important;
@@ -10655,6 +10655,14 @@ body {
         word-break: break-word !important;
         color: #1e293b !important;
         font-weight: 700 !important;
+        height: 38px !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+        margin: 0 !important;
     }
 }
 
@@ -10759,23 +10767,24 @@ body {
         padding: 4px 2px 8px 2px !important;
         scrollbar-width: none !important;
         -webkit-overflow-scrolling: touch !important;
-        align-items: flex-start !important;
+        align-items: center !important;
     }
 
     .category-circle-item,
     .category-card {
-        flex: 0 0 90px !important;
-        min-width: 90px !important;
-        max-width: 90px !important;
-        height: auto !important;
-        min-height: auto !important;
-        max-height: none !important;
-        padding: 8px 4px 8px 4px !important;
-        border-radius: 12px !important;
+        flex: 0 0 100px !important;
+        min-width: 100px !important;
+        max-width: 100px !important;
+        height: 120px !important;
+        min-height: 120px !important;
+        max-height: 120px !important;
+        padding: 10px 6px 10px 6px !important;
+        border-radius: 16px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
+        box-sizing: border-box !important;
     }
 
     .category-circle-item .circle-img-wrap,
@@ -10784,15 +10793,23 @@ body {
         height: 50px !important;
         min-width: 50px !important;
         min-height: 50px !important;
-        margin-bottom: 5px !important;
+        margin-bottom: 6px !important;
+        flex-shrink: 0 !important;
     }
 
     .category-circle-item .circle-title,
     .category-card .category-name {
         font-size: 11px !important;
-        line-height: 1.2 !important;
+        line-height: 1.25 !important;
         text-align: center !important;
         font-weight: 700 !important;
+        height: 38px !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
         margin: 0 !important;
     }
 
