@@ -83,7 +83,7 @@
 
         /* LEADERSHIP QUOTES */
         .quote-section {
-            padding: 60px 20px;
+            padding: 16px 20px 40px 20px;
             background: linear-gradient(180deg, #fdfbf7 0%, #faf8f2 100%);
             border-bottom: 1px solid #f1f5f9;
         }
@@ -199,12 +199,20 @@
         }
 
         .companies-grid {
-            max-width: 1280px;
+            max-width: 920px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
+        }
+
+        .companies-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
         }
 
         .companies-eyebrow {
@@ -215,11 +223,11 @@
             letter-spacing: 1.8px;
             text-transform: uppercase;
             background: #f0fdf4;
-            padding: 6px 16px;
+            padding: 6px 18px;
             border-radius: 20px;
             border: 1px solid #bbf7d0;
             display: inline-block;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .companies-title {
@@ -228,7 +236,7 @@
             font-weight: 800;
             color: #0f172a;
             margin-bottom: 22px;
-            line-height: 1.2;
+            line-height: 1.25;
             letter-spacing: -0.5px;
         }
 
@@ -239,12 +247,16 @@
             color: #475569;
             margin-bottom: 18px;
             font-weight: 450;
+            max-width: 840px;
         }
 
         .stats-cards-row {
             display: flex;
-            gap: 20px;
+            justify-content: center;
+            gap: 24px;
             margin-top: 36px;
+            width: 100%;
+            max-width: 800px;
         }
 
         .stat-card {
@@ -348,8 +360,8 @@
 
         /* LEADERS SECTION */
         .leaders-section {
-            background: linear-gradient(180deg, #fafdfb 0%, #f1f7f3 100%);
-            padding: 80px 24px;
+            background: linear-gradient(180deg, #fafdfb 0%, #fdfbf7 100%);
+            padding: 64px 24px 24px 24px;
             text-align: center;
             border-top: 1px solid #e2e8f0;
         }
@@ -368,7 +380,7 @@
             font-size: 16px;
             color: #475569;
             max-width: 720px;
-            margin: 0 auto 56px auto;
+            margin: 0 auto;
             line-height: 1.6;
         }
 
@@ -514,7 +526,7 @@
 
             /* QUOTE SECTIONS MOBILE */
             .quote-section {
-                padding: 36px 16px;
+                padding: 12px 16px 28px 16px;
             }
 
             .quote-container {
@@ -606,17 +618,18 @@
 
             /* LEADERS SECTION MOBILE */
             .leaders-section {
-                padding: 44px 16px;
+                padding: 28px 16px 10px 16px;
             }
 
             .leaders-heading {
-                font-size: 30px;
-                margin-bottom: 10px;
+                font-size: 28px;
+                margin-bottom: 8px;
             }
 
             .leaders-sub {
-                font-size: 14.5px;
-                margin-bottom: 32px;
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 0;
             }
 
             .leaders-cards-grid {
