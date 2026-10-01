@@ -306,9 +306,15 @@
         <input type="hidden" id="prodEditId">
         <div class="modal-body" style="max-height: 70vh; overflow-y: auto; padding: 18px 24px;">
           
-          <div class="form-group">
-            <label class="form-label">Product Name *</label>
-            <input type="text" id="prodName" class="form-control" placeholder="e.g. Groundnut Oil (Wood Pressed)" required>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Product Name *</label>
+              <input type="text" id="prodName" class="form-control" placeholder="e.g. Groundnut Oil (Wood Pressed)" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Shopify Handle</label>
+              <input type="text" id="prodHandle" class="form-control" placeholder="e.g. chilli-powder-premium-copy">
+            </div>
           </div>
 
           <div class="form-group">
@@ -573,6 +579,7 @@
               <img src="${imgUrl}" class="table-product-thumb" alt="${title}" onerror="this.onerror=null; this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';">
               <div>
                 <span class="table-product-name" style="font-weight:600; color:#1a1a1a; font-size:13.5px;">${title}</span>
+                ${product.handle ? `<div style="font-size:11px; color:#0f7139; font-weight:600; font-family:monospace; margin-top:1px;"><i class="fa-solid fa-link"></i> ${product.handle}</div>` : ''}
                 <div style="font-size:11.5px; color:#64748b; margin-top:2px;">Size / Unit: ${unit}</div>
               </div>
             </div>
@@ -740,6 +747,7 @@
     function openAddModal() {
       document.getElementById('addProductForm').reset();
       document.getElementById('prodEditId').value = '';
+      if (document.getElementById('prodHandle')) document.getElementById('prodHandle').value = '';
       document.getElementById('modalHeading').textContent = 'Add New Product';
       modalUploadedImages = [];
       renderModalImagesGrid();
@@ -753,6 +761,7 @@
 
       document.getElementById('prodEditId').value = prod._id;
       document.getElementById('prodName').value = prod.name || '';
+      if (document.getElementById('prodHandle')) document.getElementById('prodHandle').value = prod.handle || '';
       document.getElementById('prodPrice').value = prod.price || '';
       document.getElementById('prodOriginalPrice').value = prod.originalPrice || '';
       document.getElementById('prodUnit').value = prod.unit || '1 kg';
@@ -787,6 +796,7 @@
       
       const id = document.getElementById('prodEditId').value;
       const name = document.getElementById('prodName').value.trim();
+      const handle = document.getElementById('prodHandle') ? document.getElementById('prodHandle').value.trim() : '';
       const category = document.getElementById('prodCategory').value;
       const price = Number(document.getElementById('prodPrice').value);
       const originalPrice = Number(document.getElementById('prodOriginalPrice').value) || 0;
@@ -800,6 +810,7 @@
 
       const payload = {
         name,
+        handle,
         category,
         price,
         originalPrice,

@@ -99,6 +99,150 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Dynamic Main Website Category & Subcategory Synchronization from MongoDB /api/collections
+    async function syncMainWebsiteCategories() {
+        const apiHost = typeof getApiHost === 'function' ? getApiHost() : (window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:5000');
+        try {
+            const res = await fetch(`${apiHost}/api/collections`);
+            if (!res.ok) return;
+            const collections = await res.json();
+            if (!Array.isArray(collections) || collections.length === 0) return;
+
+            const pathname = window.location.pathname.toLowerCase();
+            const inCategoriesDir = pathname.includes('/pages/categories/');
+            const inPagesDir = pathname.includes('/pages/');
+
+            let pagePrefix = 'pages/';
+            if (inCategoriesDir) pagePrefix = '../';
+            else if (inPagesDir) pagePrefix = '';
+
+            // 1. Synchronize Dropdown Menus in Navigation Header
+            const dropdownMenus = document.querySelectorAll('.dropdown-menu, .drawer-submenu');
+            dropdownMenus.forEach(menu => {
+                menu.innerHTML = collections.map(col => {
+                    const slug = col.slug || col.title.toLowerCase().replace(/\s+/g, '-');
+                    let link = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}`;
+                    if (slug === 'pickles') link = `${pagePrefix}categories/pickles.html`;
+                    else if (slug === 'oils-natural-extracts' || slug === 'oils') link = `${pagePrefix}categories/oils-natural-extracts.html`;
+                    else if (slug === 'dry-fruits-nuts' || slug === 'dry-fruits') link = `${pagePrefix}categories/dry-fruits-nuts.html`;
+                    else if (slug === 'seeds' || slug === 'dry-seeds') link = `${pagePrefix}categories/dry-seeds.html`;
+                    else if (slug === 'ghee-honey' || slug === 'ghee-and-honey') link = `${pagePrefix}categories/ghee-and-honey.html`;
+                    else if (slug === 'cooking-essentials') link = `${pagePrefix}categories/cooking-essentials.html`;
+                    else if (slug === 'spices') link = `${pagePrefix}categories/spices.html`;
+                    else if (slug === 'powders-masalas' || slug === 'spice-powders-podulu') link = `${pagePrefix}categories/spice-powders-podulu.html`;
+                    
+                    const subs = Array.isArray(col.subcategories) ? col.subcategories : [];
+                    if (subs.length > 0) {
+                        const subLinks = subs.map(s => `<li><a href="${pagePrefix}collections.html?category=${encodeURIComponent(slug)}&sub=${encodeURIComponent(s)}">${s}</a></li>`).join('');
+                        return `
+                            <li class="has-sub-item" style="position:relative;">
+                                <a href="${link}" style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span>${col.title}</span>
+                                    <span style="font-size:10px; margin-left:6px; opacity:0.7;">▸</span>
+                                </a>
+                                <ul class="nested-sub-menu">${subLinks}</ul>
+                            </li>
+                        `;
+                    }
+                    return `<li><a href="${link}">${col.title}</a></li>`;
+                }).join('');
+            });
+
+            // 2. Update Circle Nav Row on collections & category pages if present
+            const circleRow = document.querySelector('.category-circle-row');
+            if (circleRow) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const activeCat = urlParams.get('category') || urlParams.get('cat') || '';
+                
+                let circleHtml = `
+                    <a href="${pagePrefix}collections.html?category=all" class="category-circle-item ${(!activeCat || activeCat === 'all') && !inCategoriesDir ? 'active' : ''}">
+                        <div class="circle-img-wrap"><img src="https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740" alt="All Products"></div>
+                        <span class="circle-title">All Products</span>
+                    </a>
+                `;
+
+                collections.forEach(col => {
+                    const slug = col.slug || col.title.toLowerCase().replace(/\s+/g, '-');
+                    let link = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}`;
+                    if (slug === 'pickles') link = `${pagePrefix}categories/pickles.html`;
+                    else if (slug === 'oils-natural-extracts' || slug === 'oils') link = `${pagePrefix}categories/oils-natural-extracts.html`;
+                    else if (slug === 'dry-fruits-nuts' || slug === 'dry-fruits') link = `${pagePrefix}categories/dry-fruits-nuts.html`;
+                    else if (slug === 'seeds' || slug === 'dry-seeds') link = `${pagePrefix}categories/dry-seeds.html`;
+                    else if (slug === 'ghee-honey' || slug === 'ghee-and-honey') link = `${pagePrefix}categories/ghee-and-honey.html`;
+                    else if (slug === 'cooking-essentials') link = `${pagePrefix}categories/cooking-essentials.html`;
+                    else if (slug === 'spices') link = `${pagePrefix}categories/spices.html`;
+                    else if (slug === 'powders-masalas' || slug === 'spice-powders-podulu') link = `${pagePrefix}categories/spice-powders-podulu.html`;
+
+                    const isActive = (activeCat && (activeCat.toLowerCase() === slug || activeCat.toLowerCase() === col.title.toLowerCase())) || (pathname.includes(slug));
+                    const img = col.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740';
+
+                    circleHtml += `
+                        <a href="${link}" class="category-circle-item ${isActive ? 'active' : ''}">
+                            <div class="circle-img-wrap"><img src="${img}" alt="${col.title}"></div>
+                            <span class="circle-title">${col.title}</span>
+                        </a>
+                    `;
+                });
+
+                circleRow.innerHTML = circleHtml;
+            }
+
+            // 3. Render Subcategory Pill Tags on Collections & Category Pages
+            const heroContainer = document.querySelector('.collection-hero-container');
+            if (heroContainer) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const activeCat = urlParams.get('category') || urlParams.get('cat') || '';
+                const activeSub = urlParams.get('sub') || urlParams.get('subcategory') || '';
+
+                let activeColObj = null;
+                if (activeCat && activeCat !== 'all') {
+                    const searchSlug = activeCat.toLowerCase();
+                    activeColObj = collections.find(c => (c.slug && c.slug.toLowerCase() === searchSlug) || (c.title && c.title.toLowerCase().replace(/\s+/g, '-') === searchSlug));
+                } else if (inCategoriesDir) {
+                    collections.forEach(c => {
+                        const slug = c.slug || c.title.toLowerCase().replace(/\s+/g, '-');
+                        if (pathname.includes(slug)) activeColObj = c;
+                    });
+                }
+
+                let pillsContainer = document.getElementById('subcategoryPillsRow');
+                if (!pillsContainer) {
+                    pillsContainer = document.createElement('div');
+                    pillsContainer.id = 'subcategoryPillsRow';
+                    pillsContainer.className = 'subcategory-pills-row';
+                    pillsContainer.style.cssText = 'display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0 20px 0; padding: 0 15px;';
+                    heroContainer.appendChild(pillsContainer);
+                }
+
+                if (activeColObj && Array.isArray(activeColObj.subcategories) && activeColObj.subcategories.length > 0) {
+                    const slug = activeColObj.slug || activeColObj.title.toLowerCase().replace(/\s+/g, '-');
+                    let baseLink = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}`;
+                    if (slug === 'pickles') baseLink = `${pagePrefix}categories/pickles.html`;
+
+                    let pillsHtml = `
+                        <a href="${baseLink}" class="subcat-pill-btn ${!activeSub ? 'active' : ''}" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; border: 1.5px solid #16a34a; background: ${!activeSub ? '#16a34a' : '#ffffff'}; color: ${!activeSub ? '#ffffff' : '#16a34a'}; transition: all 0.2s;">All ${activeColObj.title}</a>
+                    `;
+
+                    activeColObj.subcategories.forEach(sub => {
+                        const isSubActive = activeSub && activeSub.toLowerCase() === sub.toLowerCase();
+                        const subLink = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}&sub=${encodeURIComponent(sub)}`;
+                        pillsHtml += `
+                            <a href="${subLink}" class="subcat-pill-btn ${isSubActive ? 'active' : ''}" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; border: 1.5px solid #16a34a; background: ${isSubActive ? '#16a34a' : '#ffffff'}; color: ${isSubActive ? '#ffffff' : '#16a34a'}; transition: all 0.2s;">${sub}</a>
+                        `;
+                    });
+
+                    pillsContainer.innerHTML = pillsHtml;
+                } else {
+                    pillsContainer.innerHTML = '';
+                }
+            }
+        } catch (e) {
+            console.error('Failed to sync main website categories:', e);
+        }
+    }
+
+    syncMainWebsiteCategories();
+
     // 2. Instamart-Style Hero Banner Carousel
     const instamartTrack = document.getElementById("instamartTrack");
     const instamartPrevBtn = document.getElementById("instamartPrevBtn");
@@ -1260,23 +1404,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     return title.includes(searchQ) || cat.includes(searchQ) || sub.includes(searchQ) || desc.includes(searchQ) || brand.includes(searchQ);
                 });
             } else if (categoryQ && categoryQ !== "all" && categoryQ !== "all products") {
+                const cQ = categoryQ.toLowerCase().replace(/-/g, ' ').trim();
                 displayProducts = displayProducts.filter(p => {
                     const cat = (p.category || "").toLowerCase();
                     const title = (p.title || p.name || "").toLowerCase();
-                    const isOil = cat === "oils" || cat.includes("oil") || title.includes(" oil");
-                    if (categoryQ.includes("seed")) {
-                        return !isOil && (cat.includes("seed") || title.includes("seed"));
-                    }
-                    if (categoryQ.includes("dry") || categoryQ.includes("fruit")) {
-                        return !isOil && (cat.includes("dry") || cat.includes("fruit"));
-                    }
-                    if (categoryQ.includes("ghee") || categoryQ.includes("honey")) {
-                        return cat.includes("ghee") || cat.includes("honey") || title.includes("ghee") || title.includes("honey");
-                    }
-                    if (categoryQ.includes("oil")) {
-                        return isOil;
-                    }
-                    return cat.includes(categoryQ) || title.includes(categoryQ);
+                    if (cQ.includes("pickle")) return cat.includes("pickle") || title.includes("pickle");
+                    if (cQ.includes("powder") || cQ.includes("masala") || cQ.includes("podi")) return cat.includes("powder") || cat.includes("masala") || title.includes("podi") || title.includes("karam");
+                    if (cQ.includes("flour") || cQ.includes("rava")) return cat.includes("flour") || cat.includes("rava");
+                    if (cQ.includes("seed")) return cat.includes("seed");
+                    if (cQ.includes("dry") || cQ.includes("fruit") || cQ.includes("nut")) return cat.includes("dry fruit") || cat.includes("nuts");
+                    if (cQ.includes("ghee") || cQ.includes("honey")) return cat.includes("ghee") || cat.includes("honey");
+                    if (cQ.includes("oil")) return cat.includes("oil");
+                    if (cQ.includes("spice")) return cat === "spices" || (cat.includes("spice") && !cat.includes("powder"));
+                    if (cQ.includes("beverage")) return cat.includes("beverages");
+                    if (cQ.includes("papad") || cQ.includes("snack")) return cat.includes("papads");
+                    if (cQ.includes("household") || cQ.includes("care")) return cat.includes("household");
+                    if (cQ.includes("cooking") || cQ.includes("essential")) return cat.includes("cooking");
+                    return cat.includes(cQ) || title.includes(cQ);
                 });
             }
 
@@ -1300,7 +1444,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="empty-collection-state" style="grid-column: 1 / -1; padding: 60px 20px; text-align: center; background: #ffffff; border: 1.5px dashed #cbd5e1; border-radius: 16px; margin: 20px 0;">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="1.5" style="margin-bottom: 12px;"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                         <h3 style="font-family:'Playfair Display', serif; font-size:20px; color:#0f7139; margin:0 0 8px 0;">No matching products found</h3>
-                        <p style="color:#64748b; font-size:14px; margin:0;">No products match your selection. Try searching another category like Oils, Ghee, or Honey.</p>
+                        <p style="color:#64748b; font-size:14px; margin:0;">No products match your selection. Try searching another category like Pickles, Powders, Oils, or Dry Fruits.</p>
                     </div>
                 `;
                 const countElem = document.getElementById("collectionProductCount");
@@ -1324,59 +1468,33 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 2. On Subcollection pages (oils, ghee, dry fruits, seeds, spices, powders, cooking essentials)
+        // 2. On Subcollection pages (pickles, oils, ghee, dry fruits, seeds, spices, powders, cooking essentials, etc.)
         let categoryProducts = [];
         if (apiProducts && apiProducts.length > 0) {
-            const isOilProduct = (p) => {
-                const cat = (p.category || "").toLowerCase();
-                const nm = (p.name || p.title || "").toLowerCase();
-                return cat === "oils" || cat.includes("oil") || nm.includes(" oil");
-            };
-
-            if (path.includes("oils-natural-extracts") || path.includes("oils")) {
-                categoryProducts = apiProducts.filter(p => isOilProduct(p));
+            if (path.includes("pickles")) {
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("pickle"));
+            } else if (path.includes("oils-natural-extracts") || path.includes("oils")) {
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("oil"));
             } else if (path.includes("ghee-and-honey") || path.includes("ghee")) {
-                categoryProducts = apiProducts.filter(p => {
-                    const cat = (p.category || "").toLowerCase();
-                    const nm = (p.name || p.title || "").toLowerCase();
-                    return cat.includes("ghee") || cat.includes("honey") || nm.includes("ghee") || nm.includes("honey");
-                });
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("ghee") || (p.category || "").toLowerCase().includes("honey"));
             } else if (path.includes("dry-fruits-nuts") || path.includes("dry-fruits")) {
-                categoryProducts = apiProducts.filter(p => {
-                    if (isOilProduct(p)) return false;
-                    const cat = (p.category || "").toLowerCase();
-                    const nm = (p.name || p.title || "").toLowerCase();
-                    return cat.includes("dry fruit") || cat === "dry fruits" || nm.includes("almond") || nm.includes("cashew") || nm.includes("pista") || nm.includes("walnut") || nm.includes("anjeer") || nm.includes("kismis") || nm.includes("raisin") || nm.includes("date") || nm.includes("fig") || nm.includes("kaju") || nm.includes("badam") || nm.includes("akhrot") || nm.includes("ground nuts- raw");
-                });
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("dry fruit") || (p.category || "").toLowerCase().includes("nuts"));
             } else if (path.includes("dry-seeds") || path.includes("seeds")) {
-                categoryProducts = apiProducts.filter(p => {
-                    if (isOilProduct(p)) return false;
-                    const cat = (p.category || "").toLowerCase();
-                    const nm = (p.name || p.title || "").toLowerCase();
-                    return cat.includes("seed") || nm.includes("seed") || nm.includes("chia") || nm.includes("flax") || nm.includes("sabja") || nm.includes("poppy") || nm.includes("pumpkin");
-                });
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("seed"));
             } else if (path.includes("cooking-essentials") || path.includes("essentials")) {
-                categoryProducts = apiProducts.filter(p => {
-                    if (isOilProduct(p)) return false;
-                    const cat = (p.category || "").toLowerCase();
-                    const nm = (p.name || p.title || "").toLowerCase();
-                    return cat.includes("cooking") || cat.includes("essential") || nm.includes("salt") || nm.includes("rock salt") || nm.includes("himalayan");
-                });
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("cooking"));
             } else if (path.includes("spice-powders") || path.includes("powders")) {
-                categoryProducts = apiProducts.filter(p => {
-                    if (isOilProduct(p)) return false;
-                    const cat = (p.category || "").toLowerCase();
-                    const nm = (p.name || p.title || "").toLowerCase();
-                    return cat.includes("powder") || nm.includes("powder") || nm.includes("podi") || nm.includes("karam");
-                });
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("powder") || (p.category || "").toLowerCase().includes("masala"));
             } else if (path.includes("spices")) {
-                categoryProducts = apiProducts.filter(p => {
-                    if (isOilProduct(p)) return false;
-                    const cat = (p.category || "").toLowerCase();
-                    const nm = (p.name || p.title || "").toLowerCase();
-                    if (cat.includes("powder") || nm.includes("powder")) return false;
-                    return (cat.includes("spice") && !cat.includes("powder")) || nm.includes("clove") || nm.includes("cardamom") || nm.includes("cinnamon") || (nm.includes("pepper") && !nm.includes("powder")) || nm.includes("cumin") || nm.includes("elaichi") || nm.includes("lavanga") || nm.includes("star anise") || (nm.includes("coriander") && !nm.includes("powder"));
-                });
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase() === "spices" || ((p.category || "").toLowerCase().includes("spice") && !(p.category || "").toLowerCase().includes("powder")));
+            } else if (path.includes("flours") || path.includes("rava")) {
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("flour") || (p.category || "").toLowerCase().includes("rava"));
+            } else if (path.includes("beverages")) {
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("beverage"));
+            } else if (path.includes("papads") || path.includes("snacks")) {
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("papad"));
+            } else if (path.includes("household") || path.includes("care")) {
+                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("household"));
             }
         }
 
@@ -1753,7 +1871,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: cleanName || "Arshith Fresh Product",
                 name: cleanName || "Arshith Fresh Product",
                 price: sanitizeCartItemPrice(price),
-                image: image || "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495",
+                image: image || "assets/images/placeholder.svg",
                 quantity: delta,
                 qty: delta
             });
@@ -1808,7 +1926,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: cleanName || "Arshith Fresh Product",
                 name: cleanName || "Arshith Fresh Product",
                 price: sanitizedPrice,
-                image: image || "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495",
+                image: image || "assets/images/placeholder.svg",
                 quantity: Number(qty),
                 qty: Number(qty)
             });
@@ -1986,62 +2104,50 @@ document.addEventListener("DOMContentLoaded", () => {
     function createProductCardHTML(p) {
         if (!p) return "";
         try {
+            const path = window.location.pathname.toLowerCase();
+            const inCategories = path.includes("/pages/categories/") || path.includes("/pages/auth/") || path.includes("/pages/policies/");
+            const inPages = path.includes("/pages/");
+            
+            let neutralPlaceholder = "assets/images/placeholder.svg";
+            if (inCategories) neutralPlaceholder = "../../assets/images/placeholder.svg";
+            else if (inPages) neutralPlaceholder = "../assets/images/placeholder.svg";
+
             const rawName = p.name || p.title || p.productName || "Arshith Fresh Product";
             const name = rawName.replace(/"/g, '&quot;');
             const safeNameForJs = rawName.replace(/['"\\]/g, "\\$&");
             const price = Number(p.price || p.salePrice || p.currentPrice || 30);
             const originalPrice = Number(p.originalPrice || p.regularPrice || p.mrp || Math.round(price * 1.25));
-            const image = p.image || (p.images && p.images[0] ? (typeof p.images[0] === 'object' ? p.images[0].url : p.images[0]) : '') || p.img || p.imageUrl || "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495";
-            const safeImgForJs = image.replace(/['"\\]/g, "\\$&");
-            
-            let secondImage = '';
-            if (Array.isArray(p.images) && p.images.length > 1) {
-                secondImage = typeof p.images[1] === 'object' ? (p.images[1].url || '') : p.images[1];
+
+            // Extract all image URLs belonging to this specific product
+            let allProductImgs = [];
+            if (Array.isArray(p.images) && p.images.length > 0) {
+                allProductImgs = p.images.map(img => typeof img === 'object' ? (img.url || '') : img).filter(u => u && u.startsWith('http'));
             }
-            if (!secondImage && p.hoverImage) {
-                secondImage = p.hoverImage;
+            if (allProductImgs.length === 0 && p.image && p.image.startsWith('http')) {
+                allProductImgs = [p.image.trim()];
             }
-            const hasSecondImage = Boolean(secondImage && secondImage !== image);
+
+            const hasValidImage = allProductImgs.length > 0;
+            const primaryImgUrl = hasValidImage ? allProductImgs[0] : neutralPlaceholder;
+            const safeImgForJs = primaryImgUrl.replace(/['"\\]/g, "\\$&");
+
+            let secondImgUrl = '';
+            if (allProductImgs.length > 1) {
+                secondImgUrl = allProductImgs[1];
+            } else if (p.hoverImage && p.hoverImage.startsWith('http') && p.hoverImage !== primaryImgUrl) {
+                secondImgUrl = p.hoverImage;
+            }
+
+            const hasSecondImage = Boolean(secondImgUrl && secondImgUrl !== primaryImgUrl);
 
             const discount = originalPrice > price ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
             const reviewsCount = p.reviewsCount || Math.floor(Math.random() * 20) + 25;
-            const fallbackImg = "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495";
             const id = p._id || p.id || "";
 
-            const path = window.location.pathname.toLowerCase();
-            let displayImg = image;
-            if (displayImg && !displayImg.startsWith("http") && !displayImg.startsWith("//") && !displayImg.startsWith("data:")) {
-                const cleanImg = displayImg.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '').replace(/^\//, '');
-                if (path.includes("/pages/categories/") || path.includes("/pages/auth/") || path.includes("/pages/policies/")) {
-                    displayImg = "../../" + cleanImg;
-                } else if (path.includes("/pages/")) {
-                    displayImg = "../" + cleanImg;
-                } else {
-                    displayImg = cleanImg;
-                }
-            }
-
-            let displaySecondImg = secondImage;
-            if (displaySecondImg && !displaySecondImg.startsWith("http") && !displaySecondImg.startsWith("//") && !displaySecondImg.startsWith("data:")) {
-                const cleanSecond = displaySecondImg.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '').replace(/^\//, '');
-                if (path.includes("/pages/categories/") || path.includes("/pages/auth/") || path.includes("/pages/policies/")) {
-                    displaySecondImg = "../../" + cleanSecond;
-                } else if (path.includes("/pages/")) {
-                    displaySecondImg = "../" + cleanSecond;
-                } else {
-                    displaySecondImg = cleanSecond;
-                }
-            }
-
             let productUrl = "pages/product.html";
-            if (path.includes("/pages/categories/") || path.includes("/pages/auth/") || path.includes("/pages/policies/")) {
-                productUrl = "../product.html";
-            } else if (path.includes("/pages/")) {
-                productUrl = "product.html";
-            }
-            if (id) {
-                productUrl += `?id=${id}`;
-            }
+            if (inCategories) productUrl = "../product.html";
+            else if (inPages) productUrl = "product.html";
+            if (id) productUrl += `?id=${id}`;
 
             const inStock = (p.countInStock === undefined || p.countInStock === null) ? true : (Number(p.countInStock) > 0);
             const isWishlisted = typeof isItemInWishlist === 'function' ? isItemInWishlist(id) : false;
@@ -2049,7 +2155,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return `
                 <div class="product-card ${inStock ? '' : 'product-card-out-of-stock'}">
                     <a href="${productUrl}" class="product-card-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 1 1 auto; cursor: pointer;">
-                        <div class="product-image-container ${hasSecondImage ? 'has-second-img' : ''}">
+                        <div class="product-image-container ${hasSecondImage ? 'has-second-img' : ''}" ontouchstart="if (this.classList.contains('has-second-img')) { this.classList.toggle('touch-active'); }">
                             ${discount > 0 ? `<span class="card-discount-tag">${discount}% Off</span>` : ''}
                             <button type="button" class="product-card-wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlistFromCard('${id}', '${safeNameForJs}', ${price}, '${safeImgForJs}', this)" title="${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}" aria-label="Wishlist">
                                 <svg width="17" height="17" viewBox="0 0 24 24" fill="${isWishlisted ? '#ef4444' : 'none'}" stroke="${isWishlisted ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2057,8 +2163,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </svg>
                             </button>
                             ${!inStock ? `<span class="card-out-of-stock-tag" style="position: absolute; top: 10px; right: 10px; background: #dc2626; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 4px; z-index: 2; letter-spacing: 0.5px;">OUT OF STOCK</span>` : ''}
-                            <img src="${displayImg}" alt="${name}" class="primary-img" style="${inStock ? '' : 'opacity: 0.7;'}" onerror="this.onerror=null; this.src='${fallbackImg}';">
-                            ${hasSecondImage ? `<img src="${displaySecondImg}" alt="${name}" class="hover-img" onerror="this.style.display='none';">` : ''}
+                            <img src="${primaryImgUrl}" alt="${name}" class="primary-img" style="${inStock ? '' : 'opacity: 0.7;'}" onerror="this.onerror=null; this.src='${neutralPlaceholder}';">
+                            ${hasSecondImage ? `<img src="${secondImgUrl}" alt="${name} hover image" class="hover-img" onerror="this.style.display='none';">` : ''}
                         </div>
                         <div class="product-info">
                             <h3 class="card__heading" title="${name}">${name}</h3>
@@ -2087,20 +2193,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. Sync Storefront Homepage Collections from Database
     async function syncStorefrontCollections() {
-        const slider = document.querySelector(".categories-slider") || document.getElementById("categoriesSlider");
+        const slider = document.querySelector(".categories-grid, .categories-slider") || document.getElementById("categoriesSlider");
         if (!slider) return;
 
         function getCanonicalColImage(col) {
-            if (col && col.image && col.image.startsWith('http')) return col.image;
+            if (col && col.image && typeof col.image === 'string' && col.image.startsWith('http')) return col.image;
             const t = (col ? (col.title || col.name || '') : '').toLowerCase();
-            if (t.includes('oil')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/oil_n_natural_extract_200x200_crop_center.jpg?v=1746964936';
+            if (t.includes('pickle')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-20_at_12.12.10_PM_1_7e869e3d-6430-4313-8bcd-0f07e53ad1ed.jpg?v=1757333951';
+            if (t.includes('oil')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=400';
             if (t.includes('dry fruit') || t.includes('nut') || t.includes('badam') || t.includes('kaju')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/seeds_dry_fruits_nuts_webp_200x200_crop_center.jpg?v=1746963459';
             if (t.includes('seed')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/dry_seeds_200x200_crop_center.jpg?v=1746963515';
             if (t.includes('ghee') || t.includes('honey')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/ghee_1_200x200_crop_center.jpg?v=1746964905';
             if (t.includes('cooking') || t.includes('essential')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740';
-            if (t.includes('powder') || t.includes('podi')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/powders_200x200_crop_center.jpg?v=1743477019';
+            if (t.includes('flour') || t.includes('rava')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-29_at_6.10.09_PM.jpg?v=1757333959';
+            if (t.includes('beverage') || t.includes('tea') || t.includes('coffee')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.42.12_AM_f7566d9e-a9e4-4ac2-b2ae-a3a41b1033db.jpg?v=1757333974';
+            if (t.includes('papad') || t.includes('snack')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.47.09_AM_55bb1b27-9dda-427f-90cc-db75f714c870.jpg?v=1757333973';
+            if (t.includes('powder') || t.includes('podi') || t.includes('masala')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712';
             if (t.includes('spice')) return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';
-            return col && col.image ? col.image : 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';
+            return 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740';
         }
 
         try {
@@ -2110,20 +2220,41 @@ document.addEventListener("DOMContentLoaded", () => {
             const collections = await res.json();
             if (!collections || collections.length === 0) return;
 
+            const pathname = window.location.pathname.toLowerCase();
+            const inCategoriesDir = pathname.includes('/pages/categories/');
+            const inPagesDir = pathname.includes('/pages/');
+
+            let pagePrefix = 'pages/';
+            if (inCategoriesDir) pagePrefix = '../';
+            else if (inPagesDir) pagePrefix = '';
+
             slider.innerHTML = collections.map(col => {
                 const title = col.title || "Category";
                 const img = getCanonicalColImage(col);
                 const slug = col.slug || title.toLowerCase().replace(/\s+/g, '-');
+                
+                let link = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}`;
+                if (slug === 'pickles') link = `${pagePrefix}categories/pickles.html`;
+                else if (slug === 'oils-natural-extracts' || slug === 'oils') link = `${pagePrefix}categories/oils-natural-extracts.html`;
+                else if (slug === 'dry-fruits-nuts' || slug === 'dry-fruits') link = `${pagePrefix}categories/dry-fruits-nuts.html`;
+                else if (slug === 'seeds' || slug === 'dry-seeds') link = `${pagePrefix}categories/dry-seeds.html`;
+                else if (slug === 'ghee-honey' || slug === 'ghee-and-honey') link = `${pagePrefix}categories/ghee-and-honey.html`;
+                else if (slug === 'cooking-essentials') link = `${pagePrefix}categories/cooking-essentials.html`;
+                else if (slug === 'spices') link = `${pagePrefix}categories/spices.html`;
+                else if (slug === 'powders-masalas' || slug === 'spice-powders-podulu') link = `${pagePrefix}categories/spice-powders-podulu.html`;
+
                 return `
-                    <div class="category-card" onclick="window.location.href='pages/categories/${slug}.html'">
+                    <a href="${link}" class="category-card">
                         <div class="category-img-container">
-                            <img src="${img}" alt="${title}" class="category-img" onerror="this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';">
+                            <img src="${img}" alt="${title}" class="category-img" onerror="this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740';">
                         </div>
-                        <h4 class="category-name">${title}</h4>
-                    </div>
+                        <h3 class="category-name">${title}</h3>
+                    </a>
                 `;
             }).join('');
-        } catch (e) {}
+        } catch (e) {
+            console.error('Failed to sync storefront collections slider:', e);
+        }
     }
 
     // 4. Sync Single Product Detail View (if on product view page or ?id= is present)
@@ -2189,7 +2320,7 @@ document.addEventListener("DOMContentLoaded", () => {
             allImgs = [p.image];
         }
         if (allImgs.length === 0) {
-            allImgs = ["https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495"];
+            allImgs = ["../assets/images/placeholder.svg"];
         }
 
         const mainImage = allImgs[0];
@@ -3226,14 +3357,14 @@ function initLiveSearchAutocomplete() {
                 html += `<div class="search-suggestion-header">Matching Products</div>`;
                 matchingProducts.forEach(p => {
                     const prodTitle = p.title || p.name || 'Product';
-                    const img = (p.images && p.images.length > 0) ? p.images[0].url : (p.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495');
+                    const img = (p.images && p.images.length > 0) ? p.images[0].url : (p.image || 'assets/images/placeholder.svg');
                     const price = p.price ? `₹${p.price}` : '';
                     const catName = p.category || 'General';
                     const detailUrl = `${prefix}pages/product.html?id=${p._id}`;
 
                     html += `
                         <a href="${detailUrl}" class="search-suggestion-item">
-                            <img src="${img}" class="search-suggestion-thumb" alt="${escapeHtml(prodTitle)}" onerror="this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';">
+                            <img src="${img}" class="search-suggestion-thumb" alt="${escapeHtml(prodTitle)}" onerror="this.src='assets/images/placeholder.svg';">
                             <div class="search-suggestion-info">
                                 <div class="search-suggestion-title">${highlightMatch(prodTitle, query)}</div>
                                 <div class="search-suggestion-meta">
@@ -4035,7 +4166,7 @@ async function syncHomepageProductsWithAdminDatabase() {
             const name = escapeHtml(p.name || p.title || 'Product');
             const price = Number(p.price) || 0;
             const origPrice = Number(p.originalPrice) || 0;
-            const imgPrimary = p.image || (Array.isArray(p.images) && p.images[0] ? (typeof p.images[0] === 'object' ? p.images[0].url : p.images[0]) : '') || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';
+            const imgPrimary = p.image || (Array.isArray(p.images) && p.images[0] ? (typeof p.images[0] === 'object' ? p.images[0].url : p.images[0]) : '') || 'assets/images/placeholder.svg';
             const imgHover = (Array.isArray(p.images) && p.images[1] ? (typeof p.images[1] === 'object' ? p.images[1].url : p.images[1]) : '') || imgPrimary;
 
             let discountTagHtml = '';
@@ -4057,7 +4188,7 @@ async function syncHomepageProductsWithAdminDatabase() {
                 <div class="product-card" data-db-id="${pId}">
                     <a href="pages/product.html?id=${pId}" class="product-card-link">
                         <div class="product-image-container ${imgHover !== imgPrimary ? 'has-second-img' : ''}">
-                            <img src="${imgPrimary}" alt="${name}" class="primary-img" onerror="this.onerror=null; this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';">
+                            <img src="${imgPrimary}" alt="${name}" class="primary-img" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';">
                             ${imgHover !== imgPrimary ? `<img src="${imgHover}" alt="${name} Hover" class="hover-img" onerror="this.style.display='none';">` : ''}
                             ${discountTagHtml}
                         </div>

@@ -92,10 +92,18 @@
           <!-- LEFT COLUMN -->
           <div class="detail-left-col">
 
-            <!-- Title -->
+            <!-- Title & Handle -->
             <div class="detail-card">
-              <label class="form-label">Product Name / Title *</label>
-              <input type="text" id="inputProductTitle" class="form-control" placeholder="Product name" style="font-size: 15px; font-weight: 600;">
+              <div class="form-row">
+                <div class="form-group" style="flex:2;">
+                  <label class="form-label">Product Name / Title *</label>
+                  <input type="text" id="inputProductTitle" class="form-control" placeholder="Product name" style="font-size: 15px; font-weight: 600;">
+                </div>
+                <div class="form-group" style="flex:1;">
+                  <label class="form-label">Shopify Handle</label>
+                  <input type="text" id="inputProductHandle" class="form-control" placeholder="e.g. chilli-powder-premium-copy">
+                </div>
+              </div>
             </div>
 
             <!-- Description -->
@@ -316,6 +324,7 @@
       const title = data.name || data.title || 'Untitled';
       document.getElementById('productTitleHeading').textContent = title;
       document.getElementById('inputProductTitle').value = title;
+      if (document.getElementById('inputProductHandle')) document.getElementById('inputProductHandle').value = data.handle || '';
       document.getElementById('inputProductDescription').value = data.description || '';
       document.getElementById('inputProductPrice').value = data.price || 0;
       document.getElementById('inputProductOriginalPrice').value = data.originalPrice || 0;
@@ -536,6 +545,7 @@
       btn.disabled = true;
 
       const name = document.getElementById('inputProductTitle').value.trim();
+      const handle = document.getElementById('inputProductHandle') ? document.getElementById('inputProductHandle').value.trim() : '';
       const description = document.getElementById('inputProductDescription').value.trim();
       const price = Number(document.getElementById('inputProductPrice').value) || 0;
       const originalPrice = Number(document.getElementById('inputProductOriginalPrice').value) || 0;
@@ -552,6 +562,7 @@
 
       const payload = {
         name,
+        handle,
         description,
         price,
         originalPrice,

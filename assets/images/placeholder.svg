@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" fill="none">
+  <rect width="300" height="300" fill="#f8fafc" rx="12"/>
+  <path d="M150 115C133.431 115 120 128.431 120 145C120 161.569 133.431 175 150 175C166.569 175 180 161.569 180 145C180 128.431 166.569 115 150 115ZM95 85C83.9543 85 75 93.9543 75 105V185C75 196.046 83.9543 205 95 205H205C216.046 205 225 196.046 225 185V105C225 93.9543 216.046 85 205 85H95Z" fill="#cbd5e1"/>
+  <text x="150" y="235" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#94a3b8" text-anchor="middle">No Image Available</text>
+</svg>

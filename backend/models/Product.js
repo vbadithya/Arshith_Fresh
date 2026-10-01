@@ -34,6 +34,11 @@ const productSchema = new mongoose.Schema({
     required: [true, 'Please enter a product name'],
     trim: true,
   },
+  handle: {
+    type: String,
+    default: '',
+    trim: true,
+  },
   category: {
     type: String,
     required: [true, 'Please select a category'],
@@ -100,5 +105,15 @@ const productSchema = new mongoose.Schema({
     default: false,
   }
 }, { timestamps: true });
+
+productSchema.pre('save', function(next) {
+  if (Array.isArray(this.images) && this.images.length > 0) {
+    const first = this.images.find(img => img && img.url);
+    if (first && first.url) {
+      this.image = first.url;
+    }
+  }
+  next();
+});
 
 module.exports = mongoose.model('Product', productSchema);

@@ -8,17 +8,36 @@ function formatProduct(p) {
   const obj = p.toObject ? p.toObject() : { ...p };
   obj.title = obj.title || obj.name || 'Untitled Product';
   obj.name = obj.name || obj.title || 'Untitled Product';
+  obj.handle = obj.handle || '';
 
   if (Array.isArray(obj.images) && obj.images.length > 0) {
-    obj.images = obj.images.map(img => typeof img === 'object' ? img : { url: img }).filter(img => img && img.url);
-    if (!obj.image && obj.images[0]) {
+    obj.images = obj.images.map(img => {
+      if (typeof img === 'string') return { url: img.trim(), alt: '' };
+      if (img && typeof img === 'object') return { url: (img.url || '').trim(), alt: (img.alt || '').trim() };
+      return null;
+    }).filter(img => img && img.url && img.url.length > 0);
+
+    // Remove exact duplicate URLs while preserving original order
+    const seen = new Set();
+    obj.images = obj.images.filter(img => {
+      if (seen.has(img.url)) return false;
+      seen.add(img.url);
+      return true;
+    });
+
+    if (obj.images.length > 0) {
       obj.image = obj.images[0].url;
     }
-  } else if (obj.image) {
-    obj.images = [{ url: obj.image }];
+  } else if (obj.image && obj.image.trim()) {
+    obj.images = [{ url: obj.image.trim(), alt: '' }];
   } else {
-    obj.images = [{ url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495' }];
+    obj.images = [];
+    obj.image = obj.image || '';
   }
+
+  // Provide imageUrls array helper for client compatibility
+  obj.imageUrls = obj.images.map(img => img.url);
+
   return obj;
 }
 
@@ -110,15 +129,23 @@ router.post('/', async (req, res) => {
     // Normalize images array
     if (Array.isArray(data.images)) {
       data.images = data.images.map(img => {
-        if (typeof img === 'string') return { url: img };
-        return { url: img.url || '', alt: img.alt || '' };
-      }).filter(img => img.url && img.url.trim());
+        if (typeof img === 'string') return { url: img.trim(), alt: '' };
+        if (img && typeof img === 'object') return { url: (img.url || '').trim(), alt: (img.alt || '').trim() };
+        return null;
+      }).filter(img => img && img.url);
 
-      if (data.images.length > 0 && !data.image) {
+      const seen = new Set();
+      data.images = data.images.filter(img => {
+        if (seen.has(img.url)) return false;
+        seen.add(img.url);
+        return true;
+      });
+
+      if (data.images.length > 0) {
         data.image = data.images[0].url;
       }
-    } else if (data.image) {
-      data.images = [{ url: data.image }];
+    } else if (data.image && typeof data.image === 'string' && data.image.trim()) {
+      data.images = [{ url: data.image.trim(), alt: '' }];
     }
 
     const newProduct = new Product(data);
@@ -245,6 +272,8 @@ router.get('/:id', async (req, res) => {
 
       product = await Product.findOne({
         $or: [
+          { handle: rawId },
+          { handle: cleanSlug },
           { name: { $regex: cleanSlug, $options: 'i' } },
           { name: { $regex: firstWord, $options: 'i' } },
           { tags: { $in: [cleanSlug, firstWord, rawId] } },
@@ -283,15 +312,23 @@ router.put('/:id', async (req, res) => {
     // Normalize images array
     if (Array.isArray(data.images)) {
       data.images = data.images.map(img => {
-        if (typeof img === 'string') return { url: img };
-        return { url: img.url || '', alt: img.alt || '' };
-      }).filter(img => img.url && img.url.trim());
+        if (typeof img === 'string') return { url: img.trim(), alt: '' };
+        if (img && typeof img === 'object') return { url: (img.url || '').trim(), alt: (img.alt || '').trim() };
+        return null;
+      }).filter(img => img && img.url);
+
+      const seen = new Set();
+      data.images = data.images.filter(img => {
+        if (seen.has(img.url)) return false;
+        seen.add(img.url);
+        return true;
+      });
 
       if (data.images.length > 0) {
         data.image = data.images[0].url;
       }
-    } else if (data.image) {
-      data.images = [{ url: data.image }];
+    } else if (data.image && typeof data.image === 'string' && data.image.trim()) {
+      data.images = [{ url: data.image.trim(), alt: '' }];
     }
 
     const updatedProduct = await Product.findByIdAndUpdate(
