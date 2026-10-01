@@ -251,7 +251,7 @@ router.post('/forgot-password', async (req, res) => {
                 </p>
               </div>
               <div style="text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 16px;">
-                © 2025 Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka, India - 560076
+                © 2024 Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka, India - 560076
               </div>
             </div>
           `,

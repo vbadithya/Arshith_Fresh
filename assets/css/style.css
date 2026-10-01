@@ -2610,7 +2610,7 @@ main {
 
 /* WE BELIEVE IN Section */
 .believe-in-section {
-    background: linear-gradient(180deg, #094b3d 0%, #06392e 100%);
+    background: #094b3d;
     padding: 70px 32px;
     text-align: center;
     width: 100%;
@@ -2619,17 +2619,17 @@ main {
 
 .af-believe-heading {
     display: inline-block;
-    background: rgba(0, 82, 61, 0.95);
+    background: #04362a;
     color: #ffffff;
-    padding: 14px 44px;
+    padding: 10px 40px;
     border-radius: 50px;
-    font-weight: 800;
+    font-weight: 700;
     margin: 0 auto 48px auto;
-    font-size: 24px;
-    letter-spacing: 2.5px;
+    font-size: 20px;
+    letter-spacing: 2px;
     font-family: 'Playfair Display', Georgia, serif;
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     text-align: center;
 }
 
@@ -2644,26 +2644,31 @@ main {
 }
 
 .believe-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 32px 24px;
-    border-radius: 18px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    background: #0b4034;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 36px 28px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-align: center;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.believe-card::before {
+    display: none;
 }
 
 .believe-card:hover {
     transform: translateY(-6px);
-    background: rgba(255, 255, 255, 0.09);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
-    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: #0d4a3c;
 }
 
 .believe-icon {
@@ -2672,8 +2677,7 @@ main {
     object-fit: contain;
     display: block;
     margin-bottom: 12px;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
-    transition: transform 0.3s ease;
+    transition: transform 0.35s ease;
 }
 
 .believe-card:hover .believe-icon {
@@ -2687,17 +2691,18 @@ main {
     color: #ffffff;
     margin-bottom: 8px;
     line-height: 1.4;
-    letter-spacing: 0.2px;
+    letter-spacing: -0.2px;
 }
 
 .believe-card p {
     font-size: 14px;
     font-weight: 400;
-    line-height: 1.6;
-    color: #d1fae5;
-    opacity: 0.95;
+    line-height: 1.5;
+    color: #e2e8f0;
     margin: 0;
 }
+
+
 
 /* Chilli Process Banner */
 .process-banner {
@@ -2711,18 +2716,23 @@ main {
 .chilli-premium-title {
     font-family: 'Playfair Display', Georgia, serif;
     color: #0f7139;
-    font-size: 3.1rem;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
     font-weight: 800;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     line-height: 1.2;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    padding: 0 12px;
 }
 
 .chilli-premium-title span {
-    font-size: 2.3rem;
+    font-size: clamp(1.6rem, 3.8vw, 2.7rem);
     font-weight: 700;
     color: #334155;
     display: block;
     margin-top: 6px;
+    max-width: 100%;
 }
 
 .process-images {
@@ -3223,7 +3233,7 @@ main {
     margin-left: -50vw !important;
     margin-right: -50vw !important;
     margin-top: 0 !important;
-    margin-bottom: -4px !important;
+    margin-bottom: 0 !important;
     padding: 0 !important;
     line-height: 0 !important;
     font-size: 0 !important;
@@ -3250,7 +3260,7 @@ main {
 @media screen and (max-width: 767px) {
     .footer-banner-wrapper {
         margin-top: 0 !important;
-        margin-bottom: -3px !important;
+        margin-bottom: 0 !important;
         padding: 0 !important;
     }
 }
@@ -3266,7 +3276,7 @@ main {
     margin-top: 0 !important;
     background: linear-gradient(180deg, #005d4a 0%, #0B3214 100%);
     color: #e2e8f0;
-    padding: 60px 24px 40px;
+    padding: 40px 24px 40px;
     overflow: visible;
     box-sizing: border-box !important;
 }
@@ -3798,7 +3808,10 @@ main {
     }
     .footer-banner-wrapper {
         margin-top: 0 !important;
-        margin-bottom: -3px !important;
+        margin-bottom: 0 !important;
+    }
+    .main-footer {
+        padding: 24px 16px 24px !important;
     }
     .believe-in-section {
         padding: 30px 12px 22px 12px !important;
@@ -3846,11 +3859,13 @@ main {
     }
     .believe-card h3 {
         font-size: 14px !important;
+        color: #ffffff !important;
         margin-bottom: 4px !important;
         line-height: 1.3 !important;
     }
     .believe-card p {
         font-size: 12px !important;
+        color: #e2e8f0 !important;
         line-height: 1.4 !important;
     }
     .process-images {
@@ -9102,7 +9117,7 @@ body {
     margin-top: 0 !important;
     background: linear-gradient(180deg, #005d4a 0%, #0B3214 100%) !important;
     color: #e2e8f0 !important;
-    padding: 60px 24px 40px !important;
+    padding: 40px 24px 40px !important;
     border-top: none !important;
     box-sizing: border-box !important;
 }
@@ -10427,18 +10442,23 @@ body {
     .chilli-premium-title {
         font-family: 'Playfair Display', Georgia, serif !important;
         color: #0f7139 !important;
-        font-size: 25px !important;
+        font-size: 29px !important;
         font-weight: 800 !important;
-        margin-bottom: 18px !important;
+        margin-bottom: 16px !important;
         line-height: 1.25 !important;
+        max-width: 100% !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        padding: 0 10px !important;
     }
 
     .chilli-premium-title span {
-        font-size: 19px !important;
+        font-size: 22px !important;
         font-weight: 700 !important;
         color: #334155 !important;
         display: block !important;
-        margin-top: 4px !important;
+        margin-top: 6px !important;
+        max-width: 100% !important;
     }
 
     .process-images {
@@ -11347,6 +11367,253 @@ body {
         padding-bottom: 40px !important;
     }
 }
+
+/* ====================================================
+   INTERACTIVE BLOG ARTICLE READER MODAL
+   ==================================================== */
+.blog-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.blog-modal-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.blog-modal-content {
+    background: #ffffff;
+    width: 100%;
+    max-width: 780px;
+    max-height: 90vh;
+    border-radius: 24px;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+.blog-modal-backdrop.active .blog-modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.blog-modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e2e8f0;
+    font-size: 22px;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.blog-modal-close-btn:hover {
+    background: #0f7139;
+    color: #ffffff;
+    border-color: #0f7139;
+}
+
+.blog-modal-hero-img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.blog-modal-body {
+    padding: 32px;
+}
+
+.blog-modal-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.blog-modal-tag {
+    background: #e6f4ea;
+    color: #0f7139;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.blog-modal-date {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.blog-modal-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.3;
+    margin: 0 0 16px 0;
+}
+
+.blog-modal-author {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 600;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.blog-modal-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #334155;
+}
+
+.blog-modal-text h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    color: #0f7139;
+    margin: 24px 0 12px 0;
+    font-weight: 700;
+}
+
+.blog-takeaway-box {
+    background: #f0fdf4;
+    border-left: 4px solid #0f7139;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 14.5px;
+    color: #166534;
+    line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+    .blog-modal-body {
+        padding: 20px 16px;
+    }
+    .blog-modal-hero-img {
+        height: 220px;
+    }
+    .blog-modal-title {
+        font-size: 22px;
+    }
+}
+
+/* ==========================================
+   COMPACT FLOATING QUANTITY SELECTOR OVERLAY (BOTTOM-RIGHT OF PRODUCT IMAGE)
+   ========================================== */
+.product-qty-overlay {
+    position: absolute !important;
+    bottom: 58px !important;
+    right: 14px !important;
+    z-index: 25 !important;
+    background: #0f7139 !important;
+    background-color: #0f7139 !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 3px 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    user-select: none !important;
+    font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    transition: transform 0.15s ease, opacity 0.15s ease !important;
+}
+
+.product-qty-overlay .stepper-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    border-radius: 4px !important;
+    padding: 0 !important;
+    outline: none !important;
+    transition: background 0.15s ease, transform 0.10s ease !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.product-qty-overlay .stepper-btn:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    transform: scale(1.15) !important;
+}
+
+.product-qty-overlay .stepper-btn:active {
+    transform: scale(0.9) !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+}
+
+.product-qty-overlay .stepper-qty {
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    min-width: 16px !important;
+    text-align: center !important;
+    letter-spacing: 0.3px !important;
+    font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif !important;
+}
+
+@media (max-width: 768px) {
+    .product-qty-overlay {
+        bottom: 50px !important;
+        right: 10px !important;
+        padding: 2px 6px !important;
+        border-radius: 6px !important;
+        gap: 4px !important;
+    }
+    .product-qty-overlay .stepper-btn {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 14px !important;
+    }
+    .product-qty-overlay .stepper-qty {
+        font-size: 12px !important;
+        min-width: 14px !important;
+    }
+}
+
+
+
+
 
 
 

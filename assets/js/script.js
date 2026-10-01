@@ -252,25 +252,33 @@ document.addEventListener("DOMContentLoaded", () => {
     // 6. Interactive add-to-cart feedback for static cards
     const addToCartBtns = document.querySelectorAll(".add-to-cart-btn");
     addToCartBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const card = btn.closest(".product-card") || btn.closest(".product-detail-info");
+        btn.addEventListener("click", (e) => {
+            const onclickAttr = btn.getAttribute("onclick") || "";
+            if (onclickAttr.includes("addToStoreCart")) {
+                // Handled directly by inline onclick attribute - avoid double invocation
+                return;
+            }
+            const card = btn.closest(".product-card, .af-product-card, .collection-product-card, .product-detail-info");
             if (card) {
-                let name = "Arshith Fresh Product";
-                let price = 30;
-                let image = "";
-                let id = card.getAttribute("data-product-id") || String(Date.now());
+                let info = parseAddToCartArgs(btn) || parseAddToCartArgs(card);
+                let id = info ? info.id : (card.getAttribute("data-product-id") || String(Date.now()));
+                let name = info ? info.name : "Arshith Fresh Product";
+                let price = info ? info.price : 59;
+                let image = info ? info.image : "";
 
-                const titleElem = card.querySelector(".product-title, h1, h3, h4");
-                if (titleElem) name = titleElem.textContent.trim();
+                if (!info) {
+                    const titleElem = card.querySelector(".product-title, .card__heading, h1, h3, h4");
+                    if (titleElem) name = titleElem.textContent.trim();
 
-                const salePriceElem = card.querySelector(".sale-price, .price, .product-price");
-                if (salePriceElem) {
-                    const priceText = salePriceElem.textContent;
-                    price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || price;
+                    const salePriceElem = card.querySelector(".sale-price, .price, .product-price");
+                    if (salePriceElem) {
+                        const priceText = salePriceElem.textContent;
+                        price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || price;
+                    }
+
+                    const imgElem = card.querySelector("img");
+                    if (imgElem) image = imgElem.src;
                 }
-
-                const imgElem = card.querySelector("img");
-                if (imgElem) image = imgElem.src;
 
                 if (typeof addToStoreCart === "function") {
                     addToStoreCart(id, name, price, image, 1);
@@ -278,17 +286,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (typeof updateCartCountBadge === "function") {
                 updateCartCountBadge();
             }
-
-            // Button feedback
-            const originalText = btn.textContent;
-            btn.textContent = "Added ✓";
-            btn.style.backgroundColor = "#278d43";
-            btn.disabled = true;
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.backgroundColor = "";
-                btn.disabled = false;
-            }, 1000);
         });
     });
 
@@ -1540,6 +1537,9 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("arshith_cart", JSON.stringify(CART_ITEMS));
         } catch (e) {}
         updateCartCountBadge();
+        try {
+            syncProductCardSteppers();
+        } catch (e) {}
     }
 
     function clearStoreCart() {
@@ -1553,19 +1553,245 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeof renderCartPage === "function") {
             try { renderCartPage(); } catch(e) {}
         }
+        try {
+            syncProductCardSteppers();
+        } catch (e) {}
     }
 
     window.saveCart = saveCart;
     window.clearStoreCart = clearStoreCart;
 
+    function parseAddToCartArgs(element) {
+        if (!element) return null;
+        if (element.dataset && element.dataset.productId) {
+            return {
+                id: element.dataset.productId,
+                name: element.dataset.productName || element.dataset.productId,
+                price: parseFloat(element.dataset.productPrice) || 0,
+                image: element.dataset.productImage || ''
+            };
+        }
+
+        const onclickStr = element.getAttribute("onclick") || "";
+        if (!onclickStr.includes("addToStoreCart")) {
+            const card = element.closest(".product-card, .af-product-card, .collection-product-card, .product-item, .card");
+            if (card && card.dataset && card.dataset.productId) {
+                return {
+                    id: card.dataset.productId,
+                    name: card.dataset.productName || card.dataset.productId,
+                    price: parseFloat(card.dataset.productPrice) || 0,
+                    image: card.dataset.productImage || ''
+                };
+            }
+            return null;
+        }
+
+        try {
+            const startIdx = onclickStr.indexOf("addToStoreCart(");
+            if (startIdx === -1) return null;
+            const inner = onclickStr.substring(startIdx + "addToStoreCart(".length).replace(/\)\s*;?\s*$/, '');
+            
+            const args = [];
+            let current = '';
+            let inQuote = false;
+            let quoteChar = '';
+
+            for (let i = 0; i < inner.length; i++) {
+                const ch = inner[i];
+                if ((ch === "'" || ch === '"') && (i === 0 || inner[i - 1] !== '\\')) {
+                    if (!inQuote) {
+                        inQuote = true;
+                        quoteChar = ch;
+                    } else if (ch === quoteChar) {
+                        inQuote = false;
+                        quoteChar = '';
+                    } else {
+                        current += ch;
+                    }
+                } else if (ch === ',' && !inQuote) {
+                    args.push(current.trim());
+                    current = '';
+                } else {
+                    current += ch;
+                }
+            }
+            if (current.trim()) args.push(current.trim());
+
+            if (args.length >= 1) {
+                const cleanArg = (str) => str.replace(/^['"]|['"]$/g, '').trim();
+                const id = cleanArg(args[0] || '');
+                const name = cleanArg(args[1] || id);
+                const price = parseFloat(cleanArg(args[2] || '0')) || 0;
+                const image = cleanArg(args[3] || '');
+                if (id) {
+                    return { id, name, price, image };
+                }
+            }
+        } catch (err) {
+            console.error("Error parsing addToStoreCart args:", err);
+        }
+        return null;
+    }
+
+    function getCardProductKey(id, name) {
+        const cleanName = String(name || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
+        return (cleanName || id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function syncProductCardSteppers() {
+        if (typeof document === 'undefined') return;
+        const cards = document.querySelectorAll(".product-card, .af-product-card, .collection-product-card, .product-item, .card");
+        cards.forEach(card => {
+            const addBtn = card.querySelector(".add-to-cart-btn, [onclick*='addToStoreCart']");
+            let overlay = card.querySelector(".product-qty-overlay");
+
+            if (addBtn) {
+                addBtn.style.removeProperty("display");
+            }
+
+            let info = parseAddToCartArgs(addBtn) || parseAddToCartArgs(overlay) || parseAddToCartArgs(card);
+            if (!info && card.dataset && card.dataset.productId) {
+                info = {
+                    id: card.dataset.productId,
+                    name: card.dataset.productName || card.dataset.productId,
+                    price: parseFloat(card.dataset.productPrice) || 0,
+                    image: card.dataset.productImage || ''
+                };
+            }
+            if (!info) {
+                const titleEl = card.querySelector(".card__heading, .product-title, .af-product-title, h3, h2");
+                if (titleEl) {
+                    const titleText = titleEl.textContent.trim();
+                    if (titleText) {
+                        info = {
+                            id: titleText.toLowerCase().replace(/[^a-z0-9]/g, ''),
+                            name: titleText,
+                            price: 0,
+                            image: ''
+                        };
+                    }
+                }
+            }
+
+            if (!info || !info.id) return;
+
+            card.dataset.productId = info.id;
+            card.dataset.productName = info.name;
+            card.dataset.productPrice = info.price;
+            if (info.image) card.dataset.productImage = info.image;
+
+            if (addBtn && !addBtn.dataset.productId) {
+                addBtn.dataset.productId = info.id;
+                addBtn.dataset.productName = info.name;
+                addBtn.dataset.productPrice = info.price;
+                addBtn.dataset.productImage = info.image;
+            }
+
+            const searchKey = getCardProductKey(info.id, info.name);
+            const idKey = String(info.id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+            const cartItem = (CART_ITEMS || []).find(item => {
+                const itemKey = normalizeCartProductKey(item);
+                const itemIdKey = String(item.id || item._id || item.product || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                return (itemKey && (itemKey === searchKey || itemKey === idKey)) || (itemIdKey && itemIdKey === idKey);
+            });
+
+            const qty = cartItem ? Number(cartItem.quantity || cartItem.qty || 0) : 0;
+            if (qty > 0) {
+                if (!overlay) {
+                    overlay = document.createElement("div");
+                    overlay.className = "product-qty-overlay";
+                    card.appendChild(overlay);
+                }
+                overlay.dataset.productId = info.id;
+                overlay.dataset.productName = info.name;
+                overlay.dataset.productPrice = info.price;
+                overlay.dataset.productImage = info.image || '';
+                overlay.style.setProperty("display", "inline-flex", "important");
+
+                overlay.innerHTML = `
+                    <button type="button" class="stepper-btn stepper-minus" aria-label="Decrease quantity">−</button>
+                    <span class="stepper-qty">${qty}</span>
+                    <button type="button" class="stepper-btn stepper-plus" aria-label="Increase quantity">+</button>
+                `;
+            } else {
+                if (overlay) overlay.style.setProperty("display", "none", "important");
+            }
+        });
+    }
+
+    function changeCardItemQty(id, name, price, image, delta) {
+        CART_ITEMS = consolidateCartItems(CART_ITEMS);
+        const cleanName = String(name || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
+        const nameKey = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const idKey = String(id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        let existing = CART_ITEMS.find(item => {
+            const itemTitleKey = normalizeCartProductKey(item);
+            const itemIdKey = String(item.id || item._id || item.product || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            return (nameKey && itemTitleKey === nameKey) || (idKey && (itemTitleKey === idKey || itemIdKey === idKey));
+        });
+
+        if (existing) {
+            let currentQty = Number(existing.quantity || existing.qty || 1);
+            let newQty = currentQty + delta;
+            if (newQty <= 0) {
+                const index = CART_ITEMS.indexOf(existing);
+                if (index > -1) {
+                    CART_ITEMS.splice(index, 1);
+                }
+                if (typeof showToast === "function") {
+                    showToast(`Removed ${cleanName} from cart`);
+                }
+            } else {
+                existing.quantity = newQty;
+                existing.qty = newQty;
+            }
+        } else if (delta > 0) {
+            CART_ITEMS.push({
+                id: id || String(Date.now()),
+                title: cleanName || "Arshith Fresh Product",
+                name: cleanName || "Arshith Fresh Product",
+                price: sanitizeCartItemPrice(price),
+                image: image || "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495",
+                quantity: delta,
+                qty: delta
+            });
+        }
+        saveCart();
+    }
+
+    window.syncProductCardSteppers = syncProductCardSteppers;
+    window.changeCardItemQty = changeCardItemQty;
+
+    if (typeof document !== 'undefined') {
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.product-qty-overlay .stepper-btn');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const overlay = btn.closest('.product-qty-overlay');
+                if (!overlay) return;
+                const id = overlay.dataset.productId;
+                const name = overlay.dataset.productName;
+                const price = parseFloat(overlay.dataset.productPrice) || 0;
+                const image = overlay.dataset.productImage || '';
+                const delta = btn.classList.contains('stepper-minus') ? -1 : 1;
+                changeCardItemQty(id, name, price, image, delta);
+            }
+        }, true);
+    }
+
     function addToStoreCart(id, name, price, image, qty = 1) {
         CART_ITEMS = consolidateCartItems(CART_ITEMS);
         const cleanName = String(name || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
-        const searchKey = (cleanName || id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const nameKey = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const idKey = String(id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
         
         const existing = CART_ITEMS.find(item => {
-            const key = normalizeCartProductKey(item);
-            return key && key === searchKey;
+            const itemTitleKey = normalizeCartProductKey(item);
+            const itemIdKey = String(item.id || item._id || item.product || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            return (nameKey && itemTitleKey === nameKey) || (idKey && (itemTitleKey === idKey || itemIdKey === idKey));
         });
 
         let finalQty = Number(qty);
@@ -2266,7 +2492,7 @@ function initAutoSignupPopup() {
                     <button type="button" class="signup-modal-close" onclick="closeSignupModal()">&times;</button>
                     
                     <div class="signup-modal-header">
-                        <img src="${logoUrl}" alt="Arshith Fresh Logo" class="signup-modal-logo" onerror="this.onerror=null; this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/files/masaaaaa-removebg-preview.png?v=1760592733';">
+                        <img src="${logoUrl}" alt="Arshith Fresh Logo" class="signup-modal-logo" onerror="this.onerror=null; this.src='assets/images/Arshithlogo111.jpg';">
                         <br>
                         <span class="signup-offer-badge">🎁 SPECIAL WELCOME OFFER</span>
                         <h2 class="signup-modal-title">Get 10% OFF Your First Order!</h2>
@@ -2601,7 +2827,12 @@ async function initFestiveBannerDisplay() {
         return;
     }
 
-    const banner = await fetchActiveBannerConfig();
+    let banner = null;
+    try {
+        if (typeof fetchActiveBannerConfigAsync === 'function') {
+            banner = await fetchActiveBannerConfigAsync();
+        }
+    } catch (e) {}
 
     // Dynamically update static festive section if on index.html
     const festiveSection = document.getElementById('festiveOffers');
@@ -4641,5 +4872,134 @@ document.addEventListener("DOMContentLoaded", () => {
         setupDrawer();
     }
 })();
+
+/* ====================================================
+   INTERACTIVE BLOG ARTICLE READER SYSTEM
+   ==================================================== */
+const BLOG_ARTICLES = {
+    'dry-fish': {
+        title: "Dry Fish Specials: Traditional Coastal Delicacies",
+        category: "Specialties",
+        date: "August 15, 2024 • 4 min read",
+        author: "By Arshith Fresh Culinary Team",
+        image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80",
+        content: `
+            <p>Sun-drying fish is one of coastal India's oldest and most revered traditional food preservation techniques. Rooted deeply in culinary traditions across Andhra Pradesh, Tamil Nadu, Kerala, and Bengal, dry fish delicacies hold a special place in traditional Indian kitchens.</p>
+            <h3>The Art of Natural Curing</h3>
+            <p>At Arshith Fresh, our dry fish selection is sourced directly from clean, artisanal coastal fisheries. Fresh catches are cleaned using pure sea water, lightly salted with natural rock salt, and sun-dried under hygienic solar dryers. No artificial preservatives, chemical bleaches, or synthetic coloring agents are ever added.</p>
+            <h3>Nutritional Value & Rich Protein</h3>
+            <p>Sun-dried fish is highly concentrated in essential nutrients. Gram for gram, high-quality dry fish contains up to three times the protein density of fresh fish, along with rich reserves of Omega-3 fatty acids, calcium, phosphorus, and vitamin D.</p>
+            <div class="blog-takeaway-box">
+                💡 <strong>Chef's Cooking Tip:</strong> Soak dry fish in warm turmeric water for 15 minutes before cooking. Sauté with shallots, red chili powder, garlic, and fresh curry leaves for an authentic, delicious coastal gravy!
+            </div>
+        `
+    },
+    'spices-health': {
+        title: "Spices & Health: Pure Turmeric, Black Pepper & Cumin",
+        category: "Wellness",
+        date: "August 10, 2024 • 5 min read",
+        author: "By Arshith Fresh Health & Wellness Team",
+        image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80",
+        content: `
+            <p>For thousands of years, Indian spices have served dual roles as culinary enhancers and powerful Ayurvedic remedies. Understanding the synergistic wellness benefits of pure, unadulterated spices can transform daily cooking into a holistic health ritual.</p>
+            <h3>Turmeric & Curcumin Synergy</h3>
+            <p>Raw, high-curcumin turmeric is celebrated for its potent anti-inflammatory and antioxidant properties. When combined with black pepper, the compound <em>piperine</em> enhances curcumin absorption by up to 2,000%, ensuring maximum bio-availability for joint health and immune strength.</p>
+            <h3>Cumin (Jeera) for Digestion & Metabolism</h3>
+            <p>Cumin seeds contain active essential oils that stimulate salivary glands and digestive enzymes, aiding nutrient assimilation and relieving acidity. Drinking warm cumin water every morning is a time-tested habit for gut vitality.</p>
+            <div class="blog-takeaway-box">
+                🌿 <strong>Arshith Fresh Promise:</strong> Our spices are cold-milled to retain natural volatile oils, ensuring 100% purity without fillers, starch, or artificial dyes.
+            </div>
+        `
+    },
+    'cold-pressed-oils': {
+        title: "Cooking Essentials: Why Cold-Pressed Oils Matter",
+        category: "Kitchen Essentials",
+        date: "August 05, 2024 • 3 min read",
+        author: "By Arshith Fresh Nutrition Team",
+        image: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?auto=format&fit=crop&w=800&q=80",
+        content: `
+            <p>The oil you use in daily cooking forms the foundation of your family's metabolic health. Traditional wood-pressed (Chekku/Ghani) oils offer vastly superior nutrition compared to industrially processed refined oils.</p>
+            <h3>Cold-Pressed vs Refined Extraction</h3>
+            <p>Refined oils undergo high-heat processing (up to 230°C), solvent extraction with hexane, and chemical bleaching. This strips away natural antioxidants, vitamins, and aroma. In contrast, wood-pressing extracts oil at ambient room temperatures without chemicals, locking in essential fatty acids, vitamin E, and phytosterols.</p>
+            <h3>Benefits of Wood-Pressed Oils</h3>
+            <p>• <strong>Groundnut Oil:</strong> High smoke point, rich in monounsaturated fats (MUFA) for heart health.<br>
+            • <strong>Sesame (Gingelly) Oil:</strong> Packed with sesamol and sesamolin antioxidants.<br>
+            • <strong>Coconut Oil:</strong> Rich in Lauric Acid for natural immunity and gut flora.</p>
+            <div class="blog-takeaway-box">
+                ✨ <strong>Pure Experience:</strong> Cold-pressed oil enhances food with authentic nutty aroma and rich texture, requiring significantly less quantity for cooking.
+            </div>
+        `
+    },
+    'spice-powders': {
+        title: "Spice Powders & Podulu: Authentic Homemade Flavors",
+        category: "Tradition",
+        date: "July 28, 2024 • 4 min read",
+        author: "By Arshith Fresh Heritage Kitchen",
+        image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80",
+        content: `
+            <p>South Indian spice powders, locally known as <em>Podulu</em>, are a culinary treasure. Handcrafted with roasted lentils, dried red chilies, garlic, and aromatic spices, Podulu turn any meal into an unforgettable feast.</p>
+            <h3>The Craft of Roasting & Grinding</h3>
+            <p>Achieving the perfect Podi requires patience. Whole spices and lentils are slow-roasted in iron pans to unleash essential oils, then coarse-ground to preserve crunchy texture and deep aroma. Varieties like Kandi Podi (Lentil Powder), Karivepaku Podi (Curry Leaf Powder), and Nalla Karam are staple favorites.</p>
+            <h3>Serving Suggestions</h3>
+            <p>Mix 1-2 spoons of Podi with hot steamed rice and a generous dollop of pure Arshith Fresh Cow Ghee, or sprinkle over hot Crispy Dosa, Idli, and Uttapam.</p>
+            <div class="blog-takeaway-box">
+                🌶️ <strong>100% Homemade Taste:</strong> Made in small batches using traditional recipes without artificial colors or preservatives.
+            </div>
+        `
+    }
+};
+
+function openBlogArticle(id) {
+    const article = BLOG_ARTICLES[id];
+    if (!article) return;
+
+    let backdrop = document.getElementById('blogArticleModal');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'blogArticleModal';
+        backdrop.className = 'blog-modal-backdrop';
+        backdrop.onclick = function(e) {
+            if (e.target === backdrop) closeBlogModal();
+        };
+        document.body.appendChild(backdrop);
+    }
+
+    backdrop.innerHTML = `
+        <div class="blog-modal-content">
+            <button class="blog-modal-close-btn" onclick="closeBlogModal()" aria-label="Close modal">&times;</button>
+            <img src="${article.image}" alt="${article.title}" class="blog-modal-hero-img">
+            <div class="blog-modal-body">
+                <div class="blog-modal-meta">
+                    <span class="blog-modal-tag">${article.category}</span>
+                    <span class="blog-modal-date">${article.date}</span>
+                </div>
+                <h2 class="blog-modal-title">${article.title}</h2>
+                <div class="blog-modal-author">${article.author}</div>
+                <div class="blog-modal-text">${article.content}</div>
+            </div>
+        </div>
+    `;
+
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => backdrop.classList.add('active'), 10);
+}
+
+function closeBlogModal() {
+    const backdrop = document.getElementById('blogArticleModal');
+    if (backdrop) {
+        backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeBlogModal();
+});
+
+window.openBlogArticle = openBlogArticle;
+window.closeBlogModal = closeBlogModal;
+
+
+
 
 

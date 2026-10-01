@@ -407,7 +407,7 @@ Support: support@arshithfresh.com | +91 8618471424
             </div>
 
             <div style="background-color: #f7fafc; padding: 20px; text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #edf2f7;">
-              © 2025 Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka, India - 560076
+              © 2024 Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka, India - 560076
             </div>
 
           </div>
