@@ -111,12 +111,26 @@ router.get('/product/:productId', async (req, res) => {
     let product = null;
 
     if (mongoose.Types.ObjectId.isValid(productId)) {
-      product = await Product.findById(productId);
+      try { product = await Product.findById(productId); } catch(e) {}
     }
     if (!product && productId) {
-      const cleanSlug = productId.replace(/-/g, ' ').trim();
-      product = await Product.findOne({ name: { $regex: cleanSlug, $options: 'i' } });
-      if (product) targetProductId = product._id;
+      product = await Product.findOne({
+        $or: [{ handle: productId }, { slug: productId }, { id: productId }]
+      });
+    }
+    if (!product && productId) {
+      const cleanKey = productId.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const allDocs = await Product.find({});
+      product = allDocs.find(p => {
+        const pIdKey = String(p.id || p._id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const pHandleKey = String(p.handle || p.slug || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const pNameKey = String(p.name || p.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        return (pIdKey && pIdKey === cleanKey) || (pHandleKey && pHandleKey === cleanKey) || (pNameKey && pNameKey === cleanKey);
+      });
+    }
+
+    if (product) {
+      targetProductId = product._id;
     }
 
     if (!product && !mongoose.Types.ObjectId.isValid(targetProductId)) {

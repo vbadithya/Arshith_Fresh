@@ -43,7 +43,7 @@ const GENERAL_POSITIVE_TITLES = [
 const PRODUCT_SPECIFIC_FEEDBACK = {
   // OILS
   groundnut: {
-    targetCount: 85,
+    targetCount: 90,
     titles: ["Authentic Peanut Aroma!", "Best Groundnut Oil", "Pure Cold-Pressed Groundnut Oil", "Delicious Flavor in Curries", "Grandmother Approved Quality"],
     comments: {
       5: [
@@ -57,7 +57,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   coconut: {
-    targetCount: 75,
+    targetCount: 86,
     titles: ["Pure Copra Aroma!", "Fantastic for Cooking & Hair Care", "100% Natural Coconut Oil", "Smells Heavenly Pure"],
     comments: {
       5: [
@@ -70,7 +70,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   almond_oil: {
-    targetCount: 70,
+    targetCount: 88,
     titles: ["Pure Sweet Almond Oil", "Best for Hair & Baby Massage", "100% Cold-Pressed Sweet Almond Oil"],
     comments: {
       5: [
@@ -83,7 +83,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   sunflower: {
-    targetCount: 65,
+    targetCount: 80,
     titles: ["Light & Non-Sticky Oil", "Perfect High Smoke Point Oil", "Heart Healthy & Clean Taste"],
     comments: {
       5: [
@@ -95,7 +95,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   neem: {
-    targetCount: 64,
+    targetCount: 78,
     titles: ["Pure Cold Pressed Neem Oil", "Best Natural Skin & Hair Care", "Authentic Potent Neem Oil"],
     comments: {
       5: [
@@ -107,7 +107,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   sesame: {
-    targetCount: 60,
+    targetCount: 75,
     titles: ["Rich Gingelly Aroma!", "Perfect for Podi & Pickles", "Authentic Wood-Pressed Sesame Oil"],
     comments: {
       5: [
@@ -119,7 +119,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   castor: {
-    targetCount: 65,
+    targetCount: 85,
     titles: ["Pure Thick Castor Oil", "Best for Hair Growth & Skin", "100% Natural Wellness Oil"],
     comments: {
       5: [
@@ -131,7 +131,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   mustard: {
-    targetCount: 62,
+    targetCount: 82,
     titles: ["Kachi Ghani Pungent Aroma!", "Authentic Flavor for Curries & Pickles", "Pure Cold-Pressed Mustard Oil"],
     comments: {
       5: [
@@ -505,7 +505,7 @@ const PRODUCT_SPECIFIC_FEEDBACK = {
     }
   },
   spice: {
-    targetCount: 67,
+    targetCount: 84,
     titles: ["Authentic Homemade Flavor!", "Pure & Aromatic Spice", "Traditional Recipe Taste", "Fresh Ground Quality"],
     comments: {
       5: [
@@ -577,13 +577,21 @@ function getProductFeedbackKey(productName = "") {
 
 function getProductTargetCount(productName = "") {
   const key = getProductFeedbackKey(productName);
-  return PRODUCT_SPECIFIC_FEEDBACK[key] ? PRODUCT_SPECIFIC_FEEDBACK[key].targetCount : 67;
+  if (PRODUCT_SPECIFIC_FEEDBACK[key] && PRODUCT_SPECIFIC_FEEDBACK[key].targetCount) {
+    return PRODUCT_SPECIFIC_FEEDBACK[key].targetCount;
+  }
+  let hash = 0;
+  for (let i = 0; i < productName.length; i++) {
+    hash = (hash << 5) - hash + productName.charCodeAt(i);
+    hash |= 0;
+  }
+  return 76 + (Math.abs(hash) % 14); // 76..89
 }
 
 function generateOilReviews(productName, productId, count = null) {
   const key = getProductFeedbackKey(productName);
   const data = PRODUCT_SPECIFIC_FEEDBACK[key] || PRODUCT_SPECIFIC_FEEDBACK.spice;
-  const targetCount = count || data.targetCount;
+  const targetCount = count || getProductTargetCount(productName);
 
   const reviews = [];
   const now = Date.now();

@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (activeColObj && Array.isArray(activeColObj.subcategories) && activeColObj.subcategories.length > 0) {
                     const slug = activeColObj.slug || activeColObj.title.toLowerCase().replace(/\s+/g, '-');
-                    let baseLink = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}`;
+                    let baseLink = inCategoriesDir ? pathname : `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}`;
                     if (slug === 'pickles') baseLink = `${pagePrefix}categories/pickles.html`;
 
                     let pillsHtml = `
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     activeColObj.subcategories.forEach(sub => {
                         const isSubActive = activeSub && activeSub.toLowerCase() === sub.toLowerCase();
-                        const subLink = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}&sub=${encodeURIComponent(sub)}`;
+                        const subLink = inCategoriesDir ? `${pathname}?sub=${encodeURIComponent(sub)}` : `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}&sub=${encodeURIComponent(sub)}`;
                         pillsHtml += `
                             <a href="${subLink}" class="subcat-pill-btn ${isSubActive ? 'active' : ''}" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; border: 1.5px solid #16a34a; background: ${isSubActive ? '#16a34a' : '#ffffff'}; color: ${isSubActive ? '#ffffff' : '#16a34a'}; transition: all 0.2s;">${sub}</a>
                         `;
@@ -263,6 +263,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     syncMainWebsiteCategories();
+
+    // Global Event Listener for Subcategory Pill Tag Clicking (Instant 0ms Filter)
+    document.addEventListener('click', (e) => {
+        const pill = e.target.closest('.subcat-pill-btn');
+        if (!pill) return;
+
+        const href = pill.getAttribute('href');
+        if (!href) return;
+
+        // Visual active state toggle
+        const parent = pill.parentElement;
+        if (parent) {
+            parent.querySelectorAll('.subcat-pill-btn').forEach(p => {
+                p.classList.remove('active');
+                p.style.background = '#ffffff';
+                p.style.color = '#16a34a';
+            });
+            pill.classList.add('active');
+            pill.style.background = '#16a34a';
+            pill.style.color = '#ffffff';
+        }
+
+        // Clean URL update
+        try {
+            window.history.pushState({}, '', href);
+        } catch (err) {}
+
+        // Re-run storefront products render to update grid instantly in 0ms
+        if (typeof renderStorefrontProductsUI === 'function') {
+            renderStorefrontProductsUI();
+        }
+    });
 
     // 2. Instamart-Style Hero Banner Carousel
     const instamartTrack = document.getElementById("instamartTrack");
@@ -1274,16 +1306,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "price": 120,
     "originalPrice": 160,
     "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
+    "image": "assets/images/products/black_pepper.jpg",
     "description": "Whole aromatic black pepper corns.",
     "rating": 4.9,
     "numReviews": 29,
     "countInStock": 35,
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
     "images": [
+      "assets/images/products/black_pepper.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533"
     ],
     "imageUrls": [
+      "assets/images/products/black_pepper.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533"
     ]
   },
@@ -1322,16 +1356,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "price": 80,
     "originalPrice": 105,
     "unit": "200 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533",
+    "image": "assets/images/products/coriander_seeds.jpg",
     "description": "Fresh whole coriander seeds.",
     "rating": 4.8,
     "numReviews": 21,
     "countInStock": 40,
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533",
     "images": [
+      "assets/images/products/coriander_seeds.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533"
     ],
     "imageUrls": [
+      "assets/images/products/coriander_seeds.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533"
     ]
   },
@@ -1420,16 +1456,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "price": 95,
     "originalPrice": 125,
     "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533",
+    "image": "assets/images/products/cumin_seeds.jpg",
     "description": "Clean aromatic cumin seeds.",
     "rating": 4.8,
     "numReviews": 28,
     "countInStock": 45,
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533",
     "images": [
+      "assets/images/products/cumin_seeds.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533"
     ],
     "imageUrls": [
+      "assets/images/products/cumin_seeds.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533"
     ]
   },
@@ -1468,16 +1506,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "price": 125,
     "originalPrice": 160,
     "unit": "50 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
+    "image": "assets/images/products/star_anise.jpg",
     "description": "Aromatic whole star anise.",
     "rating": 4.9,
     "numReviews": 19,
     "countInStock": 30,
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
     "images": [
+      "assets/images/products/star_anise.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533"
     ],
     "imageUrls": [
+      "assets/images/products/star_anise.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533"
     ]
   },
@@ -1684,21 +1724,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Helper to render products instantly onto page elements synchronously
     function renderStorefrontProductsUI(apiProducts) {
-        if (!apiProducts || apiProducts.length === 0) return;
+        if (!apiProducts || apiProducts.length === 0) {
+            if (typeof FALLBACK_STOREFRONT_PRODUCTS !== 'undefined' && Array.isArray(FALLBACK_STOREFRONT_PRODUCTS)) {
+                apiProducts = FALLBACK_STOREFRONT_PRODUCTS;
+            } else {
+                return;
+            }
+        }
+
+        const catalogPool = (Array.isArray(apiProducts) && apiProducts.length > 0) ? [...apiProducts] : [];
+        if (typeof FALLBACK_STOREFRONT_PRODUCTS !== 'undefined' && Array.isArray(FALLBACK_STOREFRONT_PRODUCTS)) {
+            FALLBACK_STOREFRONT_PRODUCTS.forEach(fbItem => {
+                const fbKey = String(fbItem.id || fbItem._id || fbItem.handle || fbItem.name || '').toLowerCase();
+                const exists = catalogPool.some(p => {
+                    const pKey = String(p.id || p._id || p.handle || p.name || '').toLowerCase();
+                    return pKey === fbKey || (pKey && fbKey && (pKey.includes(fbKey) || fbKey.includes(pKey)));
+                });
+                if (!exists) {
+                    catalogPool.push(fbItem);
+                }
+            });
+        }
 
         const path = window.location.pathname.toLowerCase();
 
         // Populate Homepage Carousel grids
         const favGrid = document.querySelector(".sec-favorites .products-grid");
         if (favGrid) {
-            const favProducts = apiProducts.filter(p => p.isFeatured !== false).slice(0, 10);
+            const favProducts = catalogPool.filter(p => p.isFeatured !== false).slice(0, 10);
             if (favProducts.length > 0) {
                 favGrid.innerHTML = favProducts.map(p => createProductCardHTML(p)).join('');
             }
         }
         const wellnessGrid = document.querySelector(".sec-wellness .products-grid");
         if (wellnessGrid) {
-            const wellnessProducts = apiProducts.slice(0, 10);
+            const wellnessProducts = catalogPool.slice(0, 10);
             if (wellnessProducts.length > 0) {
                 wellnessGrid.innerHTML = wellnessProducts.map(p => createProductCardHTML(p)).join('');
             }
@@ -1803,7 +1863,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const searchQ = (urlParams.get("search") || urlParams.get("q") || "").trim().toLowerCase();
             const categoryQ = (urlParams.get("category") || urlParams.get("cat") || "").trim().toLowerCase();
 
-            let displayProducts = apiProducts || [];
+            let displayProducts = catalogPool;
             if (searchQ) {
                 displayProducts = displayProducts.filter(p => {
                     const title = (p.title || p.name || "").toLowerCase();
@@ -1880,32 +1940,95 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 2. On Subcollection pages (pickles, oils, ghee, dry fruits, seeds, spices, powders, cooking essentials, etc.)
         let categoryProducts = [];
-        if (apiProducts && apiProducts.length > 0) {
+        if (catalogPool && catalogPool.length > 0) {
             if (path.includes("pickles")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("pickle"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat.includes("pickle") || cat.includes("pachadi") || title.includes("pickle") || title.includes("pachadi") || title.includes("avakai");
+                });
             } else if (path.includes("oils-natural-extracts") || path.includes("oils")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("oil"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const subcat = (p.subcategory || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    const handle = (p.handle || "").toLowerCase();
+                    const isOil = cat.includes("oil") || cat.includes("extract") || subcat.includes("oil") || title.includes("oil") || handle.includes("oil");
+                    const isNonOil = title.includes("seed") || title.includes("badam") || title.includes("kaju") || cat.includes("seed") || cat.includes("dry fruit");
+                    return isOil && !isNonOil;
+                });
             } else if (path.includes("ghee-and-honey") || path.includes("ghee")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("ghee") || (p.category || "").toLowerCase().includes("honey"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat.includes("ghee") || cat.includes("honey") || title.includes("ghee") || title.includes("honey");
+                });
             } else if (path.includes("dry-fruits-nuts") || path.includes("dry-fruits")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("dry fruit") || (p.category || "").toLowerCase().includes("nuts"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat.includes("dry fruit") || cat.includes("nuts") || title.includes("almond") || title.includes("cashew") || title.includes("fig") || title.includes("walnut") || title.includes("pista") || title.includes("raisin") || title.includes("date") || title.includes("badam") || title.includes("kaju") || title.includes("anjeer");
+                });
             } else if (path.includes("dry-seeds") || path.includes("seeds")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("seed"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat.includes("seed") || title.includes("seed") || title.includes("flax") || title.includes("chia") || title.includes("pumpkin") || title.includes("til") || title.includes("sabja");
+                });
             } else if (path.includes("cooking-essentials") || path.includes("essentials")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("cooking"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat.includes("cooking") || cat.includes("essential") || title.includes("essential") || title.includes("salt");
+                });
             } else if (path.includes("spice-powders") || path.includes("powders")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("powder") || (p.category || "").toLowerCase().includes("masala"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat.includes("powder") || cat.includes("masala") || title.includes("podi") || title.includes("karam") || title.includes("powder") || title.includes("masala");
+                });
             } else if (path.includes("spices")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase() === "spices" || ((p.category || "").toLowerCase().includes("spice") && !(p.category || "").toLowerCase().includes("powder")));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat === "spices" || ((cat.includes("spice") || title.includes("cardamom") || title.includes("cinnamon") || title.includes("clove") || title.includes("pepper")) && !cat.includes("powder") && !title.includes("podi") && !title.includes("karam"));
+                });
             } else if (path.includes("flours") || path.includes("rava")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("flour") || (p.category || "").toLowerCase().includes("rava"));
+                categoryProducts = catalogPool.filter(p => {
+                    const cat = (p.category || "").toLowerCase();
+                    const title = (p.title || p.name || "").toLowerCase();
+                    return cat.includes("flour") || cat.includes("rava") || title.includes("flour") || title.includes("rava") || title.includes("atta");
+                });
             } else if (path.includes("beverages")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("beverage"));
+                categoryProducts = catalogPool.filter(p => (p.category || "").toLowerCase().includes("beverage"));
             } else if (path.includes("papads") || path.includes("snacks")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("papad"));
+                categoryProducts = catalogPool.filter(p => (p.category || "").toLowerCase().includes("papad") || (p.category || "").toLowerCase().includes("snack"));
             } else if (path.includes("household") || path.includes("care")) {
-                categoryProducts = apiProducts.filter(p => (p.category || "").toLowerCase().includes("household"));
+                categoryProducts = catalogPool.filter(p => (p.category || "").toLowerCase().includes("household"));
             }
+        }
+
+        const urlParamsSub = new URLSearchParams(window.location.search);
+        const subQ = (urlParamsSub.get("sub") || urlParamsSub.get("subcategory") || urlParamsSub.get("type") || "").trim().toLowerCase();
+
+        if (subQ && subQ !== "all" && !subQ.startsWith("all ")) {
+            categoryProducts = categoryProducts.filter(p => {
+                const title = (p.title || p.name || "").toLowerCase();
+                const cat = (p.category || "").toLowerCase();
+                const subcat = (p.subcategory || "").toLowerCase();
+                const desc = (p.description || "").toLowerCase();
+
+                if (subQ.includes("&") || subQ.includes("and")) {
+                    const parts = subQ.split(/&|and/).map(s => s.trim().replace(/oil|oils/g, '').trim()).filter(Boolean);
+                    return parts.some(part => title.includes(part) || cat.includes(part) || subcat.includes(part) || desc.includes(part));
+                }
+
+                const cleanSub = subQ.replace(/oil|oils/g, '').trim();
+                if (cleanSub && cleanSub.length >= 3) {
+                    return title.includes(cleanSub) || cat.includes(cleanSub) || subcat.includes(cleanSub) || desc.includes(cleanSub);
+                }
+                return title.includes(subQ) || cat.includes(subQ) || subcat.includes(subQ) || desc.includes(subQ);
+            });
         }
 
         window.activeCollectionsProducts = categoryProducts;
@@ -2343,20 +2466,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (typeof document !== 'undefined') {
         document.addEventListener('click', function(e) {
-            const overlay = e.target.closest('.product-qty-overlay');
+            const btn = e.target.closest('.stepper-btn');
+            if (!btn) return;
+
+            const overlay = btn.closest('.product-qty-overlay');
             if (overlay) {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                const btn = e.target.closest('.stepper-btn');
                 const id = overlay.dataset.productId;
                 const name = overlay.dataset.productName;
                 const price = parseFloat(overlay.dataset.productPrice) || 0;
                 const image = overlay.dataset.productImage || '';
                 
-                if (!overlay.classList.contains('in-cart') || (btn && btn.classList.contains('stepper-add-single'))) {
+                if (!overlay.classList.contains('in-cart') || btn.classList.contains('stepper-add-single')) {
                     addToStoreCart(id, name, price, image, 1);
-                } else if (btn) {
+                } else {
                     const delta = btn.classList.contains('stepper-minus') ? -1 : 1;
                     changeCardItemQty(id, name, price, image, delta);
                 }
@@ -2647,15 +2772,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (candidates.length === 0) {
                 const combinedText = `${pId} ${pName} ${pCategory}`.toLowerCase();
                 const KEYWORD_IMAGE_MAP = [
-                    { keys: ['garlic', 'velluli'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533' },
-                    { keys: ['chana', 'pappula'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533' },
-                    { keys: ['nalla'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533' },
-                    { keys: ['kobbari'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533' },
-                    { keys: ['karivepaku'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_aefb0a70-8bbf-4ec8-a727-8494ca7dbf25.jpg?v=1757334044&width=533' },
-                    { keys: ['garam', 'masala'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_1_f852ab1e-089c-4aa7-bdf2-5b927a7c735d.jpg?v=1757334044&width=533' },
-                    { keys: ['flax'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334053&width=533' },
-                    { keys: ['chia'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533' },
-                    { keys: ['pumpkin'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533' },
+                    { keys: ['coriander seed', 'coriander-seed', 'coriander-premium'], url: 'assets/images/products/coriander_seeds.jpg' },
+                    { keys: ['cumin seed', 'cumin-seed', 'cumin-premium'], url: 'assets/images/products/cumin_seeds.jpg' },
+                    { keys: ['black pepper whole', 'black-pepper-premium'], url: 'assets/images/products/black_pepper.jpg' },
+                    { keys: ['star anise', 'star-anise-premium'], url: 'assets/images/products/star_anise.jpg' },
+                    { keys: ['chilli powder', 'chilli-powder'], url: 'assets/images/products/chilli-powder.jpg' },
+                    { keys: ['monthly grocery 6', 'monthly-grocery-6-members'], url: 'assets/images/products/monthly_grocery_6_members.jpg' },
+                    { keys: ['garlic powder', 'velluli karam'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533' },
+                    { keys: ['chana dal spice', 'pappula podi'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533' },
+                    { keys: ['nalla karam'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533' },
+                    { keys: ['kobbari karam'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533' },
+                    { keys: ['karivepaku karam'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_aefb0a70-8bbf-4ec8-a727-8494ca7dbf25.jpg?v=1757334044&width=533' },
+                    { keys: ['garam masala'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_1_f852ab1e-089c-4aa7-bdf2-5b927a7c735d.jpg?v=1757334044&width=533' },
+                    { keys: ['flax seed', 'flax-seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334053&width=533' },
+                    { keys: ['chia seed', 'chia-seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533' },
+                    { keys: ['pumpkin seed', 'pumpkin-seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533' },
                     { keys: ['sunflower seed', 'sunflower-seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533' },
                     { keys: ['watermelon seed', 'watermelon-seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533' },
                     { keys: ['sabja', 'basil seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533' },
@@ -2663,22 +2794,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     { keys: ['groundnut oil', 'groundnut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
                     { keys: ['sunflower oil', 'sunflower-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
                     { keys: ['sesame oil', 'sesame-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
-                    { keys: ['castor'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
+                    { keys: ['castor oil', 'castor-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
                     { keys: ['coconut oil', 'coconut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533' },
                     { keys: ['mustard oil', 'mustard-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
-                    { keys: ['neem'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
-                    { keys: ['ghee', 'honey'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
+                    { keys: ['neem oil', 'neem-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
+                    { keys: ['ghee', 'buffalo ghee'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
                     { keys: ['cashew', 'kaju'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b7e9-4467-9bb3-93cfc319c5c2.jpg?v=1757334003&width=533' },
                     { keys: ['almond', 'badam'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533' },
                     { keys: ['fig', 'anjeer'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533' },
                     { keys: ['walnut', 'akhrot'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533' },
                     { keys: ['pistachio', 'pista'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533' },
-                    { keys: ['raisin', 'kishmish'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533' },
-                    { keys: ['date', 'khajoor'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533' },
-                    { keys: ['podi', 'karam', 'powder', 'chilli'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533' },
-                    { keys: ['pickle', 'avakai'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-20_at_12.12.10_PM_1_7e869e3d-6430-4313-8bcd-0f07e53ad1ed.jpg?v=1757333951' },
-                    { keys: ['seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334053&width=533' },
-                    { keys: ['oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' }
+                    { keys: ['raisin', 'kishmish'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-b6d5-41c1-9080-60b5e28a5cf5.jpg?v=1757334001&width=533' },
+                    { keys: ['date', 'khajoor'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533' },
+                    { keys: ['pickle', 'avakai'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-20_at_12.12.10_PM_1_7e869e3d-6430-4313-8bcd-0f07e53ad1ed.jpg?v=1757333951' }
                 ];
 
                 for (const mapItem of KEYWORD_IMAGE_MAP) {
@@ -2761,7 +2889,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const originalPrice = Number(p.originalPrice || p.regularPrice || p.mrp || Math.round(price * 1.25));
             const discount = originalPrice > price ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
             const reviewsCount = p.reviewsCount || p.numReviews || Math.floor(Math.random() * 20) + 25;
-            const id = p._id || p.id || "";
+            const id = p.handle || p.slug || p.id || p._id || "";
 
             let productUrl = "pages/product.html";
             if (depth === 2) productUrl = "../product.html";
@@ -2914,42 +3042,40 @@ document.addEventListener("DOMContentLoaded", () => {
         const productId = urlParams.get("id") || urlParams.get("handle") || urlParams.get("slug") || urlParams.get("product") || urlParams.get("productId");
         const apiHost = typeof getApiHost === 'function' ? getApiHost() : (window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:5000');
 
-        let pool = Array.isArray(FALLBACK_STOREFRONT_PRODUCTS) ? [...FALLBACK_STOREFRONT_PRODUCTS] : [];
-        try {
-            const stored = localStorage.getItem('arshith_cached_products');
-            if (stored) {
-                const parsed = JSON.parse(stored);
-                if (Array.isArray(parsed) && parsed.length > 0) {
-                    parsed.forEach(item => {
-                        if (item && !pool.some(p => (p._id && p._id === item._id) || (p.handle && p.handle === item.handle))) {
-                            pool.push(item);
-                        }
-                    });
-                }
-            }
-        } catch(e) {}
+        // Reset current detail product state to avoid stale navigation state
+        window.CURRENT_DETAIL_PRODUCT = null;
 
         function findInList(list, idOrSlug) {
             if (!Array.isArray(list) || list.length === 0 || !idOrSlug) return null;
             const target = String(idOrSlug).trim().toLowerCase();
-            const cleanSlug = target.replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
             const targetKey = target.replace(/[^a-z0-9]/g, '');
 
+            function getPId(p) {
+                if (!p) return '';
+                if (typeof p._id === 'string') return p._id.toLowerCase();
+                if (p._id && p._id.$oid) return String(p._id.$oid).toLowerCase();
+                if (p._id && typeof p._id.toString === 'function') return p._id.toString().toLowerCase();
+                return String(p.id || p.handle || p.slug || '').toLowerCase();
+            }
+
             // 1. Exact ID, _id, handle, slug, or alias match
-            let found = list.find(p => p && (
-                String(p._id || '').toLowerCase() === target ||
-                String(p.id || '').toLowerCase() === target ||
-                String(p.handle || '').toLowerCase() === target ||
-                String(p.slug || '').toLowerCase() === target ||
-                (Array.isArray(p.aliases) && p.aliases.some(a => String(a).toLowerCase() === target))
-            ));
+            let found = list.find(p => {
+                if (!p) return false;
+                const pId = getPId(p);
+                const pHandle = String(p.handle || '').toLowerCase();
+                const pSlug = String(p.slug || '').toLowerCase();
+                const pCustomId = String(p.id || '').toLowerCase();
+                const aliases = Array.isArray(p.aliases) ? p.aliases.map(a => String(a).toLowerCase()) : [];
+                return pId === target || pHandle === target || pSlug === target || pCustomId === target || aliases.includes(target);
+            });
             if (found) return found;
 
-            // 2. Exact alphanumeric key match
+            // 2. Exact normalized alphanumeric key match (STRICT, no fuzzy word overlap)
             found = list.find(p => {
                 if (!p) return false;
+                const pId = getPId(p);
                 const nameKey = String(p.name || p.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-                const handleKey = String(p.handle || p.slug || p.id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                const handleKey = String(p.handle || p.slug || p.id || pId).toLowerCase().replace(/[^a-z0-9]/g, '');
                 const aliasesKeys = (Array.isArray(p.aliases) ? p.aliases : []).map(a => String(a).toLowerCase().replace(/[^a-z0-9]/g, ''));
                 return (nameKey && nameKey === targetKey) || 
                        (handleKey && handleKey === targetKey) || 
@@ -2957,49 +3083,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             if (found) return found;
 
-            // 3. Token-scoring match for concatenated or hyphenated slugs
-            let bestMatch = null;
-            let maxScore = 0;
-
-            const noise = new Set(['premium', 'quality', 'softgrinding', 'best', 'copy', 'pure', 'fresh', 'farm', 'arshith']);
-            const words = cleanSlug.split(' ').filter(w => w.length > 2 && !noise.has(w));
-
-            list.forEach(p => {
-                if (!p) return;
-                const name = String(p.name || p.title || '').toLowerCase();
-                const handle = String(p.handle || p.slug || p.id || '').toLowerCase();
-                const fullText = `${name} ${handle}`.replace(/-/g, ' ');
-
-                let score = 0;
-                words.forEach(w => {
-                    if (fullText.includes(w)) {
-                        score += 3;
-                    } else {
-                        const subTokens = ['garlic', 'velluli', 'chana', 'pappula', 'nalla', 'kobbari', 'karivepaku', 'karam', 'podi', 'powder', 'spice', 'oil', 'ghee', 'honey', 'cashew', 'almond', 'dates', 'raisins', 'walnut', 'fig', 'anjeer', 'seeds', 'pickle'];
-                        subTokens.forEach(st => {
-                            if (w.includes(st) && fullText.includes(st)) {
-                                score += 2;
-                            }
-                        });
-                    }
-                });
-
-                if (score > maxScore) {
-                    maxScore = score;
-                    bestMatch = p;
-                }
-            });
-
-            if (bestMatch && maxScore >= 2) return bestMatch;
             return null;
         }
 
-        let matchedProduct = findInList(pool, productId);
-        if (matchedProduct) {
-            renderSingleProductDetail(matchedProduct, viewContainer);
-        }
-
         if (productId) {
+            // STEP 1: Fetch single product from API endpoint /api/products/:id
             try {
                 const res = await fetch(`${apiHost}/api/products/${encodeURIComponent(productId)}`);
                 if (res && res.ok) {
@@ -3011,6 +3099,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } catch (e) {}
 
+            // STEP 2: Fetch all products from API and match strictly
             try {
                 const allRes = await fetch(`${apiHost}/api/products`);
                 if (allRes && allRes.ok) {
@@ -3024,122 +3113,38 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             } catch (e) {}
-        }
 
-        if (matchedProduct) return;
+            // STEP 3: Fallback match from FALLBACK_STOREFRONT_PRODUCTS pool
+            let pool = Array.isArray(FALLBACK_STOREFRONT_PRODUCTS) ? [...FALLBACK_STOREFRONT_PRODUCTS] : [];
+            try {
+                const stored = localStorage.getItem('arshith_cached_products');
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        parsed.forEach(item => {
+                            if (item && !pool.some(p => (p._id && p._id === item._id) || (p.handle && p.handle === item.handle))) {
+                                pool.push(item);
+                            }
+                        });
+                    }
+                }
+            } catch(e) {}
 
-        // If product ID is provided but not in DB or catalog, synthesize dynamic representation with INFERRED category & image
-        if (productId) {
-            const cleanTitle = String(productId)
-                .replace(/-/g, ' ')
-                .replace(/\b\w/g, l => l.toUpperCase());
-            
-            const t = String(productId).toLowerCase();
-            let cat = 'Grocery Essentials';
-            let img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740';
-            let unit = '1 unit';
-            let price = 99;
-            let origPrice = 130;
-
-            if (t.includes('garlic') || t.includes('velluli')) {
-                cat = 'Spice Powders';
-                unit = '100 g'; price = 99; origPrice = 130;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_1_a625cb73-82ef-4d39-b9ee-eebfb4a8b7ea.jpg?v=1757333954&width=533';
-            } else if (t.includes('chana') || t.includes('pappula')) {
-                cat = 'Spice Powders';
-                unit = '100 g'; price = 89; origPrice = 115;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_4.jpg?v=1757333956&width=533';
-            } else if (t.includes('nalla')) {
-                cat = 'Spice Powders';
-                unit = '100 g'; price = 98; origPrice = 125;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_2_ad9e67d2-ec10-4ed3-89ef-fa55c91be8df.jpg?v=1757333955&width=533';
-            } else if (t.includes('kobbari')) {
-                cat = 'Spice Powders';
-                unit = '100 g'; price = 95; origPrice = 120;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712&width=533';
-            } else if (t.includes('karivepaku')) {
-                cat = 'Spice Powders';
-                unit = '100 g'; price = 95; origPrice = 125;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_1_a625cb73-82ef-4d39-b9ee-eebfb4a8b7ea.jpg?v=1757333954&width=533';
-            } else if (t.includes('podi') || t.includes('karam') || t.includes('masala') || t.includes('powder')) {
-                cat = 'Spice Powders';
-                unit = '100 g'; price = 95; origPrice = 125;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533';
-            } else if (t.includes('ghee') || t.includes('honey')) {
-                cat = 'Ghee and Honey';
-                unit = '250 ml'; price = 222; origPrice = 288;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533';
-            } else if (t.includes('seed')) {
-                cat = 'Dry Seeds';
-                unit = '250 g'; price = 145; origPrice = 180;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/dry_seeds_200x200_crop_center.jpg?v=1746963515';
-            } else if (t.includes('fruit') || t.includes('nut') || t.includes('kaju') || t.includes('badam') || t.includes('almond') || t.includes('cashew') || t.includes('date') || t.includes('raisin') || t.includes('walnut') || t.includes('fig') || t.includes('anjeer')) {
-                cat = 'Dry Fruits';
-                unit = '250 g'; price = 225; origPrice = 295;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/seeds_dry_fruits_nuts_webp_200x200_crop_center.jpg?v=1746963459';
-            } else if (t.includes('pickle')) {
-                cat = 'Pickles';
-                unit = '250 g'; price = 149; origPrice = 199;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-20_at_12.12.10_PM_1_7e869e3d-6430-4313-8bcd-0f07e53ad1ed.jpg?v=1757333951';
-            } else if (t.includes('castor')) {
-                cat = 'Oils';
-                unit = '250 ml'; price = 95; origPrice = 118;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533';
-            } else if (t.includes('coconut')) {
-                cat = 'Oils';
-                unit = '500 ml'; price = 165; origPrice = 214;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533';
-            } else if (t.includes('sunflower')) {
-                cat = 'Oils';
-                unit = '1 L'; price = 499; origPrice = 608;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533';
-            } else if (t.includes('sesame')) {
-                cat = 'Oils';
-                unit = '500 ml'; price = 148; origPrice = 185;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533';
-            } else if (t.includes('mustard')) {
-                cat = 'Oils';
-                unit = '500 ml'; price = 115; origPrice = 150;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533';
-            } else if (t.includes('neem')) {
-                cat = 'Oils';
-                unit = '250 ml'; price = 149; origPrice = 199;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533';
-            } else if (t.includes('groundnut') || t.includes('peanut')) {
-                cat = 'Oils';
-                unit = '1 L'; price = 349; origPrice = 471;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533';
-            } else if (t.includes('oil')) {
-                cat = 'Oils';
-                unit = '500 ml'; price = 149; origPrice = 199;
-                img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533';
+            const matchedProduct = findInList(pool, productId);
+            if (matchedProduct) {
+                renderSingleProductDetail(matchedProduct, viewContainer);
+                return;
             }
-
-            const dynProd = {
-                _id: `dyn_${productId}`,
-                id: productId,
-                handle: productId,
-                name: `${cleanTitle} (Premium Quality)`,
-                title: `${cleanTitle} (Premium Quality)`,
-                category: cat,
-                price: price,
-                originalPrice: origPrice,
-                unit: unit,
-                image: img,
-                description: '100% authentic, pure, and preservative-free farm-fresh product packed and delivered from Arshith Fresh.',
-                rating: 4.9,
-                numReviews: 32,
-                countInStock: 25
-            };
-            renderSingleProductDetail(dynProd, viewContainer);
-            return;
         }
 
         // Default fallback ONLY when no ?id= param is present in URL: default to Groundnut Oil
-        if (!productId && pool.length > 0) {
+        if (!productId) {
+            let pool = Array.isArray(FALLBACK_STOREFRONT_PRODUCTS) ? [...FALLBACK_STOREFRONT_PRODUCTS] : [];
             const defaultProd = pool.find(p => String(p.name || p.title || '').toLowerCase().includes('groundnut')) || pool[0];
-            renderSingleProductDetail(defaultProd, viewContainer);
-            return;
+            if (defaultProd) {
+                renderSingleProductDetail(defaultProd, viewContainer);
+                return;
+            }
         }
 
         viewContainer.innerHTML = `<div style="text-align: center; padding: 60px 20px;"><h2>Product Not Found</h2><p style="color:#64748b; margin-top:8px;">The product you requested could not be found.</p><a href="../index.html" class="continue-shopping-btn" style="display:inline-block; margin-top:16px;">Back to Home</a></div>`;
@@ -3340,18 +3345,100 @@ document.addEventListener("DOMContentLoaded", () => {
         const relatedGrid = document.getElementById("relatedProductsGrid");
         if (!relatedGrid) return;
 
+        let pool = Array.isArray(FALLBACK_STOREFRONT_PRODUCTS) ? [...FALLBACK_STOREFRONT_PRODUCTS] : [];
+
         try {
-            const res = await fetch("/api/products");
-            if (!res.ok) return;
-            const allProducts = await res.json();
-            const related = allProducts.filter(item => item._id !== currentProduct._id && item.category === currentProduct.category).slice(0, 4);
-            if (related.length > 0) {
-                relatedGrid.innerHTML = related.map(item => createProductCardHTML(item)).join('');
-            } else {
-                const other = allProducts.filter(item => item._id !== currentProduct._id).slice(0, 4);
-                relatedGrid.innerHTML = other.map(item => createProductCardHTML(item)).join('');
+            const stored = localStorage.getItem('arshith_cached_products');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    parsed.forEach(item => {
+                        if (item && !pool.some(p => (p._id && p._id === item._id) || (p.handle && p.handle === item.handle))) {
+                            pool.push(item);
+                        }
+                    });
+                }
             }
         } catch (e) {}
+
+        try {
+            const apiHost = typeof getApiHost === 'function' ? getApiHost() : (window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:5000');
+            const res = await fetch(`${apiHost}/api/products`);
+            if (res && res.ok) {
+                const apiProds = await res.json();
+                if (Array.isArray(apiProds) && apiProds.length > 0) {
+                    apiProds.forEach(item => {
+                        if (item && !pool.some(p => (p._id && p._id === item._id) || (p.handle && p.handle === item.handle))) {
+                            pool.push(item);
+                        }
+                    });
+                }
+            }
+        } catch (e) {}
+
+        function isSameProduct(p1, p2) {
+            if (!p1 || !p2) return false;
+            const id1 = String(p1._id || p1.id || '').trim().toLowerCase();
+            const id2 = String(p2._id || p2.id || '').trim().toLowerCase();
+            if (id1 && id2 && id1 === id2) return true;
+
+            const handle1 = String(p1.handle || p1.slug || '').trim().toLowerCase();
+            const handle2 = String(p2.handle || p2.slug || '').trim().toLowerCase();
+            if (handle1 && handle2 && handle1 === handle2) return true;
+
+            const name1 = String(p1.name || p1.title || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            const name2 = String(p2.name || p2.title || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (name1 && name2 && name1 === name2) return true;
+
+            return false;
+        }
+
+        const currCat = String(currentProduct ? (currentProduct.category || '') : '').toLowerCase();
+        const currTitle = String(currentProduct ? (currentProduct.title || currentProduct.name || '') : '').toLowerCase();
+
+        function isCategoryMatch(item) {
+            if (!item) return false;
+            const itemCat = String(item.category || '').toLowerCase();
+            const itemTitle = String(item.title || item.name || '').toLowerCase();
+            if (currCat && itemCat && (currCat === itemCat || itemCat.includes(currCat) || currCat.includes(itemCat))) return true;
+
+            const catKeywords = ['pickle', 'oil', 'ghee', 'honey', 'seed', 'dry fruit', 'nut', 'kaju', 'badam', 'powder', 'masala', 'podi', 'flour', 'rava', 'spice'];
+            for (const kw of catKeywords) {
+                if ((currCat.includes(kw) || currTitle.includes(kw)) && (itemCat.includes(kw) || itemTitle.includes(kw))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        const otherProducts = pool.filter(item => !isSameProduct(item, currentProduct));
+
+        const uniqueOthers = [];
+        const seenKeys = new Set();
+        otherProducts.forEach(item => {
+            const key = String(item.handle || item.slug || item.name || item.title || item._id || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (key && !seenKeys.has(key)) {
+                seenKeys.add(key);
+                uniqueOthers.push(item);
+            }
+        });
+
+        let related = uniqueOthers.filter(item => isCategoryMatch(item));
+
+        if (related.length < 4) {
+            const remainingNeeded = 4 - related.length;
+            const extra = uniqueOthers.filter(item => !related.some(r => isSameProduct(r, item))).slice(0, remainingNeeded);
+            related = related.concat(extra);
+        }
+
+        related = related.slice(0, 4);
+
+        if (related.length > 0) {
+            relatedGrid.innerHTML = related.map(item => createProductCardHTML(item)).join('');
+            try {
+                if (typeof syncProductCardSteppers === 'function') syncProductCardSteppers();
+            } catch (e) {}
+        }
     }
 
     function syncAuthHeader() {
@@ -3395,18 +3482,38 @@ window.addEventListener('hashchange', () => {
     if (typeof syncSingleProductView === 'function') syncSingleProductView();
 });
 document.addEventListener('click', (e) => {
+    if (e.target.closest('.product-card-wishlist-btn, .stepper-btn, .add-to-cart-btn')) {
+        return;
+    }
+
     const link = e.target.closest('a[href*="product.html"]');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    if (!href || href.startsWith('javascript:')) return;
+    const card = e.target.closest('.product-card, .af-product-card, .collection-product-card, .collection-product-card-box, .product-item');
+
+    let targetHref = '';
+    if (link) {
+        targetHref = link.getAttribute('href');
+    } else if (card) {
+        const cardLink = card.querySelector('a[href*="product.html"]');
+        if (cardLink) {
+            targetHref = cardLink.getAttribute('href');
+        } else if (card.dataset && (card.dataset.productId || card.dataset.id)) {
+            const pId = card.dataset.productId || card.dataset.id;
+            const isSub = window.location.pathname.includes('/pages/');
+            targetHref = `${isSub ? '' : 'pages/'}product.html?id=${encodeURIComponent(pId)}`;
+        }
+    }
+
+    if (!targetHref || targetHref.startsWith('javascript:')) return;
 
     if (window.location.pathname.includes('product.html')) {
         e.preventDefault();
-        window.history.pushState(null, '', href);
+        window.history.pushState(null, '', targetHref);
         if (typeof syncSingleProductView === 'function') {
             syncSingleProductView();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+    } else if (card && !link) {
+        window.location.href = targetHref;
     }
 });
 

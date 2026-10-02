@@ -1,5 +1,1086 @@
 const express = require('express');
 const router = express.Router();
+
+const FALLBACK_CATALOG = [
+  {
+    "_id": "oil_groundnut_01",
+    "id": "groundnut-oil-premium",
+    "handle": "groundnut-oil-premium",
+    "name": "Groundnut Oil (Premium Quality)",
+    "title": "Groundnut Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 349,
+    "originalPrice": 471,
+    "unit": "1 L",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533",
+    "description": "100% Cold-Pressed Wooden Chekku Groundnut Oil.",
+    "rating": 4.9,
+    "numReviews": 29,
+    "isFeatured": true,
+    "countInStock": 50,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533"
+    ]
+  },
+  {
+    "_id": "oil_sunflower_01",
+    "id": "sunflower-oil-premium",
+    "handle": "sunflower-oil-premium",
+    "name": "Sunflower Oil (Premium Quality)",
+    "title": "Sunflower Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 499,
+    "originalPrice": 608,
+    "unit": "1 L",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533",
+    "description": "Pure unrefined wooden-pressed sunflower oil.",
+    "rating": 4.9,
+    "numReviews": 35,
+    "isFeatured": true,
+    "countInStock": 45,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533"
+    ]
+  },
+  {
+    "_id": "oil_sesame_01",
+    "id": "sesame-oil-premium",
+    "handle": "sesame-oil-premium",
+    "name": "Sesame Oil (Premium Quality)",
+    "title": "Sesame Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 148,
+    "originalPrice": 185,
+    "unit": "500 ml",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+    "description": "Traditional wooden pressed gingelly sesame oil.",
+    "rating": 4.9,
+    "numReviews": 37,
+    "isFeatured": true,
+    "countInStock": 40,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+    ]
+  },
+  {
+    "_id": "oil_castor_01",
+    "id": "castor-oil-premium",
+    "handle": "castor-oil-premium",
+    "name": "Castor Oil (Premium Quality)",
+    "title": "Castor Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 95,
+    "originalPrice": 118,
+    "unit": "250 ml",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533",
+    "description": "100% Pure & Organic Cold Pressed Castor Oil.",
+    "rating": 4.9,
+    "numReviews": 41,
+    "isFeatured": true,
+    "countInStock": 30,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
+    ]
+  },
+  {
+    "_id": "oil_coconut_01",
+    "id": "coconut-oil-premium",
+    "handle": "coconut-oil-premium",
+    "name": "Coconut Oil (Premium Quality)",
+    "title": "Coconut Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 165,
+    "originalPrice": 214,
+    "unit": "500 ml",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
+    "description": "Pure virgin cold-pressed coconut oil.",
+    "rating": 4.9,
+    "numReviews": 26,
+    "isFeatured": true,
+    "countInStock": 35,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
+    ]
+  },
+  {
+    "_id": "oil_mustard_01",
+    "id": "mustard-oil-premium",
+    "handle": "mustard-oil-premium",
+    "name": "Mustard Oil (Premium Quality)",
+    "title": "Mustard Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 115,
+    "originalPrice": 150,
+    "unit": "500 ml",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+    "description": "Pungent cold-pressed raw kachi ghani mustard oil.",
+    "rating": 4.9,
+    "numReviews": 22,
+    "isFeatured": true,
+    "countInStock": 25,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+    ]
+  },
+  {
+    "_id": "oil_neem_01",
+    "id": "neem-oil-premium",
+    "handle": "neem-oil-premium",
+    "name": "Neem Oil (Premium Quality)",
+    "title": "Neem Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 149,
+    "originalPrice": 199,
+    "unit": "250 ml",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533",
+    "description": "Pure unrefined cold-pressed neem oil.",
+    "rating": 4.9,
+    "numReviews": 28,
+    "isFeatured": true,
+    "countInStock": 30,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
+    ]
+  },
+  {
+    "_id": "oil_almond_01",
+    "id": "almond-oil-premium",
+    "handle": "almond-oil-premium",
+    "name": "Almond Oil (Premium Quality)",
+    "title": "Almond Oil (Premium Quality)",
+    "category": "Oils",
+    "price": 249,
+    "originalPrice": 320,
+    "unit": "100 ml",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
+    "description": "100% Pure cold-pressed sweet almond oil.",
+    "rating": 4.9,
+    "numReviews": 33,
+    "isFeatured": true,
+    "countInStock": 25,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
+    ]
+  },
+  {
+    "_id": "ghee_buffalo_01",
+    "id": "pure-buffalo-ghee-premium",
+    "handle": "pure-buffalo-ghee-premium",
+    "name": "Pure Buffalo Ghee (Premium Quality)",
+    "title": "Pure Buffalo Ghee (Premium Quality)",
+    "category": "Ghee and Honey",
+    "price": 222,
+    "originalPrice": 288,
+    "unit": "250 ml",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.32.29_PM_2_eb23ab0e-a49c-457d-9dad-00ce2758289c.jpg?v=1757934372&width=533",
+    "description": "Rich traditional A2 buffalo ghee made using Vedic bilona method.",
+    "rating": 4.9,
+    "numReviews": 34,
+    "isFeatured": true,
+    "countInStock": 40,
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.32.29_PM_2_eb23ab0e-a49c-457d-9dad-00ce2758289c.jpg?v=1757934372&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.32.29_PM_2_eb23ab0e-a49c-457d-9dad-00ce2758289c.jpg?v=1757934372&width=533"
+    ]
+  },
+  {
+    "_id": "dry_cashew_01",
+    "id": "cashew-nuts-premium",
+    "handle": "cashew-nuts-premium",
+    "name": "Cashew Nuts (Kaju) (Premium Quality)",
+    "title": "Cashew Nuts (Kaju) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 265,
+    "originalPrice": 340,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
+    "description": "Whole crispy premium cashew nuts rich in antioxidants.",
+    "rating": 4.8,
+    "numReviews": 39,
+    "isFeatured": true,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533"
+    ]
+  },
+  {
+    "_id": "dry_almonds_01",
+    "id": "almonds-premium",
+    "handle": "almonds-premium",
+    "name": "Almonds (Badam) (Premium Quality)",
+    "title": "Almonds (Badam) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 225,
+    "originalPrice": 295,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
+    "description": "Hand-picked California almonds packed with protein.",
+    "rating": 4.9,
+    "numReviews": 45,
+    "isFeatured": true,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533"
+    ]
+  },
+  {
+    "_id": "dry_figs_01",
+    "id": "figsdry-anjeer-premium",
+    "handle": "figsdry-anjeer-premium",
+    "name": "Figs (Dry Anjeer) (Premium Quality)",
+    "title": "Figs (Dry Anjeer) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 375,
+    "originalPrice": 480,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
+    "description": "Rich, chewy dried figs naturally packed with iron.",
+    "rating": 4.9,
+    "numReviews": 37,
+    "isFeatured": true,
+    "countInStock": 20,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533"
+    ]
+  },
+  {
+    "_id": "dry_walnuts_01",
+    "id": "walnuts-premium",
+    "handle": "walnuts-premium",
+    "name": "Walnuts (Akhrot) (Premium Quality)",
+    "title": "Walnuts (Akhrot) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 320,
+    "originalPrice": 420,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
+    "description": "Raw shelled California walnut halves.",
+    "rating": 4.8,
+    "numReviews": 30,
+    "isFeatured": true,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533"
+    ]
+  },
+  {
+    "_id": "dry_pistachio_01",
+    "id": "pistachio-premium",
+    "handle": "pistachio-premium",
+    "name": "Pistachio (With Shell) (Premium Quality)",
+    "title": "Pistachio (With Shell) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 340,
+    "originalPrice": 430,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
+    "description": "Roasted salted pistachio in shell.",
+    "rating": 4.9,
+    "numReviews": 28,
+    "countInStock": 30,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533"
+    ]
+  },
+  {
+    "_id": "dry_raisins_01",
+    "id": "raisins-premium",
+    "handle": "raisins-premium",
+    "name": "Raisins (Kishmish) (Premium Quality)",
+    "title": "Raisins (Kishmish) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 140,
+    "originalPrice": 185,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
+    "description": "Sweet golden green raisins.",
+    "rating": 4.8,
+    "numReviews": 25,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533"
+    ]
+  },
+  {
+    "_id": "dry_dates_01",
+    "id": "dates-premium",
+    "handle": "dates-premium",
+    "name": "Dates (Khajoor) (Premium Quality)",
+    "title": "Dates (Khajoor) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 180,
+    "originalPrice": 230,
+    "unit": "500 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
+    "description": "Soft juicy seedless dates.",
+    "rating": 4.9,
+    "numReviews": 40,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533"
+    ]
+  },
+  {
+    "_id": "dry_groundnuts_01",
+    "id": "ground-nutsraw-premium",
+    "handle": "ground-nutsraw-premium",
+    "name": "Ground Nuts Raw (Peanuts) (Premium Quality)",
+    "title": "Ground Nuts Raw (Peanuts) (Premium Quality)",
+    "category": "Dry Fruits",
+    "price": 120,
+    "originalPrice": 155,
+    "unit": "500 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_1_18442075-b578-4cf6-9c7a-04955b5197b7.jpg?v=1757334056&width=533",
+    "description": "Raw unroasted groundnuts/peanuts.",
+    "rating": 4.8,
+    "numReviews": 22,
+    "countInStock": 50,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_10.50.53_AM_49ea271e-21eb-4b1c-8edf-48ea811519e3.jpg?v=1757334056&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_1_18442075-b578-4cf6-9c7a-04955b5197b7.jpg?v=1757334056&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_10.50.53_AM_49ea271e-21eb-4b1c-8edf-48ea811519e3.jpg?v=1757334056&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_1_18442075-b578-4cf6-9c7a-04955b5197b7.jpg?v=1757334056&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_10.50.53_AM_49ea271e-21eb-4b1c-8edf-48ea811519e3.jpg?v=1757334056&width=533"
+    ]
+  },
+  {
+    "_id": "podi_chana_01",
+    "id": "chana-dal-spice-powder-pappula-podi-premium",
+    "handle": "chana-dal-spice-powder-pappula-podi-premium",
+    "slug": "chana-dal-spice-powder-pappula-podi-premium",
+    "aliases": [
+      "chana-dal-spice-powderpappula-podi-premium",
+      "chana-dal-spice-powder-pappula-podi-premium",
+      "chana-dal-spice-powder",
+      "pappula-podi",
+      "chana-dal-powder",
+      "chana-dal"
+    ],
+    "name": "Chana Dal Spice Powder / Pappula Podi (Premium Quality)",
+    "title": "Chana Dal Spice Powder / Pappula Podi (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 89,
+    "originalPrice": 115,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
+    "description": "Authentic homemade Andhra Pappula Podi made with roasted chana dal and spices.",
+    "rating": 4.9,
+    "numReviews": 32,
+    "isFeatured": true,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533"
+    ]
+  },
+  {
+    "_id": "podi_kobbari_01",
+    "id": "kobbari-karam-podi-premium",
+    "handle": "kobbari-karam-podi-premium",
+    "slug": "kobbari-karam-podi-premium",
+    "aliases": [
+      "kobbari-karam-podi-premium",
+      "kobbari-karam-podi",
+      "kobbari-karam",
+      "kobbari-podi"
+    ],
+    "name": "Kobbari Karam Podi (Premium Quality)",
+    "title": "Kobbari Karam Podi (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 95,
+    "originalPrice": 120,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
+    "description": "Traditional roasted dry coconut karam podi for hot rice and ghee.",
+    "rating": 4.9,
+    "numReviews": 28,
+    "isFeatured": true,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533"
+    ]
+  },
+  {
+    "_id": "podi_nalla_01",
+    "id": "nalla-karam-podi-premium",
+    "handle": "nalla-karam-podi-premium",
+    "slug": "nalla-karam-podi-premium",
+    "aliases": [
+      "nalla-karam-podi-premium",
+      "nalla-karam-podi",
+      "nalla-karam"
+    ],
+    "name": "Nalla Karam Podi (Premium Quality)",
+    "title": "Nalla Karam Podi (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 98,
+    "originalPrice": 125,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
+    "description": "Spicy authentic black karam podi for idli, dosa, and rice.",
+    "rating": 4.9,
+    "numReviews": 31,
+    "isFeatured": true,
+    "countInStock": 30,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533"
+    ]
+  },
+  {
+    "_id": "podi_garlic_01",
+    "id": "garlic-powder-velluli-karam-podi-premium",
+    "handle": "garlic-powder-velluli-karam-podi-premium",
+    "slug": "garlic-powder-velluli-karam-podi-premium",
+    "aliases": [
+      "garlic-powdervelluli-karam-podi-premium",
+      "garlic-powder-velluli-karam-podi-premium",
+      "garlic-powder",
+      "velluli-karam-podi",
+      "garlic-powdervelluli"
+    ],
+    "name": "Garlic Powder / Vellulli Karam Podi (Premium Quality)",
+    "title": "Garlic Powder / Vellulli Karam Podi (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 99,
+    "originalPrice": 130,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
+    "description": "Aromatic roasted garlic karam podi infused with authentic spices.",
+    "rating": 4.9,
+    "numReviews": 42,
+    "isFeatured": true,
+    "countInStock": 45,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_443a54ed-b6f7-46fb-8fc3-ba74bf06cc93.jpg?v=1757334046&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_443a54ed-b6f7-46fb-8fc3-ba74bf06cc93.jpg?v=1757334046&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_443a54ed-b6f7-46fb-8fc3-ba74bf06cc93.jpg?v=1757334046&width=533"
+    ]
+  },
+  {
+    "_id": "podi_karivepaku_01",
+    "id": "karivepaku-karam-podi-premium",
+    "handle": "karivepaku-karam-podi-premium",
+    "slug": "karivepaku-karam-podi-premium",
+    "aliases": [
+      "karivepaku-karam-podi-premium",
+      "karivepaku-karam-podi",
+      "karivepaku-karam"
+    ],
+    "name": "Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)",
+    "title": "Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 95,
+    "originalPrice": 125,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
+    "description": "Fresh curry leaves karam podi rich in iron and aroma.",
+    "rating": 4.9,
+    "numReviews": 27,
+    "countInStock": 30,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
+    ]
+  },
+  {
+    "_id": "spice_garam_masala_01",
+    "id": "garam-masala-powder-premium",
+    "handle": "garam-masala-powder-premium",
+    "name": "Garam Masala Powder (Premium Quality)",
+    "title": "Garam Masala Powder (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 110,
+    "originalPrice": 145,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
+    "description": "Rich roasted aromatic garam masala powder.",
+    "rating": 4.9,
+    "numReviews": 35,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
+    ]
+  },
+  {
+    "_id": "spice_pepper_01",
+    "id": "pepper-powder-premium",
+    "handle": "pepper-powder-premium",
+    "name": "Black Pepper Powder (Premium Quality)",
+    "title": "Black Pepper Powder (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 95,
+    "originalPrice": 125,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533",
+    "description": "Pure freshly ground black pepper powder.",
+    "rating": 4.9,
+    "numReviews": 24,
+    "countInStock": 30,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533"
+    ]
+  },
+  {
+    "_id": "spice_black_pepper_01",
+    "id": "black-pepper-premium",
+    "handle": "black-pepper-premium",
+    "name": "Black Pepper (Whole) (Premium Quality)",
+    "title": "Black Pepper (Whole) (Premium Quality)",
+    "category": "Spices",
+    "price": 120,
+    "originalPrice": 160,
+    "unit": "100 g",
+    "image": "assets/images/products/black_pepper.jpg",
+    "description": "Whole aromatic black pepper corns.",
+    "rating": 4.9,
+    "numReviews": 29,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
+    "images": [
+      "assets/images/products/black_pepper.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533"
+    ],
+    "imageUrls": [
+      "assets/images/products/black_pepper.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533"
+    ]
+  },
+  {
+    "_id": "spice_coriander_01",
+    "id": "coriander-powder-premium",
+    "handle": "coriander-powder-premium",
+    "name": "Coriander Powder (Dhania) (Premium Quality)",
+    "title": "Coriander Powder (Dhania) (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 75,
+    "originalPrice": 99,
+    "unit": "200 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
+    "description": "Pure ground coriander seeds powder.",
+    "rating": 4.8,
+    "numReviews": 33,
+    "countInStock": 45,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.05.41_AM_3a73c340-26b7-49a8-8fa3-a6ee784d219a.jpg?v=1757333982&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.05.41_AM_3a73c340-26b7-49a8-8fa3-a6ee784d219a.jpg?v=1757333982&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.05.41_AM_3a73c340-26b7-49a8-8fa3-a6ee784d219a.jpg?v=1757333982&width=533"
+    ]
+  },
+  {
+    "_id": "spice_coriander_seeds_01",
+    "id": "coriander-premium",
+    "handle": "coriander-premium",
+    "name": "Coriander Seeds (Dhania) (Premium Quality)",
+    "title": "Coriander Seeds (Dhania) (Premium Quality)",
+    "category": "Spices",
+    "price": 80,
+    "originalPrice": 105,
+    "unit": "200 g",
+    "image": "assets/images/products/coriander_seeds.jpg",
+    "description": "Fresh whole coriander seeds.",
+    "rating": 4.8,
+    "numReviews": 21,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533",
+    "images": [
+      "assets/images/products/coriander_seeds.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533"
+    ],
+    "imageUrls": [
+      "assets/images/products/coriander_seeds.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533"
+    ]
+  },
+  {
+    "_id": "spice_cloves_01",
+    "id": "cloves-premium",
+    "handle": "cloves-premium",
+    "name": "Cloves (Lavangalu) (Premium Quality)",
+    "title": "Cloves (Lavangalu) (Premium Quality)",
+    "category": "Spices",
+    "price": 135,
+    "originalPrice": 175,
+    "unit": "50 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
+    "description": "Aromatic whole cloves.",
+    "rating": 4.9,
+    "numReviews": 26,
+    "countInStock": 30,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533"
+    ]
+  },
+  {
+    "_id": "spice_cardamom_01",
+    "id": "cardamom-premium",
+    "handle": "cardamom-premium",
+    "name": "Cardamom (Elaichi) (Premium Quality)",
+    "title": "Cardamom (Elaichi) (Premium Quality)",
+    "category": "Spices",
+    "price": 195,
+    "originalPrice": 250,
+    "unit": "50 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
+    "description": "Green whole cardamom pods.",
+    "rating": 4.9,
+    "numReviews": 30,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533"
+    ]
+  },
+  {
+    "_id": "spice_cinnamon_01",
+    "id": "cinnamon-premium",
+    "handle": "cinnamon-premium",
+    "name": "Cinnamon Sticks (Kerala Style) (Premium Quality)",
+    "title": "Cinnamon Sticks (Kerala Style) (Premium Quality)",
+    "category": "Spices",
+    "price": 115,
+    "originalPrice": 150,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
+    "description": "Pure aromatic cinnamon bark.",
+    "rating": 4.9,
+    "numReviews": 22,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533"
+    ]
+  },
+  {
+    "_id": "spice_cumin_01",
+    "id": "cumin-premium",
+    "handle": "cumin-premium",
+    "name": "Cumin Seeds (Jeera) (Premium Quality)",
+    "title": "Cumin Seeds (Jeera) (Premium Quality)",
+    "category": "Spices",
+    "price": 95,
+    "originalPrice": 125,
+    "unit": "100 g",
+    "image": "assets/images/products/cumin_seeds.jpg",
+    "description": "Clean aromatic cumin seeds.",
+    "rating": 4.8,
+    "numReviews": 28,
+    "countInStock": 45,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533",
+    "images": [
+      "assets/images/products/cumin_seeds.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533"
+    ],
+    "imageUrls": [
+      "assets/images/products/cumin_seeds.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533"
+    ]
+  },
+  {
+    "_id": "spice_mix_masala_01",
+    "id": "mix-masala-premium",
+    "handle": "mix-masala-premium",
+    "name": "Mix Masala Powder (Premium Quality)",
+    "title": "Mix Masala Powder (Premium Quality)",
+    "category": "Spice Powders",
+    "price": 105,
+    "originalPrice": 135,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/biriyani_masala_mix_0ea70b9d-998e-45e0-88e4-dd70361ffe2e.jpg?v=1757333993&width=533",
+    "description": "Traditional curry mix masala.",
+    "rating": 4.9,
+    "numReviews": 25,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.16.09_PM_758e91ab-7cdb-4df9-823b-34809ffe2742.jpg?v=1757333993&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/biriyani_masala_mix_0ea70b9d-998e-45e0-88e4-dd70361ffe2e.jpg?v=1757333993&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.16.09_PM_758e91ab-7cdb-4df9-823b-34809ffe2742.jpg?v=1757333993&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/biriyani_masala_mix_0ea70b9d-998e-45e0-88e4-dd70361ffe2e.jpg?v=1757333993&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.16.09_PM_758e91ab-7cdb-4df9-823b-34809ffe2742.jpg?v=1757333993&width=533"
+    ]
+  },
+  {
+    "_id": "spice_star_anise_01",
+    "id": "star-anise-premium",
+    "handle": "star-anise-premium",
+    "name": "Star Anise (Anasa Puvvu) (Premium Quality)",
+    "title": "Star Anise (Anasa Puvvu) (Premium Quality)",
+    "category": "Spices",
+    "price": 125,
+    "originalPrice": 160,
+    "unit": "50 g",
+    "image": "assets/images/products/star_anise.jpg",
+    "description": "Aromatic whole star anise.",
+    "rating": 4.9,
+    "numReviews": 19,
+    "countInStock": 30,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
+    "images": [
+      "assets/images/products/star_anise.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533"
+    ],
+    "imageUrls": [
+      "assets/images/products/star_anise.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533"
+    ]
+  },
+  {
+    "_id": "seed_flax_01",
+    "id": "flax-seeds-premium",
+    "handle": "flax-seeds-premium",
+    "name": "Flax Seeds (Premium Quality)",
+    "title": "Flax Seeds (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 75,
+    "originalPrice": 95,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
+    "description": "Raw organic flax seeds rich in Omega-3 fatty acids.",
+    "rating": 4.8,
+    "numReviews": 24,
+    "isFeatured": true,
+    "countInStock": 50,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533"
+    ]
+  },
+  {
+    "_id": "seed_chia_01",
+    "id": "chia-seeds-premium",
+    "handle": "chia-seeds-premium",
+    "name": "Chia Seeds (Premium Quality)",
+    "title": "Chia Seeds (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 145,
+    "originalPrice": 180,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
+    "description": "Nutritious raw black chia seeds packed with fiber.",
+    "rating": 4.9,
+    "numReviews": 38,
+    "isFeatured": true,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533"
+    ]
+  },
+  {
+    "_id": "seed_pumpkin_01",
+    "id": "pumpkin-seeds-premium",
+    "handle": "pumpkin-seeds-premium",
+    "name": "Pumpkin Seeds (Premium Quality)",
+    "title": "Pumpkin Seeds (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 160,
+    "originalPrice": 210,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
+    "description": "Raw shelled green pumpkin seeds rich in zinc and magnesium.",
+    "rating": 4.9,
+    "numReviews": 29,
+    "isFeatured": true,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533"
+    ]
+  },
+  {
+    "_id": "seed_sunflower_01",
+    "id": "sunflower-seeds-premium",
+    "handle": "sunflower-seeds-premium",
+    "name": "Sunflower Seeds (Premium Quality)",
+    "title": "Sunflower Seeds (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 135,
+    "originalPrice": 175,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
+    "description": "Raw peeled sunflower seeds.",
+    "rating": 4.8,
+    "numReviews": 25,
+    "countInStock": 40,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533"
+    ]
+  },
+  {
+    "_id": "seed_watermelon_01",
+    "id": "watermelon-seeds-premium",
+    "handle": "watermelon-seeds-premium",
+    "name": "Watermelon Seeds (Premium Quality)",
+    "title": "Watermelon Seeds (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 150,
+    "originalPrice": 195,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
+    "description": "Raw shelled watermelon kernels.",
+    "rating": 4.9,
+    "numReviews": 22,
+    "countInStock": 35,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533"
+    ]
+  },
+  {
+    "_id": "seed_sabja_01",
+    "id": "sabja-seeds-premium",
+    "handle": "sabja-seeds-premium",
+    "name": "Sabja Seeds (Basil Seeds) (Premium Quality)",
+    "title": "Sabja Seeds (Basil Seeds) (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 110,
+    "originalPrice": 145,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
+    "description": "Natural cooling sweet basil seeds.",
+    "rating": 4.8,
+    "numReviews": 31,
+    "countInStock": 45,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533"
+    ]
+  },
+  {
+    "_id": "seed_poppy_01",
+    "id": "poppy-seeds-premium",
+    "handle": "poppy-seeds-premium",
+    "name": "Poppy Seeds (Khasa Khasa) (Premium Quality)",
+    "title": "Poppy Seeds (Khasa Khasa) (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 220,
+    "originalPrice": 280,
+    "unit": "100 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533",
+    "description": "Pure white khasa khasa poppy seeds.",
+    "rating": 4.9,
+    "numReviews": 20,
+    "countInStock": 30,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533"
+    ]
+  },
+  {
+    "_id": "seed_sesame_01",
+    "id": "sesame-seeds-premium",
+    "handle": "sesame-seeds-premium",
+    "name": "Sesame Seeds (Til) (Premium Quality)",
+    "title": "Sesame Seeds (Til) (Premium Quality)",
+    "category": "Dry Seeds",
+    "price": 95,
+    "originalPrice": 125,
+    "unit": "250 g",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533",
+    "description": "Cleaned white sesame til seeds.",
+    "rating": 4.8,
+    "numReviews": 27,
+    "countInStock": 45,
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533"
+    ],
+    "imageUrls": [
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533"
+    ]
+  }
+];
+
 const Product = require('../models/Product');
 const { sendStockAlertNotification } = require('../utils/notificationService');
 
@@ -7,9 +1088,12 @@ const { sendStockAlertNotification } = require('../utils/notificationService');
 function formatProduct(p) {
   if (!p || typeof p !== 'object') return p;
   const obj = p.toObject ? p.toObject() : { ...p };
+  if (obj._id) obj._id = obj._id.toString();
   obj.title = obj.title || obj.name || 'Untitled Product';
   obj.name = obj.name || obj.title || 'Untitled Product';
-  obj.handle = obj.handle || '';
+  obj.handle = obj.handle || obj.slug || (obj.name ? obj.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : (obj.id || obj._id || ''));
+  obj.id = obj.id || obj.handle || obj._id;
+  obj.slug = obj.slug || obj.handle;
 
   const extracted = [];
   const addCandidate = (val) => {
@@ -186,6 +1270,71 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route   GET /api/products/:id
+// @desc    Get single product by ID, _id, handle, slug, or title search
+router.get('/:id', async (req, res) => {
+  try {
+    const rawParam = (req.params.id || '').trim();
+    if (!rawParam) {
+      return res.status(400).json({ message: 'Product ID required' });
+    }
+
+    let product = null;
+
+    // 1. Try finding by Mongoose ObjectId if 24-char hex string
+    if (rawParam.match(/^[0-9a-fA-F]{24}$/)) {
+      try {
+        product = await Product.findById(rawParam);
+      } catch (e) {}
+    }
+
+    // 2. Try finding by exact handle, slug, or id in MongoDB
+    if (!product) {
+      product = await Product.findOne({
+        $or: [
+          { handle: rawParam },
+          { slug: rawParam },
+          { id: rawParam }
+        ]
+      });
+    }
+
+    // 3. Try finding by exact normalized alphanumeric key in MongoDB
+    if (!product) {
+      const cleanKey = rawParam.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const allDocs = await Product.find({});
+      product = allDocs.find(p => {
+        const pIdKey = String(p.id || p._id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const pHandleKey = String(p.handle || p.slug || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const pNameKey = String(p.name || p.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        return (pIdKey && pIdKey === cleanKey) || (pHandleKey && pHandleKey === cleanKey) || (pNameKey && pNameKey === cleanKey);
+      });
+    }
+
+    // 4. Fallback search in FALLBACK_CATALOG
+    if (!product && typeof FALLBACK_CATALOG !== 'undefined' && Array.isArray(FALLBACK_CATALOG)) {
+      const target = rawParam.toLowerCase();
+      const cleanTarget = target.replace(/[^a-z0-9]/g, '');
+      const match = FALLBACK_CATALOG.find(p => {
+        const pId = String(p.id || p._id || p.handle || p.slug || '').toLowerCase();
+        const pName = String(p.name || p.title || '').toLowerCase();
+        const pCleanId = pId.replace(/[^a-z0-9]/g, '');
+        const pCleanName = pName.replace(/[^a-z0-9]/g, '');
+        return pId === target || pName === target || (pCleanId && pCleanId === cleanTarget) || (pCleanName && pCleanName === cleanTarget);
+      });
+      if (match) return res.json(formatProduct(match));
+    }
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json(formatProduct(product));
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching product', error: error.message });
+  }
+});
+
 // @route   POST /api/products
 // @desc    Create a new product (Admin)
 router.post('/', async (req, res) => {
@@ -334,1414 +1483,6 @@ router.put('/bulk-status', async (req, res) => {
 // =========================================================================
 // PARAMETERIZED /:id ROUTES
 // =========================================================================
-
-// @route   GET /api/products/:id
-// @desc    Get single product by ID or slug/name
-router.get('/:id', async (req, res) => {
-  const rawId = (req.params.id || '').trim();
-
-  const FALLBACK_CATALOG = [
-  {
-    "_id": "oil_groundnut_01",
-    "id": "groundnut-oil-premium",
-    "handle": "groundnut-oil-premium",
-    "slug": "groundnut-oil-premium",
-    "name": "Groundnut Oil (Premium Quality)",
-    "title": "Groundnut Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 349,
-    "originalPrice": 471,
-    "unit": "1 L",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
-    "description": "100% Cold-Pressed Wooden Chekku Groundnut Oil.",
-    "rating": 4.9,
-    "numReviews": 29,
-    "countInStock": 50,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533"
-    ]
-  },
-  {
-    "_id": "oil_sunflower_01",
-    "id": "sunflower-oil-premium",
-    "handle": "sunflower-oil-premium",
-    "slug": "sunflower-oil-premium",
-    "name": "Sunflower Oil (Premium Quality)",
-    "title": "Sunflower Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 499,
-    "originalPrice": 608,
-    "unit": "1 L",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
-    "description": "Pure unrefined wooden-pressed sunflower oil.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "countInStock": 45,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533"
-    ]
-  },
-  {
-    "_id": "oil_sesame_01",
-    "id": "sesame-oil-premium",
-    "handle": "sesame-oil-premium",
-    "slug": "sesame-oil-premium",
-    "name": "Sesame Oil (Premium Quality)",
-    "title": "Sesame Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 148,
-    "originalPrice": 185,
-    "unit": "500 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-    "description": "Traditional wooden pressed gingelly sesame oil.",
-    "rating": 4.9,
-    "numReviews": 37,
-    "countInStock": 40,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
-    ]
-  },
-  {
-    "_id": "oil_castor_01",
-    "id": "castor-oil-premium",
-    "handle": "castor-oil-premium",
-    "slug": "castor-oil-premium",
-    "name": "Castor Oil (Premium Quality)",
-    "title": "Castor Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 95,
-    "originalPrice": 118,
-    "unit": "250 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-    "description": "100% Pure & Organic Cold Pressed Castor Oil.",
-    "rating": 4.9,
-    "numReviews": 41,
-    "countInStock": 30,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
-    ]
-  },
-  {
-    "_id": "oil_coconut_01",
-    "id": "coconut-oil-premium",
-    "handle": "coconut-oil-premium",
-    "slug": "coconut-oil-premium",
-    "name": "Coconut Oil (Premium Quality)",
-    "title": "Coconut Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 165,
-    "originalPrice": 214,
-    "unit": "500 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-    "description": "Pure virgin cold-pressed coconut oil.",
-    "rating": 4.9,
-    "numReviews": 26,
-    "countInStock": 35,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
-    ]
-  },
-  {
-    "_id": "oil_mustard_01",
-    "id": "mustard-oil-premium",
-    "handle": "mustard-oil-premium",
-    "slug": "mustard-oil-premium",
-    "name": "Mustard Oil (Premium Quality)",
-    "title": "Mustard Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 115,
-    "originalPrice": 150,
-    "unit": "500 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-    "description": "Pungent cold-pressed raw kachi ghani mustard oil.",
-    "rating": 4.9,
-    "numReviews": 22,
-    "countInStock": 25,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
-    ]
-  },
-  {
-    "_id": "oil_neem_01",
-    "id": "neem-oil-premium",
-    "handle": "neem-oil-premium",
-    "slug": "neem-oil-premium",
-    "name": "Neem Oil (Premium Quality)",
-    "title": "Neem Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 149,
-    "originalPrice": 199,
-    "unit": "250 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-    "description": "Pure unrefined cold-pressed neem oil.",
-    "rating": 4.9,
-    "numReviews": 28,
-    "countInStock": 30,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533"
-    ]
-  },
-  {
-    "_id": "oil_almond_01",
-    "id": "almond-oil-premium",
-    "handle": "almond-oil-premium",
-    "slug": "almond-oil-premium",
-    "name": "Almond Oil (Premium Quality)",
-    "title": "Almond Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 249,
-    "originalPrice": 320,
-    "unit": "100 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-    "description": "100% Pure cold-pressed sweet almond oil.",
-    "rating": 4.9,
-    "numReviews": 33,
-    "countInStock": 25,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
-    ]
-  },
-  {
-    "_id": "ghee_buffalo_01",
-    "id": "pure-buffalo-ghee-premium",
-    "handle": "pure-buffalo-ghee-premium",
-    "slug": "pure-buffalo-ghee-premium",
-    "name": "Pure Buffalo Ghee (Premium Quality)",
-    "title": "Pure Buffalo Ghee (Premium Quality)",
-    "category": "Ghee and Honey",
-    "price": 222,
-    "originalPrice": 288,
-    "unit": "250 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533",
-    "description": "Rich traditional A2 buffalo ghee made using Vedic bilona method.",
-    "rating": 4.9,
-    "numReviews": 34,
-    "countInStock": 40,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.32.29_PM_2_eb23ab0e-a49c-457d-9dad-00ce2758289c.jpg?v=1757934372&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.32.29_PM_2_eb23ab0e-a49c-457d-9dad-00ce2758289c.jpg?v=1757934372&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.32.29_PM_2_eb23ab0e-a49c-457d-9dad-00ce2758289c.jpg?v=1757934372&width=533"
-    ]
-  },
-  {
-    "_id": "podi_chana_01",
-    "id": "chana-dal-spice-powder-pappula-podi-premium",
-    "handle": "chana-dal-spice-powder-pappula-podi-premium",
-    "slug": "chana-dal-spice-powder-pappula-podi-premium",
-    "aliases": [
-      "chana-dal-spice-powderpappula-podi-premium",
-      "chana-dal-spice-powder-pappula-podi-premium",
-      "chana-dal-spice-powder",
-      "pappula-podi"
-    ],
-    "name": "Chana Dal Spice Powder / Pappula Podi (Premium Quality)",
-    "title": "Chana Dal Spice Powder / Pappula Podi (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 89,
-    "originalPrice": 115,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
-    "description": "Authentic homemade Andhra Pappula Podi made with roasted chana dal and spices.",
-    "rating": 4.9,
-    "numReviews": 32,
-    "countInStock": 40,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533"
-    ]
-  },
-  {
-    "_id": "podi_kobbari_01",
-    "id": "kobbari-karam-podi-premium",
-    "handle": "kobbari-karam-podi-premium",
-    "slug": "kobbari-karam-podi-premium",
-    "aliases": [
-      "kobbari-karam-podi-premium",
-      "kobbari-karam-podi",
-      "kobbari-karam"
-    ],
-    "name": "Kobbari Karam Podi (Premium Quality)",
-    "title": "Kobbari Karam Podi (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 95,
-    "originalPrice": 120,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
-    "description": "Traditional roasted dry coconut karam podi for hot rice and ghee.",
-    "rating": 4.9,
-    "numReviews": 28,
-    "countInStock": 35,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533"
-    ]
-  },
-  {
-    "_id": "podi_nalla_01",
-    "id": "nalla-karam-podi-premium",
-    "handle": "nalla-karam-podi-premium",
-    "slug": "nalla-karam-podi-premium",
-    "aliases": [
-      "nalla-karam-podi-premium",
-      "nalla-karam-podi",
-      "nalla-karam"
-    ],
-    "name": "Nalla Karam Podi (Premium Quality)",
-    "title": "Nalla Karam Podi (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 98,
-    "originalPrice": 125,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
-    "description": "Spicy authentic black karam podi for idli, dosa, and rice.",
-    "rating": 4.9,
-    "numReviews": 31,
-    "countInStock": 30,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533"
-    ]
-  },
-  {
-    "_id": "podi_garlic_01",
-    "id": "garlic-powder-velluli-karam-podi-premium",
-    "handle": "garlic-powder-velluli-karam-podi-premium",
-    "slug": "garlic-powder-velluli-karam-podi-premium",
-    "aliases": [
-      "garlic-powdervelluli-karam-podi-premium",
-      "garlic-powder-velluli-karam-podi-premium",
-      "garlic-powder",
-      "velluli-karam-podi"
-    ],
-    "name": "Garlic Powder / Vellulli Karam Podi (Premium Quality)",
-    "title": "Garlic Powder / Vellulli Karam Podi (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 99,
-    "originalPrice": 130,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
-    "description": "Aromatic roasted garlic karam podi infused with authentic spices.",
-    "rating": 4.9,
-    "numReviews": 42,
-    "countInStock": 45,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_443a54ed-b6f7-46fb-8fc3-ba74bf06cc93.jpg?v=1757334046&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_443a54ed-b6f7-46fb-8fc3-ba74bf06cc93.jpg?v=1757334046&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_443a54ed-b6f7-46fb-8fc3-ba74bf06cc93.jpg?v=1757334046&width=533"
-    ]
-  },
-  {
-    "_id": "podi_karivepaku_01",
-    "id": "karivepaku-karam-podi-premium",
-    "handle": "karivepaku-karam-podi-premium",
-    "slug": "karivepaku-karam-podi-premium",
-    "aliases": [
-      "karivepaku-karam-podi-premium",
-      "karivepaku-karam-podi",
-      "karivepaku-karam"
-    ],
-    "name": "Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)",
-    "title": "Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 95,
-    "originalPrice": 125,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
-    "description": "Fresh curry leaves karam podi rich in iron and aroma.",
-    "rating": 4.9,
-    "numReviews": 27,
-    "countInStock": 30,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
-    ]
-  },
-  {
-    "_id": "seed_flax_01",
-    "id": "flax-seeds-premium",
-    "handle": "flax-seeds-premium",
-    "slug": "flax-seeds-premium",
-    "name": "Flax Seeds (Premium Quality)",
-    "title": "Flax Seeds (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 75,
-    "originalPrice": 95,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
-    "description": "Raw organic flax seeds rich in Omega-3 fatty acids.",
-    "rating": 4.8,
-    "numReviews": 24,
-    "countInStock": 50,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533"
-    ]
-  },
-  {
-    "_id": "seed_chia_01",
-    "id": "chia-seeds-premium",
-    "handle": "chia-seeds-premium",
-    "slug": "chia-seeds-premium",
-    "name": "Chia Seeds (Premium Quality)",
-    "title": "Chia Seeds (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 145,
-    "originalPrice": 180,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
-    "description": "Nutritious raw black chia seeds packed with fiber.",
-    "rating": 4.9,
-    "numReviews": 38,
-    "countInStock": 40,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533"
-    ]
-  },
-  {
-    "_id": "seed_pumpkin_01",
-    "id": "pumpkin-seeds-premium",
-    "handle": "pumpkin-seeds-premium",
-    "slug": "pumpkin-seeds-premium",
-    "name": "Pumpkin Seeds (Premium Quality)",
-    "title": "Pumpkin Seeds (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 160,
-    "originalPrice": 210,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
-    "description": "Raw shelled green pumpkin seeds rich in zinc and magnesium.",
-    "rating": 4.9,
-    "numReviews": 29,
-    "countInStock": 35,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533"
-    ]
-  },
-  {
-    "_id": "seed_sunflower_01",
-    "id": "sunflower-seeds-premium",
-    "handle": "sunflower-seeds-premium",
-    "slug": "sunflower-seeds-premium",
-    "name": "Sunflower Seeds (Premium Quality)",
-    "title": "Sunflower Seeds (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 135,
-    "originalPrice": 175,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
-    "description": "Raw peeled sunflower seeds.",
-    "rating": 4.8,
-    "numReviews": 25,
-    "countInStock": 40,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533"
-    ]
-  },
-  {
-    "_id": "seed_watermelon_01",
-    "id": "watermelon-seeds-premium",
-    "handle": "watermelon-seeds-premium",
-    "slug": "watermelon-seeds-premium",
-    "name": "Watermelon Seeds (Premium Quality)",
-    "title": "Watermelon Seeds (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 150,
-    "originalPrice": 195,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
-    "description": "Raw shelled watermelon kernels.",
-    "rating": 4.9,
-    "numReviews": 22,
-    "countInStock": 35,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533"
-    ]
-  },
-  {
-    "_id": "seed_sabja_01",
-    "id": "sabja-seeds-premium",
-    "handle": "sabja-seeds-premium",
-    "slug": "sabja-seeds-premium",
-    "name": "Sabja Seeds (Basil Seeds) (Premium Quality)",
-    "title": "Sabja Seeds (Basil Seeds) (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 110,
-    "originalPrice": 145,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
-    "description": "Natural cooling sweet basil seeds.",
-    "rating": 4.8,
-    "numReviews": 31,
-    "countInStock": 45,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533"
-    ]
-  },
-  {
-    "_id": "dry_cashew_01",
-    "id": "cashew-nuts-premium",
-    "handle": "cashew-nuts-premium",
-    "slug": "cashew-nuts-premium",
-    "name": "Cashew Nuts (Kaju) (Premium Quality)",
-    "title": "Cashew Nuts (Kaju) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 265,
-    "originalPrice": 340,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
-    "description": "Whole crispy premium cashew nuts rich in antioxidants.",
-    "rating": 4.8,
-    "numReviews": 39,
-    "countInStock": 35,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533"
-    ]
-  },
-  {
-    "_id": "dry_almonds_01",
-    "id": "almonds-premium",
-    "handle": "almonds-premium",
-    "slug": "almonds-premium",
-    "name": "Almonds (Badam) (Premium Quality)",
-    "title": "Almonds (Badam) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 225,
-    "originalPrice": 295,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
-    "description": "Hand-picked California almonds packed with protein.",
-    "rating": 4.9,
-    "numReviews": 45,
-    "countInStock": 40,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533"
-    ]
-  },
-  {
-    "_id": "dry_figs_01",
-    "id": "figsdry-anjeer-premium",
-    "handle": "figsdry-anjeer-premium",
-    "slug": "figsdry-anjeer-premium",
-    "name": "Figs (Dry Anjeer) (Premium Quality)",
-    "title": "Figs (Dry Anjeer) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 375,
-    "originalPrice": 480,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
-    "description": "Rich, chewy dried figs naturally packed with iron.",
-    "rating": 4.9,
-    "numReviews": 37,
-    "countInStock": 20,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533"
-    ]
-  },
-  {
-    "_id": "dry_walnuts_01",
-    "id": "walnuts-premium",
-    "handle": "walnuts-premium",
-    "slug": "walnuts-premium",
-    "name": "Walnuts (Akhrot) (Premium Quality)",
-    "title": "Walnuts (Akhrot) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 320,
-    "originalPrice": 420,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
-    "description": "Raw shelled California walnut halves.",
-    "rating": 4.8,
-    "numReviews": 30,
-    "countInStock": 35,
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533"
-    ]
-  },
-  {
-    "_id": "dry_pistachio_01",
-    "id": "pistachio-premium",
-    "handle": "pistachio-premium",
-    "slug": "pistachio-premium",
-    "aliases": [
-      "pistachio-premium"
-    ],
-    "name": "Pistachio (With Shell) (Premium Quality)",
-    "title": "Pistachio (With Shell) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 340,
-    "originalPrice": 430,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533"
-    ],
-    "description": "Roasted salted pistachio in shell.",
-    "rating": 4.9,
-    "numReviews": 28,
-    "countInStock": 30
-  },
-  {
-    "_id": "dry_raisins_01",
-    "id": "raisins-premium",
-    "handle": "raisins-premium",
-    "slug": "raisins-premium",
-    "aliases": [
-      "raisins-premium"
-    ],
-    "name": "Raisins (Kishmish) (Premium Quality)",
-    "title": "Raisins (Kishmish) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 140,
-    "originalPrice": 185,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533"
-    ],
-    "description": "Sweet golden green raisins.",
-    "rating": 4.8,
-    "numReviews": 25,
-    "countInStock": 35
-  },
-  {
-    "_id": "dry_dates_01",
-    "id": "dates-premium",
-    "handle": "dates-premium",
-    "slug": "dates-premium",
-    "aliases": [
-      "dates-premium"
-    ],
-    "name": "Dates (Khajoor) (Premium Quality)",
-    "title": "Dates (Khajoor) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 180,
-    "originalPrice": 230,
-    "unit": "500 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533"
-    ],
-    "description": "Soft juicy seedless dates.",
-    "rating": 4.9,
-    "numReviews": 40,
-    "countInStock": 40
-  },
-  {
-    "_id": "dry_groundnuts_01",
-    "id": "ground-nutsraw-premium",
-    "handle": "ground-nutsraw-premium",
-    "slug": "ground-nutsraw-premium",
-    "aliases": [
-      "ground-nutsraw-premium"
-    ],
-    "name": "Ground Nuts Raw (Peanuts) (Premium Quality)",
-    "title": "Ground Nuts Raw (Peanuts) (Premium Quality)",
-    "category": "Dry Fruits",
-    "price": 120,
-    "originalPrice": 155,
-    "unit": "500 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_1_18442075-b578-4cf6-9c7a-04955b5197b7.jpg?v=1757334056&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_10.50.53_AM_49ea271e-21eb-4b1c-8edf-48ea811519e3.jpg?v=1757334056&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_1_18442075-b578-4cf6-9c7a-04955b5197b7.jpg?v=1757334056&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_10.50.53_AM_49ea271e-21eb-4b1c-8edf-48ea811519e3.jpg?v=1757334056&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_1_18442075-b578-4cf6-9c7a-04955b5197b7.jpg?v=1757334056&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_10.50.53_AM_49ea271e-21eb-4b1c-8edf-48ea811519e3.jpg?v=1757334056&width=533"
-    ],
-    "description": "Raw unroasted groundnuts/peanuts.",
-    "rating": 4.8,
-    "numReviews": 22,
-    "countInStock": 50
-  },
-  {
-    "_id": "spice_garam_masala_01",
-    "id": "garam-masala-powder-premium",
-    "handle": "garam-masala-powder-premium",
-    "slug": "garam-masala-powder-premium",
-    "aliases": [
-      "garam-masala-powder-premium"
-    ],
-    "name": "Garam Masala Powder (Premium Quality)",
-    "title": "Garam Masala Powder (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 110,
-    "originalPrice": 145,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533"
-    ],
-    "description": "Rich roasted aromatic garam masala powder.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "countInStock": 40
-  },
-  {
-    "_id": "spice_pepper_01",
-    "id": "pepper-powder-premium",
-    "handle": "pepper-powder-premium",
-    "slug": "pepper-powder-premium",
-    "aliases": [
-      "pepper-powder-premium"
-    ],
-    "name": "Black Pepper Powder (Premium Quality)",
-    "title": "Black Pepper Powder (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 95,
-    "originalPrice": 125,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533"
-    ],
-    "description": "Pure freshly ground black pepper powder.",
-    "rating": 4.9,
-    "numReviews": 24,
-    "countInStock": 30
-  },
-  {
-    "_id": "spice_black_pepper_01",
-    "id": "black-pepper-premium",
-    "handle": "black-pepper-premium",
-    "slug": "black-pepper-premium",
-    "aliases": [
-      "black-pepper-premium"
-    ],
-    "name": "Black Pepper (Whole) (Premium Quality)",
-    "title": "Black Pepper (Whole) (Premium Quality)",
-    "category": "Spices",
-    "price": 120,
-    "originalPrice": 160,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533"
-    ],
-    "description": "Whole aromatic black pepper corns.",
-    "rating": 4.9,
-    "numReviews": 29,
-    "countInStock": 35
-  },
-  {
-    "_id": "spice_coriander_01",
-    "id": "coriander-powder-premium",
-    "handle": "coriander-powder-premium",
-    "slug": "coriander-powder-premium",
-    "aliases": [
-      "coriander-powder-premium"
-    ],
-    "name": "Coriander Powder (Dhania) (Premium Quality)",
-    "title": "Coriander Powder (Dhania) (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 75,
-    "originalPrice": 99,
-    "unit": "200 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.05.41_AM_3a73c340-26b7-49a8-8fa3-a6ee784d219a.jpg?v=1757333982&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.05.41_AM_3a73c340-26b7-49a8-8fa3-a6ee784d219a.jpg?v=1757333982&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.05.41_AM_3a73c340-26b7-49a8-8fa3-a6ee784d219a.jpg?v=1757333982&width=533"
-    ],
-    "description": "Pure ground coriander seeds powder.",
-    "rating": 4.8,
-    "numReviews": 33,
-    "countInStock": 45
-  },
-  {
-    "_id": "spice_coriander_seeds_01",
-    "id": "coriander-premium",
-    "handle": "coriander-premium",
-    "slug": "coriander-premium",
-    "aliases": [
-      "coriander-premium"
-    ],
-    "name": "Coriander Seeds (Dhania) (Premium Quality)",
-    "title": "Coriander Seeds (Dhania) (Premium Quality)",
-    "category": "Spices",
-    "price": 80,
-    "originalPrice": 105,
-    "unit": "200 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.01.42_PM_54cc4ece-2494-45d1-b46e-b7eab45e48bd.jpg?v=1757333995&width=533"
-    ],
-    "description": "Fresh whole coriander seeds.",
-    "rating": 4.8,
-    "numReviews": 21,
-    "countInStock": 40
-  },
-  {
-    "_id": "spice_cloves_01",
-    "id": "cloves-premium",
-    "handle": "cloves-premium",
-    "slug": "cloves-premium",
-    "aliases": [
-      "cloves-premium"
-    ],
-    "name": "Cloves (Lavangalu) (Premium Quality)",
-    "title": "Cloves (Lavangalu) (Premium Quality)",
-    "category": "Spices",
-    "price": 135,
-    "originalPrice": 175,
-    "unit": "50 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533"
-    ],
-    "description": "Aromatic whole cloves.",
-    "rating": 4.9,
-    "numReviews": 26,
-    "countInStock": 30
-  },
-  {
-    "_id": "spice_cardamom_01",
-    "id": "cardamom-premium",
-    "handle": "cardamom-premium",
-    "slug": "cardamom-premium",
-    "aliases": [
-      "cardamom-premium"
-    ],
-    "name": "Cardamom (Elaichi) (Premium Quality)",
-    "title": "Cardamom (Elaichi) (Premium Quality)",
-    "category": "Spices",
-    "price": 195,
-    "originalPrice": 250,
-    "unit": "50 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533"
-    ],
-    "description": "Green whole cardamom pods.",
-    "rating": 4.9,
-    "numReviews": 30,
-    "countInStock": 35
-  },
-  {
-    "_id": "spice_cinnamon_01",
-    "id": "cinnamon-premium",
-    "handle": "cinnamon-premium",
-    "slug": "cinnamon-premium",
-    "aliases": [
-      "cinnamon-premium"
-    ],
-    "name": "Cinnamon Sticks (Kerala Style) (Premium Quality)",
-    "title": "Cinnamon Sticks (Kerala Style) (Premium Quality)",
-    "category": "Spices",
-    "price": 115,
-    "originalPrice": 150,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533"
-    ],
-    "description": "Pure aromatic cinnamon bark.",
-    "rating": 4.9,
-    "numReviews": 22,
-    "countInStock": 40
-  },
-  {
-    "_id": "spice_cumin_01",
-    "id": "cumin-premium",
-    "handle": "cumin-premium",
-    "slug": "cumin-premium",
-    "aliases": [
-      "cumin-premium"
-    ],
-    "name": "Cumin Seeds (Jeera) (Premium Quality)",
-    "title": "Cumin Seeds (Jeera) (Premium Quality)",
-    "category": "Spices",
-    "price": 95,
-    "originalPrice": 125,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_2_603e588c-f12a-4d13-9d05-e88fdbaf0106.jpg?v=1757333994&width=533"
-    ],
-    "description": "Clean aromatic cumin seeds.",
-    "rating": 4.8,
-    "numReviews": 28,
-    "countInStock": 45
-  },
-  {
-    "_id": "spice_mix_masala_01",
-    "id": "mix-masala-premium",
-    "handle": "mix-masala-premium",
-    "slug": "mix-masala-premium",
-    "aliases": [
-      "mix-masala-premium"
-    ],
-    "name": "Mix Masala Powder (Premium Quality)",
-    "title": "Mix Masala Powder (Premium Quality)",
-    "category": "Spice Powders",
-    "price": 105,
-    "originalPrice": 135,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/biriyani_masala_mix_0ea70b9d-998e-45e0-88e4-dd70361ffe2e.jpg?v=1757333993&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.16.09_PM_758e91ab-7cdb-4df9-823b-34809ffe2742.jpg?v=1757333993&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/biriyani_masala_mix_0ea70b9d-998e-45e0-88e4-dd70361ffe2e.jpg?v=1757333993&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.16.09_PM_758e91ab-7cdb-4df9-823b-34809ffe2742.jpg?v=1757333993&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/biriyani_masala_mix_0ea70b9d-998e-45e0-88e4-dd70361ffe2e.jpg?v=1757333993&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.16.09_PM_758e91ab-7cdb-4df9-823b-34809ffe2742.jpg?v=1757333993&width=533"
-    ],
-    "description": "Traditional curry mix masala.",
-    "rating": 4.9,
-    "numReviews": 25,
-    "countInStock": 35
-  },
-  {
-    "_id": "spice_star_anise_01",
-    "id": "star-anise-premium",
-    "handle": "star-anise-premium",
-    "slug": "star-anise-premium",
-    "aliases": [
-      "star-anise-premium"
-    ],
-    "name": "Star Anise (Anasa Puvvu) (Premium Quality)",
-    "title": "Star Anise (Anasa Puvvu) (Premium Quality)",
-    "category": "Spices",
-    "price": 125,
-    "originalPrice": 160,
-    "unit": "50 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533"
-    ],
-    "description": "Aromatic whole star anise.",
-    "rating": 4.9,
-    "numReviews": 19,
-    "countInStock": 30
-  },
-  {
-    "_id": "seed_poppy_01",
-    "id": "poppy-seeds-premium",
-    "handle": "poppy-seeds-premium",
-    "slug": "poppy-seeds-premium",
-    "aliases": [
-      "poppy-seeds-premium"
-    ],
-    "name": "Poppy Seeds (Khasa Khasa) (Premium Quality)",
-    "title": "Poppy Seeds (Khasa Khasa) (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 220,
-    "originalPrice": 280,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533"
-    ],
-    "description": "Pure white khasa khasa poppy seeds.",
-    "rating": 4.9,
-    "numReviews": 20,
-    "countInStock": 30
-  },
-  {
-    "_id": "seed_sesame_01",
-    "id": "sesame-seeds-premium",
-    "handle": "sesame-seeds-premium",
-    "slug": "sesame-seeds-premium",
-    "aliases": [
-      "sesame-seeds-premium"
-    ],
-    "name": "Sesame Seeds (Til) (Premium Quality)",
-    "title": "Sesame Seeds (Til) (Premium Quality)",
-    "category": "Dry Seeds",
-    "price": 95,
-    "originalPrice": 125,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533"
-    ],
-    "description": "Cleaned white sesame til seeds.",
-    "rating": 4.8,
-    "numReviews": 27,
-    "countInStock": 45
-  }
-];
-
-  function findCatalogMatch(targetId) {
-    if (!targetId) return null;
-    const clean = String(targetId).toLowerCase().replace(/-/g, ' ').trim();
-    const words = clean.split(' ').filter(w => w.length > 2 && !['premium', 'quality'].includes(w));
-
-    let best = null;
-    let maxScore = 0;
-
-    FALLBACK_CATALOG.forEach(p => {
-      const pId = String(p.id || '').toLowerCase();
-      const pHandle = String(p.handle || '').toLowerCase();
-      const pName = String(p.name || '').toLowerCase();
-      const pAliases = (p.aliases || []).map(a => String(a).toLowerCase());
-
-      if (pId === targetId || pHandle === targetId || pAliases.includes(targetId)) {
-        best = p;
-        maxScore = 999;
-        return;
-      }
-
-      const pText = `${pId} ${pHandle} ${pName} ${pAliases.join(' ')}`.replace(/-/g, ' ');
-      let score = 0;
-      words.forEach(w => {
-        if (pText.includes(w)) score += 3;
-      });
-
-      if (score > maxScore) {
-        maxScore = score;
-        best = p;
-      }
-    });
-
-    if (best && maxScore >= 2) return best;
-    return null;
-  }
-
-  try {
-    let product = null;
-
-    if (rawId.match(/^[0-9a-fA-F]{24}$/)) {
-      product = await Product.findById(rawId).catch(() => null);
-    }
-
-    if (!product && rawId) {
-      const cleanSlug = rawId.replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
-      const noise = new Set(['premium', 'quality', 'softgrinding', 'best', 'copy']);
-      const words = cleanSlug.split(' ').filter(w => w.length > 2 && !noise.has(w.toLowerCase()));
-
-      product = await Product.findOne({
-        $or: [
-          { handle: rawId },
-          { handle: cleanSlug },
-          { slug: rawId },
-          { slug: cleanSlug },
-          { name: { $regex: `^${cleanSlug.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')}$`, $options: 'i' } },
-          { name: { $regex: cleanSlug.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), $options: 'i' } }
-        ]
-      }).catch(() => null);
-
-      if (!product && words.length > 0) {
-        const subTokens = ['garlic', 'velluli', 'chana', 'pappula', 'nalla', 'kobbari', 'karivepaku', 'karam', 'podi', 'powder', 'spice', 'oil', 'ghee', 'honey', 'cashew', 'almond', 'dates', 'raisins', 'walnut', 'fig', 'anjeer', 'seeds', 'pickle'];
-        const expandedWords = [];
-        words.forEach(w => {
-          let matchedToken = false;
-          subTokens.forEach(st => {
-            if (w.includes(st)) {
-              expandedWords.push(st);
-              matchedToken = true;
-            }
-          });
-          if (!matchedToken) expandedWords.push(w);
-        });
-
-        const andConditions = expandedWords.map(w => ({
-          $or: [
-            { name: { $regex: w.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), $options: 'i' } },
-            { handle: { $regex: w.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), $options: 'i' } }
-          ]
-        }));
-        product = await Product.findOne({ $and: andConditions }).catch(() => null);
-      }
-    }
-
-    if (product) {
-      return res.json(formatProduct(product));
-    }
-  } catch (err) {
-    // Ignore DB error
-  }
-
-  // 3. Fall back to exact Catalog Match
-  const catMatch = findCatalogMatch(rawId);
-  if (catMatch) {
-    return res.json(formatProduct(catMatch));
-  }
-
-  // 4. Synthesize Dynamic Product with Exact Category & Image Matching
-  const titleClean = rawId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  const t = rawId.toLowerCase();
-  let cat = 'Grocery Essentials';
-  let img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740';
-  let unit = '1 unit';
-  let price = 99;
-  let origPrice = 130;
-
-  if (t.includes('garlic') || t.includes('velluli')) {
-    cat = 'Spice Powders';
-    unit = '100 g'; price = 99; origPrice = 130;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_1_a625cb73-82ef-4d39-b9ee-eebfb4a8b7ea.jpg?v=1757333954&width=533';
-  } else if (t.includes('chana') || t.includes('pappula')) {
-    cat = 'Spice Powders';
-    unit = '100 g'; price = 89; origPrice = 115;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_4.jpg?v=1757333956&width=533';
-  } else if (t.includes('nalla')) {
-    cat = 'Spice Powders';
-    unit = '100 g'; price = 98; origPrice = 125;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_2_ad9e67d2-ec10-4ed3-89ef-fa55c91be8df.jpg?v=1757333955&width=533';
-  } else if (t.includes('kobbari')) {
-    cat = 'Spice Powders';
-    unit = '100 g'; price = 95; origPrice = 120;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712&width=533';
-  } else if (t.includes('karivepaku')) {
-    cat = 'Spice Powders';
-    unit = '100 g'; price = 95; origPrice = 125;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_1_a625cb73-82ef-4d39-b9ee-eebfb4a8b7ea.jpg?v=1757333954&width=533';
-  } else if (t.includes('podi') || t.includes('karam') || t.includes('masala') || t.includes('powder')) {
-    cat = 'Spice Powders';
-    unit = '100 g'; price = 95; origPrice = 125;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533';
-  } else if (t.includes('ghee') || t.includes('honey')) {
-    cat = 'Ghee and Honey';
-    unit = '250 ml'; price = 222; origPrice = 288;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533';
-  } else if (t.includes('seed')) {
-    cat = 'Dry Seeds';
-    unit = '250 g'; price = 145; origPrice = 180;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/dry_seeds_200x200_crop_center.jpg?v=1746963515';
-  } else if (t.includes('fruit') || t.includes('nut') || t.includes('kaju') || t.includes('badam') || t.includes('almond') || t.includes('cashew') || t.includes('date') || t.includes('raisin') || t.includes('walnut') || t.includes('fig') || t.includes('anjeer')) {
-    cat = 'Dry Fruits';
-    unit = '250 g'; price = 225; origPrice = 295;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/seeds_dry_fruits_nuts_webp_200x200_crop_center.jpg?v=1746963459';
-  } else if (t.includes('pickle')) {
-    cat = 'Pickles';
-    unit = '250 g'; price = 149; origPrice = 199;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-20_at_12.12.10_PM_1_7e869e3d-6430-4313-8bcd-0f07e53ad1ed.jpg?v=1757333951';
-  } else if (t.includes('castor')) {
-    cat = 'Oils';
-    unit = '250 ml'; price = 95; origPrice = 118;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533';
-  } else if (t.includes('coconut')) {
-    cat = 'Oils';
-    unit = '500 ml'; price = 165; origPrice = 214;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533';
-  } else if (t.includes('sunflower')) {
-    cat = 'Oils';
-    unit = '1 L'; price = 499; origPrice = 608;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533';
-  } else if (t.includes('sesame')) {
-    cat = 'Oils';
-    unit = '500 ml'; price = 148; origPrice = 185;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533';
-  } else if (t.includes('mustard')) {
-    cat = 'Oils';
-    unit = '500 ml'; price = 115; origPrice = 150;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533';
-  } else if (t.includes('neem')) {
-    cat = 'Oils';
-    unit = '250 ml'; price = 149; origPrice = 199;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533';
-  } else if (t.includes('groundnut') || t.includes('peanut')) {
-    cat = 'Oils';
-    unit = '1 L'; price = 349; origPrice = 471;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533';
-  } else if (t.includes('oil')) {
-    cat = 'Oils';
-    unit = '500 ml'; price = 149; origPrice = 199;
-    img = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533';
-  }
-
-  const dynProd = {
-    _id: `dyn_${rawId}`,
-    id: rawId,
-    handle: rawId,
-    name: `${titleClean} (Premium Quality)`,
-    title: `${titleClean} (Premium Quality)`,
-    category: cat,
-    price: price,
-    originalPrice: origPrice,
-    unit: unit,
-    image: img,
-    description: '100% authentic, pure, and preservative-free farm-fresh product packed and delivered from Arshith Fresh.',
-    rating: 4.9,
-    numReviews: 32,
-    countInStock: 25
-  };
-  return res.json(formatProduct(dynProd));
-});
-
-// @route   PUT /api/products/:id
-// @desc    Update an existing product (Admin)
-router.put('/:id', async (req, res) => {
-  try {
-    const data = { ...req.body };
-    if (!data.name && data.title) {
-      data.name = data.title;
-    }
-    if (data.price !== undefined && !isNaN(Number(data.price))) {
-      data.price = Number(data.price);
-    }
-
-    // Normalize images array
-    if (Array.isArray(data.images)) {
-      data.images = data.images.map(img => {
-        if (typeof img === 'string') return { url: img.trim(), alt: '' };
-        if (img && typeof img === 'object') return { url: (img.url || '').trim(), alt: (img.alt || '').trim() };
-        return null;
-      }).filter(img => img && img.url);
-
-      const seen = new Set();
-      data.images = data.images.filter(img => {
-        if (seen.has(img.url)) return false;
-        seen.add(img.url);
-        return true;
-      });
-
-      if (data.images.length > 0) {
-        data.image = data.images[0].url;
-      }
-    } else if (data.image && typeof data.image === 'string' && data.image.trim()) {
-      data.images = [{ url: data.image.trim(), alt: '' }];
-    }
-
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      data,
-      { new: true, runValidators: true }
-    );
-    if (!updatedProduct) {
-      return res.status(404).json({ message: 'Product not found to update' });
-    }
-
-    // Trigger stock alert email to admin if updated stock level is 10 or below
-    if (updatedProduct.countInStock <= 10) {
-      sendStockAlertNotification({ product: updatedProduct, newStock: updatedProduct.countInStock }).catch(err => {
-        console.error('Error sending stock alert notification on product update:', err.message);
-      });
-    }
-
-    res.json(formatProduct(updatedProduct));
-  } catch (error) {
-    res.status(400).json({ message: 'Error updating product', error: error.message });
-  }
-});
-
-// @route   DELETE /api/products/:id
-// @desc    Delete a product (Admin)
-router.delete('/:id', async (req, res) => {
-  try {
-    const product = await Product.findByIdAndDelete(req.params.id);
-    if (!product) {
-      return res.status(404).json({ message: 'Product not found to delete' });
-    }
-    res.json({ message: 'Product deleted successfully', id: req.params.id });
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting product', error: error.message });
-  }
-});
 
 // @route   GET /api/products/:id/reviews
 // @desc    Get all reviews for a product
