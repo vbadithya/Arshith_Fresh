@@ -231,8 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     pillsContainer = document.createElement('div');
                     pillsContainer.id = 'subcategoryPillsRow';
                     pillsContainer.className = 'subcategory-pills-row';
-                    pillsContainer.style.cssText = 'display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0 20px 0; padding: 0 15px;';
-                    heroContainer.appendChild(pillsContainer);
+                    heroContainer.insertAdjacentElement('afterend', pillsContainer);
+                } else if (pillsContainer.parentElement === heroContainer) {
+                    heroContainer.insertAdjacentElement('afterend', pillsContainer);
                 }
 
                 if (activeColObj && Array.isArray(activeColObj.subcategories) && activeColObj.subcategories.length > 0) {
@@ -241,14 +242,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (slug === 'pickles') baseLink = `${pagePrefix}categories/pickles.html`;
 
                     let pillsHtml = `
-                        <a href="${baseLink}" class="subcat-pill-btn ${!activeSub ? 'active' : ''}" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; border: 1.5px solid #16a34a; background: ${!activeSub ? '#16a34a' : '#ffffff'}; color: ${!activeSub ? '#ffffff' : '#16a34a'}; transition: all 0.2s;">All ${activeColObj.title}</a>
+                        <a href="${baseLink}" class="subcat-pill-btn ${!activeSub ? 'active' : ''}">All ${activeColObj.title}</a>
                     `;
 
                     activeColObj.subcategories.forEach(sub => {
                         const isSubActive = activeSub && activeSub.toLowerCase() === sub.toLowerCase();
                         const subLink = inCategoriesDir ? `${pathname}?sub=${encodeURIComponent(sub)}` : `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}&sub=${encodeURIComponent(sub)}`;
                         pillsHtml += `
-                            <a href="${subLink}" class="subcat-pill-btn ${isSubActive ? 'active' : ''}" style="padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; border: 1.5px solid #16a34a; background: ${isSubActive ? '#16a34a' : '#ffffff'}; color: ${isSubActive ? '#ffffff' : '#16a34a'}; transition: all 0.2s;">${sub}</a>
+                            <a href="${subLink}" class="subcat-pill-btn ${isSubActive ? 'active' : ''}">${sub}</a>
                         `;
                     });
 
