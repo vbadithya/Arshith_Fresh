@@ -35,6 +35,10 @@ const collectionSchema = new mongoose.Schema({
   productsCount: {
     type: Number,
     default: 0,
+  },
+  sortOrder: {
+    type: Number,
+    default: 50,
   }
 }, { timestamps: true });
 

@@ -2856,11 +2856,16 @@ document.addEventListener("DOMContentLoaded", () => {
             hover = hoverCandidate;
         }
 
+        const allFinal = [...resolvedUrls];
+        if (hover && !allFinal.includes(hover)) {
+            allFinal.push(hover);
+        }
+
         return {
             primary,
             hover,
-            all: resolvedUrls.length > 0 ? resolvedUrls : [neutralPlaceholder],
-            hasValid: resolvedUrls.length > 0
+            all: allFinal.length > 0 ? allFinal : [neutralPlaceholder],
+            hasValid: allFinal.length > 0
         };
     }
 
@@ -2996,6 +3001,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!res.ok) return;
             const collections = await res.json();
             if (!collections || collections.length === 0) return;
+
+            collections.sort((a, b) => {
+                const orderA = typeof a.sortOrder === 'number' ? a.sortOrder : (String(a.title || '').toLowerCase().includes('household') ? 99 : 50);
+                const orderB = typeof b.sortOrder === 'number' ? b.sortOrder : (String(b.title || '').toLowerCase().includes('household') ? 99 : 50);
+                return orderA - orderB;
+            });
 
             const pathname = window.location.pathname.toLowerCase();
             const inCategoriesDir = pathname.includes('/pages/categories/');

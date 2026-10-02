@@ -6,7 +6,7 @@ const Collection = require('../models/Collection');
 // @desc    Get all collections
 router.get('/', async (req, res) => {
   try {
-    const collections = await Collection.find({}).sort({ createdAt: -1 });
+    const collections = await Collection.find({}).sort({ sortOrder: 1, createdAt: 1 });
     res.json(collections);
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error retrieving collections', error: error.message });
