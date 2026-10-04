@@ -55,7 +55,8 @@ mongoose.connect(primaryUri).then(async () => {
     const revCount = await Review.countDocuments({ productId: p._id });
     const targetCount = getProductTargetCount(p.name);
     if (revCount === 0) {
-      const generated = generateOilReviews(p.name, p._id, targetCount);
+      const pImg = p.image || (p.images && p.images[0] ? (typeof p.images[0] === 'string' ? p.images[0] : p.images[0].url) : null);
+      const generated = generateOilReviews(p.name, p._id, targetCount, pImg);
       await Review.insertMany(generated);
       p.numReviews = generated.length;
       const totalScore = generated.reduce((sum, r) => sum + r.rating, 0);

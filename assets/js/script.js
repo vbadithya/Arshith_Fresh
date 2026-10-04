@@ -4503,13 +4503,11 @@ function renderAmazonReviewsUI(container) {
         }
     });
 
-    // Fallback demo images if none in reviews
+    // Fallback product image if no photo gallery in reviews
     if (allCustomerImages.length === 0) {
-        allCustomerImages.push(
-            'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533',
-            'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533',
-            'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533'
-        );
+        const prod = window.currentProductData || {};
+        const pImg = prod.image || (prod.images && prod.images[0] ? (typeof prod.images[0] === 'string' ? prod.images[0] : prod.images[0].url) : '');
+        if (pImg) allCustomerImages.push(pImg);
     }
 
     // Get Logged In User
