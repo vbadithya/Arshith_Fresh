@@ -328,9 +328,9 @@
 
                                     <div class="cart-col-quantity">
                                         <div class="cart-qty-box">
-                                            <button class="qty-control-btn" onclick="updateCartQuantity(${index}, ${item.quantity - 1}); renderCartPage();">&minus;</button>
-                                            <span class="qty-num">${item.quantity}</span>
-                                            <button class="qty-control-btn" onclick="updateCartQuantity(${index}, ${item.quantity + 1}); renderCartPage();">+</button>
+                                            <button class="qty-control-btn" onclick="updateCartQuantity(${index}, ${Number(item.quantity || item.qty || 1) - 1});">&minus;</button>
+                                            <span class="qty-num">${item.quantity || item.qty || 1}</span>
+                                            <button class="qty-control-btn" onclick="updateCartQuantity(${index}, ${Number(item.quantity || item.qty || 1) + 1});">+</button>
                                         </div>
                                         <button class="cart-trash-btn" onclick="removeFromCart(${index}); renderCartPage();" title="Remove item" aria-label="Remove item">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

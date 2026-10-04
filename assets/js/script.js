@@ -2280,10 +2280,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function changeCardItemQty(id, name, price, image, delta) {
+        if (!id && !name) return;
         CART_ITEMS = consolidateCartItems(CART_ITEMS);
-        const cleanName = String(name || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
+        const cleanName = String(name || id || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
         const nameKey = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const idKey = String(id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const idKey = String(id || name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const d = Number(delta) || 1;
 
         let existing = CART_ITEMS.find(item => {
             const itemTitleKey = normalizeCartProductKey(item);
@@ -2293,28 +2295,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (existing) {
             let currentQty = Number(existing.quantity || existing.qty || 1);
-            let newQty = currentQty + delta;
+            let newQty = currentQty + d;
             if (newQty <= 0) {
                 const index = CART_ITEMS.indexOf(existing);
                 if (index > -1) {
                     CART_ITEMS.splice(index, 1);
                 }
                 if (typeof showToast === "function") {
-                    showToast(`Removed ${cleanName} from cart`);
+                    showToast(`Removed ${cleanName || existing.title || 'Item'} from cart`);
                 }
             } else {
                 existing.quantity = newQty;
                 existing.qty = newQty;
             }
-        } else if (delta > 0) {
+        } else if (d > 0) {
             CART_ITEMS.push({
                 id: id || String(Date.now()),
                 title: cleanName || "Arshith Fresh Product",
                 name: cleanName || "Arshith Fresh Product",
                 price: sanitizeCartItemPrice(price),
                 image: image || "assets/images/placeholder.svg",
-                quantity: delta,
-                qty: delta
+                quantity: d,
+                qty: d
             });
         }
         saveCart();
@@ -2333,10 +2335,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                const id = overlay.dataset.productId;
-                const name = overlay.dataset.productName;
-                const price = parseFloat(overlay.dataset.productPrice) || 0;
-                const image = overlay.dataset.productImage || '';
+                const card = overlay.closest('.product-card, .af-product-card, .collection-product-card, .collection-product-card-box, .product-item, .card');
+                const addBtn = card ? card.querySelector(".add-to-cart-btn, [onclick*='addToStoreCart']") : null;
+                
+                let info = parseAddToCartArgs(overlay) || parseAddToCartArgs(addBtn) || parseAddToCartArgs(card);
+
+                if (!info || !info.id || !info.name) {
+                    if (card) {
+                        const linkEl = card.querySelector("a[href*='id=']");
+                        if (linkEl) {
+                            const hrefStr = linkEl.getAttribute("href") || "";
+                            const match = hrefStr.match(/[?&]id=([^&]+)/);
+                            if (match) {
+                                const idFromUrl = match[1];
+                                const titleEl = card.querySelector(".card__heading, .product-title, .af-product-title, h3, h2");
+                                const titleText = titleEl ? titleEl.textContent.trim() : idFromUrl;
+                                const priceEl = card.querySelector(".sale-price, .price");
+                                const priceVal = priceEl ? parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) : 0;
+                                const imgEl = card.querySelector("img.primary-img, img");
+                                const imgUrl = imgEl ? imgEl.src : '';
+                                info = { id: idFromUrl, name: titleText, price: priceVal, image: imgUrl };
+                            }
+                        }
+                    }
+                }
+
+                if (!info || (!info.id && !info.name)) return;
+                
+                const id = info.id || info.name;
+                const name = info.name || info.id;
+                const price = Number(info.price) || 0;
+                const image = info.image || '';
+                
+                overlay.dataset.productId = id;
+                overlay.dataset.productName = name;
+                overlay.dataset.productPrice = price;
+                overlay.dataset.productImage = image;
                 
                 if (!overlay.classList.contains('in-cart') || btn.classList.contains('stepper-add-single')) {
                     addToStoreCart(id, name, price, image, 1);
@@ -2349,10 +2383,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function addToStoreCart(id, name, price, image, qty = 1) {
+        if (!id && !name) return;
         CART_ITEMS = consolidateCartItems(CART_ITEMS);
-        const cleanName = String(name || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
+        const cleanName = String(name || id || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
         const nameKey = cleanName.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const idKey = String(id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const idKey = String(id || name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const addQty = Number(qty) || 1;
         
         const existing = CART_ITEMS.find(item => {
             const itemTitleKey = normalizeCartProductKey(item);
@@ -2360,11 +2396,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return (nameKey && itemTitleKey === nameKey) || (idKey && (itemTitleKey === idKey || itemIdKey === idKey));
         });
 
-        let finalQty = Number(qty);
+        let finalQty = addQty;
         let sanitizedPrice = sanitizeCartItemPrice(price);
 
         if (existing) {
-            existing.quantity = (Number(existing.quantity || existing.qty || 1)) + Number(qty);
+            existing.quantity = (Number(existing.quantity || existing.qty || 1)) + addQty;
             existing.qty = existing.quantity;
             existing.price = Math.max(Number(existing.price || 0), sanitizedPrice);
             finalQty = existing.quantity;
@@ -2375,8 +2411,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 name: cleanName || "Arshith Fresh Product",
                 price: sanitizedPrice,
                 image: image || "assets/images/placeholder.svg",
-                quantity: Number(qty),
-                qty: Number(qty)
+                quantity: addQty,
+                qty: addQty
             });
         }
         saveCart();
@@ -2389,12 +2425,21 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addToStoreCart = addToStoreCart;
 
     function updateCartQuantity(index, newQty) {
-        if (newQty <= 0) {
-            CART_ITEMS.splice(index, 1);
+        const qtyNum = Number(newQty);
+        if (isNaN(qtyNum) || qtyNum <= 0) {
+            if (index >= 0 && index < CART_ITEMS.length) {
+                CART_ITEMS.splice(index, 1);
+            }
         } else {
-            CART_ITEMS[index].quantity = newQty;
+            if (CART_ITEMS[index]) {
+                CART_ITEMS[index].quantity = qtyNum;
+                CART_ITEMS[index].qty = qtyNum;
+            }
         }
         saveCart();
+        if (typeof renderCartPage === 'function') {
+            try { renderCartPage(); } catch (e) {}
+        }
     }
 
     function removeFromCart(index) {
