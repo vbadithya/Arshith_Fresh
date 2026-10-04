@@ -140,7 +140,8 @@ router.get('/product/:productId', async (req, res) => {
     // Auto-seed reviews if product exists and DB has no reviews yet
     const existingCount = await Review.countDocuments({ productId: targetProductId });
     if (existingCount === 0 && product) {
-      const generated = generateOilReviews(product.name, targetProductId);
+      const prodImg = product.image || (product.images && product.images[0] ? (typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url) : null);
+      const generated = generateOilReviews(product.name, targetProductId, null, prodImg);
       await Review.insertMany(generated);
       await updateProductRatingStats(targetProductId);
     }

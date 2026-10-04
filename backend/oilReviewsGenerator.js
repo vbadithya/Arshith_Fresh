@@ -588,7 +588,7 @@ function getProductTargetCount(productName = "") {
   return 76 + (Math.abs(hash) % 14); // 76..89
 }
 
-function generateOilReviews(productName, productId, count = null) {
+function generateOilReviews(productName, productId, count = null, productImage = null) {
   const key = getProductFeedbackKey(productName);
   const data = PRODUCT_SPECIFIC_FEEDBACK[key] || PRODUCT_SPECIFIC_FEEDBACK.spice;
   const targetCount = count || getProductTargetCount(productName);
@@ -634,9 +634,7 @@ function generateOilReviews(productName, productId, count = null) {
       verifiedPurchase: true,
       helpfulCount: Math.max(1, helpfulCount),
       helpfulUsers: [],
-      images: i === 3 || i === 9 ? [
-        "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533"
-      ] : [],
+      images: (i === 3 || i === 9) && productImage ? [productImage] : [],
       createdAt: createdAt,
       updatedAt: createdAt
     });
