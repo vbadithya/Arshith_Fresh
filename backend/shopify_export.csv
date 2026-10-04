@@ -1,0 +1,1272 @@
+Handle,Title,Body (HTML),Vendor,Product Category,Type,Tags,Published,Option1 Name,Option1 Value,Option1 Linked To,Option2 Name,Option2 Value,Option2 Linked To,Option3 Name,Option3 Value,Option3 Linked To,Variant SKU,Variant Grams,Variant Inventory Tracker,Variant Inventory Qty,Variant Inventory Policy,Variant Fulfillment Service,Variant Price,Variant Compare At Price,Variant Requires Shipping,Variant Taxable,Unit Price Total Measure,Unit Price Total Measure Unit,Unit Price Base Measure,Unit Price Base Measure Unit,Variant Barcodes,Image Src,Image Position,Image Alt Text,Gift Card,SEO Title,SEO Description,Product rating count (product.metafields.reviews.rating_count),Allergen information (product.metafields.shopify.allergen-information),Dietary preferences (product.metafields.shopify.dietary-preferences),Nut processing method (product.metafields.shopify.nut-processing-method),Nut/Seed type (product.metafields.shopify.nut-seed-type),Complementary products (product.metafields.shopify--discovery--product_recommendation.complementary_products),Related products (product.metafields.shopify--discovery--product_recommendation.related_products),Related products settings (product.metafields.shopify--discovery--product_recommendation.related_products_display),Search product boosts (product.metafields.shopify--discovery--product_search_boost.queries),Variant Image,Variant Weight Unit,Variant Tax Code,Cost per item,Included / India,Price / India,Compare At Price / India,Status
+chilli-powder,Chilli Powder,"<p>
+  <strong>Arshith Fresh Chilli Powder</strong> is made from <strong>sun-ripened red chillies</strong> grown without pesticides, handpicked with care, and naturally dried under the sun to preserve their vibrant color and full-bodied flavor.
+  The chillies are <strong>stone-ground slowly</strong> to retain their spicy aroma without heat damage. <em>No artificial colors, preservatives, or additives</em>—just pure, vibrant red powder with a fresh, pungent aroma and perfectly balanced heat.
+</p>
+
+<p>
+  <strong>Uses:</strong> Adds warmth and brightness to:
+</p>
+<ul>
+  <li>Curries, dals, and chutneys</li>
+  <li>Traditional spice blends and masalas</li>
+  <li>Tempering, dry rubs, pickling, and marinating</li>
+</ul>
+
+<p>
+  Lightly dry-roasted, it imparts a <em>mild smoky touch</em> that enhances every dish with depth and vibrancy.
+</p>
+
+<p>
+  <strong>Health benefits:</strong> Rich in antioxidants and vitamin C, this chilli powder:
+</p>
+<ul>
+  <li>Supports digestion and boosts metabolism</li>
+  <li>Promotes immune and circulatory health</li>
+</ul>
+
+<p>
+  Whether blended with garlic, ginger, and turmeric or added to dals, sambar, and homemade spice mixes, it delivers a <strong>perfect balance of heat and flavor</strong>.
+  Packed in airtight containers to maintain freshness and potency, <strong>Arshith Chilli Powder</strong> is a <em>pure, clean spice</em> that brings life and color to everyday cooking.
+</p>",Arshith Fresh India Pvt Ltd,,Cooking Ingredients,Cooking Ingredients,false,Weight,100g,,,,,,,,CI-CHILLIPOWDER-100G,100.0,shopify,50,deny,manual,49.00,56.35,true,true,,,,,"",,,,false,,,'4,,,,,,,,,,kg,,,false,,,draft
+chilli-powder,,,,,,,,,500g,,,,,,,,CI-CHILLIPOWDER-500G,500.0,shopify,50,deny,manual,249.00,286.35,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+chilli-powder,,,,,,,,,1kg,,,,,,,,CI-CHILLIPOWDER-1KG,1000.0,shopify,50,deny,manual,499.00,573.85,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+chilli-powder-premium-copy,Chilli Powder Premium,"",Arshith Fresh India Pvt Ltd,Uncategorized,Deal Of the Week,Deal Of the Week,false,Weight,250g,,,,,,,,DW-CHILLI BEST-250G,250.0,shopify,22,deny,manual,131.00,176.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712,1,"",false,,,'1,,,,,,,,,,kg,,,false,,,draft
+chilli-powder-premium-copy,,,,,,,,,500g,,,,,,,,DW-CHILLI BEST-500G,500.0,shopify,22,deny,manual,239.00,376.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img.jpg?v=1758707697,2,"",,,,,,,,,,,,,,kg,,,,,,
+chilli-powder-premium-copy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder_img2.jpg?v=1758707711,3,"",,,,,,,,,,,,,,,,,,,,
+chilli-powder-softgrindingpremium,Chilli Powder (Premium),"<p>Add rich color and authentic spice to your cooking with Arshith Fresh Premium Chilli Powder. <br>Made from carefully selected dried red chillies, this chilli powder is soft-ground to retain natural aroma, vibrant color, and balanced heat.</p>
+<p>Perfect for curries, dals, gravies, pickles, and traditional Indian recipes. <br>Hygienically processed, free from artificial colors or additives, and packed to preserve freshness.</p>
+<p>Ideal for home cooking, restaurants, and spice lovers who want consistent quality and bold flavor.<br></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Deal Of the Week,Deal Of the Week,false,Weight,250g,,,,,,,,DW-CHILLIPOWDERPREMIUM-250G,250.0,shopify,22,deny,manual,131.00,176.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712,1,"",false,Buy Premium Chilli Powder Online | Soft Ground Red Chilli – Arshith Fresh,"Buy premium chilli powder online from Arshith Fresh. Soft-ground red chilli powder with rich color, bold flavor & hygienic processing. Delivery across India.",,,,,,,,,,,kg,,,false,,,active
+chilli-powder-softgrindingpremium,,,,,,,,,500g,,,,,,,,DW-CHILLIPOWDERPREMIUM-500G,500.0,shopify,22,deny,manual,239.00,376.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img_fcb89557-d7f7-4978-b739-055e63849348.jpg?v=1759208024,2,"",,,,,,,,,,,,,,kg,,,,,,
+dry-seeds-combo-premium,Dry-Seeds-Combo (Premium Quality),"<h2>Dry Seeds Combo – 7 Super Seeds for Daily Nutrition (200g Each)</h2>
+<p>Power up your day with the <strong>Arshith Fresh Healthy Seeds Combo Pack</strong> – a nutrient-rich selection of <strong>seven super seeds</strong>, carefully chosen for their natural goodness and health benefits. Whether you’re following a clean eating plan, upgrading your breakfast bowl, or simply looking for wholesome snacking options, this combo offers a versatile and balanced way to nourish your body.</p>
+<p>Each seed type is <strong>packed individually in 200g</strong>, giving you freshness, flexibility, and full control over your nutrition.</p>
+<h3>What’s Inside (200g Each):</h3>
+<ul>
+<li>
+<strong>Watermelon Seeds</strong> – Crunchy, high in protein and heart-healthy fats.</li>
+<li>
+<strong>Sunflower Seeds</strong> – Rich in vitamin E and antioxidants, great for skin and immunity.</li>
+<li>
+<strong>Flaxseeds</strong> – Loaded with omega-3s and fiber, supports digestion and heart health.</li>
+<li>
+<strong>Pumpkin Seeds</strong> – Magnesium-rich superfood, great for energy and sleep.</li>
+<li>
+<strong>Sesame Seeds</strong> – Tiny seeds with a nutty flavor, high in calcium and iron.</li>
+<li>
+<strong>Chia Seeds</strong> – A hydration booster full of fiber, omega-3s, and protein.</li>
+<li>
+<strong>Basil Seeds (Sabja)</strong> – Known for cooling effects, supports digestion and weight balance.</li>
+</ul>
+<h3>Key Benefits:</h3>
+<ul>
+<li>100% Natural – No additives or preservatives</li>
+<li>High in fiber, protein, vitamins, and essential minerals</li>
+<li>Ideal for smoothies, baking, salads, snacks, and meal prep</li>
+<li>Hygienically packed for long-lasting freshness</li>
+<li>Perfect for fitness, wellness, and clean lifestyle diets</li>
+</ul>
+<p>Choose smart snacking. Choose Arshith Fresh – where health meets taste in every spoonful.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Seeds,"combo_pack, Dry Seeds",false,Weight,100g (7 pack),,,,,,,,DF-DRYSEEDSCOMBO-700G,1000.0,shopify,200,deny,manual,325.00,378.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-16_at_3.13.52_PM_1_f1abe8f0-6ec4-44b9-989b-388f1cc1e0df.jpg?v=1758530727,1,"",false,Dry Seeds Combo Pack | 7 Super Seeds for Daily Nutrition – Arshith Fresh,"Buy Dry Seeds Combo Pack online. 7 premium super seeds (200g each) rich in fiber, protein & omega-3. 100% natural & fresh from Arshith Fresh.",'1,,,,,,,,,,kg,,,false,,,draft
+dry-seeds-combo-premium,,,,,,,,,250g (7 pack),,,,,,,,DF-DRYSEEDSCOMBO-1800G,1800.0,shopify,200,deny,manual,809.00,939.60,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-16_at_3.14.17_PM_1_0538c765-1890-43f4-8dc2-bbc405e04b8f.jpg?v=1758530727,2,"",,,,,,,,,,,,,,kg,,,,,,
+dry-fruits-combo-premium,Dry-Fruits-Combo (Premium Quality),"<p>Premium Dry Fruits Combo – 7-in-1 Health Booster (250g Each)</p>
+<p>Upgrade your snacking game with the Arshith Fresh Premium Dry Fruits Combo Pack – a thoughtfully curated collection of nature’s finest treasures. This all-in-one pack brings together seven nutrient-rich dry fruits, each carefully selected for purity, taste, and quality.</p>
+<p>Perfect for daily snacking, gifting, festive celebrations, or wellness routines, this combo offers a balanced mix of energy, nutrition, and flavor – ideal for families, fitness enthusiasts, and food lovers alike.</p>
+<p>What’s Inside (250g Each):<br>Cashew Nuts – Creamy, crunchy, and packed with healthy fats &amp;amp; magnesium.<br>Almonds – Protein-rich, heart-healthy nuts to power your day.<br>Pistachios – Delightfully crisp and full of antioxidants.<br>Walnuts – Brain-boosting omega-3s in every bite.<br>Raisins – Naturally sweet, iron-rich, and fiber-loaded.<br>Dates – Soft, chewy energy boosters packed with potassium.<br>Figs (Dry Anjeer) – High in calcium, fiber, and natural sweetness.<br>Why You’ll Love It:<br>100% Natural – No additives, preservatives, or artificial flavors<br>Hygienically packed to retain freshness and flavor<br>Premium-grade, handpicked quality in every pack<br>Ideal for snacking, baking, gifting, or festive occasions<br>A wholesome gift of wellness for loved ones</p>
+<p>Fuel your day with nature’s finest – one bite at a time.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits,"combo_pack, Dry Fruits",false,Weight,250g (7 pack),,,,,,,,DF-DRYFRUITSCOMBO-1800G,1800.0,shopify,50,deny,manual,2777.00,3168.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/DryFruiyscombo1_820790fe-9e19-481a-b05c-d0515fbacb81.webp?v=1758530723,1,"",false,Dry Fruits Combo Pack | Premium Mixed Dry Fruits Online – Arshith Fresh,"Buy premium dry fruits combo online. 7-in-1 mixed dry fruits pack for daily nutrition, energy & immunity. Fresh, hygienic & preservative-free.",'1,,,,,,,,,,kg,,,false,,,draft
+dry-fruits-combo-premium,,,,,,,,,500g (7 pack),,,,,,,,DF-DRYFRUITSCOMBO-2400G,2400.0,shopify,50,deny,manual,5539.00,7332.60,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/Dry_Fruits_combo2_01fed5fc-7854-4ad2-bd22-907c904711fe.webp?v=1758530723,2,"",,,,,,,,,,,,,,kg,,,,,,
+besan-flour-premium,Besan Flour Soft Grinding  (Premium Quality),"",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,true,Weight,500g,,,,,,,,CIP-BESANFLOURPREMIUM-500G,500.0,shopify,100,deny,manual,89.00,112.14,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_3.42.36_PM_1_7c653edc-bb65-4021-a1c7-dc7344582896.jpg?v=1757933032,1,"",false,Besan Flour Soft Grinding – Premium Quality Gram Flour | Arshith Fresh,"Buy Besan Flour Soft Grinding (Premium Quality) online from Arshith Fresh. Freshly ground gram flour, soft texture, ideal for snacks, sweets & cooking.",,,,,,,,,,,kg,,,false,,,active
+besan-flour-premium,,,,,,,,,1kg,,,,,,,,CIP-BESANFLOURPREMIUM-1KG,1000.0,shopify,100,deny,manual,178.00,224.28,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+monthly-grocery-6-members,Monthly Grocery 6 Members,"",Arshith Fresh,,DAILY ESSENTIALS,"",false,Title,Default Title,,,,,,,,,0.0,shopify,100,deny,manual,250.00,287.50,true,true,,,,,"",,,,false,,,,,,,,,,,,,kg,,,true,,,draft
+kabuli-chana-dal-premium,Kabuli Chana Dal Unpolished (Premium Quality),"<p data-start=""626"" data-end=""675""><strong data-start=""626"" data-end=""675"">Kabuli Chana Dal Unpolished – Premium Quality</strong></p>
+<p data-start=""677"" data-end=""967"">Bring home the goodness of <strong data-start=""704"" data-end=""738"">Arshith Fresh Kabuli Chana Dal</strong>, naturally <strong data-start=""750"" data-end=""788"">unpolished and minimally processed</strong> to retain its original nutrients, taste, and texture. Sourced from high-quality chickpeas, this dal is carefully cleaned and hygienically packed to deliver purity in every grain.</p>
+<p data-start=""969"" data-end=""1215"">Unpolished chana dal is rich in <strong data-start=""1001"" data-end=""1063"">plant-based protein, dietary fiber, and essential minerals</strong>, making it an excellent choice for wholesome, everyday meals. It cooks evenly, absorbs flavors beautifully, and delivers authentic taste in every dish.</p>
+<h3 data-start=""1217"" data-end=""1265"">⭐ Why Choose Arshith Fresh Kabuli Chana Dal?</h3>
+<ul data-start=""1266"" data-end=""1484"">
+<li data-start=""1266"" data-end=""1309"">
+<p data-start=""1268"" data-end=""1309"">✅ 100% unpolished – no artificial shine</p>
+</li>
+<li data-start=""1310"" data-end=""1341"">
+<p data-start=""1312"" data-end=""1341"">✅ Premium quality chickpeas</p>
+</li>
+<li data-start=""1342"" data-end=""1371"">
+<p data-start=""1344"" data-end=""1371"">✅ Rich in protein &amp; fiber</p>
+</li>
+<li data-start=""1372"" data-end=""1408"">
+<p data-start=""1374"" data-end=""1408"">✅ Natural taste and firm texture</p>
+</li>
+<li data-start=""1409"" data-end=""1444"">
+<p data-start=""1411"" data-end=""1444"">✅ No additives or preservatives</p>
+</li>
+<li data-start=""1445"" data-end=""1484"">
+<p data-start=""1447"" data-end=""1484"">✅ Hygienically packed for freshness</p>
+</li>
+</ul>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,250G,,,,,,,,CIP-KABULICHANADALPREMIUM-250G,250.0,shopify,100,deny,manual,55.00,72.60,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsAppImage2025-08-20at7.38.11PM.jpg?v=1757333950,1,"",false,Kabuli Chana Dal Unpolished – Premium Quality | Arshith Fresh,"Buy Kabuli Chana Dal Unpolished (Premium Quality) online from Arshith Fresh. Naturally unpolished, protein-rich chana dal for healthy daily cooking.",,,,,,,,,,,kg,,,true,,,draft
+kabuli-chana-dal-premium,,,,,,,,,500G,,,,,,,,CIP-KABULICHANDALPREMIUM-500G,500.0,shopify,100,deny,manual,109.00,143.88,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+redchilli-pickle-premium,Red Chilli Pickle  (Premium Quality),"<p data-start=""602"" data-end=""885"">Experience the bold and fiery taste of authentic <strong data-start=""651"" data-end=""679"">Andhra Red Chilli Pickle</strong>, handcrafted using traditional recipes and premium-quality ingredients. Made from fresh red chillies, aromatic spices, and cold-pressed oil, this pickle delivers rich flavor and perfect heat in every bite.</p>
+<p data-start=""887"" data-end=""1103"">Prepared in small batches to maintain freshness and taste, our red chilli pickle pairs perfectly with rice, dosa, idli, curd rice, and Indian meals. No artificial colors or preservatives—just pure, homemade goodness.</p>
+<h3 data-start=""1105"" data-end=""1128"">🌶️ Key Highlights:</h3>
+<ul data-start=""1129"" data-end=""1361"">
+<li data-start=""1129"" data-end=""1173"">
+<p data-start=""1131"" data-end=""1173"">Authentic Andhra-style red chilli pickle</p>
+</li>
+<li data-start=""1174"" data-end=""1227"">
+<p data-start=""1176"" data-end=""1227"">Made with fresh red chillies &amp; traditional spices</p>
+</li>
+<li data-start=""1228"" data-end=""1268"">
+<p data-start=""1230"" data-end=""1268"">Uses cold-pressed oil for rich taste</p>
+</li>
+<li data-start=""1269"" data-end=""1310"">
+<p data-start=""1271"" data-end=""1310"">No artificial preservatives or colors</p>
+</li>
+<li data-start=""1311"" data-end=""1361"">
+<p data-start=""1313"" data-end=""1361"">Hygienically packed for long-lasting freshness</p>
+</li>
+</ul>
+<h3 data-start=""1363"" data-end=""1388"">🍽️ Best Served With:</h3>
+<p data-start=""1389"" data-end=""1448"">Steamed rice, ghee rice, dosa, idli, chapati, and curd rice</p>
+<p data-start=""1450"" data-end=""1565"">Bring home the <strong data-start=""1465"" data-end=""1497"">true spice of Andhra cuisine</strong> with Arshith Fresh Red Chilli Pickle – where tradition meets taste.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Veg Pickles,Veg Pickles,false,Weight,250g,,,,,,,,VP-REDCHILLIPICKLEPREMIUM-250G,250.0,shopify,0,deny,manual,299.00,394.68,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-20_at_12.12.10_PM_1_7e869e3d-6430-4313-8bcd-0f07e53ad1ed.jpg?v=1757333951,1,"",false,Red Chilli Pickle Online | Andhra Style Spicy Pickle – Arshith Fresh,"Buy Red Chilli Pickle online from Arshith Fresh. Authentic Andhra-style spicy pickle made with fresh red chillies, cold-pressed oil & traditional spices.",,,,,,,,,,,kg,,,true,,,draft
+redchilli-pickle-premium,,,,,,,,,500g,,,,,,,,VP-REDCHILLIPICKLEPREMIUM-500G,500.0,shopify,0,deny,manual,598.00,789.36,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+redchilli-pickle-premium,,,,,,,,,Default Title,,,,,,,,,0.0,shopify,0,deny,manual,0.00,,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+cashew-nuts-medium,Cashew Nuts Medium (Kaju),"<p><strong>Cashew Nuts</strong> are handpicked from naturally grown cashew trees. After harvesting, the raw nuts are sun-dried and roasted in small batches to gently separate the shell. They are air-cooled and peeled without any chemicals — no oiling, polishing, or salting, just pure, raw goodness. These cashews have a <em>creamy texture with a mildly sweet, buttery flavor</em>. They’re perfect for:</p>
+<ul>
+<li>Energy bites and milkshakes</li>
+<li>Adding natural creaminess to sauces and desserts</li>
+<li>Enjoying as a wholesome snack, straight from the box</li>
+</ul>
+<p>Packed with <strong>healthy fats, protein, and magnesium</strong>, cashews support:</p>
+<ul>
+<li>Heart healthy and strong bones</li>
+<li>Improved brain function</li>
+<li>Glowing skin and overall vitality</li>
+</ul>
+<p>My kids love them lightly roasted in ghee with a sprinkle of rock salt — a simple, nourishing treat loved by the whole family.</p>
+<p><em>Arshith Fresh Cashews — naturally wholesome and deeply satisfying.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits,Dry Fruits,false,Weight,250g,,,,,,,,DF-CASHEWNUTSMEDIUM-250G,250.0,shopify,100,deny,manual,317.00,418.44,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/7_9e23c1eb-8582-4468-a067-245a3a551cf7.png?v=1757333951,1,"",false,,,'1,,,,,,,,,,kg,,,true,,,draft
+cashew-nuts-medium,,,,,,,,,500g,,,,,,,,DF-CASHEWNUTSMEDIUM-500G,500.0,shopify,100,deny,manual,634.00,836.88,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_10.01.43_AM_b728ac29-cf49-4398-aa11-e74c4ac7ae81.jpg?v=1757333951,2,"",,,,,,,,,,,,,,kg,,,,,,
+almonds-medium,Almonds Medium (Badam),"<p><strong>Almonds</strong> come from mountain orchards where they grow naturally, free from pesticides. After harvesting, the nuts are sun-dried and carefully shelled by hand. We never use bleaching agents or synthetic coatings — just pure, natural almonds. These almonds are firm yet crunchy, with a mildly earthy flavor. They also shine in desserts or ground into a smooth paste for traditional sweets.</p>
+<p>Rich in <strong>vitamin E, protein, and antioxidants</strong>, almonds support:</p>
+<ul>
+<li>Memory and cognitive health</li>
+<li>Glowing, healthy skin</li>
+<li>Weight management and overall wellness</li>
+</ul>
+<p><em>Arshith Fresh Almonds — naturally nourishing, simply wholesome.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits,Dry Fruits,false,Weight,250g,,,,,,,,DF-ALMONDS-MEDIUM250G,250.0,shopify,105,deny,manual,276.00,364.32,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/9_4034b7a6-21de-420a-888c-cdfee56cece7.png?v=1757333952,1,"",false,,,,,,,,,,,,,kg,,,true,,,draft
+almonds-medium,,,,,,,,,500g,,,,,,,,DF-ALMONDSMEDIUM-500G,500.0,shopify,100,deny,manual,551.00,727.32,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_9.47.07_AM_2_58a584d5-4afa-4663-9d5a-e74e8795f267.jpg?v=1757333952,2,"",,,,,,,,,,,,,,kg,,,,,,
+dried-prawns-spicy-powder-premium,Dried Prawns Spicy-powder (Premium Quality),"<h2>Royyapottu Karam Podi (Dry Shrimp Powder) Premium</h2>
+<p>
+  Our Royyapottu Karam Podi is made from sun-dried shrimp, carefully cleaned and blended with garlic, red chillies, and natural salt. This slightly coarse powder bursts with umami flavor and pairs perfectly with hot rice, ghee, idli, dosa, or boiled eggs.
+</p>
+<p>
+  Rich in protein, omega-3, and essential minerals, it supports brain and heart health. Made without MSG or artificial enhancers, it has a fresh, savory aroma without any fishy aftertaste.
+</p>
+<p>
+  Prepared in small batches using traditional Andhra coastal recipes, this preservative-free spice powder delivers authentic shrimp flavor with every bite.
+</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Podulu-Premium,Podulu-Premium,false,Weight,100g,,,,,,,,PP-DRIEDPRAWNSSPICYPOWDERSPREMIUM-100G,100.0,shopify,0,deny,manual,98.00,129.36,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-10_at_3.02.27_PM_879a1343-4d17-4471-be02-2ecd36831c85.jpg?v=1757333953,1,"",false,Dried Prawns Spicy Powder Online | Royyapottu Karam Podi – Arshith Fresh,"Buy Dried Prawns Spicy Powder online. Authentic Royyapottu Karam Podi made from sun-dried shrimp, garlic & red chillies. No preservatives.",'31,,,,,,,,,,kg,,,true,,,draft
+dried-prawns-spicy-powder-premium,,,,,,,,,250g,,,,,,,,PP-DRIEDPRAWNSSPICYPOWDERSPREMIUM-250G,250.0,shopify,0,deny,manual,244.00,322.08,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.39_PM_1d2ed5b9-2ca1-40d2-b19f-c065e388bdd7.jpg?v=1757333953,2,"",,,,,,,,,,,,,,kg,,,,,,
+dried-prawns-spicy-powder-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.08.41_PM_038e1d28-16c4-4f10-ac41-b4f4e10aca0e.jpg?v=1757333953,3,"",,,,,,,,,,,,,,,,,,,,
+sambar-chilli-powder-premium,Sambar Chilli Powder Soft Grinding (Premium Quality),"<p><strong>Arshith Fresh Sambar Chilli Powder (Premium Quality)</strong> is crafted from select sun-ripened chillies carefully grown without harmful chemicals or pesticides, ensuring pure, natural heat and flavor.</p>
+<p>Stone-ground using traditional methods to preserve the essential oils and vibrant red color, this chilli powder contains <strong>no artificial colors, preservatives, or fillers</strong>, delivering authentic taste and aroma.</p>
+<p>Perfect for enhancing <em>curries, pickles, masalas, marinades, and grilled dishes</em>, it adds a balanced heat that elevates the flavor profile without overwhelming the palate.</p>
+<p>Rich in antioxidants, vitamins A and C, and capsaicin, it supports <strong>metabolism boost, natural pain relief, cardiovascular health, and immunity strengthening</strong>.</p>
+<p>The natural heat from capsaicin may also aid digestion, improve circulation, and promote fat burning, making it a great addition to a healthy lifestyle.</p>
+<p>Sourced sustainably from trusted farmers, <strong>Arshith Fresh Chilli Powder</strong> brings you the perfect blend of <em>color, spice, and wellness</em>, crafted with care to enrich your meals and nourish your body.</p>
+<p>Add this premium spice to your kitchen pantry and experience the authentic warmth and health benefits of traditional Indian cooking in every sprinkle.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,true,Weight,100g,,,,,,,,CIP-SAMBARCHILLIPOWDERPREMIUM-100G,250.0,shopify,50,deny,manual,55.00,74.25,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.56.02_AM_06f0f63d-689b-44be-9f6c-140d2429204e.jpg?v=1757333953,1,"",false,Sambar Chilli Powder Soft Grinding | Pure Red Chilli – Arshith Fresh,"Buy Sambar Chilli Powder online. Soft-ground pure red chillies for sambar, rasam & curries. No colors, no preservatives. Premium quality.",'39,,,,,,,,,,kg,,,true,,,active
+sambar-chilli-powder-premium,,,,,,,,,500g,,,,,,,,CIP-SAMBARCHILLIPOWDERPREMIUM-500G,500.0,shopify,50,deny,manual,270.00,364.50,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.25.55_AM_c05c19a1-776e-4b5f-b0d4-8f5e6b1e9086.jpg?v=1757333953,2,"",,,,,,,,,,,,,,kg,,,,,,
+sambar-chilli-powder-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.25.49_AM_2_91608663-d963-46d9-9c62-6f8ca7a6583c.jpg?v=1757333953,3,"",,,,,,,,,,,,,,,,,,,,
+mixed-rice-flour-premium,Mixed Rice Flour  (Premium Quality),"<p data-start=""94"" data-end=""458""><strong data-start=""94"" data-end=""129"">Arshith Fresh Mixed Rice Flours</strong> is a wholesome blend of premium-quality rice varieties, carefully selected and finely ground to deliver superior texture, taste, and nutrition. This versatile flour mix brings together the goodness of red rice, brown rice, and white rice — offering a rich source of energy, fiber, and essential minerals like iron and magnesium.</p>
+<p data-start=""460"" data-end=""875"">Naturally gluten-free and easily digestible, Arshith Mixed Rice Flours are perfect for preparing a variety of traditional and modern recipes — from soft idlis and crispy dosas to multigrain rotis, laddus, cheelas, and even healthy snacks for kids. Whether you're looking to support a balanced diet, manage gluten sensitivity, or simply elevate everyday meals, this flour blend brings taste and health to your plate.</p>
+<p data-start=""877"" data-end=""1084"">With no additives or preservatives, each pack retains the authentic aroma and nutritional value of naturally harvested rice. It’s hygienically processed and packed with care to maintain freshness and purity.</p>
+<p data-start=""1086"" data-end=""1210"">✨ <strong data-start=""1088"" data-end=""1130"">Choose Arshith Fresh Mixed Rice Flours</strong> — a perfect balance of tradition, nutrition, and versatility in every spoonful.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,500g,,,,,,,,CIP-MIXEDRICEFLOURPREMIUM-500G,500.0,shopify,100,deny,manual,65.00,87.75,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-13_at_2.27.40_PM_1.jpg?v=1757333954,1,"",false,Mixed Rice Flour – Premium Quality | Fresh & Finely Ground | Arshith Fresh,"Buy Premium Mixed Rice Flour online from Arshith Fresh. Finely ground, hygienically packed, perfect for dosa, idiyappam & traditional cooking.",'34,,,,,,,,,,kg,,,true,,,draft
+mixed-rice-flour-premium,,,,,,,,,1kg,,,,,,,,CIP-MIXEDRICEFLOURPREMIUM-1KG,1000.0,shopify,100,deny,manual,129.00,174.15,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.38.47_AM_8b55ef67-d7d6-4e6f-b57e-5de57af32519.jpg?v=1757333954,2,"",,,,,,,,,,,,,,kg,,,,,,
+mixed-rice-flour-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.38.48_AM_90d7121d-003f-4d9c-9e33-4693efe51661.jpg?v=1757333954,3,"",,,,,,,,,,,,,,,,,,,,
+makhana-premium,"Makhana
+ (Premium Quality)","<p>Makhana, also known as fox nuts or lotus seeds, is a traditional superfood that has been a part of Indian culture for centuries. Sourced from the seeds of the lotus flower, makhana is carefully harvested, sun-dried, and popped to create a light, crunchy, and nutritious snack that’s loved by all age groups.</p>
+<h3>Why Choose Our Makhana?</h3>
+<ul>
+<li>
+<strong>100% Natural:</strong> No added preservatives, artificial flavors, or chemicals.</li>
+<li>
+<strong>Rich in Nutrients:</strong> High in protein, fiber, and essential minerals like magnesium, calcium, and iron.</li>
+<li>
+<strong>Low in Calories:</strong> Ideal for weightwatchers and fitness enthusiasts.</li>
+<li>
+<strong>Easy to Digest:</strong> Light on the stomach and suitable for all age groups, including kids and elders.</li>
+<li>
+<strong>Versatile Snack:</strong> Enjoy it roasted, salted, spiced, or even in sweet dishes.</li>
+</ul>
+<h3>Health Benefits</h3>
+<p>Regular consumption of makhana may help improve digestion, boost heart health, manage blood sugar levels, and support healthy skin. It is also a good snack option for those following gluten-free or vegan diets.</p>
+<h3>How to Use</h3>
+<p>You can enjoy makhana straight out of the pack, roast it with a bit of ghee and your favorite spices, or use it in recipes like makhana kheer or curry. It’s perfect as a mid-day snack, a tea-time treats, or a light evening munch.</p>
+<h3>Storage Instructions</h3>
+<p>Store in a cool, dry place in an airtight container to retain freshness and crunchiness. Best consumed within 6 months of packaging.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-MAKHANA PREMIUM-100G,100.0,shopify,100,deny,manual,299.00,343.85,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_11.23.38_AM_a083a4ab-fc9f-434e-873b-dda7680b197e.jpg?v=1757333955,1,"",false,Makhana (Fox Nuts) – Premium Quality | Healthy Roasted Snack | Arshith Fresh,"Buy Premium Makhana (Fox Nuts) online from Arshith Fresh. 100% natural, crunchy, high-protein & ideal healthy snack for daily use.",,,,,,,,,,,kg,,,true,,,draft
+makhana-premium,,,,,,,,,250g,,,,,,,,SP-MAKHANA PREMIUM-250G,250.0,shopify,100,deny,manual,747.00,859.05,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.46.27_AM_3939b9f0-035f-4b0c-a788-68dc666882a4.jpg?v=1757333955,2,"",,,,,,,,,,,,,,kg,,,,,,
+makhana-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.46.27_AM_1_8413ea5b-52d2-4fe7-9c29-2a7f2d38f372.jpg?v=1757333955,3,"",,,,,,,,,,,,,,,,,,,,
+urad-dal-premium,Urad Dal (Premium Quality),"<h2>Charoli (Sai Pappu) Premium</h2>
+
+<p>Charoli, also known as Sai Pappu, is a unique and flavorful seed used in many traditional recipes, especially desserts and festive dishes. These small, aromatic seeds are carefully harvested and cleaned to ensure the highest quality. Our Charoli is natural and pure, with no added chemicals or preservatives, making it a healthy choice for your kitchen.</p>
+
+<h3>How It’s Made</h3>
+<p>The Charoli seeds are handpicked from mature fruit and thoroughly cleaned to remove any impurities. They are then dried naturally to preserve their delicate flavor and aroma. Our processing methods avoid the use of any artificial additives or chemicals, ensuring that you get Charoli in its purest form.</p>
+
+<h3>Benefits</h3>
+<ul>
+  <li>Rich in essential nutrients and natural oils that support health.</li>
+  <li>Adds a unique nutty flavor and crunch to sweets, snacks, and savory dishes.</li>
+  <li>Chemical-free and naturally processed for a clean, wholesome product.</li>
+  <li>Easy to use and store, perfect for traditional and modern recipes.</li>
+  <li>A healthy ingredient that enhances both taste and nutrition.</li>
+</ul>
+
+<p>Enjoy the authentic taste and health benefits of our pure Charoli in your cooking and celebrations.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,500g,,,,,,,,CIP-URADDALPREMIUM-250G,500.0,shopify,100,deny,manual,99.00,133.65,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-07_at_7.40.44_PM_b661456d-8521-43af-9406-a1c401b760ba.jpg?v=1757333955,1,"",false,Urad Dal – Premium Quality | Fresh & Unpolished | Arshith Fresh,"Buy Premium Urad Dal online from Arshith Fresh. Fresh, unpolished, high-protein dal ideal for idli, dosa, vada & daily cooking.",,,,,,,,,,,kg,,,true,,,active
+urad-dal-premium,,,,,,,,,1Kg,,,,,,,,CIP-URADDALPREMIUM-500G,1000.0,shopify,100,deny,manual,199.00,268.65,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.26.50_PM_c90fb35e-e6f0-4f19-8f74-dba37bbc3e29.jpg?v=1757333955,2,"",,,,,,,,,,,,,,kg,,,,,,
+urad-dal-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.39.47_AM_17481d08-911d-4048-ac53-99844cca0a91.jpg?v=1757333955,3,"",,,,,,,,,,,,,,,,,,,,
+chana-dal-premium,Chana Dal Unpolished (Premium Quality),"<h2>Chana Dal Unpolished Premium</h2>
+<p>Chana Dal is a nutritious and versatile lentil commonly used in everyday cooking. Made from high-quality chickpeas that are split and polished, this dal is a staple ingredient in many traditional dishes. Our Chana Dal is carefully cleaned and processed without any chemicals or preservatives, ensuring a pure and healthy product for your kitchen.</p>
+<h3>How It’s Made</h3>
+<p>The Chana Dal is harvested at peak maturity, then split and Unpolished to create smooth, even lentils. It is thoroughly cleaned to remove impurities and dried naturally to retain its quality and freshness. No artificial additives or chemicals are used during processing, so you get a natural and wholesome dal every time.</p>
+<h3>Benefits</h3>
+<ul>
+<li>High in protein and dietary fiber, supporting good digestion and muscle health.</li>
+<li>Low in fat and free from any artificial preservatives or additives.</li>
+<li>Easy to cook and digest, suitable for all ages.</li>
+<li>Versatile ingredient for dals, soups, curries, and snacks.</li>
+<li>A healthy choice for a balanced and nutritious diet.</li>
+</ul>
+<p>Choose our pure Chana Dal for tasty, healthy meals every day.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,250G,,,,,,,,CIP-CHANADALPREMIUM-250G,250.0,shopify,100,deny,manual,42.00,48.30,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.37.04_PM_eba91759-9945-4780-adc1-5db5aef88138.jpg?v=1757333956,1,"",false,Chana Dal Unpolished – Premium Quality | Fresh & Natural | Arshith Fresh,"Buy Premium Unpolished Chana Dal online from Arshith Fresh. High in protein & fiber, fresh, natural and ideal for daily home cooking.",'35,,,,,,,,,,kg,,,true,,,draft
+chana-dal-premium,,,,,,,,,500G,,,,,,,,CIP-CHANDALPREMIUM-500G,500.0,shopify,99,deny,manual,84.00,96.60,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.09_PM_2_67fdf3a7-ec9a-468b-92e3-75a9cab0b785.jpg?v=1757333956,2,"",,,,,,,,,,,,,,kg,,,,,,
+chana-dal-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.59_PM_4603194c-d8ff-4d3d-8fa9-ef906bd3eb48.jpg?v=1757333956,3,"",,,,,,,,,,,,,,,,,,,,
+monthly-groceries-2-members,Monthly Groceries Combo - For 2 Members,"<p><strong>Introducing the Monthly Groceries Cart Combo – your all-in-one essential pack for the month!</strong></p>
+<p>This specially curated combo contains <strong>43 premium grocery essentials</strong> perfect for a family’s monthly needs. All products are hygienically packed, preservative-free, and sourced directly from trusted farms and suppliers. Enjoy both health and convenience with this value-packed kit.</p>
+<ul>
+<li>
+<strong>Turmeric </strong>– 100g – <del>₹56.35</del> <strong>₹49</strong>
+</li>
+<li>
+<strong>Raw Chilli Powder </strong>– 1Kg – <del>₹600</del> <strong>₹522</strong>
+</li>
+<li>
+<strong>Salt</strong> – 2kg – <del>₹71</del> <strong>₹62</strong>
+</li>
+<li>
+<strong>Rock Salt </strong>– 1kg – <del>₹33.35</del> <strong>₹29</strong>
+</li>
+<li>
+<strong>Toor Dal</strong> – 2kg – <del>₹434</del> <strong>₹378</strong>
+</li>
+<li>
+<strong>Besan Flour </strong>– 500g – <del>₹102.35</del> <strong>₹89</strong>
+</li>
+<li>
+<strong>Sarabathi Wheat Flour</strong> – 1kg – <del>₹125.35</del> <strong>₹109</strong>
+</li>
+<li>
+<strong>Rice Flour </strong>– 500g – <del>₹44.5</del> <strong>₹38</strong>
+</li>
+<li>
+<strong>Idly Rava </strong>– 1kg – <del>₹109.25</del> <strong>₹95</strong>
+</li>
+<li>
+<strong>Urad Dal </strong>– 2kg – <del>₹455</del> <strong>₹396</strong>
+</li>
+<li>
+<strong>Green Gram </strong>– 500g – <del>₹90</del> <strong>₹75</strong>
+</li>
+<li>
+<strong>Ragi Flour </strong>– 500g – <del>₹63.25</del> <strong>₹55</strong>
+</li>
+<li>
+<strong>Vermicelli </strong>– 500g – <del>₹71.05 </del><strong>₹62</strong>
+</li>
+<li>
+<strong>Jaggery </strong>– 500g – <del>₹74.90</del> <strong>₹65</strong>
+</li>
+<li>
+<strong>Wheat Rava </strong>– 500g – <del>₹59.8</del> <strong>₹52</strong>
+</li>
+<li>
+<strong>Bombay Rava </strong>– 1kg – <del>₹113.55</del> <strong>₹98</strong>
+</li>
+<li>
+<strong>Tamarind </strong>– 250g – <del>₹126.50</del> <strong>₹110</strong>
+</li>
+<li>
+<strong>Sugar Sulphur Free </strong>– 1kg – <del>₹83</del> <strong>₹72</strong>
+</li>
+<li>
+<strong>Dry Red chilli </strong>– 100g – <del>₹48.15</del> <strong>₹42</strong>
+</li>
+<li>
+<strong>Tea Powder </strong>– 100g – <del>₹62 </del><strong>₹54</strong>
+</li>
+<li>
+<strong>Cumin </strong>– 50g – <del>₹31</del> <strong>₹28</strong>
+</li>
+<li>
+<strong>Dry Coconut </strong>– 100g – <del>₹63.25</del> <strong>₹55</strong>
+</li>
+<li>
+<strong>Coriander Powder </strong>– 100g – <del>₹54.05</del> <strong>₹47</strong>
+</li>
+<li>
+<strong>Cumin Powder </strong>– 100g – <del>₹86.25</del> <strong>₹75</strong>
+</li>
+<li>
+<strong>Garam Masala </strong>– 100g – <del>₹91</del> <strong>₹79</strong>
+</li>
+<li>
+<meta charset=""UTF-8""> <strong>Spice Powders - 5-in-1 Pack</strong><span> – 500g – </span><del>₹340</del><span> </span><strong>₹295</strong> 
+<ul>
+<li>
+<strong>Garlic Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Chana Dal Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Nallakaram Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Coconut Masala Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Curry Leaves Powder </strong>– 100g – Included in Spice Powders Pack</li>
+</ul>
+</li>
+<li>
+<strong>Biryani Mix </strong>– 100g – <del>₹174.80</del> <strong>₹152</strong>
+</li>
+<li>
+<strong>Ajwain </strong>– 50g – <del>₹35</del> <strong>₹30</strong>
+</li>
+<li>
+<strong>Groundnut Oil </strong>– 3L – <del>₹1204</del> <strong>₹1047</strong>
+</li>
+<li>
+<strong>Coconut Oil </strong>– 250ml – <del>₹189.75</del> <strong>₹165</strong>
+</li>
+<li>
+<strong>Natural Honey </strong>– 250ml – <del>₹149.5</del> <strong>₹130</strong>
+</li>
+</ul>
+<p><strong>Why Choose Arshith Fresh?</strong><br>✅ All-in-one convenience<br>✅ Free from preservatives &amp; additives<br>✅ Perfectly portioned for monthly use<br>✅ Traditional, healthy, and natural</p>
+<p><strong>Order now and get doorstep delivery of your monthly essentials!</strong></p>",Arshith Fresh,Uncategorized,"","2 members, combo, monthly groceries",false,Size,2 Members,,,,,,,,COMBO2M,25000.0,shopify,50,deny,manual,4549.00,5848.70,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_12.16.43_PM.jpg?v=1757921007,1,"",false,Monthly Groceries Combo – Essential Ration Pack for 2 Members | Arshith Fresh,"Buy Monthly Groceries Combo for 2 Members from Arshith Fresh. 35 essential grocery items, hygienic packing, perfect for monthly home needs.",'15,,,,,,,,,,kg,,,true,,,draft
+monthly-groceries-4-members,Monthly Groceries Combo - For 4 Members,"<p><strong>Introducing the Monthly Groceries Cart Combo – your all-in-one essential pack for the month!</strong></p>
+<p>This specially curated combo contains <strong> premium grocery essentials</strong> perfect for a family’s monthly needs. All products are hygienically packed, preservative-free, and sourced directly from trusted farms and suppliers. Enjoy both health and convenience with this value-packed kit.</p>
+<ul>
+<li>
+<strong>Turmeric</strong> – 250g – <del>₹139.15</del> <strong>₹121</strong>
+</li>
+<li>
+<strong>Raw Chilli Powder</strong> – 1.5kg – <del>₹900.45</del> <strong>₹783</strong>
+</li>
+<li>
+<strong>Salt</strong> – 3kg – <del>₹106.95</del> <strong>₹93</strong>
+</li>
+<li>
+<strong>Rock Salt</strong> – 1kg – <del>₹33.35</del> <strong>₹29</strong>
+</li>
+<li>
+<strong>Toor Dal</strong> – 3kg – <del>₹652.05</del> <strong>₹567</strong>
+</li>
+<li>
+<strong>Besan Flour</strong> – 1kg – <del>₹206.85</del> <strong>₹178</strong>
+</li>
+<li>
+<strong>Sarabathi Wheat Flour</strong> – 2kg – <del>₹250.77</del> <strong>₹218</strong>
+</li>
+<li>
+<strong>Rice Flour</strong> – 500g – <del>₹43.55</del> <strong>₹38</strong>
+</li>
+<li>
+<strong>Idly Rava</strong> – 1kg – <del>₹109.25</del> <strong>₹95</strong>
+</li>
+<li>
+<strong>Urad Dal</strong> – 3kg – <del>₹684.55</del> <strong>₹594</strong>
+</li>
+<li>
+<strong>Green Gram</strong> – 500g – <del>₹90 </del><strong>₹75</strong>
+</li>
+<li>
+<strong>Ragi Flour</strong> – 1Kg – <del>₹125.35</del> <strong>₹109</strong>
+</li>
+<li>
+<strong>Vermicelli</strong> – 1Kg – <del>₹142.6</del> <strong>₹124</strong>
+</li>
+<li>
+<strong>Jaggery</strong> – 500g – <del>₹75.17</del> <strong>₹65</strong>
+</li>
+<li>
+<strong>Wheat Rava</strong> – 500g – <del>₹59.65</del> <strong>₹52</strong>
+</li>
+<li>
+<strong>Bombay Rava</strong> – 1kg – <del>₹112.75</del> <strong>₹98</strong>
+</li>
+<li>
+<strong>Tamarind</strong> – 500g – <del>₹251.8</del> <strong>₹219</strong>
+</li>
+<li>
+<strong>Sugar Sulphur Free</strong> – 1kg – <del>₹82.8</del> <strong>₹72</strong>
+</li>
+<li>
+<strong>Dry Red Chilli</strong> – 250g – <del>₹117.15</del> <strong>₹102</strong>
+</li>
+<li>
+<strong>Tea Powder</strong> – 100g – <del>₹61.94</del> <strong>₹54</strong>
+</li>
+<li>
+<strong>Cumin</strong> – 100g – <del>₹63.90</del> <strong>₹55</strong>
+</li>
+<li>
+<strong>Dry Coconut</strong> – 250g – <del>₹158.55</del> <strong>₹138</strong>
+</li>
+<li>
+<strong>Coriander Powder</strong> – 100g – <del>₹54.02</del> <strong>₹47</strong>
+</li>
+<li>
+<strong>Cumin Powder</strong> – 100g – <del>₹86.25</del> <strong>₹75</strong>
+</li>
+<li>
+<strong>garam Masala</strong> – 100g – <del>₹90.85</del> <strong>₹79</strong>
+</li>
+<li>
+<strong>Spice Powders - 5-in-1 Pack</strong> – 500g – <del>₹339.5</del> <strong>₹295</strong>
+<ul>
+<li>
+<strong>Garlic Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Chana Dal Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Nallakaram Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Coconut Masala Powder </strong>– 100g – Included in Spice Powders Pack</li>
+<li>
+<strong>Curry Leaves Powder </strong>– 100g – Included in Spice Powders Pack</li>
+</ul>
+</li>
+<li>
+</li>
+<li>
+<strong>BryaniMix</strong> – 250g – <del>₹437</del> <strong>₹380</strong>
+</li>
+<li>
+<strong>Ajwain</strong> – 50g – <del>₹34.50</del> <strong>₹30</strong>
+</li>
+<li>
+<strong>Groundnut Oil</strong> – 5L – <del>₹1995.25</del> <strong>₹1735</strong>
+</li>
+<li>
+<strong>Coconut Oil</strong> – 500ml – <del>₹378.35</del> <strong>₹329</strong>
+</li>
+<li>
+<strong>Natural Honey</strong> – 500ml – <del>₹297.85</del> <strong>₹259</strong>
+</li>
+</ul>
+<p><strong>Why Choose Arshith Fresh?</strong><br>✅ All-in-one convenience<br>✅ Free from preservatives &amp; additives<br>✅ Perfectly portioned for monthly use<br>✅ Traditional, healthy, and natural</p>
+<p><strong>Order now and get doorstep delivery of your monthly essentials!</strong></p>",Arshith Fresh,Uncategorized,"","4 members, combo, monthly groceries",false,Size,4 Members,,,,,,,,COMBO4M,50000.0,shopify,50,deny,manual,7099.00,9098.70,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_12.16.43_PM_1.jpg?v=1757920978,1,"",false,Monthly Groceries Combo – Essential Ration Pack for 4 Members | Arshith Fresh,"Buy Monthly Groceries Combo for 4 Members from Arshith Fresh. Premium ration pack with essential groceries, hygienic packing & monthly savings.",'16,,,,,,,,,,kg,,,true,,,draft
+pistachio-with-shell-premium-quality,Pistachio (With Shell) (Premium Quality),"<p>
+  <strong>Premium Pistachios</strong> are harvested when nature decides they’re ready—right at the peak of ripeness when the shells naturally split open on the tree. This natural process ensures superior freshness, without the need for brining, mechanical cracking, or artificial color enhancements.
+  Each pistachio is <strong>handpicked</strong> and <strong>sun-dried</strong> under carefully monitored conditions, then stored without the use of synthetic preservatives or polish. The result is a clean, wholesome nut with a mild crunch and a delicately sweet, nutty aroma that speaks of purity.
+</p>
+
+<p>
+  Their flavor and texture make them incredibly versatile. Enjoy them as a nourishing snack, crush them into rich Indian sweets like barfis or halwas, or use them as an elegant garnish for desserts, kheers, or even savory rice dishes.
+</p>
+
+<p>
+  Pistachios are a powerhouse of <strong>plant-based protein</strong>, <strong>Vitamin B6</strong>, <strong>fiber</strong>, and <strong>healthy fats</strong>. They offer a range of health benefits, such as:
+</p>
+<ul>
+  <li>Supporting eye health with natural antioxidants like lutein and zeaxanthin</li>
+  <li>Boosting immunity and hemoglobin production</li>
+  <li>Enhancing metabolism and satiety for weight-conscious lifestyles</li>
+  <li>Promoting healthy skin and heart function</li>
+</ul>
+
+<p>
+  Light yet energizing, these pistachios are perfect for <em>midday munching, pre-workout fuel, or guilt-free indulgence</em> with your evening tea. Their naturally split shells also make them easy to open and enjoy without effort.
+</p>
+
+<p>
+  <em>Arshith Fresh Premium Pistachios bring you the authentic taste of untouched nature — crunchy, nutritious, and delightfully real.</em>
+</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits-Premium,Dry Fruits-Premium,true,Weight,250g,,,,,,,,DFP-PISTACHIOPREMIUM-250G,250.0,shopify,50,deny,manual,463.00,597.96,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-05_at_15.57.56_1.jpg?v=1757333959,1,"",false,Pistachio With Shell – Premium Quality Dry Fruits | Arshith Fresh,"Buy Premium Pistachio with Shell online from Arshith Fresh. Fresh, crunchy dry fruits rich in protein, fiber & healthy fats for daily snacking.",'33,,,,,,,,,,kg,,,true,,,active
+pistachio-with-shell-premium-quality,,,,,,ops,,,,500g,,,,,,,,DFP-PISTACHIOPREMIUM-500G,500.0,shopify,50,deny,manual,925.00,1194.60,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_1_7da0c30c-76ef-462c-910a-399b22f43b39.jpg?v=1757333959,2,"",,,,,,,,,,,,,,kg,,,,,,
+pistachio-with-shell-premium-quality,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_1.18.36_PM_edbfbfb6-be0e-4e6d-ba19-4c0dea0da0ce.jpg?v=1757333959,3,"",,,,,,,,,,,,,,,,,,,,
+kapil-wheat-flour-premium,Kapil Wheat Flour  (Premium Quality),"<p>
+  <strong>Wheat Flour (Premium Quality)</strong> is carefully milled from whole wheat grains cultivated in pesticide-free, nutrient-rich fields, then stone-ground to preserve the flour's natural fiber, vitamins, and authentic flavor.
+</p>
+
+<p>
+  Unlike heavily processed flours, this wheat flour is <strong>unbleached</strong>, <strong>chemical-free</strong>, and retains the wholesome goodness of whole wheat, making every roti, chapati, or paratha soft, flavorful, and nutritious.
+</p>
+
+<p>
+  Naturally rich in <strong>iron</strong>, <strong>protein</strong>, <strong>dietary fiber</strong>, and essential <strong>B-vitamins</strong>, it promotes sustained energy release, supports healthy digestion, and helps maintain cardiovascular wellness.
+</p>
+
+<p>
+  Its coarse yet fine texture enhances dough elasticity, ensuring easy kneading and perfect puffed rotis every time.
+</p>
+
+<p>
+  Ideal for traditional Indian staples like <em>rotis, chapatis, parathas, puris, and baked goods</em>, this flour brings authentic taste and superior quality to your kitchen.
+</p>
+
+<p>
+  Free from any artificial preservatives, additives, or bleaching agents, Arshith Fresh Wheat Flour guarantees a pure and natural cooking experience.
+</p>
+
+<p>
+  Packed hygienically in moisture-proof packaging, it maintains freshness, aroma, and nutrient integrity for longer shelf life.
+</p>
+
+<p>
+  Whether you are preparing a daily meal or festive feast, trust Arshith Fresh Wheat Flour for quality that nourishes your family with every bite.
+</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,500g,,,,,,,,CIP-KAPILWHEATFLOURPREMIUM-500G,500.0,shopify,100,deny,manual,91.00,104.65,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-29_at_6.10.09_PM.jpg?v=1757333959,1,"",false,,,'19,,,,,,,,,,kg,,,true,,,draft
+kapil-wheat-flour-premium,,,,,,ops,,,,1kg,,,,,,,,CIP-KAPILWHEATFLOURPREMIUM-1KG,1000.0,shopify,100,deny,manual,182.00,209.30,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.10_PM_2_3157f494-f395-4e0b-91ad-8402fd9a7375.jpg?v=1757333959,2,"",,,,,,,,,,,,,,kg,,,,,,
+kapil-wheat-flour-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.52_PM_bd0ec17e-42ad-42a0-bd34-ee5cf95357fd.jpg?v=1757333959,3,"",,,,,,,,,,,,,,,,,,,,
+multi-grain-wheat-flour-premium,Multi Grain Wheat Flour Soft Grinding  (Premium Quality),"<h1>Premium Multi Grain Wheat Flour </h1>
+
+  <p><strong> Multi Grain Wheat Flour</strong> is a blend of high-quality whole wheat and nutrient-rich grains, finely ground for a soft, smooth texture. It contains no preservatives, artificial whiteners, or chemicals — just clean, natural ingredients carefully milled for everyday use.</p>
+
+  <p>Perfect for making soft, healthy rotis, chapatis, parathas, and other traditional Indian breads, this flour combines nutrition with taste in every bite.</p>
+
+  <h2>How to Use:</h2>
+  <ul>
+    <li>Use just like regular wheat flour for roti, chapati, or paratha dough.</li>
+    <li>Mix with water, salt, and a bit of oil or ghee for a smooth dough.</li>
+    <li>Let the dough rest before rolling and cooking on a tawa.</li>
+    <li>Can also be used for multigrain thepla, puris, or baked goods.</li>
+  </ul>
+
+  <h2>Benefits:</h2>
+  <ul>
+    <li>Made from whole wheat and multiple grains — rich in fiber and protein</li>
+    <li>Soft grinding for smoother texture and easy digestion</li>
+    <li>No chemicals, maida, or artificial additives</li>
+    <li>Supports energy, heart health, and balanced nutrition</li>
+    <li>Ideal for daily meals and health-conscious families</li>
+  </ul>
+
+  <p><strong>Arshith Fresh Multi Grain Wheat Flour</strong> — soft, nutritious, and crafted for those who value taste and health in every meal.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,true,Weight,500g,,,,,,,,CIP-MULTIGRAINWHEATFLOURPREMIUM-500G,500.0,shopify,100,deny,manual,75.00,101.25,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-29_at_6.10.08_PM_1.jpg?v=1757333960,1,"",false,Multi Grain Wheat Flour – Soft Grinding | Healthy Atta | Arshith Fresh,"Buy Multi Grain Wheat Flour online from Arshith Fresh. Soft grinding atta made from whole wheat & grains, ideal for soft rotis & chapatis.",'32,,,,,,,,,,kg,,,true,,,active
+multi-grain-wheat-flour-premium,,,,,,ops,,,,1kg,,,,,,,,CIP-MULTIGRAINWHEATFLOURPREMIUM-1KG,1000.0,shopify,100,deny,manual,149.00,201.15,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.10_PM_1_c32bc225-bcb3-444c-a352-c39804996664.jpg?v=1757333960,2,"",,,,,,,,,,,,,,kg,,,,,,
+multi-grain-wheat-flour-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.02_PM_2_933df3e3-05e3-4f18-8563-60fe3dd8e8f8.jpg?v=1757333960,3,"",,,,,,,,,,,,,,,,,,,,
+sarabathi-wheat-flour-premium,Sarabathi Wheat Flour Soft Grinding  (Premium Quality),"<p data-start=""154"" data-end=""522""><strong data-start=""154"" data-end=""193"">Arshith Fresh Sarabathi Wheat Flour</strong> is made from <strong data-start=""207"" data-end=""240"">select Sarabathi wheat grains</strong>, known for their natural sweetness, golden color, and soft texture. Carefully sourced from trusted farms, the wheat undergoes a <strong data-start=""369"" data-end=""401"">gentle soft grinding process</strong> that preserves its nutrition, aroma, and original taste — without adding any maida, preservatives, or artificial agents.</p>
+<p><br></p>
+<p data-start=""524"" data-end=""828"">What makes this flour special is its <strong data-start=""561"" data-end=""585"">fine, smooth texture</strong>, which makes kneading effortless and results in <strong data-start=""634"" data-end=""685"">super soft, fluffy rotis, chapatis, and phulkas</strong> that stay tender even hours after cooking. The dough absorbs water well, making it easier to roll and cook evenly without sticking or tearing.</p>
+<p><br></p>
+<p data-start=""830"" data-end=""1130"">Rich in <strong data-start=""838"" data-end=""889"">natural fiber, protein, and essential nutrients</strong>, this flour supports a healthy diet and is suitable for daily use by the whole family. Whether you're preparing breakfast, lunch, or dinner, <strong data-start=""1031"" data-end=""1070"">Arshith Fresh Sarabathi Wheat Flour</strong> ensures every meal is wholesome, delicious, and satisfying.</p>
+<p><br></p>
+<p data-start=""1132"" data-end=""1254"">Choose Arshith Fresh for purity, quality, and the trusted taste of homemade goodness — straight from nature to your plate.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,true,Weight,500g,,,,,,,,CIP-SARABATHIWHEATFLOURPREMIUM-500G,500.0,shopify,100,deny,manual,55.00,74.25,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-29_at_6.10.08_PM_2.jpg?v=1757333961,1,"",false,Sarabathi Wheat Flour – Soft Grinding | Premium Atta | Arshith Fresh,"Buy Sarabathi Wheat Flour online from Arshith Fresh. Soft grinding premium atta for fluffy rotis, chapatis & daily healthy cooking.",,,,,,,,,,,kg,,,true,,,active
+sarabathi-wheat-flour-premium,,,,,,ops,,,,1kg,,,,,,,,CIP-SARABATHIWHEATFLOURPREMIUM-1KG,1000.0,shopify,99,deny,manual,109.00,147.15,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.10_PM_4b41c916-12d1-4272-a467-1ed317e792d7.jpg?v=1757333961,2,"",,,,,,,,,,,,,,kg,,,,,,
+bombay-rava-premium,Bombay Rava  (Premium Quality),"<p><strong>Bombay Rava</strong> is made from the finest quality wheat, carefully ground to a consistent grain size perfect for everyday cooking. It is produced without chemicals, artificial whiteners, or bleaching agents, ensuring purity and safety for your family.</p>
+<p>This premium Bombay Rava is perfect for making popular dishes like upma, halwa (sheera), rava dosa, and more. Whether sweet or savory, Bombay Rava brings texture, taste, and nutrition to your plate.</p>
+<h2>How to Use:</h2>
+<ul>
+<li>Dry roast the rava until golden and aromatic (optional).</li>
+<li>Cook with vegetables and spices to make savory upma.</li>
+<li>Prepare sheera by cooking with milk, ghee, and sugar.</li>
+<li>Mix with curd and water for instant rava dosa batter.</li>
+</ul>
+<h2>Benefits:</h2>
+<ul>
+<li>Made from 100% pure wheat — no additives or maida</li>
+<li>High in fiber and slow-release carbohydrates</li>
+<li>Easy to digest and quick to prepare</li>
+<li>Versatile — ideal for sweet and savory dishes</li>
+<li>Clean, healthy, and great for daily meals</li>
+</ul>
+<p><strong>Arshith Fresh Bombay Rava</strong> — nutritious, pure, and perfect for your traditional and modern recipes.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,500g,,,,,,,,CIP-BAMBY RAVAPREMIUM-500G,500.0,shopify,99,deny,manual,49.00,66.15,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-29_at_6.10.08_PM.jpg?v=1757333961,1,"",false,Bombay Rava – Premium Quality Wheat Sooji | Arshith Fresh,"Buy Premium Bombay Rava online from Arshith Fresh. Clean wheat sooji ideal for upma, rava dosa, sheera & daily healthy cooking.",'37,,,,,,,,,,kg,,,true,,,draft
+bombay-rava-premium,,,,,,ops,,,,1kg,,,,,,,,CIP-BAMBY RAVAPREMIUM-1KG,1000.0,shopify,100,deny,manual,98.00,,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.12_PM_2_e2ba49d3-869b-41c8-8750-7c638b705fa7.jpg?v=1757333961,2,"",,,,,,,,,,,,,,kg,,,,,,
+bombay-rava-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_12.55.03_PM.jpg?v=1757333961,3,"",,,,,,,,,,,,,,,,,,,,
+dry-fruits-mix,Dry-Fruits-Mix,"<h3 data-end=""223"" data-start=""152""><strong data-end=""223"" data-start=""156"">Arshith Fresh 7-in-1 Dry Fruit Mix – One Pack, Seven Superfoods</strong></h3>
+<p data-end=""504"" data-start=""225"">Indulge in a thoughtfully crafted blend of 7 wholesome dry fruits that bring together purity, taste, and nourishment in every scoop. The <strong data-end=""390"" data-start=""362"">Arshith Fresh 7-in-1 Mix</strong> is ideal for daily snacking, healthy gifting, and boosting your family’s wellness – all from one convenient pack.</p>
+<p data-end=""637"" data-start=""506"">Each dry fruit is hand-selected for freshness and natural nutrition, offering a balanced combination of flavor and health benefits.<br></p>
+<h3 data-end=""664"" data-start=""644"">🥜 <strong data-end=""664"" data-start=""651"">Includes:</strong>
+</h3>
+<ul>
+<li data-end=""725"" data-start=""667"">
+<strong data-end=""682"" data-start=""667"">Cashew Nuts</strong> – Creamy, crunchy, and rich in good fats</li>
+<li data-end=""781"" data-start=""728"">
+<strong data-end=""739"" data-start=""728"">Almonds</strong> – A classic source of protein and fiber</li>
+<li data-end=""915"" data-start=""854"">
+<strong data-end=""865"" data-start=""854"">Walnuts</strong> – Omega-3-rich bites for brain and heart health</li>
+<li data-end=""970"" data-start=""918"">
+<strong data-end=""929"" data-start=""918"">Raisins</strong> – Naturally sweet and packed with iron</li>
+<li data-end=""1033"" data-start=""973"">
+<strong data-end=""982"" data-start=""973"">Dates</strong> – Soft, chewy energy boosters that aid digestion</li>
+<li data-end=""1102"" data-start=""1036"">
+<strong data-end=""1053"" data-start=""1036"">Figs (Anjeer)</strong> – High in calcium and fiber for daily vitality</li>
+</ul>
+<h3 data-end=""1138"" data-start=""1109"">⭐ <strong data-end=""1138"" data-start=""1115"">Why You’ll Love It:</strong>
+</h3>
+<ul>
+<li data-end=""1196"" data-start=""1141"">A perfect <strong data-end=""1171"" data-start=""1151"">daily health mix</strong> with diverse nutrients</li>
+<li data-end=""1256"" data-start=""1199""><strong data-end=""1254"" data-start=""1199"">No preservatives, artificial polish, or added sugar</strong></li>
+<li data-end=""1306"" data-start=""1259"">Clean, hygienic packing to preserve freshness</li>
+<li data-end=""1378"" data-start=""1309"">Suitable for <strong data-end=""1376"" data-start=""1322"">office snacks, school boxes, post-workout munching</strong>
+</li>
+<li data-end=""1441"" data-start=""1381"">Great for gifting — <strong data-end=""1441"" data-start=""1401"">health meets tradition in every pack</strong>
+</li>
+</ul>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits,"combo_pack, Dry Fruits",false,Weight,500g,,,,,,,,DF-DRYFRUITSMIX-500G,500.0,shopify,0,deny,manual,599.00,808.65,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/dry_fruit_mix_46840a26-eb12-4532-b38f-bdbbf48a7edd.jpg?v=1757333962,1,"",false,Dry Fruits Mix – 7 in 1 Premium Healthy Snack | Arshith Fresh,"Buy 7 in 1 Dry Fruits Mix online from Arshith Fresh. Premium nuts & fruits blend, rich in protein, fiber & energy for daily healthy snacking.",'30,,,,,,,,,,kg,,,true,,,draft
+bengal-gram-dal-premium,Bengal Gram Dal  (Premium Quality),"",Arshith Fresh India Pvt Ltd,,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,250g,,,,,,,,CIP-BENGAL GRAMDALPREMIUM-250G,250.0,shopify,100,deny,manual,0.00,0.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/bengal_gram_dal_25af9c5f-427e-49f6-979f-4fff94ef5e7b.png?v=1757333962,1,"",false,,,'9,,,,,,,,,,kg,,,true,,,draft
+bengal-gram-dal-premium,,,,,,ops,,,,500g,,,,,,,,CIP-BENGAL GRAMDALPREMIUM-500G,500.0,shopify,100,deny,manual,0.00,0.00,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+red-chillies-guntur-premium,Red Chillies   (Guntur) (Premium Quality),"<p><strong>Arshith Fresh Guntur Red Chillies</strong> are handpicked from the fertile fields of Guntur, Andhra Pradesh — known for producing some of the finest and spiciest chillies in India. These sun-dried chillies offer bold color, intense flavor, and natural pungency, without the use of any artificial color or chemical treatment.</p>
+
+  <p>Perfect for Indian curries, chutneys, pickles, and spice blends, these chillies add vibrant heat and authentic taste to every dish.</p>
+
+  <h2>How to Use:</h2>
+  <ul>
+    <li>Dry roast and grind for homemade chilli powder or masala blends.</li>
+    <li>Soak in warm water and blend to make spicy chutneys or pastes.</li>
+    <li>Use whole in tempering (tadka) for curries and dals.</li>
+    <li>Add to pickles and traditional Indian spice mixes.</li>
+  </ul>
+
+  <h2>Benefits:</h2>
+  <ul>
+    <li>100% natural — no artificial color or preservatives</li>
+    <li>Rich in flavor, spice, and natural antioxidants</li>
+    <li>Gives vibrant red color and heat to dishes</li>
+    <li>Carefully cleaned, sun-dried, and packed for freshness</li>
+    <li>Authentic Guntur origin — quality you can taste</li>
+  </ul>
+
+  <p><strong>Arshith Fresh Guntur Red Chillies</strong> — bold, fiery, and full of natural flavor, just as nature intended.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-RED CHILLIESGUNTURPREMIUM-100G,100.0,shopify,100,deny,manual,42.00,56.70,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/guntur_chilli_5fa91aba-e83a-4f4f-8c4f-90141bc948ca.png?v=1757333963,1,"",false,Guntur Red Chillies – Premium Quality Dry Red Chilli | Arshith Fresh,"Buy Guntur Red Chillies online from Arshith Fresh. Sun-dried, bold & spicy dry red chillies ideal for curries, chutneys and masalas.",'35,,,,,,,,,,kg,,,true,,,draft
+red-chillies-guntur-premium,,,,,,ops,,,,250g,,,,,,,,SP-RED CHILLIESGUNTURPREMIUM-250G,250.0,shopify,100,deny,manual,102.00,137.70,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_6.03.46_PM_33da64ca-671f-493c-8775-95820bd0edf7.jpg?v=1757333963,2,"",,,,,,,,,,,,,,kg,,,,,,
+red-chillies-guntur-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.00_PM_1_71309fc2-b7d7-4e4c-bce8-d48af9d9b31e.jpg?v=1757333963,3,"",,,,,,,,,,,,,,,,,,,,
+red-chillies-byadgi-premium,Red Chillies   (Byadagi) (Premium Quality),"<p data-start=""100"" data-end=""435""><strong data-start=""100"" data-end=""140"">Arshith Fresh Red Chillies (Byadagi)</strong> are known for their deep red color, wrinkled skin, and uniquely mild heat, making them a favorite in traditional Indian cooking. Sourced from the finest farms and sun-dried to perfection, these chillies are packed with natural oils that enhance both flavor and color without overpowering spice.</p>
+<p data-start=""437"" data-end=""751"">Rich in capsaicin, antioxidants, and vitamin C, Byadagi chillies not only add visual appeal to your curries, chutneys, and masalas but also support immunity and metabolism. They’re ideal for homemade powders, pickles, and seasoning blends, giving your dishes that authentic color and aroma of South Indian cuisine.</p>
+<p data-start=""753"" data-end=""901"">Free from additives and preservatives, <strong data-start=""792"" data-end=""826"">Arshith Red Chillies (Byadagi)</strong> are hand-cleaned and hygienically packed to preserve freshness and purity.</p>
+<p data-start=""903"" data-end=""1045"">🌶️ <strong data-start=""907"" data-end=""948"">Choose Arshith Fresh Byadagi Chillies</strong> – vibrant in color, rich in taste, and mild on heat — the perfect blend of tradition and health.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-RED CHILLIESBYADGIPREMIUM-100G,100.0,shopify,100,deny,manual,80.00,108.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/Byadgi_65ac3367-c79c-48f3-a5e1-af2985ebbd33.png?v=1757333963,1,"",false,Byadagi Red Chillies – Premium Quality Mild Dry Red Chilli | Arshith Fresh,"Buy Byadagi Red Chillies online from Arshith Fresh. Mild heat, deep red color dry red chillies ideal for curries, masalas & chutneys.",'13,,,,,,,,,,kg,,,true,,,draft
+red-chillies-byadgi-premium,,,,,,ops,,,,200g,,,,,,,,SP-RED CHILLIESBYADGIPREMIUM-200G,200.0,shopify,100,deny,manual,200.00,270.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.58.16_PM_a6296513-4724-4486-bd5d-0dd338d1f494.jpg?v=1757333963,2,"",,,,,,,,,,,,,,kg,,,,,,
+red-chillies-byadgi-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.59_PM_1_3e1688f4-b68c-45fb-9217-3872fd18bf23.jpg?v=1757333963,3,"",,,,,,,,,,,,,,,,,,,,
+sugar-sulphur-free-premium,Sugar Sulphur Free (Premium Quality),"<p><strong>Sulphur-Free Sugar</strong> is a high-quality sweetener made without the use of harmful sulphur during the refining process. It retains its natural taste, color, and nutritional value — making it a safer, cleaner option for everyday use.</p>
+
+  <p>Perfect for tea, coffee, desserts, sweets, and all traditional Indian preparations, this sugar ensures purity and peace of mind in every spoon.</p>
+
+  <h2>How to Use:</h2>
+  <ul>
+    <li>Add to tea, coffee, or milk as a regular sweetener.</li>
+    <li>Use in Indian sweets like halwa, kheer, or laddu.</li>
+    <li>Ideal for baking, desserts, or homemade drinks like lemonade.</li>
+    <li>Substitute one-to-one for regular sugar in any recipe.</li>
+  </ul>
+
+  <h2>Benefits:</h2>
+  <ul>
+    <li>100% sulphur-free — free from chemical processing</li>
+    <li>Cleaner and healthier than regular refined sugar</li>
+    <li>Safe for daily use in cooking and beverages</li>
+    <li>Maintains natural sweetness without bitterness</li>
+    <li>Perfect for families who prefer chemical-free ingredients</li>
+  </ul>
+
+  <p><strong>Arshith Fresh Sulphur-Free Sugar</strong> — a clean, conscious choice for those who care about what goes into their food and their health.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Spices-Premium,Cooking Ingredients-Premium,true,Weight,1kg,,,,,,,,SP-SUGARSULPHURFREEPREMIUM-1KG,1000.0,shopify,100,deny,manual,72.00,100.80,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChatGPT_Image_Jun_5_2025_11_43_32_AM_80ddc3db-806f-42b4-ab3c-31a34f823041.png?v=1757333964,1,"",false,Sulphur Free Sugar – Premium Quality Pure Sugar | Arshith Fresh,"Buy Sulphur Free Sugar online from Arshith Fresh. Pure, clean sugar with natural sweetness, ideal for tea, coffee, sweets & daily cooking.",'35,,,,,,,,,,kg,,,true,,,active
+sugar-sulphur-free-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.41.14_AM_-_Copy_7a3212fa-1309-48b9-9d15-33e4e0074631.jpg?v=1757333964,2,"",,,,,,,,,,,,,,,,,,,,
+sugar-sulphur-free-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.41.06_AM_-_Copy_10304d21-403c-4df0-8813-fd25357e6865.jpg?v=1757333964,3,"",,,,,,,,,,,,,,,,,,,,
+jowar-flour-jonna-premium,Jowar Flour jonna (Premium Quality),"<p data-start=""194"" data-end=""616""><strong data-start=""194"" data-end=""241"">Arshith Fresh Jowar Flour (Jonna – Premium)</strong> is a celebration of tradition and wellness, brought to you in its purest form. Sourced from handpicked, naturally grown sorghum grains, our jowar flour is stone-ground to preserve its natural fiber, minerals, and rich earthy flavor. It is completely gluten-free, making it an excellent choice for those with gluten sensitivities or anyone adopting a clean, plant-based diet.</p>
+<p data-start=""618"" data-end=""942"">Packed with iron, calcium, protein, and essential micronutrients, this flour supports bone health, aids digestion, helps manage blood sugar levels, and contributes to sustained energy throughout the day. Its high fiber content keeps you fuller for longer, making it perfect for weight management and diabetic-friendly meals.</p>
+<p data-start=""944"" data-end=""1222"">Versatile and easy to use, Arshith Jonna Flour can be used to prepare soft rotis, bhakris, cheelas, millet dosas, porridge, or even added to multigrain baking mixes. With no added preservatives, chemicals, or processing agents, it’s pure nutrition straight from nature’s bounty.</p>
+<p data-start=""1224"" data-end=""1342"">Choose Arshith Fresh Jowar Flour – because your body deserves clean, nourishing, and wholesome food, every single day.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients,Cooking Ingredients,false,Weight,500g,,,,,,,,CI-JOWAR FLOUR JONNAPREMIUM-500G,500.0,shopify,100,deny,manual,59.00,76.11,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.17.58_AM_2896809e-aefe-4373-87c4-885dfb02ebc0.jpg?v=1757333965,1,"",false,Jowar Flour (Jonna) – Premium Quality Sorghum Flour | Arshith Fresh,"Buy Jowar Flour (Jonna) online from Arshith Fresh. Gluten-free sorghum flour rich in fiber, ideal for rotis, bhakri & healthy diets.",,,,,,,,,,,kg,,,true,,,draft
+jowar-flour-jonna-premium,,,,,,ops,,,,1kg,,,,,,,,CI-JOWAR FLOUR JONNAPREMIUM-1KG,1000.0,shopify,100,deny,manual,118.00,152.22,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.25.49_AM_40890132-e3a0-4c80-9008-948a94493df4.jpg?v=1757333965,2,"",,,,,,,,,,,,,,kg,,,,,,
+jowar-flour-jonna-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_10.25.49_AM_1_39db9412-3fa5-4799-926b-44004c9ed521.jpg?v=1757333965,3,"",,,,,,,,,,,,,,,,,,,,
+cinnamon-kerala-style-premium,Cinnamon  (Premium Quality),"<p>
+  <strong>Premium Cinnamon</strong> is sourced from the inner bark of naturally grown cinnamon trees in pristine, pesticide-free farms. Only the <strong>tender, aromatic inner layers of the bark</strong> are carefully peeled by hand and <strong>sun-dried slowly in shade</strong> to preserve their essential oils, natural sweetness, and warm aroma.
+</p>
+<p>
+  Unlike commercial-grade cinnamon, our premium variety is <strong>non-polished, non-irradiated, and free from any artificial colors or preservatives</strong>. Each batch is <em>hand-sorted and naturally cured</em> to ensure purity and consistent quality.
+</p>
+<p>
+  This cinnamon is known for its:
+</p>
+<ul>
+  <li>Sweet-spicy fragrance and smooth texture</li>
+  <li>High oil content and warm, complex flavor</li>
+  <li>Thin, rollable sticks that crumble easily when fresh</li>
+</ul>
+<p>
+  Perfect for:
+</p>
+<ul>
+  <li>Flavored teas, masala chai, and spice blends</li>
+  <li>Baking cakes, cookies, and desserts</li>
+  <li>Enhancing gravies, curries, and biryanis</li>
+</ul>
+<p>
+  Rich in <strong>antioxidants and anti-inflammatory compounds</strong>, cinnamon has been traditionally used for:
+</p>
+<ul>
+  <li>Balancing blood sugar levels</li>
+  <li>Improving digestion and metabolism</li>
+  <li>Boosting immunity and fighting seasonal flu</li>
+</ul>
+<p>
+  <em>Arshith Fresh Premium Cinnamon — naturally harvested, gently prepared, and full of warmth, aroma, and wellness in every stick.</em>
+</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Spices-Premium,Spices-Premium,true,Weight,50g,,,,,,,,SP-CINNAMONKERALA STYLEPREMIUM-50G,50.0,shopify,90,deny,manual,54.00,78.30,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965,1,"",false,Cinnamon Sticks – Premium Quality Aromatic Spice | Arshith Fresh,"Buy Premium Cinnamon sticks online from Arshith Fresh. Aromatic, natural spice ideal for tea, curries, desserts & healthy cooking.",'35,,,,,,,,,,kg,,,true,,,active
+cinnamon-kerala-style-premium,,,,,,ops,,,,100g,,,,,,,,SP-CINNAMONKERALA STYLEPREMIUM-100G,100.0,shopify,95,deny,manual,106.00,153.70,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965,2,"",,,,,,,,,,,,,,kg,,,,,,
+cinnamon-kerala-style-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_8.50.21_PM_cb8a1a86-0c4a-447d-81c3-8a3f1d049eca.jpg?v=1757333965,3,"",,,,,,,,,,,,,,,,,,,,
+dried-blackberries-premium,Dry BlackBerries  (Premium Quality),"<p>
+  <strong>Premium Dried Berries</strong>
+</p>
+<p>
+  Enjoy the burst of fruity goodness in every bite. Our dried berries are carefully picked at peak ripeness, gently dried to preserve their natural sweetness, and packed fresh to give you a delicious, healthy snack or ingredient.
+</p>
+<p>
+  <strong>How It's Made:</strong><br>
+  We start with fresh, ripe berries from trusted farms. After sorting and cleaning, they are dried slowly using natural methods to lock in flavor, color, and nutrients — without the use of artificial preservatives or added sugars.
+</p>
+<p>
+  <strong>Why Choose Our Dried Berries:</strong>
+</p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No added sugar, preservatives, or colors</li>
+  <li>
+<strong>Naturally Sweet</strong> – Rich in flavor with a soft, chewy texture</li>
+  <li>
+<strong>Antioxidant-Rich</strong> – Packed with vitamins, fiber, and natural energy</li>
+  <li>
+<strong>Convenient &amp; Versatile</strong> – Great for snacking or adding to recipes</li>
+  <li>
+<strong>Long Shelf Life</strong> – Stays fresh for months when stored properly</li>
+</ul>
+<p>
+  <strong>Perfect for:</strong>
+</p>
+<ul>
+  <li>Snacking straight from the pack</li>
+  <li>Mixing into cereals, oats, and granola</li>
+  <li>Baking muffins, cookies, and cakes</li>
+  <li>Topping salads, yogurt, and smoothie bowls</li>
+  <li>Adding natural sweetness to trail mixes</li>
+</ul>
+<p>
+  Store in a cool, dry place in an airtight container. A handful a day brings nature’s sweetness right to your table.
+</p>
+<p>
+  <em>Wholesome. Tasty. Naturally yours.</em>
+</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits-Premium,Dry Fruits-Premium,false,Weight,100g,,,,,,,,SP-DRY BERRIESPREMIUM-100G,100.0,shopify,0,deny,manual,99.00,113.85,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-16_at_4.19.42_PM.jpg?v=1757333966,1,"",false,Dry Blackberries – Premium Quality Dried Berries | Arshith Fresh,"Buy Dry Blackberries online from Arshith Fresh. Premium dried berries rich in antioxidants, fiber & natural sweetness for healthy snacking.",'30,,,,,,,,,,kg,,,true,,,draft
+dried-blackberries-premium,,,,,,ops,,,,250g,,,,,,,,SP-DRY BERRIESPREMIUM-250G,250.0,shopify,0,deny,manual,248.00,285.20,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_1_004cb691-d6e9-4487-8e3e-e78db542cef2.jpg?v=1757333966,2,"",,,,,,,,,,,,,,kg,,,,,,
+dried-blackberries-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_10.53.15_AM_f10acb69-94e4-4033-b4ae-2150b91660c3.jpg?v=1757333966,3,"",,,,,,,,,,,,,,,,,,,,
+mix-tutti-frutti-premium,Mix Tutti Frutti  (Premium Quality),"<p><strong>Premium Tutti Frutti</strong></p>
+<p>Add a burst of color and sweetness to your dishes with our premium tutti frutti, made the traditional way. We use carefully selected raw papayas that are naturally ripened, cut into small pieces, and then soaked in sugar syrup to bring you soft, flavorful bits full of vibrant color and natural sweetness.</p>
+<p><strong>How It's Made:</strong><br>
+We start with fresh, raw papayas from trusted farms. After peeling and cutting, the pieces are slowly soaked in pure sugar syrup and allowed to absorb the sweetness naturally. No artificial colors or preservatives—just the natural goodness of ripe papaya and sugar, prepared with care.</p>
+<p><strong>Why Choose Our Tutti Frutti:</strong></p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No artificial colors or preservatives</li>
+  <li>
+<strong>Vibrant &amp; Sweet</strong> – Adds a cheerful pop of color and gentle sweetness</li>
+  <li>
+<strong>Soft Texture</strong> – Perfectly tender, never hard or dry</li>
+  <li>
+<strong>Versatile</strong> – Great for baking, desserts, ice creams, and snacks</li>
+  <li>
+<strong>Long Shelf Life</strong> – Keeps fresh and flavorful for months when stored properly</li>
+</ul>
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Cakes, cookies, and bakery treats</li>
+  <li>Indian sweets like fruit halwa and ladoos</li>
+  <li>Ice creams, puddings, and shakes</li>
+  <li>Festive snacks and fruit mixes</li>
+</ul>
+<p>Store in a cool, dry place in an airtight container. Just a spoonful makes your recipes colorful and delicious with the natural sweetness of papaya.</p>
+<p><em>Bright. Sweet. Traditional.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits-Premium,Dry Fruits-Premium,false,Weight,100g,,,,,,,,SP-MIX TUTTI FRUTTI PREMIUM-100G,100.0,shopify,0,deny,manual,39.00,44.85,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-06_at_15.31.46.jpg?v=1757333967,1,"",false,Tutti Frutti – Premium Quality for Baking & Desserts | Arshith Fresh,"Buy premium Tutti Frutti online from Arshith Fresh. Colorful, sweet fruit bits ideal for cakes, cookies, ice creams & desserts.",'31,,,,,,,,,,kg,,,true,,,draft
+mix-tutti-frutti-premium,,,,,,ops,,,,250g,,,,,,,,SP- MIX TUTTI FRUTTI PREMIUM-250G,250.0,shopify,0,deny,manual,97.00,111.55,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.47.50_PM_05384ebf-0380-4aa7-949b-4f6c935f6021.jpg?v=1757333967,2,"",,,,,,,,,,,,,,kg,,,,,,
+mix-tutti-frutti-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.59.48_AM_be34b09a-8461-49c5-8b34-8c4178665ce5.jpg?v=1757333967,3,"",,,,,,,,,,,,,,,,,,,,
+mix-tutti-frutti-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-06_at_15.31.46_a4a7e9a7-741a-45ca-af4b-4b4e4b625011.jpg?v=1757333967,4,"",,,,,,,,,,,,,,,,,,,,
+dry-fish-combo,Dry Fish-combo,"<p><strong>Arshith Fresh Dry Fish Combo Pack – Traditional Taste, Ready to Cook (100g Each):</strong></p>
+<p>Enjoy the authentic taste of coastal cuisine with the Arshith Fresh Dry Fish Combo Pack – a handpicked mix of your favorite dried seafood varieties. This combo brings you three traditional dry fish types loved in Indian kitchens: Dried Prawns, Nethallu (Anchovies), and Savidalu (Ribbon Fish) – each hygienically cleaned and packed in 100g portions.</p>
+<p>Perfect for making spicy curries, crispy fries, or savory side dishes, these dry fish varieties are full of bold flavor and high protein, giving you that nostalgic, home-style taste with every bite.</p>
+<p><strong>Combo Includes (100g Each):</strong></p>
+<ul>
+<li>
+<strong>Dried Prawns</strong> – Cleaned and sun-dried prawns with rich umami flavor. Great for stir-fries, and gravies.</li>
+<li>
+<strong>Nethallu (Dried Anchovies)</strong> – Small, crispy anchovies perfect for frying or adding depth to curries.</li>
+<li>
+<strong>Savidalu (Dried Ribbon Fish)</strong> – Thin, flavorful slices that work beautifully in coastal-style gravies or as pan-fried snacks.</li>
+</ul>
+<p><strong>Why Choose Arshith Fresh Dry Fish Combo:</strong></p>
+<ul>
+<li>Naturally sun-dried and hygienically packed</li>
+<li>No added preservatives or artificial flavoring</li>
+<li>Authentic coastal flavors, rich in protein and nutrients</li>
+<li>Easy to store, easy to cook</li>
+<li>Perfect for traditional recipes and everyday meals</li>
+</ul>
+<p>Bring home the essence of traditional seafood cooking – flavor-packed, ready to use, and full of freshness.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fish,"combo_pack, Dry Fish",false,Weight,100g (3 pack),,,,,,,,DF-DRYFISH-COMBO-300G,300.0,shopify,0,deny,manual,285.00,327.75,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsAppImage2025-06-06at09.29.13.jpg?v=1757333967,1,"",false,,,'28,,,,,,,,,,kg,,,true,,,archived
+dry-fish-combo,,,,,,ops,,,,250g (3 pack),,,,,,,,DF-DRYFISH-COMBO-750G,750.0,shopify,0,deny,manual,570.00,655.50,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+dry-fish-combo-premium,Dry Fish-combo  (Premium Quality),"<h2>Premium Dry Fish Combo – 3-in-1 Cleaned &amp; Ready (100g Each)</h2>
+<p>Bring home the taste of the coast with the <strong>Arshith Fresh Premium Dry Fish Combo Pack</strong> – a hygienically prepared, ready-to-cook selection of dried seafood. This premium 3-in-1 combo includes <strong>fully cleaned, head-and-tail removed dry prawns, nethallu, and savidalu (ribbon fish)</strong> – each packed in 100g portions for your convenience.</p>
+<p>Prepared using traditional drying methods and packed with care, these dry fish varieties retain their authentic flavor and are perfect for making curries, fries, and traditional dishes. No hassle, no mess – just <strong>cleaned, quality seafood</strong>, ready to use.</p>
+<h3>Combo Includes (100g Each):</h3>
+<ul>
+<li>
+<strong>Dried Prawns (Head &amp; Tail Removed)</strong> – Premium-grade, fully cleaned prawns with intense flavor and aroma.</li>
+<li>
+<strong>Nethallu (Anchovy) – Head &amp; Tail Removed</strong> – A popular choice for crispy fries and spicy curries.</li>
+<li>
+<strong>Savidalu (Ribbon Fish) – Head &amp; Tail Removed</strong> – Thin, long cuts with a rich taste – great for deep-fry or masala recipes.</li>
+</ul>
+<h3>Why Choose Arshith Fresh Dry Fish Combo?</h3>
+<ul>
+<li>100% Natural &amp; Sun-Dried – Traditional method for long shelf life and taste</li>
+<li>Fully Cleaned – Head and tail removed for easy cooking</li>
+<li>Hygienically processed and packed</li>
+<li>Rich in protein, omega-3, and essential minerals</li>
+<li>Ideal for coastal cuisine lovers and home chefs</li>
+</ul>
+<p>Enjoy the authentic taste of seafood without the prep work – <strong>Arshith Fresh</strong> brings coastal flavor straight to your kitchen.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fish-Premium,"combo_pack, Dry Fish-Premium",false,Weight,100g (3 dry fishes),,,,,,,,DF-DRYFISH-COMBO-300G,300.0,shopify,0,deny,manual,299.00,343.85,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsAppImage2025-06-06at09.28.06.jpg?v=1757333968,1,"",false,Dry Fish Combo – Premium 3-in-1 Dried Seafood Pack | Arshith Fresh,"Buy Dry Fish Combo online from Arshith Fresh. Premium 3-in-1 dried seafood pack, cleaned & ready to cook for authentic coastal dishes.",'30,,,,,,,,,,kg,,,true,,,draft
+dry-fish-combo-premium,,,,,,ops,,,,250g (3 dry fishes),,,,,,,,DF-DRYFISH-COMBO-750G,750.0,shopify,0,deny,manual,748.00,860.20,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.38.38_AM_a9c2d9cd-d691-47b8-9174-e4fb4fe40661.jpg?v=1757333968,2,"",,,,,,,,,,,,,,kg,,,,,,
+dry-fish-combo-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.09.17_PM_b127f534-695a-4dc5-ae1c-b23c26c5e6da.jpg?v=1757333968,3,"",,,,,,,,,,,,,,,,,,,,
+spice-powderspodulu-combo,Spice Powders(Podulu)-Combo  (Premium Quality),"<h2>Premium Spice Powder Combo – 5 Authentic Flavors (250g Each)</h2>
+
+  <p>Bring the bold, rustic flavors of Andhra kitchens to your table with the <strong>Arshith Fresh Spice Powder Combo Pack</strong>. 
+  This curated collection of <strong>five traditional karam podis</strong> is crafted from time-honored recipes and made with high-quality ingredients 
+  for that irresistible homemade taste.</p>
+
+  <p>Perfect as side dishes for rice, idli, dosa, or even to spice up your snacks, these podis are packed with flavor, aroma, and tradition — just like grandma made them.</p>
+
+  <p>Each spice mix comes in a <strong>250g hygienically sealed pack</strong>, ensuring freshness and taste in every spoonful.</p>
+
+  <h3>Combo Includes (250g Each):</h3>
+  <ul>
+    <li> <strong>Garlic Spice Powder (Vellulli Karam Podi)</strong> – A fiery and fragrant blend of dry garlic, red chilies, and spices.</li>
+    <li> <strong>Chana Dal Spice Powder (Pappula Podi)</strong> – A nutty, mildly spiced powder made from roasted gram – perfect with hot rice and ghee.</li>
+    <li> <strong>Nalla Karam Podi</strong> – A signature black spice mix made with roasted chilies, lentils, and curry leaves. Bold, earthy, and full of heat.</li>
+    <li> <strong>Kobbari Karam Podi</strong> – Coconut-based spice powder with a delightful balance of heat and natural sweetness.</li>
+    <li> <strong>Karivepaku Karam Podi (Curry Leaf Powder)</strong> – A nutritious and aromatic podi made with dried curry leaves and spices. Great for immunity and digestion.</li>
+  </ul>
+
+  <h3>Why Choose Arshith Fresh Spice Podis?</h3>
+  <ul>
+    <li> Authentic Andhra-style recipes</li>
+    <li> No preservatives, no artificial colors</li>
+    <li> Perfect with rice, idli, dosa, and snacks</li>
+    <li> Balanced in spice, aroma, and texture</li>
+    <li> Hygienically packed to retain freshness and flavor</li>
+  </ul>
+
+  <p>Taste the tradition. Spice up your meals with <strong>Arshith Fresh Andhra Podi Combo</strong> – the soul of South Indian cooking in every bite.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Podulu-Premium,"combo_pack, Podulu-Premium",false,Weight,1 Pack (200gx 5),,,,,,,,PP-SPICEPOWDERSPREMIUM-1000G,1000.0,shopify,50,deny,manual,790.00,1042.80,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-29_at_8.13.47_PM_9d75c8a7-4082-4f3e-8cb3-37047b7dd27e.jpg?v=1757333968,1,"",false,Spice Powders Combo – Premium Andhra Karam Podi Set | Arshith Fresh,"Buy Premium Andhra Spice Powders Combo online from Arshith Fresh. Authentic karampodi set ideal for rice, idli, dosa & snacks.",'34,,,,,,,,,,kg,,,true,,,draft
+spice-powderspodulu-combo,,,,,,ops,,,,1 Pack (100gx 5),,,,,,,,PP-SPICEPOWDERSPREMIUM-500G,500.0,shopify,47,deny,manual,349.00,521.40,true,true,,,,,"",,,,,,,,,,,,,,,,,kg,,,,,,
+dry-fruits-combo,Dry-Fruits-Combo,"<p>Premium Dry Fruits Combo – 7-in-1 Health Booster (250g Each)</p>
+<p>Upgrade your snacking game with the Arshith Fresh Premium Dry Fruits Combo Pack – a thoughtfully curated collection of nature’s finest treasures. This all-in-one pack brings together seven nutrient-rich dry fruits, each carefully selected for purity, taste, and quality.</p>
+<p>Perfect for daily snacking, gifting, festive celebrations, or wellness routines, this combo offers a balanced mix of energy, nutrition, and flavor – ideal for families, fitness enthusiasts, and food lovers alike.</p>
+<p>What’s Inside (250g Each):<br>Cashew Nuts – Creamy, crunchy, and packed with healthy fats &amp;amp; magnesium.<br>Almonds – Protein-rich, heart-healthy nuts to power your day.<br>Pistachios – Delightfully crisp and full of antioxidants.<br>Walnuts – Brain-boosting omega-3s in every bite.<br>Raisins – Naturally sweet, iron-rich, and fiber-loaded.<br>Dates – Soft, chewy energy boosters packed with potassium.<br>Figs (Dry Anjeer) – High in calcium, fiber, and natural sweetness.<br>Why You’ll Love It:<br>100% Natural – No additives, preservatives, or artificial flavors<br>Hygienically packed to retain freshness and flavor<br>Premium-grade, handpicked quality in every pack<br>Ideal for snacking, baking, gifting, or festive occasions<br>A wholesome gift of wellness for loved ones</p>
+<p>Fuel your day with nature’s finest – one bite at a time.</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Dry Fruits,"combo_pack, Dry Fruits",false,Weight,250g (7 pack),,,,,,,,DF-DRYFRUITSCOMBO-1800G,1800.0,shopify,50,deny,manual,2400.00,2570.11,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/DryFruiyscombo1.webp?v=1758016605,1,"",false,Dry Fruits Combo – Premium 7-in-1 Healthy Dry Fruits Pack | Arshith Fresh,"Buy Dry Fruits Combo online from Arshith Fresh. Premium 7-in-1 healthy dry fruits pack ideal for daily snacking, gifting & wellness.",'5,,,,,,,,,,kg,,,true,,,draft
+dry-fruits-combo,,,,,,ops,,,,500g (7 pack),,,,,,,,DF-DRYFRUITSCOMBO-2400G,2400.0,shopify,50,deny,manual,4800.00,4252.70,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/Dry_Fruits_combo2.webp?v=1758016627,2,"",,,,,,,,,,,,,,kg,,,,,,
+charoli-saimina-pappu-premium,Charoli (Sai MinaPappu)   (Premium Quality),"<h2>Charoli (Sai Pappu) Premium</h2>
+
+<p>Charoli, also known as Sai Pappu, is a unique and flavorful seed used in many traditional recipes, especially desserts and festive dishes. These small, aromatic seeds are carefully harvested and cleaned to ensure the highest quality. Our Charoli is natural and pure, with no added chemicals or preservatives, making it a healthy choice for your kitchen.</p>
+
+<h3>How It’s Made</h3>
+<p>The Charoli seeds are handpicked from mature fruit and thoroughly cleaned to remove any impurities. They are then dried naturally to preserve their delicate flavor and aroma. Our processing methods avoid the use of any artificial additives or chemicals, ensuring that you get Charoli in its purest form.</p>
+
+<h3>Benefits</h3>
+<ul>
+  <li>Rich in essential nutrients and natural oils that support health.</li>
+  <li>Adds a unique nutty flavor and crunch to sweets, snacks, and savory dishes.</li>
+  <li>Chemical-free and naturally processed for a clean, wholesome product.</li>
+  <li>Easy to use and store, perfect for traditional and modern recipes.</li>
+  <li>A healthy ingredient that enhances both taste and nutrition.</li>
+</ul>
+
+<p>Enjoy the authentic taste and health benefits of our pure Charoli in your cooking and celebrations.</p>",Arshith Fresh India Pvt Ltd,,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,250g,,,,,,,,CIP-CHAROLI (SAI MINAPAPPU)PREMIUM-250G,250.0,shopify,62,deny,manual,0.00,0.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_12.20.47_AM_1_cbc998e7-1d7d-48c5-b96d-ab389584602d.jpg?v=1757333970,1,"",false,,,,,,,,,,,,,kg,,,true,,,draft
+green-peas-green-batani-premium,"Green Peas (Green Batani) 
+ (Premium Quality)","<p><strong>Premium Green Peas (Pachi Batani)</strong></p>
+
+<p>Enjoy the goodness of sun-dried green peas, prepared the traditional way. Our premium green peas are carefully selected, naturally dried, and cleaned to preserve their rich taste, vibrant color, and natural nutrition.</p>
+
+<p><strong>How It’s Made:</strong><br>
+We source fresh green peas from trusted farms at peak ripeness. They are gently sun-dried without using any artificial methods, allowing them to retain their natural sweetness and firm texture. Once dried, they are cleaned and packed with care to bring you the purest form of this pantry essential.</p>
+
+<p><strong>Why Choose Our Green Peas:</strong></p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No preservatives, no additives</li>
+  <li>
+<strong>Naturally Dried</strong> – Retains original taste and texture</li>
+  <li>
+<strong>Rich in Protein &amp; Fiber</strong> – A healthy plant-based addition to meals</li>
+  <li>
+<strong>Long Shelf Life</strong> – Stays fresh when stored properly</li>
+  <li>
+<strong>Easy to Cook</strong> – Just soak, boil, and use in your favorite dishes</li>
+</ul>
+
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Traditional curries and dals</li>
+  <li>South Indian-style gravies and sabzis</li>
+  <li>Tikkis, cutlets, and street food snacks</li>
+  <li>Soups, pulao, and mixed rice dishes</li>
+</ul>
+
+<p>Store in a cool, dry place in an airtight container. Soak in water for a few hours before cooking for best results.</p>
+
+<p><em>Simple. Nutritious. Traditional.</em></p>",Arshith Fresh India Pvt Ltd,,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-GREEN PEASPREMIUM-100G,100.0,shopify,100,deny,manual,35.00,40.25,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_12.03.51_PM_b34ec950-dbff-4cfc-9f03-77350f0aaa3c.jpg?v=1757333971,1,"",false,,,'14,,,,,,,,,,kg,,,true,,,draft
+green-peas-green-batani-premium,,,,,,ops,,,,250g,,,,,,,,SP-GREEN PEASPREMIUM-250G,250.0,shopify,100,deny,manual,87.00,100.05,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.06_PM_e73807bf-76a6-4c52-a3c2-ccf39608b9bc.jpg?v=1757333971,2,"",,,,,,,,,,,,,,kg,,,,,,
+green-peas-green-batani-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.49_PM_1_0ad39d4f-5e76-4749-9bf1-6372198711fa.jpg?v=1757333971,3,"",,,,,,,,,,,,,,,,,,,,
+atukulu-premium,"Atukulu
+
+ (Premium Quality)","<p><strong>Premium Atukulu</strong></p>
+<p>Enjoy the wholesome goodness of traditional flattened rice with our premium <strong>Atukulu</strong>. Made from carefully selected rice grains, these soft, thin flakes are gently processed to retain their natural nutrition and flavor – just like it’s been done for generations.</p>
+<p><strong>How It’s Made:</strong><br>High-quality rice is cleaned and then flattened into light flakes using traditional methods. No added chemicals, no preservatives – just pure, natural rice made ready for quick, healthy meals.</p>
+<p><strong>Why Choose Our Atukulu:</strong></p>
+<ul>
+<li>
+<strong>100% Natural</strong> – No additives or artificial processing</li>
+<li>
+<strong>Quick Cooking</strong> – Soaks in minutes, cooks without hassle</li>
+<li>
+<strong>Light &amp; Nutritious</strong> – Easily digestible and full of energy</li>
+<li>
+<strong>Versatile</strong> – Perfect for snacks, breakfast, or savory meals</li>
+<li>
+<strong>Long Shelf Life</strong> – Stays fresh when stored in a dry container</li>
+</ul>
+<p><strong>Great For:</strong></p>
+<ul>
+<li>Classic dishes like lemon poha and upma</li>
+<li>Quick breakfast or evening snacks</li>
+<li>Light tiffins and kids’ meals</li>
+<li>Festive recipes and traditional sweets</li>
+<li>A healthy base for your creative kitchen ideas</li>
+</ul>
+<p>Store in a cool, dry place in an airtight container. Just rinse, soak, and cook your favorite Atukulu dishes in minutes.</p>
+<p><em>Simple. Wholesome. Traditional.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-ATUKULUPREMIUM-100G,100.0,shopify,100,deny,manual,39.00,44.85,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-29_at_4.51.43_PM.jpg?v=1757333971,1,"",false,Atukulu (Poha) – Premium Flattened Rice for Breakfast & Snacks | Arshith Fresh,"Buy Atukulu (Poha) online from Arshith Fresh. Premium flattened rice made from quality grains, perfect for breakfast, snacks & quick meals.",'37,,,,,,,,,,kg,,,true,,,draft
+atukulu-premium,,,,,,ops,,,,250g,,,,,,,,SP-ATUKULUPREMIUM-250G,250.0,shopify,100,deny,manual,97.00,111.55,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.05_PM_1_f9e60b25-9363-4d5b-a406-26e5e2903542.jpg?v=1757333971,2,"",,,,,,,,,,,,,,kg,,,,,,
+atukulu-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.01_PM_5af74e19-a995-44cc-aa41-551fdb1935a6.jpg?v=1757333971,3,"",,,,,,,,,,,,,,,,,,,,
+patika-kalakanda-premium,"Patika (Kalakanda)
+ (Premium Quality)","<p><strong>Premium Patika (Kalakanda)</strong></p>
+
+<p>Bring back the age-old remedy trusted by generations. Our <strong>Patika (Kalakanda)</strong> is a natural, crystal form of edible mineral known for its soothing and healing properties. Carefully collected and cleaned, it’s a time-tested ingredient used in traditional Indian kitchens and home remedies.</p>
+
+<p><strong>What It Is:</strong><br>
+Patika, also known as Kalakanda or rock alum, is a naturally occurring crystal used in Ayurveda and traditional cooking. It has a mild, earthy taste and is known for its ability to purify, cleanse, and balance the body.</p>
+
+<p><strong>How It’s Prepared:</strong><br>
+We source natural Patika from trusted suppliers, where it is carefully cleaned and broken into small, easy-to-use pieces. It’s free from any chemicals or additives—just pure, natural goodness.</p>
+
+<p><strong>Why Choose Our Patika:</strong></p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No chemicals, no preservatives</li>
+  <li>
+<strong>Traditionally Trusted</strong> – Used in home remedies for generations</li>
+  <li>
+<strong>Purifying Properties</strong> – Known for aiding digestion and cleansing the body</li>
+  <li>
+<strong>Multi-Purpose</strong> – Great for cooking, skincare, and Ayurvedic use</li>
+  <li>
+<strong>Ready to Use</strong> – Cleaned and packed for your convenience</li>
+</ul>
+
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Traditional sweets like Kalakand and medicinal decoctions</li>
+  <li>Natural remedies for sore throat or digestion</li>
+  <li>Use in purification rituals or traditional skincare</li>
+  <li>Reducing bitterness in some recipes</li>
+</ul>
+
+<p>Store in a dry place, away from moisture. Use sparingly as needed.</p>
+
+<p><em>Simple. Natural. Timeless.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-PATIKA KALAKANDAPREMIUM-100G,100.0,shopify,88,deny,manual,17.00,19.55,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.59.02_AM_3058d14e-25a8-42f8-9885-340edcf36387.jpg?v=1757333972,1,"",false,Patika (Kalakkanda) – Natural Edible Alum for Cooking & Ayurveda | Arshith Fresh,"Buy Patika (Kalakkanda) online from Arshith Fresh. Natural edible alum used in cooking, Ayurveda & home remedies. Clean & chemical-free.",'35,,,,,,,,,,kg,,,true,,,draft
+patika-kalakanda-premium,,,,,,ops,,,,250g,,,,,,,,SP-PATIKA KALAKANDAPREMIUM-250G,250.0,shopify,100,deny,manual,42.00,48.30,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.05_PM_276b0987-123b-47c5-841f-45b997ce14e2.jpg?v=1757333972,2,"",,,,,,,,,,,,,,kg,,,,,,
+patika-kalakanda-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.01_PM_1_352fb564-481f-4983-97fd-14eb44eb95d6.jpg?v=1757333972,3,"",,,,,,,,,,,,,,,,,,,,
+sago-saggubiyyam-premium,"Sago (Saggubiyyam)
+  (Premium Quality)","<p><strong>Premium Sago (Saggubiyyam)</strong></p>
+
+<p>Enjoy the light, comforting goodness of traditional sago, made from high-quality tapioca roots. Our sago pearls (saggubiyyam) are clean, uniform, and processed naturally to give you perfect texture and taste every time.</p>
+
+<p><strong>How It’s Made:</strong><br>
+We use carefully selected tapioca roots, which are cleaned, crushed, and the starch is extracted. This starch is then shaped into small white pearls and dried naturally. No added chemicals or bleaching agents—just pure, traditional processing to retain the natural softness and purity.</p>
+
+<p><strong>Why Choose Our Sago:</strong></p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No preservatives, no artificial processing</li>
+  <li>
+<strong>Soft &amp; Fluffy</strong> – Cooks perfectly without sticking or becoming mushy</li>
+  <li>
+<strong>Versatile</strong> – Great for both sweet and savory dishes</li>
+  <li>
+<strong>Easy to Digest</strong> – Light on the stomach and ideal during fasting</li>
+  <li>
+<strong>High Quality</strong> – Uniform size and free from dust or impurities</li>
+</ul>
+
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Sago upma (saggubiyyam upma)</li>
+  <li>Sabudana khichdi and vadas</li>
+  <li>Kheer, payasam, and other sweets</li>
+  <li>Fasting (vrat) recipes</li>
+  <li>Light evening tiffins or breakfast</li>
+</ul>
+
+<p>Soak as needed before cooking. Store in a cool, dry place in an airtight container. A perfect pantry staple for delicious, traditional meals.</p>
+
+<p><em>Simple. Light. Comforting.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,true,Weight,100g,,,,,,,,SP-SAGO SAGGUBIYYAMPREMIUM-100G,100.0,shopify,50,deny,manual,25.00,28.75,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.52.52_AM_512b9ebc-8e89-4ae6-a44e-ded089f3f44d.jpg?v=1757333972,1,"",false,"Sago (Saggubiyyam) – Premium Tapioca Pearls for Upma, Sabudana | Arshith Fresh","Buy Sago (Saggubiyyam) online from Arshith Fresh. Premium tapioca pearls, clean & chemical-free. Perfect for upma, sabudana khichdi & fasting.",'35,,,,,,,,,,kg,,,true,,,active
+sago-saggubiyyam-premium,,,,,,ops,,,,250g,,,,,,,,SP-SAGO SAGGUBIYYAMPREMIUM-250G,250.0,shopify,52,deny,manual,62.00,71.30,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_10.37.32_PM_d4233577-3512-46b7-a40a-87daa1ecfa7b.jpg?v=1757333972,2,"",,,,,,,,,,,,,,kg,,,,,,
+sago-saggubiyyam-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.00_PM_7c0e828f-4966-40a0-a23a-50df146e6a1e.jpg?v=1757333972,3,"",,,,,,,,,,,,,,,,,,,,
+appalam-papad-premium,"Appalam Papad (Apadalu)
+  (Premium Quality)","<p><strong>Premium Appalam (Papad)</strong></p>
+
+<p>Add a crunchy, flavorful touch to your meals with our traditional Appalam. Made the age-old way using high-quality ingredients, these crispy delights are sun-dried to perfection and packed with homemade taste in every bite.</p>
+
+<p><strong>How It’s Made:</strong><br>
+We use time-tested recipes and carefully selected ingredients like urad dal flour, salt, and spices. The dough is hand-rolled into thin rounds and gently sun-dried—just like it’s been done in homes for generations. No artificial drying, no preservatives—just natural goodness.</p>
+
+<p><strong>Why Choose Our Appalam:</strong></p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No added preservatives or chemicals</li>
+  <li>
+<strong>Crispy &amp; Light</strong> – Perfectly crunchy without being too oily</li>
+  <li>
+<strong>Sun-Dried</strong> – Made using traditional drying methods</li>
+  <li>
+<strong>Quick &amp; Easy</strong> – Ready in seconds—just fry or roast</li>
+  <li>
+<strong>Homestyle Flavor</strong> – Brings that authentic South Indian touch to any meal</li>
+</ul>
+
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Serving with sambar, rasam, or curd rice</li>
+  <li>A crispy side for any Indian meal</li>
+  <li>Topping with masala for a quick snack</li>
+  <li>Crunchy party snacks or appetizers</li>
+</ul>
+
+<p>Store in a dry, airtight container to keep them crisp. Fry or roast just before serving for the best taste and texture.</p>
+
+<p><em>Authentic taste. Simple ingredients. Made with love.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-APPALAM PAPADPREMIUM-100G,100.0,shopify,100,deny,manual,89.00,102.35,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.47.09_AM_55bb1b27-9dda-427f-90cc-db75f714c870.jpg?v=1757333973,1,"",false,Appalam Papad (Apadalu) – Crispy Urad Dal Papad | Arshith Fresh,"Buy Appalam Papad (Apadalu) online from Arshith Fresh. Crispy, sun-dried urad dal papad with no preservatives. Perfect side for Indian meals.",'15,,,,,,,,,,kg,,,true,,,draft
+appalam-papad-premium,,,,,,ops,,,,250g,,,,,,,,SP-APPALAM PAPADPREMIUM-250G,250.0,shopify,100,deny,manual,222.00,255.30,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.04_PM_549e9e28-a2d6-4c35-8174-457897833fc9.jpg?v=1757333973,2,"",,,,,,,,,,,,,,kg,,,,,,
+meal-maker-premium,Meal Maker  (Premium Quality),"<p><strong>Premium Meal Maker (Soya Chunks)</strong></p>
+<p>Wholesome, hearty, and full of goodness – our Meal Maker is a natural plant-based protein made for everyday cooking. Soft and spongy when cooked, it absorbs flavors beautifully and adds nutrition to any meal.</p>
+<p><strong>How It’s Made:</strong><br>
+We use high-quality, non-GMO soybeans to make our soya chunks. The soybeans are processed using a natural method to remove fat, then steamed, shaped, and dried – without any artificial additives or preservatives. The result is light, dry chunks that turn soft and juicy once cooked.</p>
+<p><strong>Why Choose Our Meal Maker:</strong></p>
+<ul>
+  <li>
+<strong>100% Vegetarian Protein</strong> – Rich in protein and low in fat</li>
+  <li>
+<strong>Natural &amp; Clean</strong> – No chemicals or artificial flavors</li>
+  <li>
+<strong>Fills You Up</strong> – Great for balanced, satisfying meals</li>
+  <li>
+<strong>Versatile</strong> – Easily takes on the flavor of your spices and sauces</li>
+  <li>
+<strong>Quick to Cook</strong> – Ready in minutes after soaking or boiling</li>
+</ul>
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Soya curry and biryani</li>
+  <li>Dry stir-fries and masala gravies</li>
+  <li>Protein-rich salads and wraps</li>
+  <li>Healthy tiffin and lunchbox meals</li>
+  <li>Vegan or vegetarian high-protein diets</li>
+</ul>
+<p>Soak in warm water for 10–15 minutes, squeeze, and use as needed. Store in an airtight container in a cool, dry place.</p>
+<p><em>Simple. Nutritious. Delicious.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,250g,,,,,,,,SP-MEAL MAKERPREMIUM-250G,250.0,shopify,100,deny,manual,73.00,83.95,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_6.17.40_PM_924d56e5-5e83-4eab-a053-7ccb913dd95c.jpg?v=1757333973,1,"",false,Meal Maker Soya Chunks – High Protein Veg Food | Arshith Fresh,"Buy Meal Maker soya chunks online from Arshith Fresh. High-protein vegetarian food, soft & tasty when cooked. Ideal for curry, biryani & fry.",'36,,,,,,,,,,kg,,,true,,,draft
+meal-maker-premium,,,,,,ops,,,,500g,,,,,,,,SP-MEAL MAKERPREMIUM-500G,500.0,shopify,100,deny,manual,147.00,169.05,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.35.21_AM_c953c781-4f5e-4cc4-86eb-6d4553eaf300.jpg?v=1757333973,2,"",,,,,,,,,,,,,,kg,,,,,,
+meal-maker-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.03_PM_1_7d13f124-a4c5-4007-861d-4d055866724a.jpg?v=1757333973,3,"",,,,,,,,,,,,,,,,,,,,
+milk-powder-premium,"Milk Powder
+ (Premium Quality)","<p><strong>Premium Milk Powder</strong></p>
+<p>Bring the goodness of fresh milk to your pantry with our premium milk powder. Made from carefully selected fresh milk, it’s gently dried to preserve the rich taste and natural nutrients, giving you the convenience of fresh milk anytime.</p>
+<p><strong>How It’s Made:</strong><br>
+We start with pure, high-quality milk from trusted dairy farms. The milk is slowly evaporated and spray-dried to lock in its creamy flavor and essential nutrients without any additives or preservatives.</p>
+<p><strong>Why You’ll Love It:</strong></p>
+<ul>
+  <li>
+<strong>100% Pure Milk</strong> – No additives, preservatives, or fillers</li>
+  <li>
+<strong>Rich &amp; Creamy</strong> – Delicious taste just like fresh milk</li>
+  <li>
+<strong>Long Shelf Life</strong> – Stays fresh for months when stored properly</li>
+  <li>
+<strong>Easy to Use</strong> – Just mix with water for instant milk</li>
+  <li>
+<strong>Nutritious</strong> – Packed with calcium, protein, and vitamins</li>
+</ul>
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Daily tea, coffee, and cereal</li>
+  <li>Baking cakes, cookies, and desserts</li>
+  <li>Cooking rich gravies and sauces</li>
+  <li>Preparing nutritious drinks and smoothies</li>
+</ul>
+<p>Store in a cool, dry place in an airtight container. Mix with clean water and enjoy fresh, creamy milk whenever you want.</p>
+<p><em>Pure. Convenient. Nourishing.</em></p>",Arshith Fresh India Pvt Ltd,,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-MILK POWDERPREMIUM-100G,100.0,shopify,100,deny,manual,60.00,69.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.43.42_AM_39f8bd4b-4a4d-4322-a9a7-83100f096d5f.jpg?v=1757333974,1,"",false,,,'13,,,,,,,,,,kg,,,true,,,draft
+milk-powder-premium,,,,,,ops,,,,250g,,,,,,,,SP-MILK POWDERPREMIUM-250G,250.0,shopify,100,deny,manual,150.00,172.50,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_6.41.50_PM_1_3467678d-b795-49d9-890b-191de23de508.jpg?v=1757333974,2,"",,,,,,,,,,,,,,kg,,,,,,
+milk-powder-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.02_PM_d3141654-f9f5-4b66-9590-4bd54bbe3337.jpg?v=1757333974,3,"",,,,,,,,,,,,,,,,,,,,
+green-tea-premium,Green Tea  (Premium Quality),"<p><strong>Natural Green Tea </strong></p>
+<p>Enjoy the pure goodness of green tea, handpicked from serene tea gardens and carefully dried to keep its natural flavor and health benefits intact. Our green tea offers a gentle, refreshing taste that’s perfect anytime you want to relax and recharge.</p>
+<p><strong>How It’s Made:</strong><br>
+We select young, tender leaves and dry them slowly to preserve their vibrant green color and delicate aroma. No additives or artificial processes—just simple, natural tea leaves.</p>
+<p><strong>Why You’ll Love It:</strong></p>
+<ul>
+  <li>
+<strong>100% Pure</strong> – No additives or preservatives, just natural tea leaves</li>
+  <li>
+<strong>Delicate Flavor</strong> – Smooth and mild, perfect for everyday drinking</li>
+  <li>
+<strong>Full of Antioxidants</strong> – Helps support a healthy lifestyle</li>
+  <li>
+<strong>Easy to Prepare</strong> – Brew hot or cold, plain or with your favorite sweetener</li>
+  <li>
+<strong>Versatile</strong> – Great as a calming drink or a refreshing iced tea</li>
+</ul>
+<p><strong>Perfect For:</strong></p>
+<ul>
+  <li>Daily tea rituals and mindful moments</li>
+  <li>A gentle energy boost without caffeine jitters</li>
+  <li>Enhancing smoothies or recipes</li>
+  <li>Sharing with family and friends</li>
+</ul>
+<p>Store in a cool, dry place away from sunlight. Brew fresh and savor the natural calm in every cup.</p>
+<p><em>Simply pure. Simply green.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-GREEN TEAPREMIUM-100G,100.0,shopify,0,deny,manual,70.00,80.50,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.42.12_AM_f7566d9e-a9e4-4ac2-b2ae-a3a41b1033db.jpg?v=1757333974,1,"",false,,,'28,,,,,,,,,,kg,,,true,,,draft
+green-tea-premium,,,,,,ops,,,,250g,,,,,,,,SP-GREEN TEAPREMIUM-250G,250.0,shopify,0,deny,manual,175.00,201.25,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.16_PM_f628e310-979c-40b1-9c32-316c5bc09624.jpg?v=1757333974,2,"",,,,,,,,,,,,,,kg,,,,,,
+green-tea-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.06.04_PM_f12b62ea-ae7f-4116-9cea-ac0aa7da0342.jpg?v=1757333974,3,"",,,,,,,,,,,,,,,,,,,,
+badam-powder-premium,Badam Powder  (Premium Quality),"<p><strong>Premium Badam Powder</strong></p>
+<p>Bring the wholesome goodness of almonds to your kitchen with our premium Badam Powder. Made from carefully selected, high-quality almonds, this finely ground powder adds a rich, nutty flavor and natural creaminess to your recipes.</p>
+<p><strong>How It's Made:</strong><br>
+We start with fresh, handpicked almonds from trusted growers. The almonds are gently blanched to remove the skin, then dried and finely ground in small batches to preserve their natural aroma, taste, and nutrients.</p>
+<p><strong>Why Choose Our Badam Powder:</strong></p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No additives, preservatives, or fillers</li>
+  <li>
+<strong>Rich &amp; Nutty</strong> – Enhances the flavor and texture of your dishes</li>
+  <li>
+<strong>Long Shelf Life</strong> – Stays fresh for months when stored properly</li>
+  <li>
+<strong>Versatile &amp; Easy to Use</strong> – Perfect for cooking, baking, and beverages</li>
+  <li>
+<strong>Nutrient-Dense</strong> – Packed with healthy fats, protein, and vitamins</li>
+</ul>
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Traditional Indian sweets like halwa, laddus, and kheer</li>
+  <li>Flavorful milkshakes and smoothies</li>
+  <li>Baking cakes, cookies, and breads</li>
+  <li>Adding richness to curries and gravies</li>
+</ul>
+<p>Store in a cool, dry place in an airtight container. Just a spoonful adds natural richness and nutrition to your favorite recipes.</p>
+<p><em>Pure. Simple. Nourishing.</em></p>",Arshith Fresh India Pvt Ltd,,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-BADAM POWDERPREMIUM-100G,100.0,shopify,100,deny,manual,120.00,138.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.40.12_AM_4fad3873-d7f5-4047-ade6-34045dd1f94e.jpg?v=1757333975,1,"",false,,,'17,,,,,,,,,,kg,,,true,,,draft
+badam-powder-premium,,,,,,ops,,,,250g,,,,,,,,SP-BADAM POWDERPREMIUM-250G,250.0,shopify,100,deny,manual,300.00,345.00,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.15_PM_2_25bb42bb-14dc-433a-ac61-3ce57b4d667d.jpg?v=1757333975,2,"",,,,,,,,,,,,,,kg,,,,,,
+badam-powder-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.51_PM_1_4d0f534f-0750-4a82-9e5f-8c73caf9278b.jpg?v=1757333975,3,"",,,,,,,,,,,,,,,,,,,,
+tea-powder-premium,Tea Powder  (Premium Quality),"<p><strong>Premium Tea Powder</strong></p>
+<p>Enjoy the classic taste of freshly brewed tea, made the traditional way. Our tea powder is made from carefully selected tea leaves, expertly processed to bring you a rich, refreshing flavor in every cup.</p>
+<p><strong>How It’s Made:</strong><br>
+We choose the finest tea leaves from trusted gardens. The leaves are gently processed and dried to preserve their natural aroma and taste. Then they are finely ground to create a smooth tea powder that brews quickly and tastes delightful.</p>
+<p><strong>Why Choose Our Tea Powder:</strong></p>
+<ul>
+  <li>
+<strong>100% Pure Tea Leaves</strong> – No artificial flavors or additives</li>
+  <li>
+<strong>Rich Aroma</strong> – Full-bodied flavor that’s fresh and inviting</li>
+  <li>
+<strong>Long Shelf Life</strong> – Stays fresh when stored properly</li>
+  <li>
+<strong>Easy to Brew</strong> – Perfect for traditional chai or iced tea</li>
+  <li>
+<strong>Naturally Energizing</strong> – A soothing start or refreshment any time</li>
+</ul>
+<p><strong>Great For:</strong></p>
+<ul>
+  <li>Classic Indian chai with milk and spices</li>
+  <li>Simple black tea or iced tea</li>
+  <li>Brewing flavorful tea blends</li>
+  <li>Tea lovers who prefer pure, natural taste</li>
+</ul>
+<p>Store in a cool, dry place in an airtight container. Just add hot water or milk and enjoy the comforting taste of real tea.</p>
+<p><em>Pure. Simple. Refreshing.</em></p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-TEA POWDERPREMIUM-100G,100.0,shopify,100,deny,manual,54.00,67.50,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.38.38_AM_e7456933-5170-44cf-8dcd-cd907fe8ef9d.jpg?v=1757333975,1,"",false,Tea Powder – Strong & Aromatic Tea Leaves | Arshith Fresh,"Buy Tea Powder online from Arshith Fresh. Strong, aromatic tea leaves for perfect chai. No additives, rich taste, ideal for daily tea lovers.",'30,,,,,,,,,,kg,,,true,,,draft
+tea-powder-premium,,,,,,ops,,,,250g,,,,,,,,SP-TEA POWDERPREMIUM-200G,250.0,shopify,100,deny,manual,135.00,168.75,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.15_PM_1_6757d3c7-734c-4fe2-9b09-b369612f2de7.jpg?v=1757333975,2,"",,,,,,,,,,,,,,kg,,,,,,
+tea-powder-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.53_PM_32bc2b74-2a7e-4cb7-9349-2e21cbce81a9.jpg?v=1757333975,3,"",,,,,,,,,,,,,,,,,,,,
+coffee-powder-premium,Coffee Powder  (Premium Quality),"<p>
+  <strong>Premium Coffee Powder</strong>
+</p>
+<p>
+  Wake up to the true taste of coffee, crafted the traditional way. Our coffee powder is made from carefully selected, high-quality coffee beans. They are roasted slowly to bring out a deep, rich aroma and finely ground into a smooth powder that fills your cup with bold flavor.
+</p>
+<p>
+  <strong>How It’s Made:</strong><br>
+  We source the best beans from trusted plantations. The beans are roasted gently under controlled conditions—no shortcuts or artificial processes. Once perfectly roasted, they are ground in small batches to preserve the fresh, natural taste.
+</p>
+<p>
+  <strong>Why Choose Our Coffee Powder:</strong>
+</p>
+<ul>
+  <li>
+<strong>100% Pure Coffee</strong> – No additives or fillers</li>
+  <li>
+<strong>Full-bodied Flavor</strong> – Strong aroma with a smooth, satisfying taste</li>
+  <li>
+<strong>Fresh &amp; Long Lasting</strong> – Retains freshness when stored properly</li>
+  <li>
+<strong>Easy to Brew</strong> – Ideal for filter coffee, decoction, or instant brewing</li>
+  <li>
+<strong>Energizing &amp; Comforting</strong> – Perfect for any time of day</li>
+</ul>
+<p>
+  <strong>Great For:</strong>
+</p>
+<ul>
+  <li>Traditional South Indian filter coffee</li>
+  <li>Freshly brewed morning coffee</li>
+  <li>Iced coffee and milk-based drinks</li>
+  <li>Coffee lovers who enjoy natural, bold flavor</li>
+</ul>
+<p>
+  Store in a cool, dry place in an airtight container. Just add hot water or milk and savor the authentic coffee experience.
+</p>
+<p>
+  <em>Pure. Simple. Invigorating.</em>
+</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,100g,,,,,,,,SP-COFFEE POWDERPREMIUM-100G,100.0,shopify,98,deny,manual,110.00,126.50,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.33.18_AM_f46cfc79-7cda-4584-abd1-11a8d05b665c.jpg?v=1757334076,1,"",false,Coffee Powder – Strong & Aromatic Pure Coffee | Arshith Fresh,"Buy Coffee Powder online from Arshith Fresh. Strong aroma, rich flavor, pure coffee powder with no additives. Perfect for filter coffee & daily brewing.",'36,,,,,,,,,,kg,,,true,,,draft
+coffee-powder-premium,,,,,,ops,,,,250g,,,,,,,,SP-COFFEE POWDERPREMIUM-250G,250.0,shopify,100,deny,manual,275.00,316.25,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.15_PM_7582d57b-d0a8-4ed5-94c1-04083aaa23c4.jpg?v=1757334076,2,"",,,,,,,,,,,,,,kg,,,,,,
+coffee-powder-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_5.30.31_PM_0f36b3e9-fe07-469e-b7a8-a28540d42df0.jpg?v=1757334076,3,"",,,,,,,,,,,,,,,,,,,,
+coconut-powder-premium,Coconut Powder (Premium Quality),"<p>
+  <strong>Premium Dry Coconut Powder</strong>
+</p>
+<p>
+  Bring home the true taste of coconut, made the traditional way. Our dry coconut powder is prepared using carefully selected, mature coconuts. The white part of the coconut is gently sun-dried and finely ground to give you a soft, aromatic powder full of rich flavor.
+</p>
+<p>
+  <strong>How It's Made:</strong><br>
+  We begin with fresh coconuts from trusted farms. After removing the brown skin, the white coconut is grated and dried slowly under the sun. No machines, no artificial drying — just sunshine and time. Once fully dried, it’s finely ground in small batches to keep the freshness and natural taste intact.
+</p>
+<p>
+  <strong>Why Choose Our Coconut Powder:</strong>
+</p>
+<ul>
+  <li>
+<strong>100% Natural</strong> – No additives or preservatives</li>
+  <li>
+<strong>Full of Flavor</strong> – Adds a deep, delicious coconut taste to your dishes</li>
+  <li>
+<strong>Long Shelf Life</strong> – Stays fresh for months when stored right</li>
+  <li>
+<strong>Easy to Use</strong> – Sprinkle or mix directly into recipes</li>
+  <li>
+<strong>Nutrient-Rich</strong> – Contains natural fiber and healthy fats</li>
+</ul>
+<p>
+  <strong>Perfect for:</strong>
+</p>
+<ul>
+  <li>Coconut chutney and curries</li>
+  <li>Coconut rice, poriyal, and gravies</li>
+  <li>Indian sweets like laddus and barfis</li>
+  <li>Baking and smoothie blends</li>
+</ul>
+<p>
+  Store in a cool, dry place in an airtight container. Just a spoonful brings your dishes to life with the taste of real coconut.
+</p>
+<p>
+  <em>Pure. Simple. Traditional.</em>
+</p>",Arshith Fresh India Pvt Ltd,Uncategorized,Cooking Ingredients-Premium,Cooking Ingredients-Premium,false,Weight,250g,,,,,,,,SP-COCONUT POWDERPREMIUM-250G,250.0,shopify,0,deny,manual,124.00,142.60,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-28_at_11.31.03_AM_bae262cd-0f63-4eb2-9588-0577106a6308.jpg?v=1757334076,1,"",false,,,'31,,,,,,,,,,kg,,,true,,,draft
+coconut-powder-premium,,,,,,ops,,,,500g,,,,,,,,SP-COCONUT POWDERPREMIUM-500G,500.0,shopify,0,deny,manual,248.00,285.20,true,true,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.41.14_PM_2_0a141697-c616-4872-af49-96f6ab268c76.jpg?v=1757334076,2,"",,,,,,,,,,,,,,kg,,,,,,
+coconut-powder-premium,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"",https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.47.32_AM_02da2da3-085b-4d1d-974f-e8e9aa868e97.jpg?v=1757334076,3,"",,,,,,,,,,,,,,,,,,,,

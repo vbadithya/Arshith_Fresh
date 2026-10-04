@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | Arshith Fresh</title>
+    <meta name="description" content="Manage your Arshith Fresh profile, view orders, and update shipping details.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../assets/css/style.css?v=3.0">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="menu-icon-bar"></span>
+                <span class="menu-icon-bar"></span>
+                <span class="menu-icon-bar"></span>
+            </button>
+
+            <div class="header-logo">
+                <a href="../index.html">
+                    <img src="../assets/images/Arshithlogo111.jpg"
+                        alt="Arshith Fresh Logo" class="logo-img"
+                        onerror="this.onerror=null; this.src='../assets/images/Arshithlogo111.jpg';">
+                </a>
+            </div>
+
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="collections.html?category=all" class="dropdown-trigger">Collections <span class="arrow-down">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="categories/oils-natural-extracts.html">Oils</a></li>
+                            <li><a href="categories/dry-fruits-nuts.html">Dry Fruits</a></li>
+                            <li><a href="categories/dry-seeds.html">Dry Seeds</a></li>
+                            <li><a href="categories/ghee-and-honey.html">Ghee and Honey</a></li>
+                            
+                            <li><a href="categories/spices.html">Spices</a></li>
+                            <li><a href="categories/spice-powders-podulu.html">Spice Powders</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="seller.html">Become a Seller</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="profile.html" class="action-btn login-btn" title="My Account" style="color: #0f7139;">
+                    <svg class="icon icon-account" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </a>
+                <a href="cart.html" class="action-btn cart-btn" title="Cart">
+                    <svg class="icon icon-cart" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1" />
+                        <circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Profile Content -->
+    <main class="profile-page-section">
+        <div class="profile-container">
+            
+            <!-- Top Identity Card -->
+            <div class="profile-header-card">
+                <div class="user-identity-wrap">
+                    <div class="user-avatar-circle" id="userAvatar">U</div>
+                    <div class="user-info-text">
+                        <h1 id="userGreeting">Welcome back</h1>
+                        <p id="userEmailDisplay">Loading account details...</p>
+                    </div>
+                </div>
+                <div class="profile-header-actions">
+                    <button class="logout-btn-header" onclick="handleLogout()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        Log out
+                    </button>
+                </div>
+            </div>
+
+            <!-- Profile Grid -->
+            <div class="profile-grid-layout">
+                
+                <!-- Sidebar Nav -->
+                <aside class="profile-sidebar-nav">
+                    <button class="nav-tab-btn active" onclick="switchTab('profile', this)">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        My Profile
+                    </button>
+                    <button class="nav-tab-btn" onclick="switchTab('current-order', this)">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="22" height="13" rx="2" ry="2"/><line x1="1" y1="9" x2="23" y2="9"/></svg>
+                        Current Order
+                    </button>
+                    <button class="nav-tab-btn" onclick="switchTab('orders', this)">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        Order History
+                    </button>
+                    <button class="nav-tab-btn" onclick="switchTab('security', this)">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        Change Password
+                    </button>
+                </aside>
+
+                <!-- Main Content Panels -->
+                <div class="profile-content-card">
+                    
+                    <!-- Tab 1: Profile & Address -->
+                    <div id="tab-profile" class="tab-panel active">
+                        <h2 class="panel-heading">Personal Details & Address</h2>
+                        
+                        <div id="saveSuccessAlert" class="alert-success-banner">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            <span>Profile details updated successfully!</span>
+                        </div>
+
+                        <form id="profileForm" onsubmit="handleUpdateProfile(event)">
+                            <div class="form-grid-2col">
+                                <div class="profile-form-group">
+                                    <label for="profileName">Full Name</label>
+                                    <input type="text" id="profileName" required class="profile-input">
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="profileEmail">Email Address</label>
+                                    <input type="email" id="profileEmail" readonly class="profile-input" style="background:#f1f5f9; color:#64748b; cursor:not-allowed;">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2col">
+                                <div class="profile-form-group">
+                                    <label for="profilePhone">Phone Number</label>
+                                    <input type="tel" id="profilePhone" placeholder="+91 98765 43210" class="profile-input">
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="profileStreet">Street Address</label>
+                                    <input type="text" id="profileStreet" placeholder="House / Flat No., Street" class="profile-input">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2col">
+                                <div class="profile-form-group">
+                                    <label for="profileCity">City</label>
+                                    <input type="text" id="profileCity" placeholder="City / Town" class="profile-input">
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="profilePostalCode">Postal / PIN Code</label>
+                                    <input type="text" id="profilePostalCode" placeholder="e.g. 560076" class="profile-input">
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 10px;">
+                                <button type="submit" id="saveProfileBtn" class="save-profile-btn">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tab: Current Active Order Tracker -->
+                    <div id="tab-current-order" class="tab-panel">
+                        <h2 class="panel-heading">Current Active Order</h2>
+                        <div id="currentOrderContainer">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Orders -->
+                    <div id="tab-orders" class="tab-panel">
+                        <h2 class="panel-heading">Order History</h2>
+                        <div id="ordersContainer">
+                            <div class="orders-empty-state">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                                <h3 style="margin: 0 0 8px 0; color: #1e293b;">No orders placed yet</h3>
+                                <p style="margin: 0 0 16px 0;">Explore our 100% natural, authentic fresh products today!</p>
+                                <a href="collections.html?category=all" class="shop-now-btn">Start Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Security / Change Password -->
+                    <div id="tab-security" class="tab-panel">
+                        <h2 class="panel-heading">Change Password</h2>
+                        
+                        <div id="passwordSuccessAlert" class="alert-success-banner">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            <span>Password updated successfully!</span>
+                        </div>
+
+                        <form id="passwordForm" onsubmit="handleChangePassword(event)">
+                            <div class="form-grid-2col">
+                                <div class="profile-form-group">
+                                    <label for="newPass">New Password</label>
+                                    <input type="password" id="newPass" required minlength="6" placeholder="Min 6 characters" class="profile-input">
+                                </div>
+                                <div class="profile-form-group">
+                                    <label for="confirmNewPass">Confirm New Password</label>
+                                    <input type="password" id="confirmNewPass" required minlength="6" placeholder="Re-enter new password" class="profile-input">
+                                </div>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <button type="submit" id="savePasswordBtn" class="save-profile-btn">Update Password</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-bottom" style="text-align: center; padding: 24px;">
+            <p class="copyright-text">© 2024 Arshith Fresh India Pvt.Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="../assets/js/script.js"></script>
+    <script>
+        const API_BASE = '';
+        let currentUser = null;
+        let hasFormBeenPopulated = false;
+        let isLoggingOut = false;
+
+        try {
+            currentUser = JSON.parse(localStorage.getItem('arshith_user'));
+        } catch (e) {
+            currentUser = null;
+        }
+
+        if (!currentUser || !currentUser._id) {
+            window.location.href = 'auth/login.html';
+        } else {
+            loadUserProfile(true);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hashTab = window.location.hash ? window.location.hash.replace('#', '') : '';
+            const activeTab = urlParams.get('tab') || hashTab;
+            
+            if (activeTab === 'current-order') {
+                const navBtns = document.querySelectorAll('.nav-tab-btn');
+                if (navBtns[1]) switchTab('current-order', navBtns[1]);
+            } else if (activeTab === 'orders') {
+                const navBtns = document.querySelectorAll('.nav-tab-btn');
+                if (navBtns[2]) switchTab('orders', navBtns[2]);
+            } else if (activeTab === 'security') {
+                const navBtns = document.querySelectorAll('.nav-tab-btn');
+                if (navBtns[3]) switchTab('security', navBtns[3]);
+            }
+        });
+
+        function populateFormInputs(u) {
+            if (!u) return;
+            const formFields = ['profileName', 'profilePhone', 'profileStreet', 'profileCity', 'profilePostalCode'];
+            const activeEl = document.activeElement;
+            const isEditing = formFields.some(id => document.getElementById(id) === activeEl);
+
+            if (!hasFormBeenPopulated || !isEditing) {
+                if (document.getElementById('profileName')) document.getElementById('profileName').value = u.name || '';
+                if (document.getElementById('profileEmail')) document.getElementById('profileEmail').value = u.email || '';
+                if (document.getElementById('profilePhone')) document.getElementById('profilePhone').value = u.phone || '';
+                if (document.getElementById('profileStreet')) document.getElementById('profileStreet').value = u.street || '';
+                if (document.getElementById('profileCity')) document.getElementById('profileCity').value = u.city || '';
+                if (document.getElementById('profilePostalCode')) document.getElementById('profilePostalCode').value = u.postalCode || '';
+                hasFormBeenPopulated = true;
+            }
+        }
+
+        function isValidOrder(o) {
+            if (!o || typeof o !== 'object') return false;
+            const rawId = String(o._id || o.transactionId || '').trim();
+            if (!rawId || rawId === 'undefined' || rawId === 'null' || rawId.includes('AF-RECORDER') || rawId.includes('UNDEFINE')) return false;
+            const hasItems = Array.isArray(o.orderItems) && o.orderItems.length > 0;
+            const hasPrice = o.totalPrice !== undefined && Number(o.totalPrice) > 0;
+            return !!(hasItems || hasPrice || o._id);
+        }
+
+        function consolidateOrderItemsForDisplay(orderItems) {
+            if (!Array.isArray(orderItems) || orderItems.length === 0) return [];
+            const map = new Map();
+            orderItems.forEach(item => {
+                if (!item) return;
+                const nameKey = String(item.name || item.title || item.product || item._id || '').trim().toLowerCase();
+                const qty = Math.max(1, Number(item.qty || item.quantity || 1));
+                const price = Number(item.price || 0);
+                if (map.has(nameKey)) {
+                    const existing = map.get(nameKey);
+                    existing.qty = (Number(existing.qty || existing.quantity || 1)) + qty;
+                    existing.quantity = existing.qty;
+                    if (!existing.image && item.image) existing.image = item.image;
+                } else {
+                    map.set(nameKey, {
+                        ...item,
+                        qty: qty,
+                        quantity: qty,
+                        price: price
+                    });
+                }
+            });
+            return Array.from(map.values());
+        }
+
+        async function loadUserProfile(isInitial = false) {
+            if (!currentUser) return;
+
+            // Display Top Card Info
+            const name = currentUser.name || 'Valued Customer';
+            const email = currentUser.email || '';
+            const initial = name.charAt(0).toUpperCase() || 'U';
+
+            if (document.getElementById('userAvatar')) document.getElementById('userAvatar').textContent = initial;
+            if (document.getElementById('userGreeting')) document.getElementById('userGreeting').textContent = `Hello, ${name}`;
+            if (document.getElementById('userEmailDisplay')) document.getElementById('userEmailDisplay').textContent = email;
+
+            // Populate Form Fields from local cache if initial load
+            if (isInitial || !hasFormBeenPopulated) {
+                populateFormInputs(currentUser);
+            }
+
+            // Fetch live profile & order history from MongoDB + combine with local cache
+            let apiOrders = [];
+            try {
+                const res = await fetch(`${API_BASE}/api/users/profile/${currentUser._id}`);
+                if (!isLoggingOut && res.ok) {
+                    const data = await res.json();
+                    if (!isLoggingOut && data && data.user) {
+                        const u = data.user;
+                        currentUser = { ...currentUser, ...u };
+                        if (!isLoggingOut && localStorage.getItem('arshith_user')) {
+                            localStorage.setItem('arshith_user', JSON.stringify(currentUser));
+                        }
+                        if (isInitial || !hasFormBeenPopulated) {
+                            populateFormInputs(currentUser);
+                        }
+                    }
+                    apiOrders = data.orders || [];
+                }
+            } catch (err) {
+                console.log('Using cached profile data:', err);
+            }
+
+            // Combine with local order storage cache for 100% reliable display
+            let localOrders = [];
+            try {
+                localOrders = JSON.parse(localStorage.getItem('arshith_user_orders')) || [];
+            } catch(e) {}
+
+            // Clean & purge any invalid/corrupted orders from localStorage
+            localOrders = (localOrders || []).filter(isValidOrder);
+            try {
+                localStorage.setItem('arshith_user_orders', JSON.stringify(localOrders));
+            } catch(e) {}
+
+            apiOrders = (apiOrders || []).filter(isValidOrder);
+
+            const mergedMap = new Map();
+            // Prioritize API order status from DB
+            (apiOrders || []).forEach(o => {
+                const key = String(o._id || o.transactionId || o.createdAt);
+                if (key) mergedMap.set(key, o);
+            });
+            (localOrders || []).forEach(o => {
+                const key = String(o._id || o.transactionId || o.createdAt);
+                if (key && !mergedMap.has(key)) {
+                    mergedMap.set(key, o);
+                }
+            });
+
+            const finalOrders = Array.from(mergedMap.values()).sort((a, b) => new Date(b.createdAt || Date.now()) - new Date(a.createdAt || Date.now()));
+
+            // Current Active Orders ONLY: Placed, Pending, Confirmed, Processing, Packed, Shipped, Dispatched (not Cancelled and not Delivered)
+            const activeOrders = finalOrders.filter(o => {
+                const st = (o.status || '').toLowerCase();
+                return st !== 'cancelled' && st !== 'delivered';
+            });
+
+            // Pass active orders ONLY to Current Order tab
+            renderCurrentActiveOrder(activeOrders);
+            // Pass ALL orders (active, delivered, cancelled) to Order History tab
+            renderUserOrders(finalOrders);
+        }
+
+        // Live polling every 3 seconds for active tracker status updates ONLY (does not overwrite form fields)
+        setInterval(() => {
+            loadUserProfile(false);
+        }, 3000);
+
+        function renderCurrentActiveOrder(activeOrders) {
+            const container = document.getElementById('currentOrderContainer');
+            if (!container) return;
+
+            if (!activeOrders || activeOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="orders-empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="1.5"><rect x="1" y="3" width="22" height="13" rx="2" ry="2"/><line x1="1" y1="9" x2="23" y2="9"/></svg>
+                        <h3 style="margin: 0 0 8px 0; color: #1e293b;">No active order right now</h3>
+                        <p style="margin: 0 0 16px 0; color: #64748b;">Place an order to track live delivery progress, address details, and status updates!</p>
+                        <a href="collections.html?category=all" class="shop-now-btn">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    ${activeOrders.map(activeOrder => {
+                        const rawId = String(activeOrder._id || activeOrder.transactionId || '6A912941');
+                        const orderId = activeOrder._id 
+                            ? 'AF-' + String(activeOrder._id).substring(0, 8).toUpperCase() 
+                            : 'AF-' + String(rawId).slice(-8).toUpperCase();
+                        const orderCode = '365/' + (rawId.length > 10 ? rawId.substring(rawId.length - 10) : rawId);
+                        const dateStr = activeOrder.createdAt ? new Date(activeOrder.createdAt).toLocaleString() : new Date().toLocaleString();
+                        const status = activeOrder.status || 'Confirmed';
+                        const statusLower = status.toLowerCase();
+                        const isCancelled = statusLower === 'cancelled';
+                        const isDispatched = statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery' || statusLower === 'delivered' || activeOrder.isDelivered;
+                        const isEligibleForCancel = !isCancelled && !isDispatched;
+
+                        const addrObj = activeOrder.shippingAddress || {};
+                        const addrStr = [addrObj.address, addrObj.apartment, addrObj.city, addrObj.state, addrObj.postalCode, addrObj.country || 'India'].filter(Boolean).join(', ') || 'Standard Shipping';
+                        const phoneStr = activeOrder.customerPhone || (currentUser ? currentUser.phone : 'N/A') || 'N/A';
+                        const paymentMode = activeOrder.paymentMethod || 'Cash on Delivery';
+                        const isPaid = activeOrder.isPaid;
+
+                        // Map stages: 1: Placed, 2: Confirmed, 3: Dispatched, 4: Delivered
+                        let currentStepIndex = 1;
+                        if (statusLower === 'placed' || statusLower === 'pending') {
+                            currentStepIndex = 1;
+                        } else if (statusLower === 'confirmed' || statusLower === 'packed' || statusLower === 'processing') {
+                            currentStepIndex = 2;
+                        } else if (statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery') {
+                            currentStepIndex = 3;
+                        } else if (statusLower === 'delivered' || activeOrder.isDelivered) {
+                            currentStepIndex = 4;
+                        }
+
+                        const fillWidthPercentage = isCancelled ? 0 : ((currentStepIndex - 1) / 3) * 100;
+                        const checkSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+                        return `
+                            <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                                <!-- 1. ORDER SUMMARY HEADER BAR -->
+                                <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                                    <div>
+                                        <div style="font-weight: 800; font-size: 17px; color: #0f7139;">Order #${orderId}</div>
+                                        <div style="font-size: 12.5px; color: #64748b; margin-top: 2px;">Placed on ${dateStr} • ${paymentMode}</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 600;">Total Amount</div>
+                                        <div style="font-size: 19px; font-weight: 800; color: #0f172a;">₹${Number(activeOrder.totalPrice || 0).toFixed(2)}</div>
+                                    </div>
+                                </div>
+
+                                <!-- 2. ORDERED ITEMS LIST -->
+                                <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                                    <div style="font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">ITEMS IN THIS ORDER</div>
+                                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                                        ${consolidateOrderItemsForDisplay(activeOrder.orderItems || []).map(item => `
+                                            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
+                                                <div style="display: flex; align-items: center; gap: 12px;">
+                                                    <img src="${item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495'}" style="width: 46px; height: 46px; border-radius: 8px; object-fit: cover; border: 1px solid #e2e8f0;">
+                                                    <div>
+                                                        <div style="font-weight: 700; color: #1e293b;">${item.name || item.title || 'Fresh Product'}</div>
+                                                        <div style="font-size: 12px; color: #64748b;">Qty: ${item.qty || item.quantity || 1} • ${item.unit || '1 unit'}</div>
+                                                    </div>
+                                                </div>
+                                                <div style="font-weight: 700; color: #0f172a;">₹${((item.price || 0) * (item.qty || item.quantity || 1)).toFixed(2)}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+
+                                <!-- 3. TRACK YOUR ORDER (HORIZONTAL STEPPER TIMELINE WITH GREEN CHECKMARKS) -->
+                                <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 24px 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                                    <h4 style="font-size: 17px; font-weight: 800; color: #0f172a; margin: 0 0 2px 0;">Track your Order</h4>
+                                    <div style="font-size: 13px; color: #64748b; margin-bottom: 24px;">Order Code: <strong style="color: #0f7139;">${orderCode}</strong></div>
+
+                                    <div style="position: relative; display: flex; justify-content: space-between; align-items: flex-start; margin: 28px 0 24px 0; padding: 0 10px;">
+                                        <!-- Background Connecting Line -->
+                                        <div style="position: absolute; top: 17px; left: 40px; right: 40px; height: 4px; background: #e2e8f0; z-index: 1;"></div>
+                                        <!-- Active Green Progress Line -->
+                                        <div style="position: absolute; top: 17px; left: 40px; width: ${fillWidthPercentage}%; height: 4px; background: #10b981; z-index: 1; transition: width 0.4s ease;"></div>
+
+                                        <!-- Step 1: Placed -->
+                                        <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1;">
+                                            <div style="width: 36px; height: 36px; border-radius: 50%; background: ${currentStepIndex >= 1 ? '#10b981' : '#f1f5f9'}; border: 2.5px solid ${currentStepIndex >= 1 ? '#10b981' : '#cbd5e1'}; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+                                                ${currentStepIndex >= 1 ? checkSvg : ''}
+                                            </div>
+                                            <span style="font-size: 12.5px; font-weight: 700; color: ${currentStepIndex >= 1 ? '#10b981' : '#94a3b8'}; margin-top: 8px; display: block;">Placed</span>
+                                        </div>
+
+                                        <!-- Step 2: Confirmed -->
+                                        <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1;">
+                                            <div style="width: 36px; height: 36px; border-radius: 50%; background: ${currentStepIndex >= 2 ? '#10b981' : '#ffffff'}; border: 2.5px solid ${currentStepIndex >= 2 ? '#10b981' : '#cbd5e1'}; color: ${currentStepIndex >= 2 ? '#ffffff' : '#94a3b8'}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+                                                ${currentStepIndex >= 2 ? checkSvg : ''}
+                                            </div>
+                                            <span style="font-size: 12.5px; font-weight: 700; color: ${currentStepIndex >= 2 ? '#10b981' : '#94a3b8'}; margin-top: 8px; display: block;">Confirmed</span>
+                                        </div>
+
+                                        <!-- Step 3: Dispatched -->
+                                        <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1;">
+                                            <div style="width: 36px; height: 36px; border-radius: 50%; background: ${currentStepIndex >= 3 ? '#10b981' : '#ffffff'}; border: 2.5px solid ${currentStepIndex >= 3 ? '#10b981' : '#cbd5e1'}; color: ${currentStepIndex >= 3 ? '#ffffff' : '#94a3b8'}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+                                                ${currentStepIndex >= 3 ? checkSvg : ''}
+                                            </div>
+                                            <span style="font-size: 12.5px; font-weight: 700; color: ${currentStepIndex >= 3 ? '#10b981' : '#94a3b8'}; margin-top: 8px; display: block;">Dispatched</span>
+                                        </div>
+
+                                        <!-- Step 4: Delivered -->
+                                        <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1;">
+                                            <div style="width: 36px; height: 36px; border-radius: 50%; background: ${currentStepIndex >= 4 ? '#10b981' : '#ffffff'}; border: 2.5px solid ${currentStepIndex >= 4 ? '#10b981' : '#cbd5e1'}; color: ${currentStepIndex >= 4 ? '#ffffff' : '#94a3b8'}; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+                                                ${currentStepIndex >= 4 ? checkSvg : ''}
+                                            </div>
+                                            <span style="font-size: 12.5px; font-weight: 700; color: ${currentStepIndex >= 4 ? '#10b981' : '#94a3b8'}; margin-top: 8px; display: block;">Delivered</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 4. RED CANCEL ORDER BUTTON (BEFORE DISPATCH ONLY) -->
+                                    ${isEligibleForCancel ? `
+                                        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                                            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b;">
+                                                <i class="fa-regular fa-clock" style="color: #dc2626;"></i>
+                                                <span>Need to change or cancel? You can cancel this order before it is dispatched.</span>
+                                            </div>
+                                            <button type="button" 
+                                                    class="cancel-order-btn" 
+                                                    id="cancelOrderActionBtn_${activeOrder._id}" 
+                                                    onclick="handleCancelActiveOrder('${activeOrder._id}', '${orderId}')"
+                                                    style="background: #dc2626; color: #ffffff; border: 1px solid #b91c1c; font-weight: 700; padding: 8px 16px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);">
+                                                <i class="fa-solid fa-ban"></i> Cancel Order
+                                            </button>
+                                        </div>
+                                    ` : ''}
+                                </div>
+
+                                <!-- 5. DELIVERY ADDRESS & PAYMENT DETAILS GRID -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 18px; font-size: 13.5px; color: #334155;">
+                                    <div>
+                                        <div style="font-weight: 700; color: #0f172a; margin-bottom: 6px; font-size: 14px;">📍 Delivery Address</div>
+                                        <div><strong>${activeOrder.customerName || (currentUser ? currentUser.name : 'Customer')}</strong></div>
+                                        <div style="color: #475569; margin-top: 2px;">${addrStr}</div>
+                                        <div style="color: #64748b; margin-top: 4px;">📞 Phone: ${phoneStr}</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 700; color: #0f172a; margin-bottom: 6px; font-size: 14px;">💵 Payment Details</div>
+                                        <div>Payment Method: <strong>${paymentMode}</strong></div>
+                                        <div>Status: <strong style="color: ${isPaid ? '#15803d' : '#854d0e'};">${isPaid ? 'Paid' : 'Pay at Doorstep (COD)'}</strong></div>
+                                        ${activeOrder.transactionId ? `<div style="font-size: 12px; color: #64748b; margin-top: 4px;">Txn ID: ${activeOrder.transactionId}</div>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        async function handleCancelActiveOrder(mongoOrderId, orderIdDisplay) {
+            if (!confirm(`Are you sure you want to cancel Order #${orderIdDisplay}?`)) return;
+
+            const btn = document.getElementById(`cancelOrderActionBtn_${mongoOrderId}`);
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Cancelling...';
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/api/orders/${mongoOrderId}/cancel`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message || 'Could not cancel order');
+
+                if (typeof showToast === 'function') {
+                    showToast('🚫 Order #' + orderIdDisplay + ' has been cancelled successfully.');
+                }
+                
+                try {
+                    let localOrders = JSON.parse(localStorage.getItem('arshith_user_orders')) || [];
+                    localOrders = localOrders.map(o => {
+                        if (String(o._id) === String(mongoOrderId) || String(o.transactionId) === String(mongoOrderId)) {
+                            return { ...o, status: 'Cancelled' };
+                        }
+                        return o;
+                    });
+                    localStorage.setItem('arshith_user_orders', JSON.stringify(localOrders));
+                } catch(e) {}
+
+                loadUserProfile();
+            } catch (err) {
+                alert('Error cancelling order: ' + err.message);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-ban"></i> Cancel Order';
+                }
+            }
+        }
+
+        function renderUserOrders(orders) {
+            const container = document.getElementById('ordersContainer');
+            if (!container) return;
+
+            if (!orders || orders.length === 0) {
+                container.innerHTML = `
+                    <div class="orders-empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                        <h3 style="margin: 0 0 8px 0; color: #1e293b;">No orders placed yet</h3>
+                        <p style="margin: 0 0 16px 0; color: #64748b;">Explore our 100% natural, authentic fresh products today!</p>
+                        <a href="collections.html?category=all" class="shop-now-btn">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 18px;">
+                    ${orders.map(o => {
+                        const rawId = String(o._id || o.transactionId || 'ORDER');
+                        const orderId = o._id ? String(o._id).substring(0, 8).toUpperCase() : rawId.slice(-8).toUpperCase();
+                        const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleString() : 'N/A';
+                        const addr = o.shippingAddress ? [o.shippingAddress.address, o.shippingAddress.city, o.shippingAddress.state, o.shippingAddress.postalCode].filter(Boolean).join(', ') : 'Standard Shipping';
+                        const status = o.status || 'Confirmed';
+                        const statusLower = status.toLowerCase();
+                        const isCancelled = statusLower === 'cancelled';
+                        const isDelivered = statusLower === 'delivered';
+                        const isDispatched = statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery' || isDelivered;
+                        const isEligibleForCancel = !isCancelled && !isDispatched;
+                        
+                        let statusBadgeColor = '#fee2e2; color: #b91c1c;';
+                        if (isDelivered) statusBadgeColor = '#dcfce7; color: #15803d;';
+                        else if (statusLower === 'processing' || statusLower === 'shipped' || statusLower === 'dispatched') statusBadgeColor = '#fef3c7; color: #92400e;';
+                        else if (statusLower === 'placed' || statusLower === 'confirmed' || statusLower === 'pending') statusBadgeColor = '#e0f2fe; color: #0369a1;';
+
+                        return `
+                            <div style="background: #ffffff; border: 1.5px solid ${isCancelled ? '#fecaca' : '#e2e8f0'}; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                                <div style="background: ${isCancelled ? '#fff5f5' : '#f8fafc'}; padding: 14px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <span style="font-weight: 700; color: #0f7139; font-size: 16px;">Order #${orderId}</span>
+                                        <span style="font-size: 12px; color: #64748b; margin-left: 10px;">Placed on ${dateStr}</span>
+                                    </div>
+                                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                                        <span style="font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 700; background: ${statusBadgeColor}">● ${status.toUpperCase()}</span>
+
+                                        <span style="font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 700; background: ${o.isPaid ? '#dcfce7; color: #15803d;' : '#fef9c3; color: #854d0e;'}">${o.isPaid ? '✓ PAID' : '⏳ PENDING'}</span>
+                                        <span style="font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 700; background: #f1f5f9; color: #475569;">${o.paymentMethod || 'Razorpay'}</span>
+                                    </div>
+                                </div>
+
+                                <div style="padding: 18px 20px;">
+                                    <div style="margin-bottom: 14px;">
+                                        <div style="font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">ITEMS ORDERED</div>
+                                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                                            ${consolidateOrderItemsForDisplay(o.orderItems || []).map((item, itemIdx) => {
+                                                const itemKey = `rating_${o._id}_${itemIdx}`;
+                                                const itemProductId = item.product || item._id || item.productId || '';
+                                                let savedRating = null;
+                                                try {
+                                                    const stored = JSON.parse(localStorage.getItem('arshith_product_ratings') || '{}');
+                                                    savedRating = stored[itemKey] || null;
+                                                } catch(e) {}
+
+                                                const itemNameEscaped = (item.name || item.title || 'Fresh Product').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                                                const itemImgEscaped = (item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495').replace(/'/g, "\\'");
+                                                const itemTotalMoney = ((item.price || 0) * (item.qty || item.quantity || 1)).toFixed(2);
+
+                                                return `
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; padding-bottom: 10px; border-bottom: 1px dashed #f1f5f9;">
+                                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                                            <img src="${item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495'}" style="width: 46px; height: 46px; border-radius: 8px; object-fit: cover; border: 1px solid #e2e8f0;">
+                                                            <div>
+                                                                <div style="font-weight: 600; color: #1e293b;">${item.name || item.title}</div>
+                                                                <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Qty: ${item.qty || item.quantity || 1} • ${item.unit || '1 unit'}</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+                                                            ${isDelivered ? `
+                                                            <button type="button" 
+                                                                    id="rateBtn_${itemKey}"
+                                                                    onclick="openLiveRatingPopup('${o._id}', '${itemIdx}', '${itemNameEscaped}', '${itemImgEscaped}', '${itemTotalMoney}', '${itemProductId}')" 
+                                                                    style="background: ${savedRating ? '#ecfdf5' : '#f0fdf4'}; color: ${savedRating ? '#047857' : '#0f7139'}; border: 1.5px solid ${savedRating ? '#86efac' : '#bbf7d0'}; border-radius: 6px; padding: 4px 10px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.15s ease;"
+                                                                    onmouseover="this.style.background='#dcfce7'" 
+                                                                    onmouseout="this.style.background='${savedRating ? '#ecfdf5' : '#f0fdf4'}'">
+                                                                ${savedRating ? '⭐ Rated ' + savedRating.rating + '★' : '⭐ Rate & Review'}
+                                                            </button>
+                                                            ` : ''}
+
+                                                            <div style="font-weight: 700; color: #0f172a; font-size: 15px;">₹${itemTotalMoney}</div>
+                                                        </div>
+                                                    </div>
+                                                `;
+                                            }).join('')}
+                                        </div>
+                                    </div>
+
+                                    <div style="border-top: 1px dashed #e2e8f0; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                                        <div style="font-size: 13px; color: #64748b;">
+                                            📍 <strong>Delivery Address:</strong> ${addr}
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 16px;">
+                                            <div style="text-align: right;">
+                                                <span style="font-size: 13px; color: #64748b;">Total Amount:</span>
+                                                <strong style="font-size: 18px; color: #0f7139; margin-left: 6px;">₹${Number(o.totalPrice || 0).toFixed(2)}</strong>
+                                            </div>
+                                            ${isEligibleForCancel ? `
+                                                <button type="button" 
+                                                        class="cancel-order-btn" 
+                                                        style="background: #dc2626; color: #ffffff; border: 1px solid #b91c1c; padding: 6px 14px; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);" 
+                                                        onclick="cancelUserOrder('${o._id}')">
+                                                    <i class="fa-solid fa-ban"></i> Cancel Order
+                                                </button>
+                                            ` : (isCancelled ? `
+                                                <span style="font-size: 12px; color: #991b1b; background: #fee2e2; border: 1px solid #fecaca; padding: 5px 10px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px;">
+                                                    <i class="fa-solid fa-rotate-left"></i> Cancelled & Restocked
+                                                </span>
+                                            ` : '')}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        async function cancelUserOrder(orderId) {
+            if (!confirm('Are you sure you want to cancel this order? All items in this order will be returned to store inventory.')) {
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/api/orders/${orderId}/cancel`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    if (typeof showToast === 'function') {
+                        showToast('Order cancelled successfully! All items returned to inventory.');
+                    } else {
+                        alert('Order cancelled successfully!');
+                    }
+                    try {
+                        let localOrders = JSON.parse(localStorage.getItem('arshith_user_orders')) || [];
+                        localOrders = localOrders.map(o => {
+                            if (String(o._id) === String(orderId) || String(o.transactionId) === String(orderId)) {
+                                return { ...o, status: 'Cancelled' };
+                            }
+                            return o;
+                        });
+                        localStorage.setItem('arshith_user_orders', JSON.stringify(localOrders));
+                    } catch (e) {}
+                    loadUserProfile();
+                } else {
+                    alert(data.message || 'Failed to cancel order.');
+                }
+            } catch (err) {
+                alert('Error cancelling order: ' + err.message);
+            }
+        }
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) target.classList.add('active');
+            if (btn) btn.classList.add('active');
+        }
+
+        async function handleUpdateProfile(e) {
+            e.preventDefault();
+            const btn = document.getElementById('saveProfileBtn');
+            const alertBox = document.getElementById('saveSuccessAlert');
+
+            const nameVal = document.getElementById('profileName').value.trim();
+            const phoneVal = document.getElementById('profilePhone').value.trim();
+            const streetVal = document.getElementById('profileStreet').value.trim();
+            const cityVal = document.getElementById('profileCity').value.trim();
+            const postalCodeVal = document.getElementById('profilePostalCode').value.trim();
+
+            const updatedData = {
+                name: nameVal || (currentUser ? currentUser.name : 'Valued Customer'),
+                phone: phoneVal,
+                street: streetVal,
+                city: cityVal,
+                postalCode: postalCodeVal
+            };
+
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/users/profile/${currentUser._id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedData)
+                });
+
+                let data = null;
+                try { data = await response.json(); } catch(err) {}
+
+                if (response.ok && data) {
+                    currentUser = { ...currentUser, ...data };
+                } else {
+                    currentUser = { ...currentUser, ...updatedData };
+                }
+            } catch (err) {
+                console.error('API save error, persisting locally:', err);
+                currentUser = { ...currentUser, ...updatedData };
+            } finally {
+                if (!isLoggingOut && localStorage.getItem('arshith_user')) {
+                    localStorage.setItem('arshith_user', JSON.stringify(currentUser));
+                }
+                hasFormBeenPopulated = true;
+
+                if (document.getElementById('userGreeting')) {
+                    document.getElementById('userGreeting').textContent = `Hello, ${currentUser.name || 'Valued Customer'}`;
+                }
+                if (document.getElementById('userAvatar')) {
+                    document.getElementById('userAvatar').textContent = (currentUser.name || 'U').charAt(0).toUpperCase();
+                }
+
+                if (alertBox) {
+                    alertBox.style.display = 'flex';
+                    setTimeout(() => { alertBox.style.display = 'none'; }, 3500);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast('Profile details updated successfully!');
+                }
+
+                btn.disabled = false;
+                btn.textContent = 'Save Changes';
+            }
+        }
+
+        async function handleChangePassword(e) {
+            e.preventDefault();
+            const pass = document.getElementById('newPass').value;
+            const confirmPass = document.getElementById('confirmNewPass').value;
+            const btn = document.getElementById('savePasswordBtn');
+            const alertBox = document.getElementById('passwordSuccessAlert');
+
+            if (pass !== confirmPass) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Updating...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/users/change-password/${currentUser._id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentPassword: pass, newPassword: pass })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to update password');
+                }
+
+                document.getElementById('passwordForm').reset();
+                if (alertBox) {
+                    alertBox.style.display = 'flex';
+                    setTimeout(() => { alertBox.style.display = 'none'; }, 3500);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast('Password changed successfully!');
+                }
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Update Password';
+            }
+        }
+
+        // Live Rating & Description Popup Modal Logic (Above the Money)
+        let currentRatingOrderId = '';
+        let currentRatingItemIdx = '';
+        let currentRatingProductName = '';
+        let currentRatingProductId = '';
+        let currentSelectedLiveStars = 5;
+
+        const starLabels = {
+            5: '⭐⭐⭐⭐⭐ 5 Stars — Excellent / Loved it!',
+            4: '⭐⭐⭐⭐ 4 Stars — Very Good / High Quality',
+            3: '⭐⭐⭐ 3 Stars — Good / Average Quality',
+            2: '⭐⭐ 2 Stars — Below Average',
+            1: '⭐ 1 Star — Poor / Disappointed'
+        };
+
+        window.openLiveRatingPopup = function(orderId, itemIdx, productName, productImg, productPrice, productId) {
+            currentRatingOrderId = orderId;
+            currentRatingItemIdx = itemIdx;
+            currentRatingProductName = productName || 'Fresh Product';
+            currentRatingProductId = productId || '';
+            currentSelectedLiveStars = 5;
+
+            const modal = document.getElementById('liveRatingPopupModal');
+            const titleEl = document.getElementById('popupProdTitle');
+            const imgEl = document.getElementById('popupProdImg');
+            const priceEl = document.getElementById('popupProdPrice');
+            const authorInput = document.getElementById('popupReviewerName');
+
+            if (titleEl) titleEl.textContent = currentRatingProductName;
+            if (imgEl && productImg) imgEl.src = productImg;
+            if (priceEl) priceEl.textContent = '\u20b9' + productPrice;
+
+            if (authorInput && currentUser && currentUser.name) {
+                authorInput.value = currentUser.name;
+            }
+
+            // Check if already rated before
+            const itemKey = `rating_${orderId}_${itemIdx}`;
+            try {
+                const stored = JSON.parse(localStorage.getItem('arshith_product_ratings') || '{}');
+                if (stored[itemKey]) {
+                    currentSelectedLiveStars = stored[itemKey].rating || 5;
+                    const descEl = document.getElementById('popupReviewDescription');
+                    if (descEl && stored[itemKey].comment) descEl.value = stored[itemKey].comment;
+                }
+            } catch(e) {}
+
+            updateLiveStarDisplay(currentSelectedLiveStars);
+
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        window.closeLiveRatingPopup = function() {
+            const modal = document.getElementById('liveRatingPopupModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        };
+
+        window.setLiveStarRating = function(starVal) {
+            currentSelectedLiveStars = Number(starVal);
+            updateLiveStarDisplay(currentSelectedLiveStars);
+        };
+
+        function updateLiveStarDisplay(stars) {
+            const starBtns = document.querySelectorAll('.interactive-star-btn');
+            starBtns.forEach((btn, idx) => {
+                const val = idx + 1;
+                if (val <= stars) {
+                    btn.style.color = '#f59e0b';
+                    btn.textContent = '★';
+                } else {
+                    btn.style.color = '#cbd5e1';
+                    btn.textContent = '☆';
+                }
+            });
+
+            const lbl = document.getElementById('liveStarSelectedLabel');
+            if (lbl) lbl.textContent = starLabels[stars] || `${stars} Stars`;
+
+            const dropdown = document.getElementById('popupRatingDropdown');
+            if (dropdown) dropdown.value = String(stars);
+        }
+
+        window.handleLiveRatingSubmit = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitLiveRatingBtn');
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Saving Rating...';
+            }
+
+            const rating = currentSelectedLiveStars || Number(document.getElementById('popupRatingDropdown').value) || 5;
+            const name = (document.getElementById('popupReviewerName').value || '').trim();
+            const comment = (document.getElementById('popupReviewDescription').value || '').trim();
+            const email = (currentUser && currentUser.email) ? currentUser.email : 'customer@arshithfresh.com';
+
+            if (!comment) {
+                if (typeof showToast === 'function') showToast('Please write a short feedback before submitting.');
+                if (btn) { btn.disabled = false; btn.textContent = 'Submit Rating ✨'; }
+                return;
+            }
+
+            const itemKey = `rating_${currentRatingOrderId}_${currentRatingItemIdx}`;
+
+            try {
+                // 1. Save locally (keyed by itemKey AND by productId for cross-page sync)
+                const stored = JSON.parse(localStorage.getItem('arshith_product_ratings') || '{}');
+                const reviewData = {
+                    orderId: currentRatingOrderId,
+                    productId: currentRatingProductId,
+                    productName: currentRatingProductName,
+                    rating,
+                    title: name ? `Review by ${name}` : 'Customer Review',
+                    comment,
+                    name,
+                    email,
+                    verifiedPurchase: true,
+                    date: new Date().toISOString()
+                };
+                stored[itemKey] = reviewData;
+                // Also key by productId so product page can look it up
+                if (currentRatingProductId) {
+                    stored[`pid_${currentRatingProductId}`] = reviewData;
+                }
+                localStorage.setItem('arshith_product_ratings', JSON.stringify(stored));
+
+                // 2. POST to real /api/reviews backend endpoint
+                try {
+                    const payload = {
+                        productId: currentRatingProductId || currentRatingProductName,
+                        productName: currentRatingProductName,
+                        customerName: name || 'Verified Customer',
+                        customerEmail: email,
+                        rating: Number(rating),
+                        title: name ? `Review by ${name}` : 'Customer Review',
+                        comment,
+                        verifiedPurchase: true,
+                        images: []
+                    };
+                    const apiRes = await fetch('/api/reviews', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    // If backend saved successfully, store the returned _id for editing later
+                    if (apiRes.ok) {
+                        const saved = await apiRes.json();
+                        if (saved && saved._id && stored[itemKey]) {
+                            stored[itemKey].backendId = saved._id;
+                            if (currentRatingProductId && stored[`pid_${currentRatingProductId}`]) {
+                                stored[`pid_${currentRatingProductId}`].backendId = saved._id;
+                            }
+                            localStorage.setItem('arshith_product_ratings', JSON.stringify(stored));
+                        }
+                    }
+                } catch(apiErr) {
+                    console.warn('Backend review save failed, review saved locally:', apiErr);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast('\u2728 Thank you! Your ' + rating + '-star review has been submitted and will appear on the product page.');
+                } else {
+                    alert('Thank you for your review! It will appear on the product page.');
+                }
+
+                // 3. Update the trigger button above the money in real time
+                const rateTriggerBtn = document.getElementById(`rateBtn_${itemKey}`);
+                if (rateTriggerBtn) {
+                    rateTriggerBtn.innerHTML = '\u2b50 Rated ' + rating + '\u2605';
+                    rateTriggerBtn.style.background = '#ecfdf5';
+                    rateTriggerBtn.style.color = '#047857';
+                    rateTriggerBtn.style.borderColor = '#86efac';
+                }
+
+                closeLiveRatingPopup();
+            } catch (err) {
+                if (typeof showToast === 'function') {
+                    showToast('Could not save rating. Please try again.');
+                }
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'Submit Rating \u2728';
+                }
+            }
+        };
+
+        function handleLogout() {
+            isLoggingOut = true;
+            currentUser = null;
+            try {
+                localStorage.removeItem('arshith_user');
+                localStorage.removeItem('arshith_user_orders');
+                sessionStorage.clear();
+            } catch (e) {}
+
+            if (typeof showToast === 'function') {
+                showToast('Logged out successfully');
+            }
+            setTimeout(() => {
+                try {
+                    localStorage.removeItem('arshith_user');
+                    sessionStorage.clear();
+                } catch (e) {}
+                window.location.href = '../index.html';
+            }, 150);
+        }
+    </script>
+
+    <!-- LIVE RATING & DESCRIPTION POPUP MODAL (ABOVE MONEY TRIGGER) -->
+    <div id="liveRatingPopupModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.65); backdrop-filter: blur(6px); z-index: 99999; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #ffffff; border-radius: 18px; width: 100%; max-width: 500px; padding: 28px 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); position: relative; animation: fadeInModal 0.25s ease-out; border: 1px solid #e2e8f0;">
+            
+            <!-- Modal Header -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <img id="popupProdImg" src="https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495" style="width: 52px; height: 52px; border-radius: 10px; object-fit: cover; border: 1.5px solid #e2e8f0; background: #fafbfc;">
+                    <div>
+                        <h3 id="popupProdTitle" style="margin: 0 0 3px 0; font-size: 16.5px; color: #0f172a; font-weight: 800; line-height: 1.3;">Product Name</h3>
+                        <span id="popupProdPrice" style="font-size: 14px; font-weight: 700; color: #0f7139;">₹0.00</span>
+                    </div>
+                </div>
+                <button type="button" onclick="closeLiveRatingPopup()" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 20px; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center; transition: all 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">&times;</button>
+            </div>
+
+            <form onsubmit="handleLiveRatingSubmit(event)">
+                
+                <!-- Live Interactive Star Rating Row -->
+                <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px; margin-bottom: 18px; text-align: center;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tap to Rate Product</div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 8px; font-size: 32px; cursor: pointer; margin-bottom: 6px;">
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(1)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(2)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(3)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(4)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(5)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
+                    </div>
+
+                    <div id="liveStarSelectedLabel" style="font-size: 13.5px; font-weight: 700; color: #0f7139;">⭐⭐⭐⭐⭐ 5 Stars — Excellent / Loved it!</div>
+                </div>
+
+                <!-- Star Rating Dropdown -->
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Or Choose Rating from Dropdown *</label>
+                    <select id="popupRatingDropdown" onchange="setLiveStarRating(this.value)" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; font-weight: 600; color: #1e293b; background: #ffffff; cursor: pointer; outline: none;">
+                        <option value="5" selected>⭐⭐⭐⭐⭐ — 5 Stars (Excellent / Highly Recommended)</option>
+                        <option value="4">⭐⭐⭐⭐ — 4 Stars (Very Good / High Quality)</option>
+                        <option value="3">⭐⭐⭐ — 3 Stars (Good / Average Quality)</option>
+                        <option value="2">⭐⭐ — 2 Stars (Below Average)</option>
+                        <option value="1">⭐ — 1 Star (Poor / Disappointed)</option>
+                    </select>
+                </div>
+
+                <!-- Customer Name -->
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Your Name *</label>
+                    <input type="text" id="popupReviewerName" required placeholder="e.g. Ramesh Kumar" style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; box-sizing: border-box; outline: none;">
+                </div>
+
+                <!-- Product Description & Feedback -->
+                <div style="margin-bottom: 22px;">
+                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Product Description & Feedback *</label>
+                    <textarea id="popupReviewDescription" required placeholder="Write your live feedback about the product freshness, taste, aroma, purity, and delivery experience..." rows="3" style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; font-family: inherit; box-sizing: border-box; outline: none; resize: vertical; line-height: 1.5;"></textarea>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                    <button type="button" onclick="closeLiveRatingPopup()" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">Cancel</button>
+                    <button type="submit" id="submitLiveRatingBtn" style="background: #0f7139; color: #ffffff; border: none; padding: 10px 26px; border-radius: 8px; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#0b542a'" onmouseout="this.style.background='#0f7139'">Submit Live Rating ✨</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

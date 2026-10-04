@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Environment Variables
+.env
+backend/.env
+*.env
+
+# Temporary / Scratch
+scratch/
+
+# IDE & OS
+.vscode/
+.DS_Store
+Thumbs.db
