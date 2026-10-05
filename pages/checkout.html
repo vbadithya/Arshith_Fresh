@@ -1585,7 +1585,11 @@
         let appliedCouponCode = "";
         let appliedDiscount = 0;
         let selectedDonationAmount = 0;
-        const API_BASE = "";
+        const API_BASE = (window.location.origin && window.location.origin.includes(':5000'))
+            ? ""
+            : (window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes(':5500') && !window.location.origin.includes(':8080') && !window.location.origin.includes('127.0.0.1'))
+                ? ""
+                : "http://localhost:5000";
 
         function selectDonation(amount) {
             if (selectedDonationAmount === amount) {
@@ -2156,9 +2160,11 @@
             const orderItems = Array.from(itemMap.values());
 
             const shippingAddress = {
-                address: apt ? `${address}, ${apt}` : address,
-                city: `${city}, ${state}`,
-                postalCode: pinCode,
+                address: address || "Address",
+                apartment: apt || "",
+                city: city || "City",
+                state: state || "Karnataka",
+                postalCode: pinCode || "000000",
                 country: "India"
             };
 
@@ -2176,9 +2182,11 @@
 
                 billingAddress = {
                     name: bFullName,
-                    address: bApt ? `${bAddress}, ${bApt}` : bAddress,
-                    city: `${bCity}, ${bState}`,
-                    postalCode: bPinCode,
+                    address: bAddress || "Address",
+                    apartment: bApt || "",
+                    city: bCity || "City",
+                    state: bState || "Karnataka",
+                    postalCode: bPinCode || "000000",
                     phone: bPhone,
                     country: "India"
                 };

@@ -308,6 +308,50 @@
       updateSelectionState();
     }
 
+    function formatShippingAddress(sa) {
+      if (!sa) return '<span style="color:#94a3b8; font-style:italic;">No address provided</span>';
+      if (typeof sa === 'string') return sa;
+
+      let addressStr = (sa.address || '').trim();
+      let aptStr = (sa.apartment || '').trim();
+      let cityStr = (sa.city || '').trim();
+      let stateStr = (sa.state || '').trim();
+      let pinStr = (sa.postalCode || sa.pinCode || '').trim();
+
+      if (stateStr.toLowerCase() === 'karnataka') {
+        const fullText = `${addressStr} ${cityStr}`.toLowerCase();
+        if (fullText.includes('telangana') || fullText.includes('andhra') || fullText.includes('maharashtra') || fullText.includes('tamil nadu') || fullText.includes('kerala') || fullText.includes('delhi') || fullText.includes('hyderabad')) {
+          stateStr = '';
+        }
+      }
+
+      const rawParts = [];
+      if (addressStr) rawParts.push(addressStr);
+      if (aptStr) rawParts.push(aptStr);
+      if (cityStr) rawParts.push(cityStr);
+      if (stateStr) rawParts.push(stateStr);
+      if (pinStr) rawParts.push(`PIN: ${pinStr}`);
+
+      const fullString = rawParts.join(', ');
+      const segments = fullString.split(',').map(s => s.trim()).filter(Boolean);
+      
+      const uniqueSegments = [];
+      const seen = new Set();
+
+      for (const seg of segments) {
+        const lower = seg.toLowerCase();
+        // Handle "PIN: 505302" vs "505302"
+        const cleanVal = lower.replace(/^pin:\s*/, '');
+        if (!seen.has(cleanVal) && !seen.has(lower)) {
+          seen.add(cleanVal);
+          seen.add(lower);
+          uniqueSegments.push(seg);
+        }
+      }
+
+      return uniqueSegments.join(', ') || '<span style="color:#94a3b8; font-style:italic;">No address provided</span>';
+    }
+
     function renderOrders(orders) {
       displayedOrders = orders || [];
       tbody.innerHTML = '';
@@ -384,8 +428,13 @@
           <td><strong>#AF-${orderIdShort}</strong></td>
           <td><span style="font-size: 12px; color: #475569;">${date}</span></td>
           <td>
-            <strong>${customer}</strong>
-            ${order.customerPhone ? `<div style="font-size:11px; color:#64748b;">📞 ${order.customerPhone}</div>` : ''}
+            <div style="font-weight: 700; color: #1e293b;">${customer}</div>
+            ${order.customerPhone ? `<div style="font-size:11px; color:#475569; margin-top:2px;">📞 ${order.customerPhone}</div>` : ''}
+            ${order.customerEmail ? `<div style="font-size:11px; color:#475569;">✉️ ${order.customerEmail}</div>` : ''}
+            <div style="font-size:11px; color:#334155; margin-top:6px; padding:6px 8px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; line-height:1.4; max-width:280px;">
+              <strong style="color:#0f7139;"><i class="fa-solid fa-location-dot"></i> Delivery Address:</strong><br>
+              ${formatShippingAddress(order.shippingAddress)}
+            </div>
           </td>
           <td>${itemsCount} items</td>
           <td><strong>${total}</strong></td>

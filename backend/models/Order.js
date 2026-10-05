@@ -36,7 +36,7 @@ const orderSchema = new mongoose.Schema({
     address: { type: String, required: true },
     apartment: { type: String, default: '' },
     city: { type: String, required: true },
-    state: { type: String, default: 'Karnataka' },
+    state: { type: String, default: '' },
     postalCode: { type: String, required: true },
     country: { type: String, default: 'India' },
   },
