@@ -1017,7 +1017,7 @@
       tbody.innerHTML = recentOrders.map(o => {
         const idShort = String(o._id || '').substring(0, 8);
         const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recent';
-        const customer = o.customerName || (o.shippingAddress ? o.shippingAddress.address : 'Customer');
+        const customer = o.customerName || (o.user && o.user.name) || 'Customer';
         const itemsCount = Array.isArray(o.orderItems) ? o.orderItems.reduce((sum, item) => sum + Number(item.qty || 1), 0) : 1;
         const total = Number(o.totalPrice || 0);
 
