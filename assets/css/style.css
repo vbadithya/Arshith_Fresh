@@ -1724,7 +1724,7 @@ main {
     background: rgba(3, 20, 16, 0.78);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    z-index: 10002;
+    z-index: 999999 !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6976,7 +6976,7 @@ main {
     height: 100vh;
     background: rgba(15, 23, 42, 0.65);
     backdrop-filter: blur(5px);
-    z-index: 10000;
+    z-index: 999999 !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9920,7 +9920,7 @@ body {
         width: calc(100% - 48px) !important;
         max-width: 320px !important;
         margin: 0 !important;
-        z-index: 99998 !important;
+        z-index: 9999 !important;
         display: flex !important;
         flex-direction: column !important;
         border-radius: 10px !important;

@@ -2449,7 +2449,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function ensureStickyCartBarElement() {
         const path = window.location.pathname.toLowerCase();
-        if (path.endsWith('/cart.html') || path.endsWith('/cart') || path.endsWith('/checkout.html') || path.endsWith('/checkout')) {
+        if (
+            path.endsWith('/cart.html') || path.endsWith('/cart') || 
+            path.endsWith('/checkout.html') || path.endsWith('/checkout') ||
+            path.includes('/auth/') || path.includes('login.html') || 
+            path.includes('register.html') || path.includes('create-account.html') || 
+            path.includes('forgot-password.html') || path.includes('reset-password.html') ||
+            path.includes('/admin/')
+        ) {
             const existing = document.getElementById("stickyCartBar");
             if (existing) {
                 existing.style.setProperty("display", "none", "important");
@@ -2526,6 +2533,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const barElement = ensureStickyCartBarElement();
         if (barElement) {
+            const isModalActive = document.querySelector(
+                '#arshithSignupModalOverlay.show, #arshithFestiveModalOverlay.show, .signup-modal-overlay.show, .festive-modal-overlay.show, .modal.show, .modal-overlay.show, [id*="Modal"][class*="show"], [id*="Overlay"][class*="show"]'
+            );
+            if (isModalActive || document.body.classList.contains('modal-open')) {
+                barElement.style.setProperty("display", "none", "important");
+                return;
+            }
+
             const barHeader = document.getElementById("cartBarHeader") || barElement.querySelector('.cart-bar-header');
             if (barHeader) {
                 if (subtotal >= 1000) {
@@ -3188,9 +3203,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${isInstock ? `
                     <div style="display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap;">
                         <div style="display: flex; align-items: center; border: 1.5px solid #cbd5e1; border-radius: 8px; overflow: hidden; background: #fff; height: 50px;">
-                            <button type="button" onclick="const q = document.getElementById('detailQtyInput'); if (Number(q.value) > 1) q.value = Number(q.value) - 1;" style="width: 40px; height: 100%; border: none; background: transparent; font-size: 18px; cursor: pointer; color: #475569;">−</button>
-                            <input type="number" id="detailQtyInput" value="1" min="1" readonly style="width: 44px; text-align: center; border: none; font-size: 16px; font-weight: 700; color: #1e293b; outline: none;">
-                            <button type="button" onclick="const q = document.getElementById('detailQtyInput'); q.value = Number(q.value) + 1;" style="width: 40px; height: 100%; border: none; background: transparent; font-size: 18px; cursor: pointer; color: #475569;">+</button>
+                            <button type="button" class="detail-qty-btn" onclick="event.preventDefault(); event.stopPropagation(); changeDetailQty(-1, event);" aria-label="Decrease quantity" style="width: 40px; height: 100%; border: none; background: transparent; font-size: 20px; font-weight: 700; cursor: pointer; color: #475569; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-tap-highlight-color: transparent;">−</button>
+                            <input type="number" id="detailQtyInput" value="1" min="1" readonly style="width: 44px; text-align: center; border: none; font-size: 16px; font-weight: 700; color: #1e293b; outline: none; background: transparent; pointer-events: none;">
+                            <button type="button" class="detail-qty-btn" onclick="event.preventDefault(); event.stopPropagation(); changeDetailQty(1, event);" aria-label="Increase quantity" style="width: 40px; height: 100%; border: none; background: transparent; font-size: 20px; font-weight: 700; cursor: pointer; color: #475569; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-tap-highlight-color: transparent;">+</button>
                         </div>
 
                         <button type="button" onclick="handleDetailAddToCart(false)" style="flex: 1; min-width: 160px; height: 50px; background: #0f7139; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;">
@@ -3240,6 +3255,20 @@ document.addEventListener("DOMContentLoaded", () => {
         // Load Related Products
         loadRelatedProducts(p);
     }
+
+    window.changeDetailQty = function(delta, ev) {
+        if (ev) {
+            if (ev.preventDefault) ev.preventDefault();
+            if (ev.stopPropagation) ev.stopPropagation();
+        }
+        const qInput = document.getElementById('detailQtyInput');
+        if (!qInput) return;
+        let current = parseInt(qInput.value, 10);
+        if (isNaN(current) || current < 1) current = 1;
+        current += Number(delta);
+        if (current < 1) current = 1;
+        qInput.value = current;
+    };
 
     window.handleDetailAddToCart = function(isBuyNow = false) {
         if (!window.CURRENT_DETAIL_PRODUCT) return;
@@ -3411,7 +3440,7 @@ window.addEventListener('hashchange', () => {
     if (typeof window.syncSingleProductView === 'function') window.syncSingleProductView();
 });
 document.addEventListener('click', (e) => {
-    if (e.target.closest('.product-card-wishlist-btn, .stepper-btn, .add-to-cart-btn, .product-qty-overlay, .stepper-qty')) {
+    if (e.target.closest('.product-card-wishlist-btn, .stepper-btn, .add-to-cart-btn, .product-qty-overlay, .stepper-qty, .detail-qty-btn')) {
         return;
     }
 
@@ -3815,6 +3844,9 @@ function closeFestiveOfferModal() {
     try {
         sessionStorage.setItem('arshith_festive_popup_dismissed', 'true');
     } catch (e) {}
+    setTimeout(() => {
+        if (typeof updateCartCountBadge === 'function') updateCartCountBadge();
+    }, 400);
 }
 
 function copyFestiveCode(customCode = null) {
