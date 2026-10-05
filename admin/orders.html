@@ -221,7 +221,12 @@
 
   <script src="../assets/js/admin-bulk.js"></script>
   <script>
-    const API_BASE = (window.location.origin && window.location.origin.startsWith('http')) ? `${window.location.origin}/api` : 'http://localhost:5000/api';
+    const API_BASE = (function() {
+      const origin = window.location.origin || '';
+      if (origin.includes(':5000')) return `${origin}/api`;
+      if (origin.startsWith('file:') || origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes(':5500') || origin.includes(':8080') || origin.includes(':3000')) return 'http://localhost:5000/api';
+      return '/api';
+    })();
     const tbody = document.getElementById('ordersTableBody');
     const searchInput = document.getElementById('orderSearchInput');
     const selectAllCheckbox = document.getElementById('selectAllCheckbox');
@@ -234,21 +239,30 @@
 
     async function fetchOrders() {
       try {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 25px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading orders...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 25px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading orders from database...</td></tr>';
         
-        const res = await fetch(`${API_BASE}/orders`, {
+        let res = await fetch(`${API_BASE}/orders`, {
           headers: { 'x-admin-dev': 'true' }
-        });
-        
-        if (!res.ok) throw new Error();
-        allOrders = await res.json();
+        }).catch(() => null);
+
+        if (!res || !res.ok) {
+          res = await fetch('http://localhost:5000/api/orders', {
+            headers: { 'x-admin-dev': 'true' }
+          }).catch(() => null);
+        }
+
+        if (res && res.ok) {
+          allOrders = await res.json();
+        } else {
+          throw new Error('Server connection failed');
+        }
 
         updateSubModuleCounts();
         applyFilterAndRender();
         updateSelectionState();
       } catch (err) {
         console.error('Error fetching orders:', err);
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 25px; color: #ef4444;">Failed to load orders.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 25px; color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Failed to load orders from server. Make sure backend node server is running on http://localhost:5000.</td></tr>';
       }
     }
 

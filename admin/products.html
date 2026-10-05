@@ -395,7 +395,12 @@
   </div>
 
   <script>
-    const API_BASE = (window.location.origin && window.location.origin.startsWith('http')) ? `${window.location.origin}/api` : 'http://localhost:5000/api';
+    const API_BASE = (function() {
+      const origin = window.location.origin || '';
+      if (origin.includes(':5000')) return `${origin}/api`;
+      if (origin.startsWith('file:') || origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes(':5500') || origin.includes(':8080') || origin.includes(':3000')) return 'http://localhost:5000/api';
+      return '/api';
+    })();
     const tableBody = document.getElementById('productsTableBody');
     const searchInput = document.getElementById('productSearchInput');
     const selectAllCheckbox = document.getElementById('selectAllCheckbox');
