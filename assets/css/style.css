@@ -8377,10 +8377,10 @@ body {
 }
 
 .header-logo .logo-img {
-    height: 44px !important;
-    max-height: 46px !important;
+    height: 48px !important;
+    max-height: 50px !important;
     width: auto !important;
-    max-width: 170px !important;
+    max-width: 185px !important;
     object-fit: contain !important;
     transition: transform 0.2s ease !important;
 }
@@ -9488,7 +9488,7 @@ body {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        max-width: 35% !important;
+        max-width: 42% !important;
         z-index: 10 !important;
         pointer-events: auto !important;
     }
@@ -9502,10 +9502,10 @@ body {
 
     .header-logo .logo-img,
     .logo-img {
-        max-height: 28px !important;
-        height: 28px !important;
+        max-height: 33px !important;
+        height: 33px !important;
         width: auto !important;
-        max-width: 115px !important;
+        max-width: 135px !important;
         object-fit: contain !important;
     }
 
@@ -10803,9 +10803,9 @@ body {
     }
     .header-logo .logo-img,
     .logo-img {
-        max-height: 24px !important;
-        height: 24px !important;
-        max-width: 95px !important;
+        max-height: 27px !important;
+        height: 27px !important;
+        max-width: 110px !important;
         object-fit: contain !important;
     }
     .instamart-banner-card {
