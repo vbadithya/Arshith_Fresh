@@ -146,9 +146,10 @@ button {
 
 /* Logo */
 .logo-img {
-    height: 64px;
-    max-height: 66px;
+    height: 44px;
+    max-height: 46px;
     width: auto;
+    max-width: 170px;
     object-fit: contain;
 }
 
@@ -8365,18 +8366,22 @@ body {
 .header-logo {
     position: absolute !important;
     left: 50% !important;
-    transform: translateX(-50%) !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     z-index: 10 !important;
     pointer-events: auto !important;
+    max-width: 220px !important;
 }
 
 .header-logo .logo-img {
-    height: 64px !important;
-    max-height: 66px !important;
+    height: 44px !important;
+    max-height: 46px !important;
     width: auto !important;
+    max-width: 170px !important;
+    object-fit: contain !important;
     transition: transform 0.2s ease !important;
 }
 
@@ -9478,17 +9483,30 @@ body {
     .header-logo {
         position: absolute !important;
         left: 50% !important;
-        transform: translateX(-50%) !important;
+        top: 26px !important;
+        transform: translate(-50%, -50%) !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        max-width: 35% !important;
         z-index: 10 !important;
+        pointer-events: auto !important;
     }
 
+    .header-logo a {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        max-width: 100% !important;
+    }
+
+    .header-logo .logo-img,
     .logo-img {
-        max-height: 52px !important;
-        height: 52px !important;
+        max-height: 28px !important;
+        height: 28px !important;
         width: auto !important;
+        max-width: 115px !important;
+        object-fit: contain !important;
     }
 
     .header-actions {
@@ -10779,9 +10797,16 @@ body {
     .header-container {
         padding: 6px 8px !important;
     }
+    .header-logo {
+        top: 24px !important;
+        transform: translate(-50%, -50%) !important;
+    }
+    .header-logo .logo-img,
     .logo-img {
-        max-height: 44px !important;
-        height: 44px !important;
+        max-height: 24px !important;
+        height: 24px !important;
+        max-width: 95px !important;
+        object-fit: contain !important;
     }
     .instamart-banner-card {
         min-width: 275px !important;

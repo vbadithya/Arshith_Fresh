@@ -350,7 +350,9 @@
         }
 
         .checkout-header-logo-img {
-            height: 46px;
+            height: 38px;
+            max-height: 40px;
+            max-width: 140px;
             object-fit: contain;
         }
 
