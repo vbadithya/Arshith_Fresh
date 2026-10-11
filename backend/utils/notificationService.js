@@ -114,7 +114,7 @@ Thank you for your order, ${customerName}!
 Order Number: ${orderCode}
 Invoice Number: ${invoiceNumber}
 Date: ${dateStr}
-Payment Status: ${isPaid ? 'PAID ✓' : 'PENDING / CASH ON DELIVERY'}
+Payment Status: ${isPaid ? 'PAID ✓' : 'PENDING'}
 Payment Method: ${paymentMethod}
 Transaction Ref ID: ${transactionId}
 
@@ -313,7 +313,7 @@ Support: support@arshithfresh.com | +91 8618471424
  * Send Order Cancelled Email Notification to Registered User
  * @param {Object} params - { order, user }
  */
-async function sendOrderCancelledNotification({ order, user }) {
+async function sendOrderCancelledNotification({ order, user, reason }) {
   try {
     const baseUrl = process.env.FRONTEND_URL || 'http://localhost:5000';
     const emailUser = process.env.EMAIL_USER;
@@ -351,13 +351,18 @@ async function sendOrderCancelledNotification({ order, user }) {
     const orderCode = 'AF-' + String(orderId).substring(0, 8).toUpperCase();
     const totalPrice = Number(order.totalPrice || 0).toFixed(2);
     const orderLink = `${baseUrl}/pages/profile.html#orders`;
+    const cancellationReason = reason || order.cancellationReason || 'Cancelled by store administration';
 
     const textFallback = `
 Order Cancelled - Arshith Fresh
 
 Hello ${customerName},
-Your order #${orderCode} (Total: ₹${totalPrice}) has been cancelled as requested.
-All inventory items have been restored to store stock.
+Your order #${orderCode} (Total: ₹${totalPrice}) has been cancelled.
+
+Reason for Cancellation:
+${cancellationReason}
+
+All inventory items have been restored to store stock. If payment was completed online via Razorpay, your refund will be processed back to the source account within 5-7 business days.
 
 View your account: ${orderLink}
 
@@ -394,20 +399,35 @@ Support: support@arshithfresh.com | +91 8618471424
             <div style="padding: 28px;">
               <div style="background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 20px; margin-bottom: 24px;">
                 <h2 style="color: #dc2626; margin: 0 0 8px 0; font-size: 20px; font-weight: 700;">Order Cancelled</h2>
-                <p style="color: #991b1b; margin: 0; font-size: 14px; line-height: 1.6;">
-                  Hello <strong>${customerName}</strong>, your order <strong>#${orderCode}</strong> (Total: ₹${totalPrice}) has been successfully <strong>cancelled</strong>. All items in this order have been returned to store stock.
+                <p style="color: #991b1b; margin: 0 0 14px 0; font-size: 14px; line-height: 1.6;">
+                  Hello <strong>${customerName}</strong>, your order <strong>#${orderCode}</strong> (Total: ₹${totalPrice}) has been cancelled.
                 </p>
+
+                <div style="background-color: #ffffff; border-left: 4px solid #dc2626; padding: 12px 16px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                  <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #b91c1c; margin-bottom: 4px;">Reason for Cancellation:</div>
+                  <div style="font-size: 14px; color: #1e293b; font-weight: 600; line-height: 1.4;">${cancellationReason}</div>
+                </div>
               </div>
 
-              <div style="text-align: center; margin: 32px 0 16px 0;">
-                <a href="${orderLink}" style="background-color: #4a5568; color: #ffffff; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-block;">
-                  View My Orders
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 24px; font-size: 13px; color: #475569; line-height: 1.5;">
+                <p style="margin: 0 0 8px 0;"><strong>What happens next?</strong></p>
+                <ul style="margin: 0; padding-left: 18px;">
+                  <li>All ordered products have been returned to store stock.</li>
+                  <li>If you paid online via UPI/Card/NetBanking, your refund will automatically be credited to your original payment method in 5-7 business days.</li>
+                  <li>You can place a new order anytime at <a href="${baseUrl}" style="color: #0f7139; font-weight: 600;">Arshith Fresh</a>.</li>
+                </ul>
+              </div>
+
+              <div style="text-align: center; margin: 24px 0 16px 0;">
+                <a href="${orderLink}" style="background-color: #0f7139; color: #ffffff; padding: 13px 30px; border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block;">
+                  View Your Account Orders
                 </a>
               </div>
             </div>
 
             <div style="background-color: #f7fafc; padding: 20px; text-align: center; font-size: 12px; color: #a0aec0; border-top: 1px solid #edf2f7;">
-              © 2024 Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka, India - 560076
+              © 2024 Arshith Fresh India Pvt. Ltd. Bengaluru, Karnataka, India - 560076<br>
+              Need help? Reach out at support@arshithfresh.com or call +91 8618471424.
             </div>
 
           </div>
@@ -417,7 +437,7 @@ Support: support@arshithfresh.com | +91 8618471424
     };
 
     await transporter.sendMail(mailOptions);
-    console.log(`📧 [Email Sent] Instant Order Cancellation notice delivered to registered email ${recipientEmail}!`);
+    console.log(`📧 [Email Sent] Instant Order Cancellation notice delivered to registered email ${recipientEmail}! Reason: ${cancellationReason}`);
   } catch (emailErr) {
     console.error('❌ [Email Error] Error sending order cancellation email:', emailErr.message);
   }

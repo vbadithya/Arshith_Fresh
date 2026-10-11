@@ -35098,24 +35098,6 @@ module.exports = {
                     </div>
                 </div>
 
-                <!-- Cash on Delivery Option -->
-                <div class="payment-option-card" id="cardCOD" onclick="selectPaymentMethod('COD')">
-                    <div class="payment-option-header">
-                        <div class="payment-option-left">
-                            <div class="payment-radio-circle">
-                                <div class="payment-radio-inner"></div>
-                            </div>
-                            <span class="payment-name">Cash on Delivery (COD)</span>
-                        </div>
-                        <div class="payment-badges">
-                            <span style="font-size: 10px; background: #0f7139; color: #fff; padding: 2px 5px; border-radius: 3px; font-weight: bold;">CASH</span>
-                        </div>
-                    </div>
-                    <div class="payment-option-body">
-                        Pay with cash or UPI directly upon delivery at your doorstep.
-                    </div>
-                </div>
-
                 <!-- BILLING ADDRESS SECTION -->
                 <div class="checkout-section-title" style="margin-top: 28px;">
                     <span>Billing address</span>
@@ -35282,19 +35264,12 @@ module.exports = {
         const API_BASE = window.location.origin.includes(":5000") ? "" : "http://localhost:5000";
 
         function selectPaymentMethod(method) {
-            selectedPayment = method;
+            selectedPayment = "Razorpay";
             const rzpCard = document.getElementById("cardRazorpay");
-            const codCard = document.getElementById("cardCOD");
+            if (rzpCard) rzpCard.classList.add("selected");
             const btnText = document.getElementById("payNowBtnText");
-
-            if (method === "Razorpay") {
-                rzpCard.classList.add("selected");
-                codCard.classList.remove("selected");
-                if (btnText) btnText.textContent = "Pay with Razorpay";
-            } else {
-                codCard.classList.add("selected");
-                rzpCard.classList.remove("selected");
-                if (btnText) btnText.textContent = "Place Cash on Delivery Order";
+            if (btnText && typeof finalTotal !== "undefined") {
+                btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
             }
         }
 
@@ -35388,7 +35363,7 @@ module.exports = {
 
             totalEl.textContent = `₹${finalTotal.toFixed(2)}`;
             if (countEl) countEl.textContent = totalCount;
-            if (btnText) btnText.textContent = selectedPayment === "Razorpay" ? `Pay ₹${finalTotal.toFixed(2)} via Razorpay` : "Place Cash on Delivery Order";
+            if (btnText) btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
 
             // Autofill user profile if logged in
             try {
@@ -35592,49 +35567,7 @@ module.exports = {
                 };
             }
 
-            // 1. CASH ON DELIVERY FLOW
-            if (selectedPayment === "COD") {
-                btn.disabled = true;
-                btnText.textContent = "Placing order...";
-
-                try {
-                    const res = await fetch(`${API_BASE}/api/orders`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            customerName: fullName,
-                            customerEmail: contact.includes("@") ? contact : "",
-                            customerPhone: phone || contact,
-                            orderItems,
-                            shippingAddress,
-                            billingAddress,
-                            paymentMethod: "Cash on Delivery",
-                            itemsPrice: subtotal,
-                            discountPrice: appliedDiscount,
-                            couponCode: appliedCouponCode,
-                            shippingPrice: 0,
-                            totalPrice: finalTotal
-                        })
-                    });
-
-                    const data = await res.json();
-                    if (res.ok) {
-                        finishOrder(data._id || `AF-${Math.floor(100000 + Math.random()*900000)}`, "Cash on Delivery", "N/A (Pay on Delivery)", finalTotal);
-                    } else {
-                        throw new Error(data.message || "Failed to place order");
-                    }
-                } catch(err) {
-                    console.error(err);
-                    showToast("Order placed offline successfully!");
-                    finishOrder(`AF-${Math.floor(100000 + Math.random()*900000)}`, "Cash on Delivery", "N/A", finalTotal);
-                } finally {
-                    btn.disabled = false;
-                    btnText.textContent = "Place Cash on Delivery Order";
-                }
-                return;
-            }
-
-            // 2. RAZORPAY PAYMENT FLOW
+            // RAZORPAY PAYMENT FLOW
             btn.disabled = true;
             btnText.textContent = "Connecting to Razorpay...";
 

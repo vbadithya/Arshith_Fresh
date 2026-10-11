@@ -65,8 +65,18 @@ const CATALOG_DATA = [
     price: 115,
     originalPrice: 150,
     unit: '500 ml',
-    image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533',
-    hoverImage: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533'
+    image: '/assets/images/products/mustard_oil_front.jpg',
+    hoverImage: '/assets/images/products/mustard_oil_benefits.jpg',
+    images: [
+      '/assets/images/products/mustard_oil_front.jpg',
+      '/assets/images/products/mustard_oil_benefits.jpg',
+      '/assets/images/products/mustard_oil_bowl.jpg'
+    ],
+    imageUrls: [
+      '/assets/images/products/mustard_oil_front.jpg',
+      '/assets/images/products/mustard_oil_benefits.jpg',
+      '/assets/images/products/mustard_oil_bowl.jpg'
+    ]
   },
 
   // GHEE & HONEY
@@ -170,7 +180,17 @@ const CATALOG_DATA = [
     originalPrice: 230,
     unit: '500 g',
     image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533',
-    hoverImage: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533'
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533',
+    images: [
+      'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533',
+      'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533',
+      '/assets/images/products/dates_bowl.jpg'
+    ],
+    imageUrls: [
+      'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533',
+      'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533',
+      '/assets/images/products/dates_bowl.jpg'
+    ]
   },
 
   // SPICE POWDERS / PODULU

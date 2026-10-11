@@ -715,20 +715,22 @@ document.addEventListener("DOMContentLoaded", () => {
     "price": 115,
     "originalPrice": 150,
     "unit": "500 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+    "image": "/assets/images/products/mustard_oil_front.jpg",
+    "hoverImage": "/assets/images/products/mustard_oil_benefits.jpg",
     "description": "100% Pure & authentic Mustard Oil (Premium Quality) freshly packed by Arshith Fresh.",
     "rating": 4.9,
     "numReviews": 35,
     "isFeatured": true,
     "countInStock": 40,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+      "/assets/images/products/mustard_oil_front.jpg",
+      "/assets/images/products/mustard_oil_benefits.jpg",
+      "/assets/images/products/mustard_oil_bowl.jpg"
     ],
     "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+      "/assets/images/products/mustard_oil_front.jpg",
+      "/assets/images/products/mustard_oil_benefits.jpg",
+      "/assets/images/products/mustard_oil_bowl.jpg"
     ]
   },
   {
@@ -980,14 +982,16 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
   },
   {
-      "_id": "dates-premium",
-      "id": "dates-premium",
-      "handle": "dates-premium",
+      "_id": "dates-khajoor-premium",
+      "id": "dates-khajoor-premium",
+      "handle": "dates-khajoor-premium",
+      "slug": "dates-khajoor-premium",
+      "aliases": ["dates-premium", "dates-khajoor"],
       "name": "Dates (Khajoor) (Premium Quality)",
       "title": "Dates (Khajoor) (Premium Quality)",
       "category": "Dry Fruits",
       "price": 180,
-      "originalPrice": 230,
+      "originalPrice": 225,
       "unit": "500 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
@@ -1649,19 +1653,33 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        const catalogPool = (Array.isArray(apiProducts) && apiProducts.length > 0) ? [...apiProducts] : [];
+        const rawPool = (Array.isArray(apiProducts) && apiProducts.length > 0) ? [...apiProducts] : [];
         if (typeof FALLBACK_STOREFRONT_PRODUCTS !== 'undefined' && Array.isArray(FALLBACK_STOREFRONT_PRODUCTS)) {
             FALLBACK_STOREFRONT_PRODUCTS.forEach(fbItem => {
-                const fbKey = String(fbItem.id || fbItem._id || fbItem.handle || fbItem.name || '').toLowerCase();
-                const exists = catalogPool.some(p => {
-                    const pKey = String(p.id || p._id || p.handle || p.name || '').toLowerCase();
-                    return pKey === fbKey || (pKey && fbKey && (pKey.includes(fbKey) || fbKey.includes(pKey)));
+                const fbNameKey = String(fbItem.name || fbItem.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                const fbHandleKey = String(fbItem.handle || fbItem.slug || fbItem.id || fbItem._id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                const exists = rawPool.some(p => {
+                    const pNameKey = String(p.name || p.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                    const pHandleKey = String(p.handle || p.slug || p.id || p._id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                    if (fbNameKey && pNameKey && (fbNameKey === pNameKey || fbNameKey.includes(pNameKey) || pNameKey.includes(fbNameKey))) return true;
+                    if (fbHandleKey && pHandleKey && (fbHandleKey === pHandleKey || fbHandleKey.includes(pHandleKey) || pHandleKey.includes(fbHandleKey))) return true;
+                    return false;
                 });
                 if (!exists) {
-                    catalogPool.push(fbItem);
+                    rawPool.push(fbItem);
                 }
             });
         }
+
+        // Deduplicate catalogPool by normalized product name so no two identical products ever appear
+        const catalogPool = [];
+        const seenCatalogNames = new Set();
+        rawPool.forEach(p => {
+            const norm = String(p.name || p.title || '').toLowerCase().replace(/[^a-z0-9]/g, '') || String(p.handle || p._id || '').toLowerCase();
+            if (norm && seenCatalogNames.has(norm)) return;
+            if (norm) seenCatalogNames.add(norm);
+            catalogPool.push(p);
+        });
 
         const path = window.location.pathname.toLowerCase();
 
@@ -2773,7 +2791,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     { keys: ['sesame oil', 'sesame-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
                     { keys: ['castor oil', 'castor-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
                     { keys: ['coconut oil', 'coconut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533' },
-                    { keys: ['mustard oil', 'mustard-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
+                    { keys: ['mustard oil', 'mustard-oil'], url: '/assets/images/products/mustard_oil_front.jpg' },
                     { keys: ['neem oil', 'neem-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
                     { keys: ['ghee', 'buffalo ghee'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
                     { keys: ['cashew', 'kaju'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b7e9-4467-9bb3-93cfc319c5c2.jpg?v=1757334003&width=533' },

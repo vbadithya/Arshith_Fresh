@@ -93,6 +93,56 @@
       padding: 4px 8px;
       border-radius: 12px;
     }
+    .btn-stage-cancel {
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      color: #dc2626;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .btn-stage-cancel:hover {
+      background: #fee2e2;
+      border-color: #f87171;
+      color: #b91c1c;
+      transform: translateY(-1px);
+    }
+    .shopify-table td.customer-cell,
+    .shopify-table th.customer-th {
+      white-space: normal !important;
+      vertical-align: top !important;
+      min-width: 210px !important;
+      max-width: 280px !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+    }
+    .order-address-box {
+      font-size: 11px;
+      color: #334155;
+      margin-top: 6px;
+      padding: 6px 9px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      line-height: 1.45;
+      white-space: normal !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: hidden;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 <body>
@@ -202,7 +252,7 @@
                 <th style="width: 36px;"><input type="checkbox" class="custom-checkbox" id="selectAllCheckbox" title="Select All"></th>
                 <th>Order ID</th>
                 <th>Date</th>
-                <th>Customer Details</th>
+                <th class="customer-th" style="min-width: 210px; max-width: 280px; white-space: normal;">Customer Details</th>
                 <th>Items</th>
                 <th>Total</th>
                 <th>Payment</th>
@@ -217,6 +267,59 @@
         </div>
       </div>
     </main>
+  </div>
+
+  <!-- CANCEL ORDER MODAL -->
+  <div id="cancelOrderModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); z-index:99999; align-items:center; justify-content:center; padding:16px;">
+    <div style="background:#ffffff; border-radius:12px; max-width:480px; width:100%; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); overflow:hidden; border:1px solid #e2e8f0; animation:modalFadeIn 0.2s ease-out;">
+      <div style="background:#fef2f2; border-bottom:1px solid #fee2e2; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:34px; height:34px; border-radius:50%; background:#fee2e2; color:#dc2626; display:flex; align-items:center; justify-content:center; font-size:15px;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <h3 style="margin:0; font-size:16px; font-weight:700; color:#991b1b;">Cancel Order</h3>
+            <span id="cancelOrderSubtitle" style="font-size:12px; color:#b91c1c;">Order #AF-XXXXXX</span>
+          </div>
+        </div>
+        <button type="button" onclick="closeCancelOrderModal()" style="background:none; border:none; color:#94a3b8; font-size:22px; cursor:pointer; line-height:1;">&times;</button>
+      </div>
+
+      <form id="cancelOrderForm" onsubmit="submitCancelOrder(event)" style="padding:20px;">
+        <input type="hidden" id="cancelOrderId" value="">
+        
+        <p style="margin:0 0 16px 0; font-size:13px; color:#475569; line-height:1.5;">
+          This will cancel the order, restore all reserved items back into store inventory, and <strong style="color:#0f7139;">send an email directly to the customer</strong> detailing the reason for cancellation.
+        </p>
+
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-size:12px; font-weight:700; color:#1e293b; margin-bottom:6px;">Select Reason for Cancellation <span style="color:#dc2626;">*</span></label>
+          <select id="cancelReasonPreset" onchange="onCancelReasonPresetChange()" style="width:100%; padding:9px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:13px; color:#0f172a; outline:none; background:#ffffff;">
+            <option value="Item(s) out of stock or unavailable">Item(s) out of stock or unavailable</option>
+            <option value="Customer requested cancellation">Customer requested cancellation</option>
+            <option value="Incomplete or unserviceable delivery address">Incomplete or unserviceable delivery address</option>
+            <option value="Customer unreachable on phone/email">Customer unreachable on phone/email</option>
+            <option value="Payment verification failed / Unpaid order">Payment verification failed / Unpaid order</option>
+            <option value="Logistics/Courier partner delivery unavailable in pincode">Logistics/Courier partner delivery unavailable in pincode</option>
+            <option value="Custom">Custom / Other Reason...</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <label style="display:block; font-size:12px; font-weight:700; color:#1e293b; margin-bottom:6px;">Reason Details (Sent in email to customer) <span style="color:#dc2626;">*</span></label>
+          <textarea id="cancelReasonDetails" rows="3" required style="width:100%; padding:10px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:13px; color:#0f172a; outline:none; resize:vertical; box-sizing:border-box; font-family:inherit;" placeholder="Explain why the order is being cancelled..."></textarea>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <button type="button" onclick="closeCancelOrderModal()" style="padding:9px 16px; border:1px solid #cbd5e1; background:#ffffff; color:#475569; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">
+            Nevermind
+          </button>
+          <button type="submit" id="cancelOrderSubmitBtn" style="padding:9px 18px; border:none; background:#dc2626; color:#ffffff; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:6px; box-shadow:0 2px 6px rgba(220,38,38,0.25);">
+            <i class="fa-solid fa-ban"></i> <span id="cancelSubmitBtnText">Confirm & Email Customer</span>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script src="../assets/js/admin-bulk.js"></script>
@@ -467,13 +570,13 @@
           <td><input type="checkbox" class="custom-checkbox row-checkbox" value="${order._id}"></td>
           <td><strong>#AF-${orderIdShort}</strong></td>
           <td><span style="font-size: 12px; color: #475569;">${date}</span></td>
-          <td>
-            <div style="font-weight: 700; color: #1e293b;">${customer}</div>
+          <td class="customer-cell" style="white-space:normal; vertical-align:top; min-width:210px; max-width:280px; word-break:break-word;">
+            <div style="font-weight: 700; color: #1e293b; word-break:break-word;">${customer}</div>
             ${order.customerPhone ? `<div style="font-size:11px; color:#475569; margin-top:2px;">📞 ${order.customerPhone}</div>` : ''}
-            ${order.customerEmail ? `<div style="font-size:11px; color:#475569;">✉️ ${order.customerEmail}</div>` : ''}
-            <div style="font-size:11px; color:#334155; margin-top:6px; padding:6px 8px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; line-height:1.4; max-width:280px;">
+            ${order.customerEmail ? `<div style="font-size:11px; color:#475569; word-break:break-all;">✉️ ${order.customerEmail}</div>` : ''}
+            <div class="order-address-box" style="font-size:11px; color:#334155; margin-top:6px; padding:6px 9px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; line-height:1.45; white-space:normal; word-break:break-word; overflow-wrap:anywhere; box-sizing:border-box; width:100%; max-width:100%; overflow:hidden;">
               <strong style="color:#0f7139;"><i class="fa-solid fa-location-dot"></i> Delivery Address:</strong><br>
-              ${formatShippingAddress(order.shippingAddress)}
+              <span style="display:inline-block; margin-top:2px; word-break:break-word; overflow-wrap:anywhere; white-space:normal;">${formatShippingAddress(order.shippingAddress)}</span>
             </div>
           </td>
           <td>${formatOrderItems(order.orderItems)}</td>
@@ -485,8 +588,17 @@
             </span>
           </td>
           <td style="text-align:right;">
-            <div style="display:inline-flex; align-items:center; gap:6px;">
+            <div style="display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
               ${actionCellHtml}
+              ${st !== 'Cancelled' ? `
+                <button type="button" class="btn-stage-cancel" onclick="openCancelOrderModal('${order._id}', '${orderIdShort}', '${(customer || '').replace(/'/g, "\\'")}')" title="Cancel this order & email customer">
+                  <i class="fa-solid fa-ban"></i> Cancel Order
+                </button>
+              ` : (order.cancellationReason ? `
+                <div style="font-size: 10px; color: #991b1b; background: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; padding: 2px 6px; text-align: left; max-width: 140px; line-height: 1.25; white-space: normal; word-break: break-word;" title="Reason: ${order.cancellationReason}">
+                  <strong>Reason:</strong> ${order.cancellationReason}
+                </div>
+              ` : '')}
               <button type="button" onclick="sendInvoiceEmail('${order._id}')" title="Send Invoice Email to Customer" style="padding: 5px 9px; background: #f0fdf4; color: #0f7139; border: 1px solid #bbf7d0; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
                 <i class="fa-solid fa-envelope"></i> Email Invoice
               </button>
@@ -593,18 +705,20 @@
       if (selected.length === 0) return;
 
       const ids = selected.map(o => o.id);
-      let confirmMsg = `Update status to "${newStatus}" for ${ids.length} selected order(s)?`;
+      let cancelReason = '';
       if (newStatus === 'Cancelled') {
-        confirmMsg = `⚠️ Mark ${ids.length} selected order(s) as Cancelled? All item quantities will be restored back to store inventory.`;
+        const inputReason = prompt(`⚠️ Mark ${ids.length} selected order(s) as Cancelled?\n\nAll items will be restored into store inventory.\nEnter the cancellation reason to email to customer(s):`, 'Item(s) out of stock or unavailable');
+        if (inputReason === null) return;
+        cancelReason = inputReason.trim() || 'Item(s) out of stock or unavailable';
+      } else {
+        if (!confirm(`Update status to "${newStatus}" for ${ids.length} selected order(s)?`)) return;
       }
-
-      if (!confirm(confirmMsg)) return;
 
       try {
         const res = await fetch(`${API_BASE}/orders/bulk-status`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'x-admin-dev': 'true' },
-          body: JSON.stringify({ ids, status: newStatus })
+          body: JSON.stringify({ ids, status: newStatus, cancellationReason: cancelReason, reason: cancelReason })
         });
 
         if (res.ok) {
@@ -759,10 +873,11 @@
     // Single order stage update
     async function updateOrderStatus(orderId, newStatus) {
       if (newStatus === 'Cancelled') {
-        if (!confirm('Mark this order as Cancelled? All items will automatically be returned back into store inventory.')) {
-          fetchOrders();
-          return;
-        }
+        const targetOrder = allOrders.find(o => String(o._id) === String(orderId)) || {};
+        const orderNum = String(targetOrder._id || orderId).slice(-8).toUpperCase();
+        const custName = targetOrder.customerName || (targetOrder.user && targetOrder.user.name) || 'Customer';
+        openCancelOrderModal(orderId, orderNum, custName);
+        return;
       }
 
       const targetIdStr = String(orderId);
@@ -834,9 +949,82 @@
       }
     }
 
+    // Cancellation Modal Handlers
+    function openCancelOrderModal(orderId, orderNumber, customerName) {
+      document.getElementById('cancelOrderId').value = orderId;
+      document.getElementById('cancelOrderSubtitle').textContent = `Order #AF-${orderNumber} (${customerName || 'Customer'})`;
+      const preset = document.getElementById('cancelReasonPreset');
+      preset.value = 'Item(s) out of stock or unavailable';
+      document.getElementById('cancelReasonDetails').value = preset.value;
+      const modal = document.getElementById('cancelOrderModal');
+      modal.style.display = 'flex';
+    }
+
+    function closeCancelOrderModal() {
+      const modal = document.getElementById('cancelOrderModal');
+      modal.style.display = 'none';
+    }
+
+    function onCancelReasonPresetChange() {
+      const preset = document.getElementById('cancelReasonPreset');
+      const details = document.getElementById('cancelReasonDetails');
+      if (preset.value === 'Custom') {
+        details.value = '';
+        details.placeholder = 'Please write the specific cancellation reason to be emailed to the customer...';
+        details.focus();
+      } else {
+        details.value = preset.value;
+      }
+    }
+
+    async function submitCancelOrder(e) {
+      e.preventDefault();
+      const orderId = document.getElementById('cancelOrderId').value;
+      const reason = document.getElementById('cancelReasonDetails').value.trim();
+      if (!reason) {
+        alert('Please provide a reason for cancelling this order.');
+        return;
+      }
+
+      const submitBtn = document.getElementById('cancelOrderSubmitBtn');
+      const btnText = document.getElementById('cancelSubmitBtnText');
+      submitBtn.disabled = true;
+      btnText.textContent = 'Cancelling & emailing...';
+
+      try {
+        const res = await fetch(`${API_BASE}/orders/${orderId}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'x-admin-dev': 'true' },
+          body: JSON.stringify({
+            status: 'Cancelled',
+            cancellationReason: reason,
+            reason: reason
+          })
+        });
+
+        if (res.ok) {
+          AdminToast.show('Order cancelled successfully! Email notification dispatched to customer.', 'success');
+          closeCancelOrderModal();
+          fetchOrders();
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          AdminToast.show(errData.message || 'Failed to cancel order', 'error');
+        }
+      } catch (err) {
+        AdminToast.show('Network error cancelling order', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = 'Confirm & Email Customer';
+      }
+    }
+
     window.switchFilterTab = switchFilterTab;
     window.updateOrderStatus = updateOrderStatus;
     window.sendInvoiceEmail = sendInvoiceEmail;
+    window.openCancelOrderModal = openCancelOrderModal;
+    window.closeCancelOrderModal = closeCancelOrderModal;
+    window.onCancelReasonPresetChange = onCancelReasonPresetChange;
+    window.submitCancelOrder = submitCancelOrder;
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const filterParam = urlParams.get('filter');

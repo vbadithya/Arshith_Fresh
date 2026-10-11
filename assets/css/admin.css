@@ -612,6 +612,26 @@ button, input, select, textarea {
   color: var(--text-primary);
 }
 
+.shopify-table td.customer-cell,
+.shopify-table th.customer-th {
+  white-space: normal !important;
+  vertical-align: top !important;
+  min-width: 210px !important;
+  max-width: 280px !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+.order-address-box {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
 .shopify-table tbody tr:hover {
   background-color: #f7f9fa;
 }

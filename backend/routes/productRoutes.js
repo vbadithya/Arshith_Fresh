@@ -142,20 +142,22 @@ const FALLBACK_CATALOG = [
     "price": 115,
     "originalPrice": 150,
     "unit": "500 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+    "image": "/assets/images/products/mustard_oil_front.jpg",
+    "hoverImage": "/assets/images/products/mustard_oil_benefits.jpg",
     "description": "Pungent cold-pressed raw kachi ghani mustard oil.",
     "rating": 4.9,
     "numReviews": 22,
     "isFeatured": true,
     "countInStock": 25,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+      "/assets/images/products/mustard_oil_front.jpg",
+      "/assets/images/products/mustard_oil_benefits.jpg",
+      "/assets/images/products/mustard_oil_bowl.jpg"
     ],
     "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+      "/assets/images/products/mustard_oil_front.jpg",
+      "/assets/images/products/mustard_oil_benefits.jpg",
+      "/assets/images/products/mustard_oil_bowl.jpg"
     ]
   },
   {
@@ -337,11 +339,13 @@ const FALLBACK_CATALOG = [
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533",
     "images": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533",
+      "/assets/images/products/walnuts_bowl.jpg"
     ],
     "imageUrls": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533",
+      "/assets/images/products/walnuts_bowl.jpg"
     ]
   },
   {
@@ -387,22 +391,26 @@ const FALLBACK_CATALOG = [
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533",
     "images": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533",
+      "/assets/images/products/raisins_bowl.jpg"
     ],
     "imageUrls": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533",
+      "/assets/images/products/raisins_bowl.jpg"
     ]
   },
   {
     "_id": "dry_dates_01",
-    "id": "dates-premium",
-    "handle": "dates-premium",
+    "id": "dates-khajoor-premium",
+    "handle": "dates-khajoor-premium",
+    "slug": "dates-khajoor-premium",
+    "aliases": ["dates-premium", "dates-khajoor"],
     "name": "Dates (Khajoor) (Premium Quality)",
     "title": "Dates (Khajoor) (Premium Quality)",
     "category": "Dry Fruits",
     "price": 180,
-    "originalPrice": 230,
+    "originalPrice": 225,
     "unit": "500 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
     "description": "Soft juicy seedless dates.",
@@ -412,11 +420,13 @@ const FALLBACK_CATALOG = [
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
     "images": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
+      "/assets/images/products/dates_bowl.jpg"
     ],
     "imageUrls": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
+      "/assets/images/products/dates_bowl.jpg"
     ]
   },
   
@@ -678,11 +688,13 @@ const FALLBACK_CATALOG = [
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
     "images": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
+      "/assets/images/products/cloves_bowl.jpg"
     ],
     "imageUrls": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
+      "/assets/images/products/cloves_bowl.jpg"
     ]
   },
   {
@@ -1042,7 +1054,7 @@ function formatProduct(p) {
         { keys: ['sesame oil', 'sesame-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
         { keys: ['castor'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
         { keys: ['coconut oil', 'coconut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533' },
-        { keys: ['mustard oil', 'mustard-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
+        { keys: ['mustard oil', 'mustard-oil'], url: '/assets/images/products/mustard_oil_front.jpg' },
         { keys: ['neem'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
         { keys: ['ghee', 'honey'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
         { keys: ['cashew', 'kaju'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b7e9-4467-9bb3-93cfc319c5c2.jpg?v=1757334003&width=533' },

@@ -147,6 +147,10 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ message: 'No order items provided' });
     }
 
+    if (paymentMethod === 'Cash on Delivery' || paymentMethod === 'COD') {
+      return res.status(400).json({ message: 'Cash on Delivery option has been removed. Please complete payment online via Razorpay.' });
+    }
+
     const validUser = (user && mongoose.Types.ObjectId.isValid(user)) ? user : undefined;
 
     // Consolidate duplicate products into single item entries with combined quantity
@@ -283,7 +287,17 @@ router.put('/bulk-status', async (req, res) => {
 
       order.status = newStatus;
       if (newStatus === 'Delivered') order.isDelivered = true;
+      if (newStatus === 'Cancelled') {
+        order.cancellationReason = req.body.cancellationReason || req.body.reason || 'Cancelled by store administration';
+      }
       await order.save();
+
+      // Trigger cancellation email if status transitioned to Cancelled
+      if (newStatus === 'Cancelled' && oldStatus !== 'Cancelled') {
+        sendOrderCancelledNotification({ order, reason: order.cancellationReason }).catch(err => {
+          console.error('Error dispatching bulk order cancellation notification:', err.message);
+        });
+      }
 
       // Trigger delivery email with review link if status transitioned to Delivered
       if (newStatus === 'Delivered' && oldStatus !== 'Delivered') {
@@ -369,6 +383,9 @@ router.put('/:id/status', async (req, res) => {
     }
 
     if (status) order.status = status;
+    if (newStatus === 'Cancelled') {
+      order.cancellationReason = req.body.cancellationReason || req.body.reason || order.cancellationReason || 'Cancelled by store administration';
+    }
     if (typeof isPaid === 'boolean') order.isPaid = isPaid;
     if (typeof isDelivered === 'boolean') order.isDelivered = isDelivered;
     if (status === 'Delivered') order.isDelivered = true;
@@ -384,7 +401,7 @@ router.put('/:id/status', async (req, res) => {
 
     // Trigger non-blocking cancellation notification if status was changed to Cancelled
     if (newStatus === 'Cancelled' && oldStatus !== 'Cancelled') {
-      sendOrderCancelledNotification({ order: updatedOrder }).catch(err => {
+      sendOrderCancelledNotification({ order: updatedOrder, reason: updatedOrder.cancellationReason }).catch(err => {
         console.error('Error dispatching order cancellation notifications:', err.message);
       });
     }
@@ -454,10 +471,11 @@ const cancelOrderHandler = async (req, res) => {
     }
 
     order.status = 'Cancelled';
+    order.cancellationReason = req.body.cancellationReason || req.body.reason || 'Cancelled by store administration';
     const updatedOrder = await order.save();
 
     // Trigger non-blocking Email cancellation notification to registered user
-    sendOrderCancelledNotification({ order: updatedOrder }).catch(err => {
+    sendOrderCancelledNotification({ order: updatedOrder, reason: updatedOrder.cancellationReason }).catch(err => {
       console.error('Error dispatching order cancellation email:', err.message);
     });
 
