@@ -119,7 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
             // 1. Synchronize Dropdown Menus in Navigation Header
             const dropdownMenus = document.querySelectorAll('.dropdown-menu, .drawer-submenu');
             dropdownMenus.forEach(menu => {
-                menu.innerHTML = collections.map(col => {
+                const allProductsItem = `<li><a href="${pagePrefix}collections.html?category=all" style="font-weight: 700; color: #0f7139;">All Products</a></li>`;
+                menu.innerHTML = allProductsItem + collections.map(col => {
                     const slug = col.slug || col.title.toLowerCase().replace(/\s+/g, '-');
                     let link = `${pagePrefix}collections.html?category=${encodeURIComponent(slug)}`;
                     if (slug === 'pickles') link = `${pagePrefix}categories/pickles.html`;
@@ -185,6 +186,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 circleRow.innerHTML = circleHtml;
+                circleRow.scrollLeft = 0;
+                requestAnimationFrame(() => {
+                    circleRow.scrollLeft = 0;
+                });
+                setTimeout(() => {
+                    circleRow.scrollLeft = 0;
+                }, 60);
 
                 const parentNav = circleRow.closest('.collections-top-nav-bar');
                 if (parentNav) {
@@ -3011,7 +3019,16 @@ document.addEventListener("DOMContentLoaded", () => {
             if (inCategoriesDir) pagePrefix = '../';
             else if (inPagesDir) pagePrefix = '';
 
-            slider.innerHTML = collections.map(col => {
+            const allProductsCard = `
+                <a href="${pagePrefix}collections.html?category=all" class="category-card">
+                    <div class="category-img-container">
+                        <img src="https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740" alt="All Products" class="category-img">
+                    </div>
+                    <h3 class="category-name">All Products</h3>
+                </a>
+            `;
+
+            slider.innerHTML = allProductsCard + collections.map(col => {
                 const title = col.title || "Category";
                 const img = getCanonicalColImage(col);
                 const slug = col.slug || title.toLowerCase().replace(/\s+/g, '-');
@@ -3035,6 +3052,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     </a>
                 `;
             }).join('');
+            slider.scrollLeft = 0;
+            requestAnimationFrame(() => {
+                slider.scrollLeft = 0;
+            });
+            setTimeout(() => {
+                slider.scrollLeft = 0;
+            }, 60);
         } catch (e) {
             console.error('Failed to sync storefront collections slider:', e);
         }
