@@ -6353,8 +6353,48 @@ window.closeBlogModal = closeBlogModal;
                 </div>
                 <div class="arshith-ai-body" id="arshithAiMessages"></div>
                 <form class="arshith-ai-footer" id="arshithAiForm">
+                    <!-- Voice Recording Panel with Live Sound Waves, Controls & Multilingual Language Selector -->
+                    <div class="ai-voice-panel" id="arshithAiVoicePanel">
+                        <div class="ai-voice-header">
+                            <div class="ai-voice-indicator-wrap">
+                                <div class="ai-sound-waves" aria-hidden="true">
+                                    <span class="ai-wave-bar"></span>
+                                    <span class="ai-wave-bar"></span>
+                                    <span class="ai-wave-bar"></span>
+                                    <span class="ai-wave-bar"></span>
+                                </div>
+                                <span class="ai-voice-status" id="arshithAiVoiceStatus">🎙️ Listening...</span>
+                            </div>
+                            <select class="ai-voice-lang-select" id="arshithAiVoiceLangSelect" title="Select Voice Language" aria-label="Speech Language">
+                                <option value="en-IN" selected>🌐 English (India)</option>
+                                <option value="kn-IN">🌐 ಕನ್ನಡ (Kannada)</option>
+                                <option value="hi-IN">🌐 हिन्दी (Hindi)</option>
+                                <option value="te-IN">🌐 తెలుగు (Telugu)</option>
+                                <option value="ta-IN">🌐 தமிழ் (Tamil)</option>
+                                <option value="mr-IN">🌐 मराठी (Marathi)</option>
+                                <option value="ml-IN">🌐 മലയാളം (Malayalam)</option>
+                                <option value="bn-IN">🌐 বাংলা (Bengali)</option>
+                                <option value="gu-IN">🌐 ગુજરાતી (Gujarati)</option>
+                            </select>
+                        </div>
+                        <div class="ai-voice-transcript-preview" id="arshithAiVoicePreview">Speak now, your words will appear here...</div>
+                        <div class="ai-voice-controls">
+                            <button type="button" class="ai-voice-btn stop" id="arshithAiVoiceStopBtn" title="Stop listening and keep text in box">⏹ Stop</button>
+                            <button type="button" class="ai-voice-btn cancel" id="arshithAiVoiceCancelBtn" title="Cancel voice recording">✕ Cancel</button>
+                            <button type="button" class="ai-voice-btn send" id="arshithAiVoiceSendBtn" title="Send message to AI">🚀 Send</button>
+                        </div>
+                    </div>
+
                     <div class="ai-input-wrapper">
                         <input type="text" class="ai-chat-input" id="arshithAiInput" placeholder="Ask about oils, ghee, spices, shipping..." autocomplete="off" aria-label="Type your message" />
+                        <button type="button" class="ai-mic-btn" id="arshithAiMicBtn" title="Voice search / Speak question" aria-label="Voice input">
+                            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                        </button>
                         <button type="submit" class="ai-send-btn" id="arshithAiSendBtn" aria-label="Send message">
                             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -6861,8 +6901,472 @@ window.closeBlogModal = closeBlogModal;
             appendMessage('bot', reply, matched, chips, actions);
         }
 
+        // ----------------------------------------------------
+        // VOICE INPUT / SPEECH-TO-TEXT SYSTEM (MULTILINGUAL)
+        // ----------------------------------------------------
+        const micBtn = document.getElementById('arshithAiMicBtn');
+        const voicePanel = document.getElementById('arshithAiVoicePanel');
+        const voiceStatus = document.getElementById('arshithAiVoiceStatus');
+        const voiceLangSelect = document.getElementById('arshithAiVoiceLangSelect');
+        const voicePreview = document.getElementById('arshithAiVoicePreview');
+        const voiceStopBtn = document.getElementById('arshithAiVoiceStopBtn');
+        const voiceCancelBtn = document.getElementById('arshithAiVoiceCancelBtn');
+        const voiceSendBtn = document.getElementById('arshithAiVoiceSendBtn');
+
+        let recognition = null;
+        let isListening = false;
+        let baseInputValue = '';
+        let recognizedSpeechText = '';
+        let activeAudioStream = null;
+        let audioContext = null;
+        let analyser = null;
+        let animFrameId = null;
+        let speechRestartTimeout = null;
+        let hasSpokenInSession = false;
+
+        const VOICE_LANG_STORAGE_KEY = 'arshith_ai_voice_lang';
+        let currentVoiceLang = 'en-IN';
+        try {
+            const savedLang = localStorage.getItem(VOICE_LANG_STORAGE_KEY);
+            if (savedLang) {
+                currentVoiceLang = savedLang;
+                if (voiceLangSelect) voiceLangSelect.value = savedLang;
+            }
+        } catch(e) {}
+
+        if (voiceLangSelect) {
+            voiceLangSelect.addEventListener('change', (e) => {
+                currentVoiceLang = e.target.value || 'en-IN';
+                try { localStorage.setItem(VOICE_LANG_STORAGE_KEY, currentVoiceLang); } catch(e) {}
+                if (isListening) {
+                    stopListening(true);
+                    setTimeout(() => startListening(), 200);
+                }
+            });
+        }
+
+        function isSpeechRecognitionSupported() {
+            return Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
+        }
+
+        function getLanguageName(code) {
+            const names = {
+                'en-IN': 'English',
+                'kn-IN': 'ಕನ್ನಡ',
+                'hi-IN': 'हिन्दी',
+                'te-IN': 'తెలుగు',
+                'ta-IN': 'தமிழ்',
+                'mr-IN': 'मराठी',
+                'ml-IN': 'മലയാളം',
+                'bn-IN': 'বাংলা',
+                'gu-IN': 'ગુજરાતી'
+            };
+            return names[code] || code;
+        }
+
+        function updateVoiceUI(listening, statusText, previewText) {
+            if (micBtn) {
+                if (listening) {
+                    micBtn.classList.add('listening');
+                    micBtn.setAttribute('title', 'Listening... Tap to stop');
+                } else {
+                    micBtn.classList.remove('listening');
+                    micBtn.setAttribute('title', 'Voice search / Speak question');
+                }
+            }
+
+            if (voicePanel) {
+                if (listening) {
+                    voicePanel.classList.add('active', 'listening');
+                } else {
+                    voicePanel.classList.remove('listening');
+                }
+            }
+
+            if (voiceStatus && statusText) {
+                voiceStatus.textContent = statusText;
+            }
+
+            if (voicePreview && previewText !== undefined) {
+                voicePreview.textContent = previewText || 'Speak now, your words will appear here...';
+            }
+        }
+
+        function showVoiceNotice(message, isError = false) {
+            if (voicePanel) {
+                voicePanel.classList.add('active');
+                if (voiceStatus) {
+                    voiceStatus.textContent = isError ? '⚠️ Notice' : 'ℹ️ Voice Info';
+                }
+                if (voicePreview) {
+                    voicePreview.textContent = message;
+                }
+                setTimeout(() => {
+                    if (!isListening && voicePanel) {
+                        voicePanel.classList.remove('active');
+                    }
+                }, 4000);
+            } else if (typeof showToast === 'function') {
+                showToast(message, isError ? 'error' : 'info');
+            } else {
+                alert(message);
+            }
+        }
+
+        function cleanupAudioVisualizer() {
+            if (animFrameId) {
+                cancelAnimationFrame(animFrameId);
+                animFrameId = null;
+            }
+            if (activeAudioStream) {
+                try {
+                    activeAudioStream.getTracks().forEach(t => t.stop());
+                } catch(e) {}
+                activeAudioStream = null;
+            }
+            if (audioContext && audioContext.state !== 'closed') {
+                try { audioContext.close(); } catch(e) {}
+                audioContext = null;
+            }
+            const waveBars = document.querySelectorAll('.ai-wave-bar');
+            waveBars.forEach(b => {
+                b.style.removeProperty('height');
+            });
+        }
+
+        function startAudioVisualizer(stream) {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx || !stream) return;
+
+                audioContext = new AudioCtx();
+                const source = audioContext.createMediaStreamSource(stream);
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 64;
+                source.connect(analyser);
+
+                const dataArray = new Uint8Array(analyser.frequencyBinCount);
+                const waveBars = document.querySelectorAll('.ai-wave-bar');
+
+                let soundDetectedOnce = false;
+
+                function updateMeter() {
+                    if (!isListening) return;
+                    analyser.getByteFrequencyData(dataArray);
+
+                    let sum = 0;
+                    for (let i = 0; i < dataArray.length; i++) {
+                        sum += dataArray[i];
+                    }
+                    const avg = sum / dataArray.length;
+
+                    if (avg > 8) {
+                        if (!soundDetectedOnce) {
+                            soundDetectedOnce = true;
+                            if (voiceStatus && isListening && !hasSpokenInSession) {
+                                voiceStatus.textContent = `🗣️ Hearing sound (${getLanguageName(currentVoiceLang)})...`;
+                            }
+                        }
+                    }
+
+                    if (waveBars.length > 0) {
+                        waveBars.forEach((b, idx) => {
+                            const factor = 1 + (idx % 2 === 0 ? 0.8 : 1.2);
+                            const h = Math.min(22, Math.max(4, Math.round(avg * 0.25 * factor)));
+                            b.style.height = `${h}px`;
+                        });
+                    }
+
+                    animFrameId = requestAnimationFrame(updateMeter);
+                }
+                updateMeter();
+            } catch(e) {
+                console.warn('Audio visualizer init error:', e);
+            }
+        }
+
+        function initRecognitionInstance() {
+            const SpeechRecConstructor = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecConstructor) return null;
+
+            try {
+                const rec = new SpeechRecConstructor();
+                rec.continuous = false;
+                rec.interimResults = true;
+                rec.maxAlternatives = 1;
+                rec.lang = currentVoiceLang || 'en-IN';
+
+                rec.onstart = () => {
+                    isListening = true;
+                    updateVoiceUI(true, `🎙️ Listening (${getLanguageName(currentVoiceLang)})...`, 'Listening... Speak now!');
+                };
+
+                rec.onaudiostart = () => {
+                    if (isListening && !hasSpokenInSession) {
+                        updateVoiceUI(true, `🎙️ Mic Connected (${getLanguageName(currentVoiceLang)})`, 'Listening... Speak now!');
+                    }
+                };
+
+                rec.onspeechstart = () => {
+                    hasSpokenInSession = true;
+                    if (isListening) {
+                        updateVoiceUI(true, `🗣️ Voice Detected (${getLanguageName(currentVoiceLang)})`, 'Converting speech to text...');
+                    }
+                };
+
+                rec.onresult = (event) => {
+                    hasSpokenInSession = true;
+                    let interim = '';
+                    let finalStr = '';
+
+                    for (let i = 0; i < event.results.length; ++i) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalStr += transcript + ' ';
+                        } else {
+                            interim += transcript;
+                        }
+                    }
+
+                    const combined = (finalStr || interim).trim();
+                    if (combined) {
+                        recognizedSpeechText = combined;
+
+                        if (voicePreview) {
+                            voicePreview.textContent = combined;
+                            voicePreview.style.fontStyle = 'normal';
+                            voicePreview.style.color = '#0f7139';
+                            voicePreview.style.fontWeight = '600';
+                        }
+
+                        if (input) {
+                            const prefix = baseInputValue ? (baseInputValue + ' ') : '';
+                            input.value = prefix + combined;
+                        }
+                    }
+                };
+
+                rec.onerror = (event) => {
+                    console.warn('Speech recognition error event:', event.error);
+                    const err = event.error;
+
+                    if (err === 'no-speech') {
+                        if (isListening && !hasSpokenInSession) {
+                            updateVoiceUI(true, `🎙️ Still Listening (${getLanguageName(currentVoiceLang)})...`, 'Speak clearly into your microphone...');
+                            return;
+                        }
+                    }
+
+                    if (err === 'not-allowed' || err === 'permission-denied') {
+                        isListening = false;
+                        cleanupAudioVisualizer();
+                        updateVoiceUI(false, '❌ Mic Denied', '');
+                        showVoiceNotice('Microphone access was denied. Please allow microphone permission in your browser site settings (click the lock icon in address bar) to use voice input, or type below.', true);
+                        return;
+                    }
+
+                    if (err === 'audio-capture') {
+                        isListening = false;
+                        cleanupAudioVisualizer();
+                        updateVoiceUI(false, '❌ No Mic Found', '');
+                        showVoiceNotice('No microphone found on your device. Please connect a microphone or use keyboard typing.', true);
+                        return;
+                    }
+
+                    if (err === 'network') {
+                        isListening = false;
+                        cleanupAudioVisualizer();
+                        updateVoiceUI(false, '❌ Network Error', '');
+                        showVoiceNotice('Speech recognition network error. Please check your internet connection or type below.', true);
+                        return;
+                    }
+
+                    if (err !== 'aborted') {
+                        updateVoiceUI(false, '⚠️ Voice Notice', '');
+                        showVoiceNotice(`Voice recognition (${err}). You can edit the text in the box or type directly.`, false);
+                    }
+                };
+
+                rec.onend = () => {
+                    if (isListening) {
+                        const captured = (input ? input.value : '') || recognizedSpeechText;
+                        if (captured && captured.trim()) {
+                            isListening = false;
+                            cleanupAudioVisualizer();
+                            updateVoiceUI(false, '✅ Voice Captured!', `Captured: "${captured.trim()}"`);
+                            if (input) {
+                                input.focus();
+                                const len = input.value.length;
+                                input.setSelectionRange(len, len);
+                            }
+                        } else {
+                            if (speechRestartTimeout) clearTimeout(speechRestartTimeout);
+                            speechRestartTimeout = setTimeout(() => {
+                                if (isListening) {
+                                    try {
+                                        rec.start();
+                                    } catch(e) {
+                                        console.warn('Restart speech error:', e);
+                                    }
+                                }
+                            }, 150);
+                        }
+                    } else {
+                        cleanupAudioVisualizer();
+                    }
+                };
+
+                return rec;
+            } catch(e) {
+                console.error('SpeechRecognition instantiation error:', e);
+                return null;
+            }
+        }
+
+        async function startListening() {
+            if (!isSpeechRecognitionSupported()) {
+                showVoiceNotice('Voice speech recognition is not supported in this browser. Please use Chrome, Edge, or Android Chrome, or type your message below.', true);
+                if (input) input.focus();
+                return;
+            }
+
+            if (isListening) {
+                stopListening(true);
+                return;
+            }
+
+            baseInputValue = input ? input.value.trim() : '';
+            recognizedSpeechText = '';
+            hasSpokenInSession = false;
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                try {
+                    activeAudioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    startAudioVisualizer(activeAudioStream);
+                } catch(permErr) {
+                    console.warn('getUserMedia permission error:', permErr);
+                    if (permErr.name === 'NotAllowedError' || permErr.name === 'PermissionDeniedError') {
+                        showVoiceNotice('Microphone access was denied. Please allow microphone permission in your browser address bar (click lock icon) to use voice search.', true);
+                        return;
+                    }
+                }
+            }
+
+            try {
+                if (recognition) {
+                    try { recognition.abort(); } catch(e) {}
+                }
+                recognition = initRecognitionInstance();
+                if (!recognition) {
+                    showVoiceNotice('Could not initialize speech recognition. Please type your message.', true);
+                    return;
+                }
+                if (voicePanel) voicePanel.classList.add('active');
+                updateVoiceUI(true, `🎙️ Listening (${getLanguageName(currentVoiceLang)})...`, 'Listening... Speak now!');
+                recognition.start();
+            } catch(e) {
+                console.warn('Recognition start exception:', e);
+                isListening = false;
+                cleanupAudioVisualizer();
+                updateVoiceUI(false);
+                showVoiceNotice('Could not start microphone. Please check browser microphone permissions.', true);
+            }
+        }
+
+        function stopListening(keepOpen = true) {
+            isListening = false;
+            cleanupAudioVisualizer();
+            if (speechRestartTimeout) clearTimeout(speechRestartTimeout);
+
+            if (recognition) {
+                try { recognition.stop(); } catch(e) {}
+            }
+
+            setTimeout(() => {
+                const finalVal = (input ? input.value : '') || recognizedSpeechText;
+                updateVoiceUI(false, '⏹ Finished', finalVal ? `Captured: "${finalVal}"` : 'Done listening.');
+                if (!keepOpen && voicePanel) {
+                    voicePanel.classList.remove('active');
+                }
+                if (input) {
+                    input.focus();
+                    const len = input.value.length;
+                    input.setSelectionRange(len, len);
+                }
+            }, 250);
+        }
+
+        function cancelListening() {
+            isListening = false;
+            cleanupAudioVisualizer();
+            if (speechRestartTimeout) clearTimeout(speechRestartTimeout);
+
+            if (recognition) {
+                try { recognition.abort(); } catch(e) {}
+            }
+            if (input) {
+                input.value = baseInputValue;
+            }
+            recognizedSpeechText = '';
+            updateVoiceUI(false);
+            if (voicePanel) {
+                voicePanel.classList.remove('active');
+            }
+        }
+
+        function sendRecognizedVoice() {
+            stopListening(false);
+            if (voicePanel) voicePanel.classList.remove('active');
+            setTimeout(() => {
+                const textToSend = (input ? input.value.trim() : '') || recognizedSpeechText.trim();
+                if (textToSend) {
+                    if (input) input.value = '';
+                    handleUserQuery(textToSend);
+                } else {
+                    showVoiceNotice('Please speak your question first or type below before sending.', false);
+                }
+            }, 200);
+        }
+
+        if (micBtn) {
+            micBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (isListening) {
+                    stopListening(true);
+                } else {
+                    startListening();
+                }
+            });
+        }
+
+        if (voiceStopBtn) {
+            voiceStopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                stopListening(true);
+            });
+        }
+
+        if (voiceCancelBtn) {
+            voiceCancelBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                cancelListening();
+            });
+        }
+
+        if (voiceSendBtn) {
+            voiceSendBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                sendRecognizedVoice();
+            });
+        }
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            if (isListening) {
+                stopListening(false);
+            }
+            if (voicePanel) voicePanel.classList.remove('active');
             const text = input.value.trim();
             if (text) {
                 input.value = '';

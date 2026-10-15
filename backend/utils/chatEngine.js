@@ -155,63 +155,63 @@ const CATALOG_MAP = [
     nameMatch: /mustard oil/i,
     category: 'Oils',
     canonical: 'Mustard Oil (Premium Quality)',
-    synonyms: ['mustard oil', 'mustard', 'musturd oil', 'musturd', 'mustrad oil', 'mustrad', 'mustred oil', 'mustred', 'mustared oil', 'mustared', 'masted oil', 'sarson oil', 'sarson', 'sarso oil', 'sarso', 'avalu noone', 'rai oil']
+    synonyms: ['mustard oil', 'mustard', 'musturd oil', 'musturd', 'mustrad oil', 'mustrad', 'mustred oil', 'mustred', 'mustared oil', 'mustared', 'masted oil', 'sarson oil', 'sarson', 'sarso oil', 'sarso', 'avalu noone', 'rai oil', 'ಸಾಸಿವೆ ಎಣ್ಣೆ', 'ಸಾಸಿವೆ', 'सरसों तेल', 'सरसों का तेल', 'सरसों', 'ఆవనూనె', 'கடுகு எண்ணெய்', 'मोहरी तेल']
   },
   {
     key: 'sesame_oil',
     nameMatch: /sesame oil/i,
     category: 'Oils',
     canonical: 'Sesame Oil (Premium Quality)',
-    synonyms: ['sesame oil', 'sesame', 'seame oil', 'seame', 'sesme oil', 'sesme', 'sesam oil', 'sesam', 'seseme oil', 'seseme', 'gingelly oil', 'gingelly', 'til oil', 'til', 'nuvvula noone', 'nuvvula oil']
+    synonyms: ['sesame oil', 'sesame', 'seame oil', 'seame', 'sesme oil', 'sesme', 'sesam oil', 'sesam', 'seseme oil', 'seseme', 'gingelly oil', 'gingelly', 'til oil', 'til', 'nuvvula noone', 'nuvvula oil', 'ಎಳ್ಳೆಣ್ಣೆ', 'ಎಳ್ಳು ಎಣ್ಣೆ', 'ತಿಲ ತೈಲ', 'तिल का तेल', 'तिल तेल', 'నువ్వుల నూనె', 'நல்லெண்ணெய்', 'तीळ तेल']
   },
   {
     key: 'groundnut_oil',
     nameMatch: /groundnut oil/i,
     category: 'Oils',
     canonical: 'Groundnut Oil (Premium Quality)',
-    synonyms: ['groundnut oil', 'groundnut', 'ground nut oil', 'ground nut', 'peanut oil', 'peanut', 'peanuts', 'mungfali oil', 'mungfali', 'verusenaga noone', 'palli oil', 'palli noone']
+    synonyms: ['groundnut oil', 'groundnut', 'ground nut oil', 'ground nut', 'peanut oil', 'peanut', 'peanuts', 'mungfali oil', 'mungfali', 'verusenaga noone', 'palli oil', 'palli noone', 'ಕಡಲೆಕಾಯಿ ಎಣ್ಣೆ', 'ಕಡಲೆಕಾಯಿ', 'ಶೇಂಗಾ ಎಣ್ಣೆ', 'मूंगफली तेल', 'मूंगफली का तेल', 'मूंगफली', 'వేరుశనగ నూనె', 'పల్లీ నూనె', 'கடலை எண்ணெய்', 'வேர்க்கடலை எண்ணெய்', 'शेंगदाणा तेल']
   },
   {
     key: 'coconut_oil',
     nameMatch: /coconut oil/i,
     category: 'Oils',
     canonical: 'Coconut Oil (Premium Quality)',
-    synonyms: ['coconut oil', 'coconut', 'coco nut oil', 'coco nut', 'coconet oil', 'coconet', 'cocnut oil', 'cocnut', 'nariyal tel', 'nariyal oil', 'kobbari noone', 'kobbari oil']
+    synonyms: ['coconut oil', 'coconut', 'coco nut oil', 'coco nut', 'coconet oil', 'coconet', 'cocnut oil', 'cocnut', 'nariyal tel', 'nariyal oil', 'kobbari noone', 'kobbari oil', 'ತೆಂಗಿನ ಎಣ್ಣೆ', 'ತೆಂಗಿನಕಾಯಿ ಎಣ್ಣೆ', 'ನಾರಿಯಲ್ ತೈಲ', 'नारियल तेल', 'नारियल का तेल', 'కొబ్బరి నూనె', 'தேங்காய் எண்ணெய்', 'खोबरेल तेल']
   },
   {
     key: 'sunflower_oil',
     nameMatch: /sunflower oil/i,
     category: 'Oils',
     canonical: 'Sunflower Oil (Premium Quality)',
-    synonyms: ['sunflower oil', 'sunflower', 'sun flower oil', 'sun flower', 'sunflour oil', 'sunflour', 'surajmukhi oil']
+    synonyms: ['sunflower oil', 'sunflower', 'sun flower oil', 'sun flower', 'sunflour oil', 'sunflour', 'surajmukhi oil', 'ಸೂರ್ಯಕಾಂತಿ ಎಣ್ಣೆ', 'ಸೂರ್ಯಕಾಂತಿ', 'सूरजमुखी तेल', 'सూర్యకాంతి నూనె', 'சூரியகாந்தி எண்ணெய்', 'सूर्यफूल तेल']
   },
   {
     key: 'castor_oil',
     nameMatch: /castor oil/i,
     category: 'Oils',
     canonical: 'Castor Oil (Premium Quality)',
-    synonyms: ['castor oil', 'castor', 'caster oil', 'caster', 'amudham', 'amudham noone', 'arandi oil', 'arandi']
+    synonyms: ['castor oil', 'castor', 'caster oil', 'caster', 'amudham', 'amudham noone', 'arandi oil', 'arandi', 'ಹರಳೆಣ್ಣೆ', 'ಔಡಲ ಎಣ್ಣೆ', 'ಆಮುದ', 'अरंडी तेल', 'अरंडी का तेल', 'ఆముదం', 'ஆமணக்கு எண்ணெய்', 'एरंडेल तेल']
   },
   {
     key: 'cow_ghee',
     nameMatch: /cow ghee/i,
     category: 'Ghee',
     canonical: 'Pure Cow Ghee (Premium Quality)',
-    synonyms: ['cow ghee', 'cow bilona', 'a2 cow ghee', 'a2 cow', 'desi cow ghee', 'aavu neyyi', 'cow butter']
+    synonyms: ['cow ghee', 'cow bilona', 'a2 cow ghee', 'a2 cow', 'desi cow ghee', 'aavu neyyi', 'cow butter', 'ಹಸುವಿನ ತುಪ್ಪ', 'ತುಪ್ಪ', 'ದೇಶಿ ತುಪ್ಪ', 'गाय का घी', 'देशी घी', 'घी', 'ఆవు నెయ్యి', 'నెయ్యి', 'நெய்', 'நாட்டு பசு நெய்', 'गायीचे तूप', 'तूप']
   },
   {
     key: 'buffalo_ghee',
     nameMatch: /buffalo ghee/i,
     category: 'Ghee',
     canonical: 'Pure Buffalo Ghee (Premium Quality)',
-    synonyms: ['buffalo ghee', 'buffallo ghee', 'buffelo ghee', 'barre neyyi', 'bhains ghee']
+    synonyms: ['buffalo ghee', 'buffallo ghee', 'buffelo ghee', 'barre neyyi', 'bhains ghee', 'ಎಮ್ಮೆ ತುಪ್ಪ', 'भैंस का घी', 'గేదె నెయ్యి', 'எருமை நெய்', 'म्हैशीचे तूप']
   },
   {
     key: 'honey',
     nameMatch: /natural honey/i,
     category: 'Honey',
     canonical: 'Pure Natural Honey (Raw Wild Honey) (Premium Quality)',
-    synonyms: ['honey', 'raw honey', 'wild honey', 'natural honey', 'theni', 'shahad', 'madhu']
+    synonyms: ['honey', 'raw honey', 'wild honey', 'natural honey', 'theni', 'shahad', 'madhu', 'ಜೇನುತುಪ್ಪ', 'ಜೇನು', 'ಶುದ್ಧ ಜೇನು', 'शहद', 'తేనె', 'தேன்', 'मध']
   },
   {
     key: 'almond',
@@ -461,7 +461,7 @@ function formatProduct(p) {
 
 // Resolve user query against catalog taxonomy
 function resolveCatalogItem(query) {
-  const clean = (query || '').trim().toLowerCase().replace(/[^a-z0-9\s]/gi, ' ');
+  const clean = (query || '').trim().toLowerCase().replace(/[^\p{L}\p{M}\p{N}\s]/gu, ' ');
   const tokens = clean.split(/\s+/).filter(t => t.length >= 2 && ![
     'what', 'are', 'the', 'for', 'you', 'have', 'and', 'with', 'from', 'our',
     'items', 'item', 'price', 'cost', 'show', 'buy', 'is', 'there', 'any',
@@ -494,7 +494,7 @@ function resolveCatalogItem(query) {
         return { item, type: 'EXACT_FULL', score: 1000, matchedOn: syn };
       }
 
-      if (syn.includes(' ') && clean.includes(syn)) {
+      if (clean.includes(syn) && (syn.includes(' ') || (!CATEGORY_STOPWORDS.includes(syn) && syn.length >= 3))) {
         const s = 600 + syn.length * 10;
         if (s > bestScore) {
           bestScore = s;
@@ -739,7 +739,8 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
   // 2.5 Explicit Cart Query Handler (e.g. "show my cart list", "show my cart", "my cart", "view cart", "what is in my cart")
   const isCartQuery = (
     /\b(cart\s*list|show.*cart|view.*cart|open.*cart|check.*cart|see.*cart|display.*cart|my\s*cart|in\s*(my\s*)?cart|added\s*to\s*(my\s*)?cart|cart\s*items|items\s*in\s*(my\s*)?cart|cart\s*total|cart\s*summary|my\s*bag|shopping\s*cart|what.*in.*cart)\b/i.test(lower) ||
-    /^(cart|my cart|show cart|view cart|cart list|show my cart|show my cart list|open cart|see cart|check cart)$/i.test(lower.trim())
+    /^(cart|my cart|show cart|view cart|cart list|show my cart|show my cart list|open cart|see cart|check cart)$/i.test(lower.trim()) ||
+    /(ಕಾರ್ಟ್|ಕಾರ್ಟು|ನನ್ನ ಕಾರ್ಟ್|ತೋರಿಸಿ.*ಕಾರ್ಟ್|ನಾವು ಕಾರ್ಟ್ ಮಾಡಿರೋದು|कार्ट|मेरा कार्ट|गाड़ी दिखाओ|కార్ట్|నా కార్ట్|கார்ட்|என் கார்ட்)/i.test(lower)
   ) && !/(how to\s*(add|remove|delete)|how do i\s*(add|remove)|can i return|why|policy|damaged|track)/i.test(lower);
 
   if (isCartQuery) {
