@@ -1,0 +1,894 @@
+const Faq = require('../models/Faq');
+const Product = require('../models/Product');
+const BotSettings = require('../models/BotSettings');
+const FAQ_DATA = require('../data/faqData');
+
+// In-memory cache for fast response times
+let faqCache = [];
+let cacheTimestamp = 0;
+const CACHE_TTL_MS = 60000; // 1 minute
+
+async function getFaqs() {
+  const now = Date.now();
+  if (faqCache.length > 0 && (now - cacheTimestamp) < CACHE_TTL_MS) {
+    return faqCache;
+  }
+  try {
+    const dbFaqs = await Faq.find({ isPublished: true }).sort({ order: 1 }).lean();
+    if (dbFaqs && dbFaqs.length > 0) {
+      faqCache = dbFaqs;
+      cacheTimestamp = now;
+      return faqCache;
+    }
+  } catch (err) {
+    console.warn('⚠️ Could not fetch FAQs from MongoDB, using fallback data:', err.message);
+  }
+  faqCache = FAQ_DATA;
+  cacheTimestamp = now;
+  return faqCache;
+}
+
+function invalidateFaqCache() {
+  faqCache = [];
+  cacheTimestamp = 0;
+}
+
+async function getBotSettings() {
+  try {
+    const settings = await BotSettings.findOne({ key: 'default' }).lean();
+    if (settings) return settings;
+  } catch (err) {
+    console.warn('⚠️ Could not fetch BotSettings from DB, using defaults:', err.message);
+  }
+  return {
+    greeting: "Hii! 👋 Welcome to Arshith Fresh! I'm your AI shopping assistant. How can I help you today?",
+    quickActions: [
+      { label: 'Shop Products', action: 'chat', value: 'What products do you sell?' },
+      { label: 'Product Information', action: 'chat', value: 'What products are available?' },
+      { label: 'Orders & Delivery', action: 'chat', value: 'How long does delivery take?' },
+      { label: 'Payment Help', action: 'chat', value: 'Which payment methods are supported?' },
+      { label: 'Returns & Cancellations', action: 'chat', value: 'What is your return policy?' },
+      { label: 'Offers & Discounts', action: 'chat', value: 'Are there any current offers?' },
+      { label: 'Talk to Support', action: 'chat', value: 'How can I contact a human support agent?' }
+    ],
+    storePolicies: {
+      freeShippingThreshold: 1000,
+      deliveryTimeDays: '3 to 5 business days',
+      returnWindowDays: 7,
+      supportEmail: 'support@arshithfresh.com',
+      supportPhone: '+91 9945676029',
+      supportHours: 'Mon-Sat, 9:00 AM - 7:00 PM IST',
+      whatsappUrl: 'https://api.whatsapp.com/send/?phone=919945676029&text=Hi%20Arshith%20Fresh!'
+    }
+  };
+}
+
+// Tokenize and normalize input string
+function tokenize(text) {
+  return (text || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(t => t.length > 1);
+}
+
+// Calculate similarity score between user query and FAQ
+function calculateMatchScore(queryText, faq) {
+  const queryLower = queryText.toLowerCase().trim();
+  const qTokens = tokenize(queryText);
+  if (qTokens.length === 0) return 0;
+
+  // Exact question match
+  if (faq.question.toLowerCase() === queryLower) return 100;
+
+  let score = 0;
+
+  // Question substring check (only when query has at least 2 words)
+  const faqQLower = faq.question.toLowerCase();
+  if (qTokens.length >= 2 && (faqQLower.includes(queryLower) || queryLower.includes(faqQLower))) {
+    score += 45;
+  }
+
+  // Keywords matching
+  if (faq.keywords && Array.isArray(faq.keywords)) {
+    for (const kw of faq.keywords) {
+      const kwLower = kw.toLowerCase().trim();
+      if (queryLower === kwLower) {
+        score += 55;
+      } else if (kwLower.includes(' ') && queryLower.includes(kwLower)) {
+        score += 35;
+      } else if (!kwLower.includes(' ') && qTokens.includes(kwLower) && kwLower.length >= 3) {
+        score += 20;
+      } else {
+        const kwTokens = tokenize(kwLower);
+        const matchCount = kwTokens.filter(t => qTokens.includes(t)).length;
+        if (matchCount > 0 && matchCount === kwTokens.length) {
+          score += 25;
+        } else if (matchCount >= 2 && kwTokens.length >= 3) {
+          score += (matchCount / kwTokens.length) * 15;
+        }
+      }
+    }
+  }
+
+  // Question word overlap
+  const faqQTokens = tokenize(faq.question);
+  const matchedTokens = qTokens.filter(t => faqQTokens.includes(t));
+  if (matchedTokens.length > 0) {
+    const overlapRatio = matchedTokens.length / Math.max(qTokens.length, faqQTokens.length);
+    if (overlapRatio >= 0.3) {
+      score += overlapRatio * 30;
+    }
+  }
+
+  return score;
+}
+
+// Levenshtein distance calculation for typo tolerance
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+  const matrix = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+// Canonical catalog registry for Arshith Fresh (41 items)
+const CATALOG_MAP = [
+  {
+    key: 'mustard_oil',
+    nameMatch: /mustard oil/i,
+    category: 'Oils',
+    canonical: 'Mustard Oil (Premium Quality)',
+    synonyms: ['mustard oil', 'mustard', 'musturd oil', 'musturd', 'mustrad oil', 'mustrad', 'mustred oil', 'mustred', 'mustared oil', 'mustared', 'masted oil', 'sarson oil', 'sarson', 'sarso oil', 'sarso', 'avalu noone', 'rai oil']
+  },
+  {
+    key: 'sesame_oil',
+    nameMatch: /sesame oil/i,
+    category: 'Oils',
+    canonical: 'Sesame Oil (Premium Quality)',
+    synonyms: ['sesame oil', 'sesame', 'seame oil', 'seame', 'sesme oil', 'sesme', 'sesam oil', 'sesam', 'seseme oil', 'seseme', 'gingelly oil', 'gingelly', 'til oil', 'til', 'nuvvula noone', 'nuvvula oil']
+  },
+  {
+    key: 'groundnut_oil',
+    nameMatch: /groundnut oil/i,
+    category: 'Oils',
+    canonical: 'Groundnut Oil (Premium Quality)',
+    synonyms: ['groundnut oil', 'groundnut', 'ground nut oil', 'ground nut', 'peanut oil', 'peanut', 'peanuts', 'mungfali oil', 'mungfali', 'verusenaga noone', 'palli oil', 'palli noone']
+  },
+  {
+    key: 'coconut_oil',
+    nameMatch: /coconut oil/i,
+    category: 'Oils',
+    canonical: 'Coconut Oil (Premium Quality)',
+    synonyms: ['coconut oil', 'coconut', 'coco nut oil', 'coco nut', 'coconet oil', 'coconet', 'cocnut oil', 'cocnut', 'nariyal tel', 'nariyal oil', 'kobbari noone', 'kobbari oil']
+  },
+  {
+    key: 'sunflower_oil',
+    nameMatch: /sunflower oil/i,
+    category: 'Oils',
+    canonical: 'Sunflower Oil (Premium Quality)',
+    synonyms: ['sunflower oil', 'sunflower', 'sun flower oil', 'sun flower', 'sunflour oil', 'sunflour', 'surajmukhi oil']
+  },
+  {
+    key: 'castor_oil',
+    nameMatch: /castor oil/i,
+    category: 'Oils',
+    canonical: 'Castor Oil (Premium Quality)',
+    synonyms: ['castor oil', 'castor', 'caster oil', 'caster', 'amudham', 'amudham noone', 'arandi oil', 'arandi']
+  },
+  {
+    key: 'cow_ghee',
+    nameMatch: /cow ghee/i,
+    category: 'Ghee',
+    canonical: 'Pure Cow Ghee (Premium Quality)',
+    synonyms: ['cow ghee', 'cow bilona', 'a2 cow ghee', 'a2 cow', 'desi cow ghee', 'aavu neyyi', 'cow butter']
+  },
+  {
+    key: 'buffalo_ghee',
+    nameMatch: /buffalo ghee/i,
+    category: 'Ghee',
+    canonical: 'Pure Buffalo Ghee (Premium Quality)',
+    synonyms: ['buffalo ghee', 'buffallo ghee', 'buffelo ghee', 'barre neyyi', 'bhains ghee']
+  },
+  {
+    key: 'honey',
+    nameMatch: /natural honey/i,
+    category: 'Honey',
+    canonical: 'Pure Natural Honey (Raw Wild Honey) (Premium Quality)',
+    synonyms: ['honey', 'raw honey', 'wild honey', 'natural honey', 'theni', 'shahad', 'madhu']
+  },
+  {
+    key: 'almond',
+    nameMatch: /almonds/i,
+    category: 'Dry Fruits',
+    canonical: 'Almonds (Badam) (Premium Quality)',
+    synonyms: ['almond', 'almonds', 'badam', 'baadam', 'almod', 'badampappu', 'badam pappu']
+  },
+  {
+    key: 'cashew',
+    nameMatch: /cashew nuts/i,
+    category: 'Dry Fruits',
+    canonical: 'Cashew Nuts (Kaju) (Premium Quality)',
+    synonyms: ['cashew', 'cashews', 'kaju', 'caaju', 'cashewnut', 'cashewnuts', 'jeedipappu', 'jeedi pappu']
+  },
+  {
+    key: 'walnut',
+    nameMatch: /walnuts/i,
+    category: 'Dry Fruits',
+    canonical: 'Walnuts (Akhrot) (Premium Quality)',
+    synonyms: ['walnut', 'walnuts', 'akhrot', 'akroot', 'akhroot', 'akhrot giri']
+  },
+  {
+    key: 'pistachio',
+    nameMatch: /pistachio/i,
+    category: 'Dry Fruits',
+    canonical: 'Pistachio (With Shell) (Premium Quality)',
+    synonyms: ['pistachio', 'pistachios', 'pista', 'pistas', 'piste']
+  },
+  {
+    key: 'figs',
+    nameMatch: /figs/i,
+    category: 'Dry Fruits',
+    canonical: 'Figs (Dry Anjeer) (Premium Quality)',
+    synonyms: ['fig', 'figs', 'anjeer', 'anjir', 'dry anjeer', 'atti pazham']
+  },
+  {
+    key: 'dates',
+    nameMatch: /dates/i,
+    category: 'Dry Fruits',
+    canonical: 'Dates (Khajoor) (Premium Quality)',
+    synonyms: ['date', 'dates', 'khajoor', 'khajur']
+  },
+  {
+    key: 'raisins',
+    nameMatch: /raisins/i,
+    category: 'Dry Fruits',
+    canonical: 'Raisins (Kishmish) (Premium Quality)',
+    synonyms: ['raisin', 'raisins', 'kishmish', 'kismis', 'kismish', 'endu draksha']
+  },
+  {
+    key: 'chia_seeds',
+    nameMatch: /chia seeds/i,
+    category: 'Seeds',
+    canonical: 'Chia Seeds (Premium Quality)',
+    synonyms: ['chia', 'chia seeds', 'cheea']
+  },
+  {
+    key: 'flax_seeds',
+    nameMatch: /flax seeds/i,
+    category: 'Seeds',
+    canonical: 'Flax Seeds (Premium Quality)',
+    synonyms: ['flax', 'flax seeds', 'alsi', 'avise', 'avise ginjalu']
+  },
+  {
+    key: 'pumpkin_seeds',
+    nameMatch: /pumpkin seeds/i,
+    category: 'Seeds',
+    canonical: 'Pumpkin Seeds (Premium Quality)',
+    synonyms: ['pumpkin seeds', 'pumpkin seed', 'kaddu seeds', 'gummadi ginjalu']
+  },
+  {
+    key: 'sunflower_seeds',
+    nameMatch: /sunflower seeds/i,
+    category: 'Seeds',
+    canonical: 'Sunflower Seeds (Premium Quality)',
+    synonyms: ['sunflower seeds', 'sunflower seed']
+  },
+  {
+    key: 'watermelon_seeds',
+    nameMatch: /watermelon seeds/i,
+    category: 'Seeds',
+    canonical: 'Watermelon Seeds (Premium Quality)',
+    synonyms: ['watermelon seeds', 'watermelon seed', 'tarbooj', 'puchakaya ginjalu']
+  },
+  {
+    key: 'sabja_seeds',
+    nameMatch: /sabja seeds/i,
+    category: 'Seeds',
+    canonical: 'Sabja Seeds (Basil Seeds) (Premium Quality)',
+    synonyms: ['sabja', 'sabja seeds', 'basil seeds', 'tukmaria', 'falooda seeds']
+  },
+  {
+    key: 'sesame_seeds',
+    nameMatch: /sesame seeds/i,
+    category: 'Seeds',
+    canonical: 'Sesame Seeds (Til) (Premium Quality)',
+    synonyms: ['sesame seeds', 'til seeds', 'nuvvulu', 'nuvulu']
+  },
+  {
+    key: 'cinnamon',
+    nameMatch: /cinnamon/i,
+    category: 'Spices',
+    canonical: 'Cinnamon (Kerala Style) (Premium Quality)',
+    synonyms: ['cinnamon', 'cinamon', 'dalchini', 'dalcheeni', 'lavangapatta']
+  },
+  {
+    key: 'clove',
+    nameMatch: /cloves/i,
+    category: 'Spices',
+    canonical: 'Cloves (Lavangalu) (Premium Quality)',
+    synonyms: ['clove', 'cloves', 'lavangalu', 'lavang', 'laung', 'lavangam']
+  },
+  {
+    key: 'cardamom',
+    nameMatch: /cardamom/i,
+    category: 'Spices',
+    canonical: 'Cardamom (Elaichi) (Premium Quality)',
+    synonyms: ['cardamom', 'cardamoms', 'cardomom', 'elaichi', 'elachi', 'yelakkai']
+  },
+  {
+    key: 'star_anise',
+    nameMatch: /star anise/i,
+    category: 'Spices',
+    canonical: 'Star Anise (Anasa Puvvu) (Premium Quality)',
+    synonyms: ['star anise', 'anasa puvvu', 'chakra phool']
+  },
+  {
+    key: 'pepper_whole',
+    nameMatch: /black pepper \(whole\)/i,
+    category: 'Spices',
+    canonical: 'Black Pepper (Whole) (Premium Quality)',
+    synonyms: ['black pepper whole', 'whole pepper', 'sabut kali mirch', 'miriyalu']
+  },
+  {
+    key: 'pepper_powder',
+    nameMatch: /black pepper powder/i,
+    category: 'Spices',
+    canonical: 'Black Pepper Powder (Premium Quality)',
+    synonyms: ['black pepper powder', 'pepper powder', 'kali mirch powder', 'miriyala podi']
+  },
+  {
+    key: 'coriander_powder',
+    nameMatch: /coriander powder/i,
+    category: 'Spices',
+    canonical: 'Coriander Powder (Dhania) (Premium Quality)',
+    synonyms: ['coriander powder', 'coriander', 'dhania', 'dhaniya', 'dhaniyala podi']
+  },
+  {
+    key: 'garam_masala',
+    nameMatch: /garam masala powder/i,
+    category: 'Spices',
+    canonical: 'Garam Masala Powder (Premium Quality)',
+    synonyms: ['garam masala', 'garam masala powder']
+  },
+  {
+    key: 'chilli_powder',
+    nameMatch: /^chilli powder \(premium quality\)/i,
+    category: 'Spices',
+    canonical: 'Chilli Powder (Premium Quality)',
+    synonyms: ['chilli powder', 'chili powder', 'mirchi powder', 'red chilli powder', 'karam podi']
+  },
+  {
+    key: 'chilli_powder_soft',
+    nameMatch: /chilli powder \(soft grinding\)/i,
+    category: 'Spices',
+    canonical: 'Chilli Powder (Soft Grinding) (Premium Quality)',
+    synonyms: ['soft grinding chilli', 'fine chilli powder']
+  },
+  {
+    key: 'red_chillies_guntur',
+    nameMatch: /red chillies \(guntur\)/i,
+    category: 'Spices',
+    canonical: 'Red Chillies (Guntur) (Premium Quality)',
+    synonyms: ['guntur chilli', 'guntur chillies', 'guntur mirchi', 'guntur red chilli', 'guntur']
+  },
+  {
+    key: 'red_chillies_byadgi',
+    nameMatch: /red chillies \(byadgi\)/i,
+    category: 'Spices',
+    canonical: 'Red Chillies (Byadgi) (Premium Quality)',
+    synonyms: ['byadgi chilli', 'byadgi chillies', 'byadagi', 'byadgi mirchi', 'byadgi']
+  },
+  {
+    key: 'pappula_podi',
+    nameMatch: /pappula podi/i,
+    category: 'Traditional Podis',
+    canonical: 'Chana Dal Spice Powder / Pappula Podi (Premium Quality)',
+    synonyms: ['pappula podi', 'chana dal podi', 'pappula karam', 'roasted gram podi']
+  },
+  {
+    key: 'kobbari_karam',
+    nameMatch: /kobbari karam/i,
+    category: 'Traditional Podis',
+    canonical: 'Kobbari Karam Podi (Premium Quality)',
+    synonyms: ['kobbari karam', 'coconut karam', 'kobbari karam podi']
+  },
+  {
+    key: 'nalla_karam',
+    nameMatch: /nalla karam/i,
+    category: 'Traditional Podis',
+    canonical: 'Nalla Karam Podi (Premium Quality)',
+    synonyms: ['nalla karam', 'nalla karam podi', 'black karam']
+  },
+  {
+    key: 'garlic_powder',
+    nameMatch: /garlic powder/i,
+    category: 'Traditional Podis',
+    canonical: 'Garlic Powder / Vellulli Karam Podi (Premium Quality)',
+    synonyms: ['garlic powder', 'vellulli karam', 'vellulli karam podi', 'garlic karam', 'lahsun podi']
+  },
+  {
+    key: 'karivepaku_karam',
+    nameMatch: /karivepaku karam/i,
+    category: 'Traditional Podis',
+    canonical: 'Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)',
+    synonyms: ['karivepaku', 'karivepaku karam', 'curry leaf powder', 'curry leaves karam', 'karivepaku podi']
+  },
+  {
+    key: 'besan',
+    nameMatch: /besan flour/i,
+    category: 'Flours',
+    canonical: 'Besan Flour Soft Grinding (Premium Quality)',
+    synonyms: ['besan', 'besan flour', 'gram flour', 'senagapindi', 'chana flour']
+  }
+];
+
+// Helper to format product data for chat frontend
+function formatProduct(p) {
+  if (!p) return null;
+  let img = p.image || (p.images && p.images[0] ? p.images[0].url : '/assets/images/placeholder.svg');
+  if (img && !img.startsWith('http://') && !img.startsWith('https://') && !img.startsWith('/')) {
+    img = '/' + img;
+  }
+  return {
+    id: p.id || p.handle || (p._id ? p._id.toString() : ''),
+    handle: p.handle || p.id || (p._id ? p._id.toString() : ''),
+    name: p.name || p.title || 'Arshith Fresh Product',
+    price: Number(p.price || 0),
+    originalPrice: Number(p.originalPrice || 0),
+    unit: p.unit || '',
+    image: img,
+    countInStock: typeof p.countInStock === 'number' ? p.countInStock : 50,
+    category: p.category || 'General'
+  };
+}
+
+// Resolve user query against catalog taxonomy
+function resolveCatalogItem(query) {
+  const clean = (query || '').trim().toLowerCase().replace(/[^a-z0-9\s]/gi, ' ');
+  const tokens = clean.split(/\s+/).filter(t => t.length >= 2 && !['what', 'are', 'the', 'for', 'you', 'have', 'and', 'with', 'from', 'our', 'items', 'item', 'price', 'cost', 'show', 'buy', 'is', 'there', 'any', 'tell', 'me', 'about', 'can', 'get'].includes(t));
+
+  const CATEGORY_STOPWORDS = ['oil', 'oils', 'seeds', 'seed', 'powder', 'ghee', 'dry', 'fruit', 'fruits', 'karam', 'podi'];
+  const distinctiveTokens = tokens.filter(t => !CATEGORY_STOPWORDS.includes(t));
+
+  let requiredCategory = null;
+  if (/\boil\b|\boils\b/i.test(clean)) requiredCategory = 'Oils';
+  else if (/\bghee\b/i.test(clean)) requiredCategory = 'Ghee';
+  else if (/\bseed\b|\bseeds\b/i.test(clean)) requiredCategory = 'Seeds';
+  else if (/\bdry fruits?\b|\bnuts?\b/i.test(clean)) requiredCategory = 'Dry Fruits';
+  else if (/\bspices?\b/i.test(clean)) requiredCategory = 'Spices';
+  else if (/\bpodis?\b|\bkaram\b/i.test(clean)) requiredCategory = 'Traditional Podis';
+
+  let bestScore = 0;
+  let bestCandidate = null;
+
+  for (const item of CATALOG_MAP) {
+    // If query strictly specifies category, only evaluate products in that category
+    if (requiredCategory && item.category !== requiredCategory) continue;
+
+    for (const syn of item.synonyms) {
+      if (clean === syn) {
+        return { item, type: 'EXACT_FULL', score: 1000, matchedOn: syn };
+      }
+
+      if (syn.includes(' ') && clean.includes(syn)) {
+        const s = 600 + syn.length * 10;
+        if (s > bestScore) {
+          bestScore = s;
+          bestCandidate = { item, type: 'EXACT_PHRASE', score: s, matchedOn: syn };
+        }
+      }
+
+      const synDistinctive = syn.split(/\s+/).filter(t => !CATEGORY_STOPWORDS.includes(t));
+      if (distinctiveTokens.length > 0 && synDistinctive.length > 0) {
+        let matchedTokens = 0;
+        for (const uTok of distinctiveTokens) {
+          if (synDistinctive.includes(uTok)) {
+            matchedTokens += 1.0;
+          } else {
+            for (const sTok of synDistinctive) {
+              if (Math.abs(uTok.length - sTok.length) <= 1) {
+                const d = levenshtein(uTok, sTok);
+                const maxAllowed = sTok.length <= 5 ? 1 : 2;
+                if (d <= maxAllowed) {
+                  matchedTokens += 0.85;
+                  break;
+                }
+              }
+            }
+          }
+        }
+
+        if (matchedTokens > 0) {
+          const overlapRatio = matchedTokens / Math.max(distinctiveTokens.length, synDistinctive.length);
+          const score = (matchedTokens * 150) + (overlapRatio * 150);
+          if (score > bestScore) {
+            bestScore = score;
+            bestCandidate = { item, type: 'DISTINCTIVE_TOKEN_SCORE', score, matchedOn: syn };
+          }
+        }
+      }
+    }
+  }
+
+  if (bestCandidate && bestScore >= 120) {
+    return bestCandidate;
+  }
+
+  // Check for specific products requested that are NOT available in inventory
+  if (/\boil\b|\boils\b/i.test(clean) && distinctiveTokens.length > 0) {
+    return { type: 'UNAVAILABLE_SPECIFIC', category: 'Oils', requested: distinctiveTokens.join(' ') };
+  }
+  if (/\bghee\b/i.test(clean) && distinctiveTokens.length > 0) {
+    return { type: 'UNAVAILABLE_SPECIFIC', category: 'Ghee', requested: distinctiveTokens.join(' ') };
+  }
+
+  // Broad category requests
+  if (/\boil\b|\boils\b/i.test(clean)) return { type: 'CATEGORY', category: 'Oils' };
+  if (/dry fruits?|nuts?/i.test(clean)) return { type: 'CATEGORY', category: 'Dry Fruits' };
+  if (/spices?|masala/i.test(clean)) return { type: 'CATEGORY', category: 'Spices' };
+  if (/seeds?/i.test(clean)) return { type: 'CATEGORY', category: 'Seeds' };
+  if (/podis?|karam/i.test(clean)) return { type: 'CATEGORY', category: 'Traditional Podis' };
+
+  return null;
+}
+
+// Search live products from MongoDB based on keywords with typo tolerance and relevance ranking
+async function findLiveProducts(searchTerm, limit = 4) {
+  if (!searchTerm || typeof searchTerm !== 'string') return [];
+  const clean = searchTerm.trim().toLowerCase();
+  if (!clean) return [];
+
+  try {
+    const products = await Product.find({}).lean();
+    if (!products || products.length === 0) return [];
+
+    const resolved = resolveCatalogItem(clean);
+    if (resolved) {
+      if (resolved.item) {
+        const exact = products.find(p => resolved.item.nameMatch.test(p.name));
+        return exact ? [formatProduct(exact)] : [];
+      }
+      if (resolved.type === 'CATEGORY') {
+        const catProds = products.filter(p => {
+          const matchItem = CATALOG_MAP.find(m => m.nameMatch.test(p.name));
+          return matchItem && matchItem.category === resolved.category;
+        });
+        return catProds.slice(0, limit).map(formatProduct);
+      }
+      if (resolved.type === 'UNAVAILABLE_SPECIFIC') {
+        return [];
+      }
+    }
+
+    // Fallback: token-based match on product names
+    const tokens = clean.replace(/[^a-z0-9\s]/gi, ' ').split(/\s+/).filter(t => t.length >= 3);
+    const scored = [];
+    for (const p of products) {
+      const pName = (p.name || '').toLowerCase();
+      let score = 0;
+      for (const tok of tokens) {
+        if (pName.includes(tok)) score += 50;
+      }
+      if (score >= 50) scored.push({ p, score });
+    }
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, limit).map(s => formatProduct(s.p));
+  } catch (err) {
+    console.warn('⚠️ Product query error in chatEngine:', err.message);
+    return [];
+  }
+}
+
+// Main conversation resolver
+async function processUserMessage(userMessage, context = {}) {
+  const text = (userMessage || '').trim();
+  const lower = text.toLowerCase();
+  const faqs = await getFaqs();
+  const settings = await getBotSettings();
+
+  // 1. Check for greeting (Hii, hello, hey, start, good morning)
+  if (/^(hi|hii|hello|hey|start|good morning|good evening|good afternoon|namaste|hlo)\b/i.test(lower) && lower.split(/\s+/).length <= 4) {
+    return {
+      reply: settings.greeting,
+      category: 'GREETINGS',
+      chips: settings.quickActions.map(a => a.label),
+      products: [],
+      quickActions: settings.quickActions,
+      matchedFaq: 'Hii, hello, good morning, good evening',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'greeting' }
+    };
+  }
+
+  // 2. Explicit Quick Action Handlers for the 7 Main Chatbot Buttons
+  if (/^shop products?$|^start shopping$/i.test(lower)) {
+    const liveProds = await findLiveProducts('oils', 4);
+    return {
+      reply: `🛒 **Welcome to Arshith Fresh Store!**\nExplore our curated selection of 100% natural, cold-pressed oils, pure A2 desi cow ghee, stone-ground spices, and organic groceries below. You can add items directly to your cart or click to view details.`,
+      category: 'PRODUCTS',
+      chips: ['What products are available?', 'Do you sell groceries and food essentials?', 'How do I add a product to my cart?', 'Are there any current offers?'],
+      products: liveProds,
+      quickActions: [{ label: 'View All Collections', action: 'url', value: '/pages/collections.html' }],
+      matchedFaq: 'What products are available?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'PRODUCTS', lastProductSearch: 'oil' }
+    };
+  }
+
+  if (/^product information$|^product info$/i.test(lower)) {
+    const liveProds = await findLiveProducts('oils', 3);
+    return {
+      reply: `🌿 **Arshith Fresh Product Catalog:**\nWe specialize in 100% pure, farm-fresh essentials:\n• **Cold-Pressed Oils:** Wood-pressed Groundnut, Coconut, Sesame, Mustard, Sunflower, Castor Oil (zero chemicals, zero trans fat)\n• **Pure Bilona Ghee:** Handcrafted A2 Desi Cow Ghee & Buffalo Ghee\n• **Authentic Spices:** Stone-ground Turmeric, Chilli powder, Coriander, Karampodi\n• **Natural Sweeteners:** Raw Honey\n• **Groceries:** Premium Dry Fruits, Nuts & Healthy Seeds`,
+      category: 'PRODUCTS',
+      chips: ['What products are available?', 'How do I check a product\'s price?', 'How do I check ingredients or product specifications?', 'Is this product currently available?'],
+      products: liveProds,
+      quickActions: [{ label: 'View All Collections', action: 'url', value: '/pages/collections.html' }],
+      matchedFaq: 'What products do you sell?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'PRODUCTS' }
+    };
+  }
+
+  if (/^orders? & delivery$|^orders? and delivery$/i.test(lower)) {
+    return {
+      reply: `📦 **Orders & Delivery Information:**\n• **Delivery Timeline:** Orders are dispatched within 24-48 hours and arrive in **3 to 5 business days** across India.\n• **FREE Shipping:** Automatically applied on all orders of **₹1,000** or more!\n• **Live Tracking:** Real-time SMS & WhatsApp updates are sent as soon as your parcel is shipped.\n• **Locations:** We ship pan-India to all serviceable pincodes.`,
+      category: 'ORDERS_DELIVERY',
+      chips: ['How do I check my order status?', 'How long does delivery take?', 'Do you deliver to my location?', 'Where can I find my order ID?'],
+      products: [],
+      quickActions: [{ label: 'Track on WhatsApp', action: 'url', value: settings.storePolicies.whatsappUrl }],
+      matchedFaq: 'How long does delivery take?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'ORDERS_DELIVERY' }
+    };
+  }
+
+  if (/^payment help$|^payment assistance$/i.test(lower)) {
+    return {
+      reply: `💳 **Payment & Billing Help:**\n• **Supported Online Methods:** UPI (Google Pay, PhonePe, Paytm, BHIM), Credit/Debit Cards (Visa, MasterCard, RuPay), Net Banking, and Wallets via secure gateway.\n• **Cash on Delivery (COD):** Cash on Delivery is **not available**. All orders must be paid 100% online prior to dispatch.\n• **Failed Payment Protection:** If money was deducted for an unconfirmed order, it automatically reverses within 24-48 bank hours. Reach our team on WhatsApp if you need instant verification!`,
+      category: 'PAYMENTS',
+      chips: ['Which payment methods are supported?', 'Is cash on delivery available?', 'Why did my payment fail?', 'What should I do if money was deducted but the order was not confirmed?'],
+      products: [],
+      quickActions: [{ label: 'Payment Support', action: 'url', value: settings.storePolicies.whatsappUrl }],
+      matchedFaq: 'Which payment methods are supported?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'PAYMENTS' }
+    };
+  }
+
+  // Explicit Cash on Delivery / COD Query Handler
+  if (/(cash on delivery|cod|pay on delivery|pay cash|pay with cash|cash delivery|want cash|need cash)/i.test(lower)) {
+    return {
+      reply: `🚫 **Cash on Delivery (COD) is NOT Available**\n\nWe do **not** offer Cash on Delivery. To guarantee priority express packaging, hygienic handling, and fast dispatch, Arshith Fresh accepts **100% secure online payments only**:\n\n• 📱 **UPI**: Google Pay, PhonePe, Paytm, BHIM, and any bank UPI app\n• 💳 **Credit & Debit Cards**: Visa, MasterCard, RuPay, Maestro\n• 🏦 **Net Banking**: All major Indian banks\n• 👛 **Wallets**: Paytm, Mobikwik, Freecharge\n\n✨ **Special Savings**: Apply coupon code **WELCOME10** at checkout for **10% OFF** your online order!`,
+      category: 'PAYMENTS',
+      chips: ['Which payment methods are supported?', 'Are there any current offers?', 'How long does delivery take?'],
+      products: [],
+      quickActions: [{ label: 'Shop Products', action: 'url', value: '/pages/collections.html' }],
+      matchedFaq: 'Is cash on delivery available?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'PAYMENTS' }
+    };
+  }
+
+  if (/^returns? & cancellations?$|^returns? and cancellations?$/i.test(lower)) {
+    return {
+      reply: `🔄 **Returns, Refunds & Cancellations:**\n• **7-Day Guarantee:** We offer hassle-free replacement or full refund if you receive a damaged, leaked, or wrong product.\n• **Cancellations:** You can cancel an order before it is dispatched by contacting our support team with your Order ID.\n• **How to Request:** WhatsApp us at **+91 9945676029** or email **support@arshithfresh.com** with photos of the unboxed package.\n• **Refund Timeline:** Approved refunds process within 3 to 5 business days to your original payment method.`,
+      category: 'RETURNS_REFUNDS',
+      chips: ['What is your return policy?', 'Can I return a product?', 'How do I request a refund?', 'Can I cancel an order after confirmation?'],
+      products: [],
+      quickActions: [{ label: 'WhatsApp Return Desk', action: 'url', value: settings.storePolicies.whatsappUrl }],
+      matchedFaq: 'What is your return policy?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'RETURNS_REFUNDS' }
+    };
+  }
+
+  if (/^offers? & discounts?$|^offers? and discounts?$/i.test(lower)) {
+    return {
+      reply: `🎉 **Current Exclusive Offers & Discounts:**\n• **10% OFF Welcome Coupon:** Use code **WELCOME10** or **SAVE10** at checkout for flat 10% off your order!\n• **FREE Shipping:** Automatically applied on every cart with subtotal of ₹1,000 or more.\n• **Bulk Discounts:** Custom pricing and special discounts available for wholesale, festive, or bulk orders.`,
+      category: 'OFFERS',
+      chips: ['How do I apply a coupon?', 'Are discounts available for bulk purchases?', 'How do I check the final price after discounts?', 'Shop Products'],
+      products: [],
+      quickActions: [{ label: 'Shop with WELCOME10', action: 'url', value: '/pages/collections.html' }],
+      matchedFaq: 'Are there any current offers?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'OFFERS' }
+    };
+  }
+
+  if (/^talk to support$|^speak to (human|agent|support)$|^contact support$/i.test(lower)) {
+    return {
+      reply: `👨‍💼 **Arshith Fresh Customer Care Team:**\nOur dedicated support team is available **Monday through Saturday, 9:00 AM to 7:00 PM IST**.\n\n• **WhatsApp Direct Chat:** [+91 9945676029](https://wa.me/919945676029) or [+91 8618471424](https://wa.me/918618471424)\n• **Email Support:** support@arshithfresh.com\n• **Order Assistance:** Please share your Order ID or registered mobile number for faster resolution.`,
+      category: 'ACCOUNT_TECH',
+      chips: ['How do I check my order status?', 'What should I do if I receive a damaged product?', 'How long does delivery take?'],
+      products: [],
+      quickActions: [
+        { label: 'Chat on WhatsApp', action: 'url', value: 'https://wa.me/919945676029' },
+        { label: 'Email Support', action: 'url', value: 'mailto:support@arshithfresh.com' }
+      ],
+      matchedFaq: 'How do I contact customer support?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'ACCOUNT_TECH', needsEscalation: true }
+    };
+  }
+
+  // 3. Precision Catalog & Product Intent Resolver
+  const catalogMatch = resolveCatalogItem(text);
+
+  if (catalogMatch) {
+    try {
+      const allProducts = await Product.find({}).lean();
+
+      // Case A: Exact Specific Catalog Product Match (e.g. "musturd oil", "sesame oil", "badam", "cow ghee")
+      if (catalogMatch.item) {
+        const matchedProduct = allProducts.find(p => catalogMatch.item.nameMatch.test(p.name));
+        if (matchedProduct) {
+          const formatted = formatProduct(matchedProduct);
+          const isPriceInquiry = /price|cost|how much|rate/i.test(lower);
+          const replyText = isPriceInquiry
+            ? `**${formatted.name}** is available for **₹${formatted.price}** (${formatted.unit || ''})${formatted.originalPrice ? ` [MRP: ₹${formatted.originalPrice}]` : ''} and is currently **In Stock** directly from our inventory:`
+            : `Here are our verified natural products matching **"${text}"** directly from our inventory:`;
+
+          return {
+            reply: replyText,
+            category: 'PRODUCTS',
+            chips: ['Are there any current offers?', 'How long does delivery take?', 'Which payment methods are supported?'],
+            products: [formatted],
+            quickActions: [{ label: 'View All Collections', action: 'url', value: '/pages/collections.html' }],
+            matchedFaq: 'Live Product Search',
+            confidence: 0.95,
+            context: {
+              ...context,
+              lastProductSearch: formatted.name,
+              lastProductId: formatted.id,
+              lastIntent: 'PRODUCTS'
+            }
+          };
+        }
+      }
+
+      // Case B: Broad Category Inquiry (e.g. "oils", "what oils do you have", "dry fruits", "spices", "seeds")
+      if (catalogMatch.type === 'CATEGORY') {
+        const catProducts = allProducts
+          .filter(p => {
+            const m = CATALOG_MAP.find(item => item.nameMatch.test(p.name));
+            return m && m.category === catalogMatch.category;
+          })
+          .map(formatProduct);
+
+        return {
+          reply: `Here are our verified 100% natural cold-pressed **${catalogMatch.category.toLowerCase()}** directly from our inventory:`,
+          category: 'PRODUCTS',
+          chips: ['Are there any current offers?', 'How long does delivery take?', 'Talk to Support'],
+          products: catProducts.slice(0, 6),
+          quickActions: [{ label: 'View All Collections', action: 'url', value: '/pages/collections.html' }],
+          matchedFaq: `Category: ${catalogMatch.category}`,
+          confidence: 0.95,
+          context: { ...context, lastIntent: 'PRODUCTS', lastProductSearch: catalogMatch.category }
+        };
+      }
+
+      // Case C: Unavailable Specific Product in Known Category (e.g. "olive oil", "avocado oil", "neem oil")
+      if (catalogMatch.type === 'UNAVAILABLE_SPECIFIC') {
+        if (catalogMatch.category === 'Oils') {
+          return {
+            reply: `We currently do not stock **${catalogMatch.requested} oil** in our inventory.\n\nWe specialize in 100% pure, chemical-free cold-pressed traditional oils including:\n• **Groundnut Oil**\n• **Sesame Oil (Gingelly / Til)**\n• **Coconut Oil**\n• **Sunflower Oil**\n• **Mustard Oil**\n• **Castor Oil**\n\nWould you like to explore any of these pure cold-pressed oils?`,
+            category: 'PRODUCTS',
+            chips: ['Show all oils', 'Shop Products', 'Talk to Support'],
+            products: [],
+            quickActions: [{ label: 'View Available Oils', action: 'url', value: '/pages/collections.html' }],
+            matchedFaq: 'Unavailable Product Inquiry',
+            confidence: 0.9,
+            context: { ...context, lastIntent: 'PRODUCTS' }
+          };
+        }
+      }
+    } catch (err) {
+      console.warn('⚠️ Catalog resolution database lookup error:', err.message);
+    }
+  }
+
+  // 4. Intent matching against the 76 FAQs
+  let bestFaq = null;
+  let highestScore = 0;
+
+  for (const faq of faqs) {
+    if (faq.category === 'GREETINGS' && faq.question.toLowerCase().includes('hii') && !/^(hi|hii|hello|hey|start|good morning|good evening|good afternoon|namaste|hlo|greetings)\b/i.test(lower)) {
+      continue;
+    }
+    const score = calculateMatchScore(text, faq);
+    if (score > highestScore) {
+      highestScore = score;
+      bestFaq = faq;
+    }
+  }
+
+  // 5. Context resolution: If user asks follow-up like "what is the price?" with product in previous context
+  if (context.lastProductSearch && (/price|cost|how much|in stock|available|buy|details/i.test(lower))) {
+    const ctxProds = await findLiveProducts(context.lastProductSearch, 1);
+    if (ctxProds.length > 0) {
+      const p = ctxProds[0];
+      return {
+        reply: `**${p.name}** is available for **₹${p.price}** (${p.unit || ''})${p.originalPrice ? ` [MRP: ₹${p.originalPrice}]` : ''} and is currently **In Stock**.`,
+        category: 'PRODUCTS',
+        chips: ['How do I add to cart?', 'How long does delivery take?', 'Talk to Support'],
+        products: [p],
+        quickActions: [{ label: 'Shop Now', action: 'url', value: '/pages/collections.html' }],
+        matchedFaq: 'Context Product Followup',
+        confidence: 0.95,
+        context: { ...context, lastProductSearch: p.name }
+      };
+    }
+  }
+
+  // 6. High confidence FAQ match (score >= 28)
+  if (bestFaq && highestScore >= 28) {
+    let relatedProducts = [];
+    if (bestFaq.category === 'PRODUCTS' || /product|price|available|buy|shop/i.test(lower)) {
+      relatedProducts = await findLiveProducts('oils', 3);
+    }
+
+    Faq.findByIdAndUpdate(bestFaq._id, { $inc: { viewsCount: 1 } }).catch(() => {});
+
+    return {
+      reply: bestFaq.answer,
+      category: bestFaq.category,
+      chips: bestFaq.followUps && bestFaq.followUps.length > 0 ? bestFaq.followUps : ['Shop Products', 'Orders & Delivery', 'Talk to Support'],
+      products: relatedProducts,
+      quickActions: bestFaq.quickActions || [],
+      matchedFaq: bestFaq.question,
+      confidence: Math.min(1.0, highestScore / 100),
+      context: {
+        ...context,
+        lastIntent: bestFaq.category
+      }
+    };
+  }
+
+  // 7. Safe intelligent fallback (Uncertain / Unknown Query)
+  const fallbackReply = `I want to make sure you get the exact information! While I couldn't find an exact match for **"${text}"**, I'm constantly learning.\n\nCould you please rephrase your question, or would you like to speak directly with an Arshith Fresh support executive on WhatsApp?`;
+
+  return {
+    reply: fallbackReply,
+    category: 'UNKNOWN',
+    chips: [
+      'What products do you sell?',
+      'How long does delivery take?',
+      'Which payment methods are supported?',
+      'Talk to Support'
+    ],
+    products: [],
+    quickActions: [
+      { label: 'Chat with Human Support', action: 'url', value: settings.storePolicies.whatsappUrl }
+    ],
+    matchedFaq: null,
+    confidence: 0.0,
+    isUnresolved: true,
+    unresolvedText: text,
+    context: { ...context, lastIntent: 'unknown' }
+  };
+}
+
+module.exports = {
+  getFaqs,
+  getBotSettings,
+  invalidateFaqCache,
+  processUserMessage,
+  findLiveProducts
+};

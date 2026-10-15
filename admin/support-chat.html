@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Support & FAQ Management - Arshith Fresh Admin</title>
+
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    .support-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .support-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .kpi-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .kpi-icon.green { background: #e8f5e9; color: #0f7139; }
+    .kpi-icon.blue { background: #e0f2fe; color: #0284c7; }
+    .kpi-icon.amber { background: #fef3c7; color: #d97706; }
+    .kpi-icon.purple { background: #f3e8ff; color: #9333ea; }
+    .kpi-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+    .nav-tab-btn {
+      padding: 10px 18px;
+      background: transparent;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      border-bottom: 2.5px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-tab-btn.active {
+      color: #0f7139;
+      border-bottom-color: #0f7139;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .category-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .cat-pill {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: #475569;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .cat-pill:hover, .cat-pill.active {
+      background: #0f7139;
+      color: #ffffff;
+      border-color: #0f7139;
+    }
+
+    .chat-transcript-box {
+      max-height: 400px;
+      overflow-y: auto;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .transcript-bubble {
+      max-width: 85%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .transcript-bubble.user {
+      align-self: flex-end;
+      background: #0f7139;
+      color: #ffffff;
+      border-bottom-right-radius: 2px;
+    }
+    .transcript-bubble.bot {
+      align-self: flex-start;
+      background: #ffffff;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      border-bottom-left-radius: 2px;
+    }
+    .transcript-time {
+      font-size: 10px;
+      opacity: 0.7;
+      margin-top: 3px;
+      text-align: right;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      padding: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. GLOBAL TOP HEADER -->
+  <header class="global-topbar">
+    <div class="topbar-left">
+      <div class="shopify-logo">
+        <svg viewBox="0 0 109.5 124.5">
+          <path d="M74.7 14.1c-.2 0-.4.1-.5.1-.2-.8-.6-1.5-1.1-2.2-2.1-2.9-5.7-4.4-10.7-4.4-1.2 0-2.5.1-3.7.4-4.8 1.1-9.4 3.9-13.6 8.3-3 3.1-6.1 7.6-7.8 11.2-.8 1.7-1.5 3.3-2.1 4.7l-15.6 4.8c-4.8 1.5-5 1.9-5.6 6.9L.1 113.1c-.5 4.3 2.5 8 6.8 8.4.4 0 .9 0 1.3-.1l74-15.3c4.5-.9 7.7-4.9 7.4-9.5l-14.9-82.5z"/>
+        </svg>
+        <span>admin</span>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <div class="search-box-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="topGlobalSearch" class="global-search-input" placeholder="Search support chats, FAQs, customers...">
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <a href="../index.html" target="_blank" class="btn-view-as" style="text-decoration:none; color:inherit;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <span>View Store</span>
+      </a>
+      <div class="store-profile-dropdown">
+        <div class="store-avatar">AF</div>
+        <span class="store-name-text">Support Admin</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. MAIN LAYOUT -->
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-menu">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Dashboard</span>
+          </div>
+        </a>
+        <a href="orders.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span>Orders</span>
+          </div>
+        </a>
+        <a href="products.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55L16.5 14.6a1.78 1.78 0 0 0 0-3.2z"></path></svg>
+            <span>Products</span>
+          </div>
+        </a>
+        <a href="customers.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            <span>Customers</span>
+          </div>
+        </a>
+        <a href="discounts.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            <span>Discounts</span>
+          </div>
+        </a>
+        <a href="banners.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-image" style="font-size:16px;"></i>
+            <span>Home Page Banners</span>
+          </div>
+        </a>
+        <a href="reviews.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Reviews</span>
+          </div>
+        </a>
+        <!-- Active Chatbot & Support Section -->
+        <a href="support-chat.html" class="menu-item active">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>AI Support & FAQs</span>
+          </div>
+          <span class="badge-count" id="sidebarEscalatedBadge" style="background:#ef4444; color:#fff;">0</span>
+        </a>
+      </div>
+      <div class="sidebar-bottom">
+        <div style="padding: 10px 14px; background: #e2e8f0; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #334155;">
+          <div style="width: 8px; height: 8px; border-radius: 50%; background: #22c55e;"></div>
+          <span>AI Support Engine Live</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport -->
+    <main class="main-viewport">
+      <div class="page-top-header">
+        <div class="page-title-row">
+          <h1>AI Customer Support & Knowledge Base</h1>
+          <div class="page-actions">
+            <button type="button" class="btn btn-primary" id="openAddFaqModalBtn">
+              <i class="fa-solid fa-plus"></i> Add New FAQ
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="support-kpis">
+        <div class="kpi-card">
+          <div class="kpi-icon green"><i class="fa-solid fa-book-bookmark"></i></div>
+          <div>
+            <div class="kpi-num" id="totalFaqsKpi">76</div>
+            <div class="kpi-label">Active FAQs</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon blue"><i class="fa-solid fa-comments"></i></div>
+          <div>
+            <div class="kpi-num" id="totalChatsKpi">0</div>
+            <div class="kpi-label">Total Conversations</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon amber"><i class="fa-solid fa-headset"></i></div>
+          <div>
+            <div class="kpi-num" id="activeChatsKpi">0</div>
+            <div class="kpi-label">Active Sessions</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon purple"><i class="fa-solid fa-circle-question"></i></div>
+          <div>
+            <div class="kpi-num" id="unresolvedKpi">0</div>
+            <div class="kpi-label">Escalated Queries</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="nav-tabs">
+        <button class="nav-tab-btn active" data-tab="faqsTab">
+          <i class="fa-solid fa-list-check"></i> Manage 76+ FAQs
+        </button>
+        <button class="nav-tab-btn" data-tab="conversationsTab">
+          <i class="fa-solid fa-message"></i> Customer Conversations
+        </button>
+        <button class="nav-tab-btn" data-tab="escalationsTab">
+          <i class="fa-solid fa-bell"></i> Unanswered & Escalations
+        </button>
+        <button class="nav-tab-btn" data-tab="settingsTab">
+          <i class="fa-solid fa-sliders"></i> Bot Policies & Greeting
+        </button>
+      </div>
+
+      <!-- TAB 1: FAQS MANAGEMENT -->
+      <section id="faqsTab" class="tab-content active">
+        <div class="analytics-card" style="margin-bottom: 20px;">
+          <!-- Category Filter Pills -->
+          <div class="category-pills">
+            <button class="cat-pill active" data-cat="ALL">All Categories (76+)</button>
+            <button class="cat-pill" data-cat="GREETINGS">Greetings & General (8)</button>
+            <button class="cat-pill" data-cat="PRODUCTS">Products & Quality (12)</button>
+            <button class="cat-pill" data-cat="CART_CHECKOUT">Cart & Checkout (10)</button>
+            <button class="cat-pill" data-cat="ORDERS_DELIVERY">Orders & Delivery (13)</button>
+            <button class="cat-pill" data-cat="PAYMENTS">Payments & Billing (8)</button>
+            <button class="cat-pill" data-cat="RETURNS_REFUNDS">Returns & Refunds (9)</button>
+            <button class="cat-pill" data-cat="OFFERS_DISCOUNTS">Offers & Discounts (6)</button>
+            <button class="cat-pill" data-cat="ACCOUNT_TECH">Account & Tech Support (8)</button>
+          </div>
+
+          <!-- Search Box -->
+          <div style="display:flex; gap:12px; margin-bottom: 16px;">
+            <input type="text" id="faqSearchInput" class="form-control" placeholder="Search questions, answers, or keywords..." style="flex:1;">
+            <button type="button" class="btn btn-secondary" id="searchFaqBtn">Search</button>
+          </div>
+
+          <!-- FAQs Table -->
+          <div class="table-responsive">
+            <table class="data-table" id="faqsTable">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">#</th>
+                  <th style="width: 140px;">Category</th>
+                  <th>Customer Question</th>
+                  <th>Verified Answer Snippet</th>
+                  <th style="width: 80px;">Views</th>
+                  <th style="width: 90px;">Status</th>
+                  <th style="width: 110px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="faqsTbody">
+                <tr><td colspan="7" style="text-align:center; padding:30px;">Loading FAQs...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: CONVERSATIONS -->
+      <section id="conversationsTab" class="tab-content">
+        <div class="analytics-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; gap:10px; align-items:center;">
+              <select id="convStatusFilter" class="form-control" style="width:160px;">
+                <option value="all">All Statuses</option>
+                <option value="active">Active Sessions</option>
+                <option value="escalated">Escalated (Human Needed)</option>
+                <option value="resolved">Resolved</option>
+              </select>
+              <input type="text" id="convSearchInput" class="form-control" placeholder="Search customer name, email, query..." style="width:260px;">
+              <button class="btn btn-secondary" id="searchConvBtn">Filter</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table" id="convTable">
+              <thead>
+                <tr>
+                  <th>Conversation ID</th>
+                  <th>Customer</th>
+                  <th>Category</th>
+                  <th>Messages</th>
+                  <th>Last Activity</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="convTbody">
+                <tr><td colspan="7" style="text-align:center; padding:30px;">Loading conversations...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: UNANSWERED & ESCALATED -->
+      <section id="escalationsTab" class="tab-content">
+        <div class="analytics-card">
+          <h2 style="font-size:16px; margin-bottom:12px; color:#1e293b;">Queries Needing Attention or FAQ Conversion</h2>
+          <p style="font-size:13px; color:#64748b; margin-bottom:16px;">
+            These questions were asked by shoppers where the AI assistant had low confidence or the customer requested human assistance. You can resolve them or instantly convert them into permanent FAQs.
+          </p>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Shopper Query</th>
+                  <th>Customer</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="unresolvedTbody">
+                <tr><td colspan="4" style="text-align:center; padding:30px;">Loading escalated queries...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: BOT SETTINGS & POLICIES -->
+      <section id="settingsTab" class="tab-content">
+        <div class="analytics-card" style="max-width: 800px;">
+          <h2 style="font-size:17px; margin-bottom:16px; color:#1e293b;">Bot Greeting & Store Policy Configuration</h2>
+          <form id="botSettingsForm">
+            <div class="form-group">
+              <label class="form-label">Initial Bot Welcome Greeting (Mandatory First Message)</label>
+              <textarea id="settingsGreeting" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:14px;">
+              <div class="form-group">
+                <label class="form-label">Free Shipping Minimum Threshold (₹)</label>
+                <input type="number" id="settingsShippingThreshold" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Standard Delivery Time</label>
+                <input type="text" id="settingsDeliveryTime" class="form-control" required>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:14px;">
+              <div class="form-group">
+                <label class="form-label">Return Window (Days)</label>
+                <input type="number" id="settingsReturnDays" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Support Email</label>
+                <input type="email" id="settingsSupportEmail" class="form-control" required>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:14px;">
+              <div class="form-group">
+                <label class="form-label">Support WhatsApp / Phone</label>
+                <input type="text" id="settingsSupportPhone" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Support Operating Hours</label>
+                <input type="text" id="settingsSupportHours" class="form-control" required>
+              </div>
+            </div>
+
+            <div style="margin-top:24px;">
+              <button type="submit" class="btn btn-primary" style="padding:10px 24px;">Save Bot Settings</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: ADD / EDIT FAQ -->
+  <div class="modal-backdrop" id="faqModalBackdrop">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 id="faqModalTitle" style="font-size:18px; font-weight:700;">Add New Store FAQ</h3>
+        <button type="button" class="btn btn-secondary" id="closeFaqModalBtn" style="padding:4px 8px;">✕</button>
+      </div>
+      <form id="faqEditForm">
+        <input type="hidden" id="editFaqId">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select id="editFaqCategory" class="form-control" required>
+            <option value="GREETINGS">Greetings & General</option>
+            <option value="PRODUCTS">Products & Quality</option>
+            <option value="CART_CHECKOUT">Cart & Checkout</option>
+            <option value="ORDERS_DELIVERY">Orders & Delivery</option>
+            <option value="PAYMENTS">Payments & Billing</option>
+            <option value="RETURNS_REFUNDS">Returns & Refunds</option>
+            <option value="OFFERS_DISCOUNTS">Offers & Discounts</option>
+            <option value="ACCOUNT_TECH">Account & Tech Support</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Customer Question</label>
+          <input type="text" id="editFaqQuestion" class="form-control" placeholder="e.g. How long does delivery take?" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Verified Store Answer</label>
+          <textarea id="editFaqAnswer" class="form-control" rows="5" placeholder="Provide accurate, helpful information..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Search Keywords / Aliases (Comma Separated)</label>
+          <input type="text" id="editFaqKeywords" class="form-control" placeholder="e.g. shipping time, when will it arrive, transit duration">
+        </div>
+        <div class="form-group" style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+          <input type="checkbox" id="editFaqPublished" checked style="width:18px; height:18px;">
+          <label for="editFaqPublished" style="font-size:13.5px; font-weight:600; cursor:pointer;">Published & Searchable by AI Assistant</label>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" class="btn btn-secondary" id="cancelFaqModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save FAQ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: VIEW CONVERSATION TRANSCRIPT -->
+  <div class="modal-backdrop" id="convModalBackdrop">
+    <div class="modal-box" style="max-width:700px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h3 id="convModalTitle" style="font-size:17px; font-weight:700;">Customer Chat Transcript</h3>
+          <p id="convModalSubtitle" style="font-size:12px; color:#64748b; margin-top:2px;"></p>
+        </div>
+        <button type="button" class="btn btn-secondary" id="closeConvModalBtn" style="padding:4px 8px;">✕</button>
+      </div>
+
+      <div class="chat-transcript-box" id="convTranscriptContainer">
+        <!-- Messages loaded here -->
+      </div>
+
+      <div style="background:#f1f5f9; padding:12px; border-radius:8px; margin-bottom:14px;">
+        <label class="form-label" style="font-size:12px;">Admin Internal Notes</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="convAdminNotes" class="form-control" placeholder="Add resolution details or follow-up notes...">
+          <button type="button" class="btn btn-secondary" id="saveConvNotesBtn">Save Note</button>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <button type="button" class="btn btn-secondary" id="escalateWhatsappBtn" style="color:#0f7139;">
+          <i class="fa-brands fa-whatsapp"></i> Chat with Customer on WhatsApp
+        </button>
+        <button type="button" class="btn btn-primary" id="resolveConvBtn">
+          <i class="fa-solid fa-check"></i> Mark as Resolved
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENT-SIDE ADMIN MANAGEMENT SCRIPT -->
+  <script>
+    const API_BASE = '/api/chat';
+    const ADMIN_HEADERS = {
+      'Content-Type': 'application/json',
+      'x-admin-dev': 'true',
+      'x-admin-email': localStorage.getItem('arshith_admin_email') || 'admin@arshithfresh.com'
+    };
+
+    let allFaqs = [];
+    let currentCategory = 'ALL';
+    let currentConvId = null;
+
+    // 1. Tab Switching
+    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+
+        if (btn.dataset.tab === 'conversationsTab') loadConversations();
+        if (btn.dataset.tab === 'escalationsTab') loadEscalations();
+        if (btn.dataset.tab === 'settingsTab') loadBotSettings();
+      });
+    });
+
+    // 2. Load Stats & KPIs
+    async function loadStats() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/analytics`, { headers: ADMIN_HEADERS });
+        const data = await res.json();
+        if (data.success && data.stats) {
+          document.getElementById('totalFaqsKpi').textContent = data.stats.totalFaqs;
+          document.getElementById('totalChatsKpi').textContent = data.stats.totalConversations;
+          document.getElementById('activeChatsKpi').textContent = data.stats.activeConversations;
+          document.getElementById('unresolvedKpi').textContent = data.stats.escalatedConversations;
+          document.getElementById('sidebarEscalatedBadge').textContent = data.stats.escalatedConversations;
+        }
+      } catch (e) {
+        console.warn('Error loading stats:', e);
+      }
+    }
+
+    // 3. Load FAQs
+    async function loadFaqs() {
+      try {
+        const tbody = document.getElementById('faqsTbody');
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">Loading FAQs...</td></tr>';
+
+        let url = `${API_BASE}/admin/faqs?`;
+        if (currentCategory !== 'ALL') url += `category=${encodeURIComponent(currentCategory)}&`;
+        const searchVal = document.getElementById('faqSearchInput').value.trim();
+        if (searchVal) url += `search=${encodeURIComponent(searchVal)}&`;
+
+        const res = await fetch(url, { headers: ADMIN_HEADERS });
+        const data = await res.json();
+
+        if (data.success) {
+          allFaqs = data.faqs || [];
+          renderFaqsTable(allFaqs);
+        }
+      } catch (e) {
+        document.getElementById('faqsTbody').innerHTML = `<tr><td colspan="7" style="color:red; text-align:center;">Failed to load FAQs: ${e.message}</td></tr>`;
+      }
+    }
+
+    function renderFaqsTable(faqs) {
+      const tbody = document.getElementById('faqsTbody');
+      if (faqs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">No FAQs found matching filter.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = faqs.map((f, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td><span class="status-pill draft">${f.category}</span></td>
+          <td style="font-weight:600; color:#1e293b;">${f.question}</td>
+          <td style="color:#64748b; font-size:12.5px;">${f.answer.substring(0, 85)}...</td>
+          <td>${f.viewsCount || 0}</td>
+          <td>
+            <span class="status-pill ${f.isPublished ? 'active' : 'cancelled'}" onclick="togglePublishFaq('${f._id}', ${!f.isPublished})" style="cursor:pointer;" title="Click to toggle">
+              ${f.isPublished ? '● Active' : '○ Draft'}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="openEditFaq('${f._id}')"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px; color:#ef4444;" onclick="deleteFaq('${f._id}', '${f.question.replace(/'/g, "\\'")}')"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Category Filter Pills
+    document.querySelectorAll('.cat-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentCategory = pill.dataset.cat;
+        loadFaqs();
+      });
+    });
+
+    document.getElementById('searchFaqBtn').addEventListener('click', loadFaqs);
+    document.getElementById('faqSearchInput').addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') loadFaqs();
+    });
+
+    // Add / Edit FAQ Modal
+    const faqModalBackdrop = document.getElementById('faqModalBackdrop');
+    document.getElementById('openAddFaqModalBtn').addEventListener('click', () => {
+      document.getElementById('faqModalTitle').textContent = 'Add New Store FAQ';
+      document.getElementById('editFaqId').value = '';
+      document.getElementById('editFaqCategory').value = currentCategory === 'ALL' ? 'PRODUCTS' : currentCategory;
+      document.getElementById('editFaqQuestion').value = '';
+      document.getElementById('editFaqAnswer').value = '';
+      document.getElementById('editFaqKeywords').value = '';
+      document.getElementById('editFaqPublished').checked = true;
+      faqModalBackdrop.classList.add('show');
+    });
+
+    document.getElementById('closeFaqModalBtn').addEventListener('click', () => faqModalBackdrop.classList.remove('show'));
+    document.getElementById('cancelFaqModalBtn').addEventListener('click', () => faqModalBackdrop.classList.remove('show'));
+
+    window.openEditFaq = function(id) {
+      const faq = allFaqs.find(f => f._id === id);
+      if (!faq) return;
+      document.getElementById('faqModalTitle').textContent = 'Edit Store FAQ';
+      document.getElementById('editFaqId').value = faq._id;
+      document.getElementById('editFaqCategory').value = faq.category;
+      document.getElementById('editFaqQuestion').value = faq.question;
+      document.getElementById('editFaqAnswer').value = faq.answer;
+      document.getElementById('editFaqKeywords').value = (faq.keywords || []).join(', ');
+      document.getElementById('editFaqPublished').checked = faq.isPublished !== false;
+      faqModalBackdrop.classList.add('show');
+    };
+
+    document.getElementById('faqEditForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editFaqId').value;
+      const payload = {
+        category: document.getElementById('editFaqCategory').value,
+        question: document.getElementById('editFaqQuestion').value.trim(),
+        answer: document.getElementById('editFaqAnswer').value.trim(),
+        keywords: document.getElementById('editFaqKeywords').value,
+        isPublished: document.getElementById('editFaqPublished').checked
+      };
+
+      try {
+        const url = id ? `${API_BASE}/admin/faqs/${id}` : `${API_BASE}/admin/faqs`;
+        const method = id ? 'PUT' : 'POST';
+        const res = await fetch(url, {
+          method,
+          headers: ADMIN_HEADERS,
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          faqModalBackdrop.classList.remove('show');
+          loadFaqs();
+          loadStats();
+        } else {
+          alert('Error saving FAQ: ' + data.message);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    });
+
+    window.togglePublishFaq = async function(id, newState) {
+      try {
+        await fetch(`${API_BASE}/admin/faqs/${id}`, {
+          method: 'PUT',
+          headers: ADMIN_HEADERS,
+          body: JSON.stringify({ isPublished: newState })
+        });
+        loadFaqs();
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    window.deleteFaq = async function(id, question) {
+      if (!confirm(`Are you sure you want to delete FAQ:\n"${question}"?`)) return;
+      try {
+        const res = await fetch(`${API_BASE}/admin/faqs/${id}`, {
+          method: 'DELETE',
+          headers: ADMIN_HEADERS
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadFaqs();
+          loadStats();
+        }
+      } catch (e) {
+        alert('Delete failed: ' + e.message);
+      }
+    };
+
+    // 4. Load Conversations
+    async function loadConversations() {
+      try {
+        const tbody = document.getElementById('convTbody');
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">Loading customer sessions...</td></tr>';
+
+        const status = document.getElementById('convStatusFilter').value;
+        const search = document.getElementById('convSearchInput').value.trim();
+        let url = `${API_BASE}/admin/conversations?status=${status}&search=${encodeURIComponent(search)}`;
+
+        const res = await fetch(url, { headers: ADMIN_HEADERS });
+        const data = await res.json();
+
+        if (data.success) {
+          renderConversationsTable(data.conversations || []);
+        }
+      } catch (e) {
+        document.getElementById('convTbody').innerHTML = `<tr><td colspan="7" style="color:red; text-align:center;">Failed: ${e.message}</td></tr>`;
+      }
+    }
+
+    function renderConversationsTable(convs) {
+      const tbody = document.getElementById('convTbody');
+      if (convs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">No support conversations recorded yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = convs.map(c => {
+        const dateStr = new Date(c.updatedAt).toLocaleString('en-IN', { dateStyle:'short', timeStyle:'short' });
+        const msgCount = c.messages ? c.messages.length : 0;
+        const statusClass = c.status === 'resolved' ? 'active' : (c.status === 'escalated' ? 'cancelled' : 'draft');
+        return `
+          <tr>
+            <td style="font-family:monospace; font-weight:700;">${c.conversationId}</td>
+            <td><strong>${c.customerName || 'Shopper'}</strong><br><span style="font-size:11px; color:#64748b;">${c.customerEmail || 'Guest'}</span></td>
+            <td><span class="status-pill draft">${c.category || 'General'}</span></td>
+            <td>${msgCount} messages</td>
+            <td style="font-size:12px; color:#64748b;">${dateStr}</td>
+            <td><span class="status-pill ${statusClass}">${c.status.toUpperCase()}</span></td>
+            <td>
+              <button class="btn btn-secondary" style="padding:4px 10px; font-size:12px;" onclick="viewConversation('${c.conversationId}')">
+                <i class="fa-solid fa-eye"></i> View Chat
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('searchConvBtn').addEventListener('click', loadConversations);
+    document.getElementById('convStatusFilter').addEventListener('change', loadConversations);
+
+    // View Transcript Modal
+    window.viewConversation = async function(id) {
+      currentConvId = id;
+      try {
+        const res = await fetch(`${API_BASE}/admin/conversations/${id}`, { headers: ADMIN_HEADERS });
+        const data = await res.json();
+        if (data.success && data.conversation) {
+          const c = data.conversation;
+          document.getElementById('convModalTitle').textContent = `Chat with ${c.customerName || 'Shopper'}`;
+          document.getElementById('convModalSubtitle').textContent = `ID: ${c.conversationId} • Status: ${c.status.toUpperCase()} • Created: ${new Date(c.createdAt).toLocaleString()}`;
+          document.getElementById('convAdminNotes').value = c.notes || '';
+
+          const container = document.getElementById('convTranscriptContainer');
+          container.innerHTML = (c.messages || []).map(m => `
+            <div class="transcript-bubble ${m.sender}">
+              <div>${m.text}</div>
+              <div class="transcript-time">${new Date(m.timestamp).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })} • ${m.sender.toUpperCase()}</div>
+            </div>
+          `).join('');
+
+          document.getElementById('convModalBackdrop').classList.add('show');
+        }
+      } catch (e) {
+        alert('Error viewing conversation: ' + e.message);
+      }
+    };
+
+    document.getElementById('closeConvModalBtn').addEventListener('click', () => {
+      document.getElementById('convModalBackdrop').classList.remove('show');
+    });
+
+    document.getElementById('saveConvNotesBtn').addEventListener('click', async () => {
+      if (!currentConvId) return;
+      const notes = document.getElementById('convAdminNotes').value.trim();
+      await fetch(`${API_BASE}/admin/conversations/${currentConvId}`, {
+        method: 'PATCH',
+        headers: ADMIN_HEADERS,
+        body: JSON.stringify({ notes })
+      });
+      alert('Note saved!');
+    });
+
+    document.getElementById('resolveConvBtn').addEventListener('click', async () => {
+      if (!currentConvId) return;
+      await fetch(`${API_BASE}/admin/conversations/${currentConvId}`, {
+        method: 'PATCH',
+        headers: ADMIN_HEADERS,
+        body: JSON.stringify({ status: 'resolved' })
+      });
+      document.getElementById('convModalBackdrop').classList.remove('show');
+      loadConversations();
+      loadStats();
+    });
+
+    document.getElementById('escalateWhatsappBtn').addEventListener('click', () => {
+      window.open('https://api.whatsapp.com/send/?phone=919945676029&text=Hi,%20I%20am%20following%20up%20on%20your%20Arshith%20Fresh%20support%20request.', '_blank');
+    });
+
+    // 5. Load Escalations / Unanswered
+    async function loadEscalations() {
+      try {
+        const tbody = document.getElementById('unresolvedTbody');
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px;">Loading escalated queries...</td></tr>';
+
+        const res = await fetch(`${API_BASE}/admin/analytics`, { headers: ADMIN_HEADERS });
+        const data = await res.json();
+
+        if (data.success && data.unresolvedQueries) {
+          const list = data.unresolvedQueries;
+          if (list.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:#15803d;">🎉 All customer questions have been answered successfully! No pending escalations.</td></tr>';
+            return;
+          }
+          tbody.innerHTML = list.map(item => `
+            <tr>
+              <td>${new Date(item.updatedAt).toLocaleString()}</td>
+              <td style="font-weight:700; color:#1e293b;">${item.unresolvedQuestion}</td>
+              <td>${item.customerName || 'Shopper'} (${item.customerEmail || 'Guest'})</td>
+              <td>
+                <button class="btn btn-primary" style="padding:4px 10px; font-size:12px;" onclick="convertQueryToFaq('${item.unresolvedQuestion.replace(/'/g, "\\'")}')">
+                  <i class="fa-solid fa-plus"></i> Convert to FAQ
+                </button>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    window.convertQueryToFaq = function(query) {
+      document.querySelector('[data-tab="faqsTab"]').click();
+      document.getElementById('openAddFaqModalBtn').click();
+      document.getElementById('editFaqQuestion').value = query;
+      document.getElementById('editFaqKeywords').value = query.toLowerCase();
+    };
+
+    // 6. Bot Settings
+    async function loadBotSettings() {
+      try {
+        const res = await fetch(`${API_BASE}/admin/settings`, { headers: ADMIN_HEADERS });
+        const data = await res.json();
+        if (data.success && data.settings) {
+          const s = data.settings;
+          document.getElementById('settingsGreeting').value = s.greeting || '';
+          if (s.storePolicies) {
+            document.getElementById('settingsShippingThreshold').value = s.storePolicies.freeShippingThreshold || 1000;
+            document.getElementById('settingsDeliveryTime').value = s.storePolicies.deliveryTimeDays || '3 to 5 business days';
+            document.getElementById('settingsReturnDays').value = s.storePolicies.returnWindowDays || 7;
+            document.getElementById('settingsSupportEmail').value = s.storePolicies.supportEmail || 'support@arshithfresh.com';
+            document.getElementById('settingsSupportPhone').value = s.storePolicies.supportPhone || '+91 9945676029';
+            document.getElementById('settingsSupportHours').value = s.storePolicies.supportHours || 'Mon-Sat, 9:00 AM - 7:00 PM IST';
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    document.getElementById('botSettingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        greeting: document.getElementById('settingsGreeting').value.trim(),
+        storePolicies: {
+          freeShippingThreshold: Number(document.getElementById('settingsShippingThreshold').value),
+          deliveryTimeDays: document.getElementById('settingsDeliveryTime').value.trim(),
+          returnWindowDays: Number(document.getElementById('settingsReturnDays').value),
+          supportEmail: document.getElementById('settingsSupportEmail').value.trim(),
+          supportPhone: document.getElementById('settingsSupportPhone').value.trim(),
+          supportHours: document.getElementById('settingsSupportHours').value.trim(),
+          whatsappUrl: `https://api.whatsapp.com/send/?phone=${document.getElementById('settingsSupportPhone').value.replace(/[^0-9]/g, '')}&text=Hi%20Arshith%20Fresh!`
+        }
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/admin/settings`, {
+          method: 'PUT',
+          headers: ADMIN_HEADERS,
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('Bot Settings & Store Policies saved successfully!');
+        }
+      } catch (err) {
+        alert('Failed saving settings: ' + err.message);
+      }
+    });
+
+    // Initialize Page
+    loadStats();
+    loadFaqs();
+  </script>
+</body>
+</html>

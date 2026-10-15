@@ -15,6 +15,7 @@ const analyticsRoutes  = require('./routes/analyticsRoutes');
 const paymentRoutes    = require('./routes/paymentRoutes');
 const shiprocketRoutes = require('./routes/shiprocketRoutes');
 const bannerRoutes     = require('./routes/bannerRoutes');
+const chatRoutes       = require('./routes/chatRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -42,6 +43,7 @@ app.use('/api/analytics',   analyticsRoutes);
 app.use('/api/payment',     paymentRoutes);
 app.use('/api/shiprocket',  shiprocketRoutes);
 app.use('/api/banners',     bannerRoutes);
+app.use('/api/chat',        chatRoutes);
 
 
 const path = require('path');

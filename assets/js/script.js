@@ -6288,6 +6288,507 @@ window.closeBlogModal = closeBlogModal;
     setInterval(enableDragScroll, 1000);
 })();
 
+/* ==========================================================================
+   ARSHITH FRESH AI SHOPPING ASSISTANT CONTROLLER
+   ========================================================================== */
+(function() {
+    const CHAT_STORAGE_KEY = 'arshith_ai_chat_history';
+
+    function ensureAiWidgetInDOM() {
+        if (document.getElementById('arshithAiWidgetContainer')) return;
+
+        const container = document.createElement('div');
+        container.className = 'arshith-ai-widget-container';
+        container.id = 'arshithAiWidgetContainer';
+        container.innerHTML = `
+            <button type="button" class="arshith-ai-launcher" id="arshithAiLauncherBtn" aria-label="Open Arshith Fresh AI Shopping Assistant" title="Chat with AI Shopping Assistant">
+                <div class="arshith-ai-icon-wrap">
+                    <svg class="ai-open-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v2"></path>
+                        <rect x="4" y="6" width="16" height="12" rx="4" fill="rgba(255,255,255,0.15)"></rect>
+                        <circle cx="9" cy="11" r="1.5" fill="currentColor"></circle>
+                        <circle cx="15" cy="11" r="1.5" fill="currentColor"></circle>
+                        <path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                    </svg>
+                    <svg class="ai-close-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+                <span class="arshith-ai-pill-badge">AI</span>
+                <span class="arshith-ai-tooltip">Ask Shopping Assistant 🌿</span>
+            </button>
+            <div class="arshith-ai-backdrop" id="arshithAiBackdrop"></div>
+            <div class="arshith-ai-panel" id="arshithAiPanel" role="dialog" aria-modal="true" aria-label="Arshith Fresh AI Shopping Assistant">
+                <div class="arshith-ai-header">
+                    <div class="ai-header-left">
+                        <div class="ai-avatar-wrap">
+                            <span class="ai-avatar-icon">🌿</span>
+                            <span class="ai-status-dot" title="Online"></span>
+                        </div>
+                        <div class="ai-header-info">
+                            <div class="ai-header-title">Arshith Fresh AI</div>
+                            <div class="ai-header-status">
+                                <span class="ai-status-pulse"></span>
+                                Shopping Assistant • Online
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-header-actions">
+                        <button type="button" class="ai-action-btn" id="arshithAiClearBtn" title="Clear chat history" aria-label="Clear chat">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="1 4 1 10 7 10"></polyline>
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                            </svg>
+                        </button>
+                        <button type="button" class="ai-action-btn ai-close-btn" id="arshithAiCloseBtn" title="Close chat" aria-label="Close chat">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="arshith-ai-body" id="arshithAiMessages"></div>
+                <form class="arshith-ai-footer" id="arshithAiForm">
+                    <div class="ai-input-wrapper">
+                        <input type="text" class="ai-chat-input" id="arshithAiInput" placeholder="Ask about oils, ghee, spices, shipping..." autocomplete="off" aria-label="Type your message" />
+                        <button type="submit" class="ai-send-btn" id="arshithAiSendBtn" aria-label="Send message">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="ai-footer-note">
+                        <span>🌱 100% Pure Organic & Cold-Pressed Store Assistance</span>
+                    </div>
+                </form>
+            </div>
+        `;
+        document.body.appendChild(container);
+    }
+
+    function initAiChatbot() {
+        ensureAiWidgetInDOM();
+
+        const launcherBtn = document.getElementById('arshithAiLauncherBtn');
+        const panel = document.getElementById('arshithAiPanel');
+        const backdrop = document.getElementById('arshithAiBackdrop');
+        const closeBtn = document.getElementById('arshithAiCloseBtn');
+        const clearBtn = document.getElementById('arshithAiClearBtn');
+        const form = document.getElementById('arshithAiForm');
+        const input = document.getElementById('arshithAiInput');
+        const messagesContainer = document.getElementById('arshithAiMessages');
+
+        if (!launcherBtn || !panel || !messagesContainer) return;
+
+        function togglePanel(openState) {
+            const isOpen = openState !== undefined ? openState : !panel.classList.contains('open');
+            if (isOpen) {
+                panel.classList.add('open');
+                launcherBtn.classList.add('active');
+                if (backdrop) backdrop.classList.add('open');
+                if (messagesContainer.children.length === 0) {
+                    loadChatHistoryOrWelcome();
+                }
+                setTimeout(() => {
+                    if (input) input.focus();
+                }, 300);
+            } else {
+                panel.classList.remove('open');
+                launcherBtn.classList.remove('active');
+                if (backdrop) backdrop.classList.remove('open');
+            }
+        }
+
+        launcherBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            togglePanel();
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                togglePanel(false);
+            });
+        }
+
+        if (backdrop) {
+            backdrop.addEventListener('click', () => togglePanel(false));
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && panel.classList.contains('open')) {
+                togglePanel(false);
+            }
+        });
+
+        let currentConversationId = '';
+        try {
+            currentConversationId = sessionStorage.getItem('arshith_ai_conv_id') || ('conv_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
+            sessionStorage.setItem('arshith_ai_conv_id', currentConversationId);
+        } catch(e) {
+            currentConversationId = 'conv_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+        }
+
+        let currentContext = {};
+        try {
+            const savedCtx = sessionStorage.getItem('arshith_ai_conv_ctx');
+            if (savedCtx) currentContext = JSON.parse(savedCtx);
+        } catch(e) {}
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                try { 
+                    sessionStorage.removeItem(CHAT_STORAGE_KEY); 
+                    sessionStorage.removeItem('arshith_ai_conv_id');
+                    sessionStorage.removeItem('arshith_ai_conv_ctx');
+                } catch(e) {}
+                currentConversationId = 'conv_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+                try { sessionStorage.setItem('arshith_ai_conv_id', currentConversationId); } catch(e) {}
+                currentContext = {};
+                messagesContainer.innerHTML = '';
+                renderWelcomeMessage();
+            });
+        }
+
+        function formatTime() {
+            const d = new Date();
+            let hours = d.getHours();
+            const mins = d.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            return `${hours}:${mins < 10 ? '0' + mins : mins} ${ampm}`;
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function parseSimpleMarkdown(str) {
+            if (!str) return '';
+            let formatted = String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Bold: **text**
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // Links: [label](url)
+            formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#0f7139;font-weight:700;text-decoration:underline;">$1</a>');
+            // Bullet points
+            formatted = formatted.replace(/^• (.*?)$/gm, '<div style="display:flex;gap:6px;margin:2px 0;"><span style="color:#16a34a;font-weight:bold;">•</span><span>$1</span></div>');
+            // Line breaks
+            formatted = formatted.replace(/\n/g, '<br/>');
+
+            return formatted;
+        }
+
+        function appendMessage(sender, text, products = [], chips = [], quickActions = []) {
+            const timeStr = formatTime();
+            const msgEl = document.createElement('div');
+            msgEl.className = `ai-message ${sender}`;
+
+            let avatarHtml = '';
+            if (sender === 'bot') {
+                avatarHtml = `<div class="ai-msg-avatar" aria-hidden="true">🌿</div>`;
+            }
+
+            let productsHtml = '';
+            if (products && products.length > 0) {
+                productsHtml = products.map(p => {
+                    const cleanImg = p.image || 'assets/images/placeholder.svg';
+                    const cleanName = (p.name || 'Arshith Fresh Product').replace(/"/g, '&quot;');
+                    const safeName = cleanName.replace(/'/g, "\\'");
+                    const safeImg = cleanImg.replace(/'/g, "\\'");
+                    const price = Number(p.price || 0);
+                    const prodId = p.id || p.handle || '';
+                    const linkUrl = prodId ? (window.location.pathname.includes('/pages/') ? `product.html?id=${encodeURIComponent(prodId)}` : `pages/product.html?id=${encodeURIComponent(prodId)}`) : '#';
+                    return `
+                        <div class="ai-product-card">
+                            <a href="${linkUrl}">
+                                <img src="${cleanImg}" alt="${cleanName}" class="ai-product-img" onerror="this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ccccccccccccccccc.jpg?crop=center&height=80&v=1771505716&width=80'">
+                            </a>
+                            <div class="ai-product-details">
+                                <a href="${linkUrl}" style="text-decoration:none;">
+                                    <div class="ai-product-title" title="${cleanName}">${cleanName}</div>
+                                </a>
+                                <div class="ai-product-price">
+                                    ₹${price}${p.unit ? ` <span style="font-size:10.5px;color:#64748b;font-weight:500;">(${p.unit})</span>` : ''}
+                                    <span style="display:inline-block;margin-left:6px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:10px;font-size:9.5px;font-weight:700;">In Stock</span>
+                                </div>
+                                <button type="button" class="ai-product-btn" onclick="if(typeof addToStoreCart==='function'){addToStoreCart('${prodId}','${safeName}',${price},'${safeImg}',1);}else{alert('Item added to cart!');}">
+                                    🛒 Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            let actionsHtml = '';
+            if (quickActions && quickActions.length > 0) {
+                actionsHtml = `
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+                        ${quickActions.map(act => `
+                            <a href="${act.value}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:#0f7139;color:#ffffff;border-radius:8px;font-size:11.5px;font-weight:700;text-decoration:none;">
+                                ${act.label} ↗
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            let chipsHtml = '';
+            if (chips && chips.length > 0) {
+                chipsHtml = `
+                    <div class="ai-chips-wrap">
+                        ${chips.map(chip => `<button type="button" class="ai-chip" data-query="${chip}">${chip}</button>`).join('')}
+                    </div>
+                `;
+            }
+
+            const formattedContent = parseSimpleMarkdown(text);
+
+            msgEl.innerHTML = `
+                ${avatarHtml}
+                <div class="ai-msg-content">
+                    <div>${formattedContent}</div>
+                    ${productsHtml}
+                    ${actionsHtml}
+                    ${chipsHtml}
+                    <div class="ai-msg-time">${timeStr}</div>
+                </div>
+            `;
+
+            messagesContainer.appendChild(msgEl);
+            scrollToBottom();
+
+            // Bind click to suggestion chips
+            if (chips && chips.length > 0) {
+                const chipBtns = msgEl.querySelectorAll('.ai-chip');
+                chipBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const query = btn.getAttribute('data-query');
+                        handleUserQuery(query);
+                    });
+                });
+            }
+
+            saveChatHistory();
+        }
+
+        function showTypingIndicator() {
+            const ind = document.createElement('div');
+            ind.id = 'aiTypingIndicator';
+            ind.className = 'ai-message bot';
+            ind.innerHTML = `
+                <div class="ai-msg-avatar" aria-hidden="true">🌿</div>
+                <div class="ai-typing-indicator">
+                    <span class="ai-typing-dot"></span>
+                    <span class="ai-typing-dot"></span>
+                    <span class="ai-typing-dot"></span>
+                </div>
+            `;
+            messagesContainer.appendChild(ind);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const ind = document.getElementById('aiTypingIndicator');
+            if (ind) ind.remove();
+        }
+
+        function renderWelcomeMessage() {
+            appendMessage(
+                'bot',
+                "Hii! 👋 Welcome to Arshith Fresh! I'm your AI shopping assistant. How can I help you today?",
+                [],
+                [
+                    "Shop Products",
+                    "Product Information",
+                    "Orders & Delivery",
+                    "Payment Help",
+                    "Returns & Cancellations",
+                    "Offers & Discounts",
+                    "Talk to Support"
+                ]
+            );
+        }
+
+        function saveChatHistory() {
+            try {
+                const history = [];
+                const msgs = messagesContainer.querySelectorAll('.ai-message');
+                msgs.forEach(m => {
+                    const isBot = m.classList.contains('bot');
+                    const content = m.querySelector('.ai-msg-content');
+                    if (content) {
+                        history.push({
+                            sender: isBot ? 'bot' : 'user',
+                            html: content.innerHTML
+                        });
+                    }
+                });
+                sessionStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(history.slice(-25)));
+            } catch(e) {}
+        }
+
+        function loadChatHistoryOrWelcome() {
+            try {
+                const saved = sessionStorage.getItem(CHAT_STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        parsed.forEach(item => {
+                            const msgEl = document.createElement('div');
+                            msgEl.className = `ai-message ${item.sender}`;
+                            const avatarHtml = item.sender === 'bot' ? `<div class="ai-msg-avatar" aria-hidden="true">🌿</div>` : '';
+                            msgEl.innerHTML = `${avatarHtml}<div class="ai-msg-content">${item.html}</div>`;
+                            messagesContainer.appendChild(msgEl);
+                        });
+                        // Re-bind chip clicks
+                        const chipBtns = messagesContainer.querySelectorAll('.ai-chip');
+                        chipBtns.forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                handleUserQuery(btn.getAttribute('data-query'));
+                            });
+                        });
+                        scrollToBottom();
+                        return;
+                    }
+                }
+            } catch(e) {}
+            renderWelcomeMessage();
+        }
+
+        async function handleUserQuery(queryText) {
+            const cleanText = (queryText || '').trim();
+            if (!cleanText) return;
+
+            appendMessage('user', cleanText);
+            showTypingIndicator();
+
+            try {
+                const host = (typeof window.getApiHost === 'function' ? window.getApiHost() : '') || 'http://localhost:5000';
+                const res = await fetch(`${host}/api/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: cleanText,
+                        conversationId: currentConversationId,
+                        context: currentContext
+                    })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    removeTypingIndicator();
+
+                    if (data.conversationId) {
+                        currentConversationId = data.conversationId;
+                        try { sessionStorage.setItem('arshith_ai_conv_id', currentConversationId); } catch(e) {}
+                    }
+                    if (data.context) {
+                        currentContext = data.context;
+                        try { sessionStorage.setItem('arshith_ai_conv_ctx', JSON.stringify(currentContext)); } catch(e) {}
+                    }
+
+                    const chipsToShow = (data.chips && data.chips.length > 0) ? data.chips : (data.followUps || []);
+                    appendMessage(
+                        'bot',
+                        data.reply || "Here's what I found for you:",
+                        data.products || [],
+                        chipsToShow,
+                        data.quickActions || []
+                    );
+                    return;
+                }
+            } catch(err) {
+                console.warn('AI Chat API offline, using verified client intelligence:', err);
+            }
+
+            // Fallback client intelligence engine
+            setTimeout(() => {
+                removeTypingIndicator();
+                respondWithClientIntelligence(cleanText);
+            }, 350);
+        }
+
+        function respondWithClientIntelligence(text) {
+            const lower = text.toLowerCase();
+            let reply = '';
+            let matched = [];
+            let chips = [];
+            let actions = [];
+
+            if (/shipping|delivery|dispatch|track|where is my order/i.test(lower)) {
+                reply = "🚚 **Arshith Fresh Delivery & Shipping:**\n• **FREE Shipping** on all orders above ₹1,000 across India!\n• Deliveries arrive in **3-5 business days**.\n• Live SMS & WhatsApp tracking links are dispatched with every order.";
+                chips = ["How do I check my order status?", "Do you deliver to my location?", "Which payment methods are supported?"];
+            } else if (/return|refund|cancel|damage|broken|leak/i.test(lower)) {
+                reply = "🔄 **Hassle-Free 7-Day Guarantee:**\n• We offer free replacement or 100% refund for damaged, leaked, or incorrect deliveries.\n• Reach out to **support@arshithfresh.com** or WhatsApp **+91 9945676029** with photos within 7 days of delivery.";
+                chips = ["How long does a refund take?", "Can I cancel an order?", "Talk to Support"];
+                actions = [{ label: 'WhatsApp Return Desk', value: 'https://wa.me/919945676029' }];
+            } else if (/coupon|discount|offer|promo|code|deal|save/i.test(lower)) {
+                reply = "🎉 **Exclusive Savings & Discounts:**\n• Apply coupon code **WELCOME10** at checkout for **10% OFF** your order!\n• Get automatic **FREE Delivery** on all cart values of ₹1,000 and above.";
+                chips = ["Shop Products", "How do I apply a coupon?", "Are discounts available for bulk purchases?"];
+            } else if (/payment|pay|upi|card|cod|cash on delivery|money deducted/i.test(lower)) {
+                reply = "💳 **Supported Payment Methods:**\n• We accept 100% secure online payments only: UPI (Google Pay, PhonePe, Paytm), Credit & Debit Cards, Net Banking, and Wallets.\n• 🚫 **Cash on Delivery (COD) is NOT available.**\n• If payment was deducted without order confirmation, banks auto-refund within 24-48 hours.";
+                chips = ["Which payment methods are supported?", "Are there any current offers?", "Talk to Support"];
+            } else if (/contact|whatsapp|support|phone|human|agent|representative/i.test(lower)) {
+                reply = "📞 **Arshith Fresh Customer Support:**\n• **WhatsApp Direct:** [+91 9945676029](https://wa.me/919945676029) & [+91 8618471424](https://wa.me/918618471424)\n• **Email:** support@arshithfresh.com\n• **Hours:** Monday to Saturday, 9:00 AM - 7:00 PM IST.";
+                chips = ["Shop Products", "Orders & Delivery", "Returns & Cancellations"];
+                actions = [
+                    { label: 'Chat on WhatsApp', value: 'https://wa.me/919945676029' },
+                    { label: 'Email Support', value: 'mailto:support@arshithfresh.com' }
+                ];
+            } else {
+                reply = "Here are our signature 100% cold-pressed oils & pure organic selections:";
+                matched = [
+                    {
+                        id: "groundnut-oil-premium",
+                        name: "Groundnut Oil (Premium Quality)",
+                        price: 349,
+                        unit: "1 L",
+                        image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533"
+                    },
+                    {
+                        id: "pure-cow-ghee-premium",
+                        name: "Pure Cow Ghee (Premium Quality)",
+                        price: 240,
+                        unit: "250 ml",
+                        image: "assets/images/products/cow_ghee_front.jpg"
+                    }
+                ];
+                chips = ["Shop Products", "Product Information", "Orders & Delivery", "Talk to Support"];
+            }
+
+            appendMessage('bot', reply, matched, chips, actions);
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = input.value.trim();
+            if (text) {
+                input.value = '';
+                handleUserQuery(text);
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAiChatbot);
+    } else {
+        initAiChatbot();
+    }
+})();
+
 
 
 

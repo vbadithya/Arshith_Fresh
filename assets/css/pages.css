@@ -2103,13 +2103,22 @@
         flex-shrink: 0 !important;
     }
 
-    /* WhatsApp Floating Button Safety */
+    /* Floating Buttons Mobile Alignment (WhatsApp & AI Shopping Assistant) */
     .whatsapp-float-btn {
-        width: 42px !important;
-        height: 42px !important;
-        bottom: 80px !important;
-        right: 12px !important;
-        z-index: 9996 !important;
+        width: 48px !important;
+        height: 48px !important;
+        bottom: 74px !important;
+        right: 16px !important;
+        z-index: 9997 !important;
+    }
+
+    .arshith-ai-launcher,
+    .arshith-ai-btn {
+        width: 48px !important;
+        height: 48px !important;
+        bottom: 134px !important;
+        right: 16px !important;
+        z-index: 9997 !important;
     }
 
     /* Related Products & Collections 2-Column Mobile Grid Alignment */
