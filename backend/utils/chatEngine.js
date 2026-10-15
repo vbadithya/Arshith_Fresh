@@ -462,7 +462,14 @@ function formatProduct(p) {
 // Resolve user query against catalog taxonomy
 function resolveCatalogItem(query) {
   const clean = (query || '').trim().toLowerCase().replace(/[^a-z0-9\s]/gi, ' ');
-  const tokens = clean.split(/\s+/).filter(t => t.length >= 2 && !['what', 'are', 'the', 'for', 'you', 'have', 'and', 'with', 'from', 'our', 'items', 'item', 'price', 'cost', 'show', 'buy', 'is', 'there', 'any', 'tell', 'me', 'about', 'can', 'get'].includes(t));
+  const tokens = clean.split(/\s+/).filter(t => t.length >= 2 && ![
+    'what', 'are', 'the', 'for', 'you', 'have', 'and', 'with', 'from', 'our',
+    'items', 'item', 'price', 'cost', 'show', 'buy', 'is', 'there', 'any',
+    'tell', 'me', 'about', 'can', 'get', 'how', 'long', 'does', 'take',
+    'when', 'where', 'why', 'who', 'which', 'much', 'many', 'will', 'delivery',
+    'deliver', 'order', 'orders', 'status', 'track', 'return', 'returns',
+    'refund', 'refunds', 'policy', 'cancel', 'shipping'
+  ].includes(t));
 
   const CATEGORY_STOPWORDS = ['oil', 'oils', 'seeds', 'seed', 'powder', 'ghee', 'dry', 'fruit', 'fruits', 'karam', 'podi'];
   const distinctiveTokens = tokens.filter(t => !CATEGORY_STOPWORDS.includes(t));
@@ -503,9 +510,10 @@ function resolveCatalogItem(query) {
             matchedTokens += 1.0;
           } else {
             for (const sTok of synDistinctive) {
-              if (Math.abs(uTok.length - sTok.length) <= 1) {
+              // Enforce minimum token length of 5 for fuzzy matching (prevents false positives like 'how' matching 'cow')
+              if (uTok.length >= 5 && sTok.length >= 5 && Math.abs(uTok.length - sTok.length) <= 1) {
                 const d = levenshtein(uTok, sTok);
-                const maxAllowed = sTok.length <= 5 ? 1 : 2;
+                const maxAllowed = sTok.length <= 6 ? 1 : 2;
                 if (d <= maxAllowed) {
                   matchedTokens += 0.85;
                   break;
@@ -597,7 +605,7 @@ async function findLiveProducts(searchTerm, limit = 4) {
 }
 
 // Main conversation resolver
-async function processUserMessage(userMessage, context = {}) {
+async function processUserMessage(userMessage, context = {}, cart = []) {
   const text = (userMessage || '').trim();
   const lower = text.toLowerCase();
   const faqs = await getFaqs();
@@ -728,6 +736,85 @@ async function processUserMessage(userMessage, context = {}) {
     };
   }
 
+  // 2.5 Explicit Cart Query Handler (e.g. "show my cart list", "show my cart", "my cart", "view cart", "what is in my cart")
+  const isCartQuery = (
+    /\b(cart\s*list|show.*cart|view.*cart|open.*cart|check.*cart|see.*cart|display.*cart|my\s*cart|in\s*(my\s*)?cart|added\s*to\s*(my\s*)?cart|cart\s*items|items\s*in\s*(my\s*)?cart|cart\s*total|cart\s*summary|my\s*bag|shopping\s*cart|what.*in.*cart)\b/i.test(lower) ||
+    /^(cart|my cart|show cart|view cart|cart list|show my cart|show my cart list|open cart|see cart|check cart)$/i.test(lower.trim())
+  ) && !/(how to\s*(add|remove|delete)|how do i\s*(add|remove)|can i return|why|policy|damaged|track)/i.test(lower);
+
+  if (isCartQuery) {
+    if (cart && Array.isArray(cart) && cart.length > 0) {
+      let subtotal = 0;
+      let totalQty = 0;
+      const itemsList = [];
+      const cartProductCards = [];
+
+      for (const item of cart) {
+        const qty = Number(item.quantity || item.qty || 1);
+        const price = Number(item.price || 0);
+        const lineTotal = price * qty;
+        subtotal += lineTotal;
+        totalQty += qty;
+
+        const name = (item.title || item.name || 'Arshith Fresh Product').replace(/"/g, '');
+        const unit = item.unit ? ` (${item.unit})` : '';
+        itemsList.push(`• **${name}${unit}** × ${qty} — **₹${lineTotal}**`);
+
+        let img = item.image || '/assets/images/placeholder.svg';
+        if (img && !img.startsWith('http://') && !img.startsWith('https://') && !img.startsWith('/')) {
+          img = '/' + img;
+        }
+
+        cartProductCards.push({
+          id: item.id || item.product || String(Date.now()),
+          handle: item.handle || item.id || '',
+          name: `${name} (Qty: ${qty})`,
+          title: `${name} (Qty: ${qty})`,
+          price: lineTotal,
+          originalPrice: 0,
+          unit: `${qty} × ₹${price}`,
+          image: img,
+          countInStock: 50,
+          category: 'Cart Items'
+        });
+      }
+
+      const freeShippingThreshold = settings.storePolicies?.freeShippingThreshold || 1000;
+      const deliveryStatus = subtotal >= freeShippingThreshold
+        ? `✨ **FREE Delivery Unlocked!** (Cart total exceeds ₹${freeShippingThreshold})`
+        : `🚚 Add **₹${freeShippingThreshold - subtotal}** more to unlock **FREE Delivery** across India!`;
+
+      return {
+        reply: `🛒 **Your Current Shopping Cart (${totalQty} item${totalQty > 1 ? 's' : ''}):**\n\n${itemsList.join('\n')}\n\n💰 **Cart Subtotal: ₹${subtotal}**\n${deliveryStatus}\n\nYou can proceed directly to checkout or edit quantities on your Cart page.`,
+        category: 'CART_CHECKOUT',
+        chips: ['Are there any current offers?', 'Which payment methods are supported?', 'How long does delivery take?'],
+        products: cartProductCards,
+        quickActions: [
+          { label: `Proceed to Checkout (₹${subtotal})`, action: 'url', value: '/pages/checkout.html' },
+          { label: 'Open Cart Page', action: 'url', value: '/pages/cart.html' }
+        ],
+        matchedFaq: 'Show My Cart',
+        confidence: 1.0,
+        context: { ...context, lastIntent: 'CART_CHECKOUT' }
+      };
+    } else {
+      const featuredProds = await findLiveProducts('oils', 3);
+      return {
+        reply: `🛒 **Your shopping cart is currently empty!**\n\nYou haven't added any items to your cart yet.\n\nExplore our farm-fresh, 100% natural cold-pressed oils, pure A2 bilona ghee, authentic spices, and healthy dry fruits below. Tap **"🛒 Add to Cart"** on any product to start shopping!`,
+        category: 'CART_CHECKOUT',
+        chips: ['Shop Products', 'What oils do you have?', 'Are there any current offers?', 'Talk to Support'],
+        products: featuredProds,
+        quickActions: [
+          { label: 'Explore Collections', action: 'url', value: '/pages/collections.html' },
+          { label: 'Open Cart Page', action: 'url', value: '/pages/cart.html' }
+        ],
+        matchedFaq: 'Empty Cart',
+        confidence: 1.0,
+        context: { ...context, lastIntent: 'CART_CHECKOUT' }
+      };
+    }
+  }
+
   // 3. Precision Catalog & Product Intent Resolver
   const catalogMatch = resolveCatalogItem(text);
 
@@ -755,7 +842,8 @@ async function processUserMessage(userMessage, context = {}) {
             confidence: 0.95,
             context: {
               ...context,
-              lastProductSearch: formatted.name,
+              lastProductSearch: catalogMatch.item.key.replace(/_/g, ' '),
+              lastProductName: formatted.name,
               lastProductId: formatted.id,
               lastIntent: 'PRODUCTS'
             }

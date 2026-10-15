@@ -6521,11 +6521,12 @@ window.closeBlogModal = closeBlogModal;
                                 </a>
                                 <div class="ai-product-price">
                                     ₹${price}${p.unit ? ` <span style="font-size:10.5px;color:#64748b;font-weight:500;">(${p.unit})</span>` : ''}
-                                    <span style="display:inline-block;margin-left:6px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:10px;font-size:9.5px;font-weight:700;">In Stock</span>
+                                    <span style="display:inline-block;margin-left:6px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:10px;font-size:9.5px;font-weight:700;">${p.category === 'Cart Items' ? 'In Your Cart' : 'In Stock'}</span>
                                 </div>
-                                <button type="button" class="ai-product-btn" onclick="if(typeof addToStoreCart==='function'){addToStoreCart('${prodId}','${safeName}',${price},'${safeImg}',1);}else{alert('Item added to cart!');}">
-                                    🛒 Add to Cart
-                                </button>
+                                ${p.category === 'Cart Items'
+                                    ? `<a href="${window.location.pathname.includes('/pages/') ? 'cart.html' : 'pages/cart.html'}" class="ai-product-btn" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;background:#0f7139;color:#ffffff;box-sizing:border-box;">🛍️ View in Cart</a>`
+                                    : `<button type="button" class="ai-product-btn" onclick="if(typeof addToStoreCart==='function'){addToStoreCart('${prodId}','${safeName}',${price},'${safeImg}',1);}else{alert('Item added to cart!');}">🛒 Add to Cart</button>`
+                                }
                             </div>
                         </div>
                     `;
@@ -6536,11 +6537,14 @@ window.closeBlogModal = closeBlogModal;
             if (quickActions && quickActions.length > 0) {
                 actionsHtml = `
                     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
-                        ${quickActions.map(act => `
-                            <a href="${act.value}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:#0f7139;color:#ffffff;border-radius:8px;font-size:11.5px;font-weight:700;text-decoration:none;">
-                                ${act.label} ↗
-                            </a>
-                        `).join('')}
+                        ${quickActions.map(act => {
+                            const isExternal = typeof act.value === 'string' && act.value.startsWith('http') && !act.value.includes(window.location.host);
+                            return `
+                                <a href="${act.value}" ${isExternal ? 'target="_blank" rel="noopener"' : ''} style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:#0f7139;color:#ffffff;border-radius:8px;font-size:11.5px;font-weight:700;text-decoration:none;">
+                                    ${act.label} ↗
+                                </a>
+                            `;
+                        }).join('')}
                     </div>
                 `;
             }
@@ -6676,6 +6680,14 @@ window.closeBlogModal = closeBlogModal;
             showTypingIndicator();
 
             try {
+                let liveCart = [];
+                try {
+                    liveCart = JSON.parse(localStorage.getItem('arshith_cart')) || [];
+                    if ((!liveCart || liveCart.length === 0) && Array.isArray(window.CART_ITEMS)) {
+                        liveCart = window.CART_ITEMS;
+                    }
+                } catch(e) {}
+
                 const host = (typeof window.getApiHost === 'function' ? window.getApiHost() : '') || 'http://localhost:5000';
                 const res = await fetch(`${host}/api/chat`, {
                     method: 'POST',
@@ -6683,7 +6695,8 @@ window.closeBlogModal = closeBlogModal;
                     body: JSON.stringify({
                         message: cleanText,
                         conversationId: currentConversationId,
-                        context: currentContext
+                        context: currentContext,
+                        cart: liveCart
                     })
                 });
 
@@ -6728,7 +6741,83 @@ window.closeBlogModal = closeBlogModal;
             let chips = [];
             let actions = [];
 
-            if (/shipping|delivery|dispatch|track|where is my order/i.test(lower)) {
+            // Cart query branch
+            if ((/\b(cart\s*list|show.*cart|view.*cart|open.*cart|check.*cart|see.*cart|display.*cart|my\s*cart|in\s*(my\s*)?cart|added\s*to\s*(my\s*)?cart|cart\s*items|items\s*in\s*(my\s*)?cart|cart\s*total|cart\s*summary|my\s*bag|shopping\s*cart|what.*in.*cart)\b/i.test(lower) || /^(cart|my cart|show cart|view cart|cart list|show my cart|show my cart list|open cart|see cart|check cart)$/i.test(lower.trim())) && !/(how to\s*(add|remove|delete)|how do i\s*(add|remove)|can i return|why|policy|damaged|track)/i.test(lower)) {
+                let liveCart = [];
+                try {
+                    liveCart = JSON.parse(localStorage.getItem('arshith_cart')) || [];
+                    if ((!liveCart || liveCart.length === 0) && Array.isArray(window.CART_ITEMS)) {
+                        liveCart = window.CART_ITEMS;
+                    }
+                } catch(e) {}
+
+                if (liveCart && liveCart.length > 0) {
+                    let subtotal = 0;
+                    let totalQty = 0;
+                    const itemsText = [];
+                    const cartCards = [];
+
+                    liveCart.forEach(it => {
+                        const q = Number(it.quantity || it.qty || 1);
+                        const p = Number(it.price || 0);
+                        const lineTot = p * q;
+                        subtotal += lineTot;
+                        totalQty += q;
+                        const name = it.title || it.name || 'Arshith Fresh Product';
+                        itemsText.push(`• **${name}** × ${q} — **₹${lineTot}**`);
+
+                        let img = it.image || 'assets/images/placeholder.svg';
+                        if (img && !img.startsWith('http') && !img.startsWith('/')) {
+                            img = '/' + img;
+                        }
+
+                        cartCards.push({
+                            id: it.id || '',
+                            name: `${name} (Qty: ${q})`,
+                            price: lineTot,
+                            unit: `${q} × ₹${p}`,
+                            image: img,
+                            category: 'Cart Items'
+                        });
+                    });
+
+                    const diff = 1000 - subtotal;
+                    const shippingNote = subtotal >= 1000
+                        ? "✨ **FREE Delivery Unlocked!** (Cart total exceeds ₹1,000)"
+                        : `🚚 Add **₹${diff}** more to unlock **FREE Delivery** across India!`;
+
+                    reply = `🛒 **Your Current Shopping Cart (${totalQty} item${totalQty > 1 ? 's' : ''}):**\n\n${itemsText.join('\n')}\n\n💰 **Cart Subtotal: ₹${subtotal}**\n${shippingNote}\n\nYou can click below to checkout or review on the Cart page.`;
+                    matched = cartCards;
+                    chips = ["How long does delivery take?", "Which payment methods are supported?", "Are there any current offers?"];
+                    actions = [
+                        { label: `Proceed to Checkout (₹${subtotal})`, value: window.location.pathname.includes('/pages/') ? 'checkout.html' : 'pages/checkout.html' },
+                        { label: 'Open Cart Page', value: window.location.pathname.includes('/pages/') ? 'cart.html' : 'pages/cart.html' }
+                    ];
+                } else {
+                    reply = "🛒 **Your shopping cart is currently empty!**\n\nYou haven't added any items to your cart yet.\n\nBrowse our 100% natural cold-pressed oils, pure A2 bilona ghee, authentic spices, and healthy dry fruits below. Tap **\"🛒 Add to Cart\"** on any product to start shopping!";
+                    matched = [
+                        {
+                            id: "groundnut-oil-premium",
+                            name: "Groundnut Oil (Premium Quality)",
+                            price: 349,
+                            unit: "1 L",
+                            image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533"
+                        },
+                        {
+                            id: "pure-cow-ghee-premium",
+                            name: "Pure Cow Ghee (Premium Quality)",
+                            price: 240,
+                            unit: "250 ml",
+                            image: "assets/images/products/cow_ghee_front.jpg"
+                        }
+                    ];
+                    chips = ["Shop Products", "What oils do you have?", "Are there any current offers?", "Talk to Support"];
+                    actions = [
+                        { label: 'Explore Collections', value: window.location.pathname.includes('/pages/') ? 'collections.html' : 'pages/collections.html' },
+                        { label: 'Open Cart Page', value: window.location.pathname.includes('/pages/') ? 'cart.html' : 'pages/cart.html' }
+                    ];
+                }
+            } else if (/shipping|delivery|dispatch|track|where is my order/i.test(lower)) {
                 reply = "🚚 **Arshith Fresh Delivery & Shipping:**\n• **FREE Shipping** on all orders above ₹1,000 across India!\n• Deliveries arrive in **3-5 business days**.\n• Live SMS & WhatsApp tracking links are dispatched with every order.";
                 chips = ["How do I check my order status?", "Do you deliver to my location?", "Which payment methods are supported?"];
             } else if (/return|refund|cancel|damage|broken|leak/i.test(lower)) {

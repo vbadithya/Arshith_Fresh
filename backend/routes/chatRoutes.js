@@ -88,7 +88,8 @@ router.post('/', rateLimiter, async (req, res) => {
       customerName,
       customerEmail,
       customerPhone,
-      context = {}
+      context = {},
+      cart = []
     } = req.body;
 
     const trimmedMsg = (message || '').trim();
@@ -99,8 +100,8 @@ router.post('/', rateLimiter, async (req, res) => {
     // Generate or maintain persistent conversationId
     const convId = clientConvId || ('conv_' + crypto.randomBytes(8).toString('hex'));
 
-    // Process query through natural language engine
-    const result = await processUserMessage(trimmedMsg, context);
+    // Process query through natural language engine with cart awareness
+    const result = await processUserMessage(trimmedMsg, context, cart);
 
     // Asynchronously save/update conversation in MongoDB
     ChatConversation.findOneAndUpdate(
