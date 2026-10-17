@@ -3815,16 +3815,27 @@ main {
 .arshith-ai-body {
     flex: 1 1 auto;
     overflow-y: auto;
-    padding: 16px 14px;
+    overflow-x: hidden !important;
+    padding: 14px 12px;
     background: #f8fafc;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .arshith-ai-body::-webkit-scrollbar {
     width: 5px;
+    height: 0px !important;
+}
+
+.arshith-ai-body::-webkit-scrollbar:horizontal {
+    display: none !important;
+    height: 0px !important;
+    width: 0px !important;
 }
 
 .arshith-ai-body::-webkit-scrollbar-thumb {
@@ -3836,8 +3847,10 @@ main {
 .ai-message {
     display: flex;
     gap: 8px;
-    max-width: 88%;
+    max-width: 95%;
+    width: 100%;
     animation: aiFadeUp 0.25s ease forwards;
+    box-sizing: border-box;
 }
 
 @keyframes aiFadeUp {
@@ -3852,6 +3865,7 @@ main {
 .ai-message.user {
     align-self: flex-end;
     flex-direction: row-reverse;
+    max-width: 82%;
 }
 
 .ai-msg-avatar {
@@ -3872,13 +3886,17 @@ main {
 .ai-msg-content {
     background: #ffffff;
     color: #1e293b;
-    padding: 10px 14px;
+    padding: 11px 13px;
     border-radius: 14px 14px 14px 2px;
-    font-size: 13.5px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.45;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     border: 1px solid #e2e8f0;
     word-break: break-word;
+    overflow-x: hidden !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .ai-msg-content p {
@@ -3895,6 +3913,7 @@ main {
     border-radius: 14px 14px 2px 14px;
     border: none;
     box-shadow: 0 2px 6px rgba(15, 113, 57, 0.25);
+    width: auto;
 }
 
 .ai-msg-time {
@@ -3906,6 +3925,154 @@ main {
 
 .ai-message.user .ai-msg-time {
     color: rgba(255, 255, 255, 0.75);
+}
+
+/* Sleek Cart & Product Receipt Alignment */
+.ai-receipt-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 9px;
+    margin: 3px 0;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    gap: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.ai-receipt-row:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.ai-receipt-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.ai-receipt-dot {
+    color: #16a34a;
+    font-size: 8px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.ai-receipt-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.ai-receipt-name strong {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.ai-receipt-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.ai-receipt-qty {
+    background: #e2e8f0;
+    color: #334155;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.ai-receipt-price {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f7139;
+    text-align: right;
+    min-width: 48px;
+    white-space: nowrap;
+}
+
+.ai-receipt-price strong {
+    color: #0f7139;
+    font-weight: 800;
+}
+
+.ai-receipt-subtotal {
+    margin: 8px 0 4px 0;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 1.5px solid #86efac;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #0f7139;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.ai-receipt-delivery-tip {
+    margin: 4px 0;
+    padding: 6px 10px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    font-size: 11.5px;
+    color: #92400e;
+    font-weight: 600;
+    line-height: 1.35;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.ai-bullet-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 2px 0;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.ai-bullet-dot {
+    color: #16a34a;
+    font-size: 12px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.ai-bullet-content {
+    flex: 1;
+    word-break: break-word;
+}
+
+.ai-spacer {
+    height: 6px;
+}
+
+.ai-text-line {
+    margin: 2px 0;
+    line-height: 1.45;
+}
+
+.ai-del {
+    color: #94a3b8;
+    font-size: 11px;
+    margin-left: 4px;
+    font-weight: normal;
 }
 
 /* Quick Suggestion Chips */

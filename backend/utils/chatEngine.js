@@ -462,6 +462,14 @@ function formatProduct(p) {
 // Resolve user query against catalog taxonomy
 function resolveCatalogItem(query) {
   const clean = (query || '').trim().toLowerCase().replace(/[^\p{L}\p{M}\p{N}\s]/gu, ' ');
+
+  // If the query is an informational question, wellness advice, or cooking guide (and NOT a simple price inquiry), delegate to FAQs
+  const isPriceInquiry = /\b(price|cost|how much|rate|buy|order)\b/i.test(clean);
+  const isQuestionOrComparison = !isPriceInquiry && /\b(best|good|better|benefit|benefits|health|cooking|fry|frying|deep fry|heart|diabetes|diabetic|hair|skin|cholesterol|bp|weight|store|storage|shelf life|expiry|process|difference|vs|compare|what is|how is|how do|recommend)\b/i.test(clean);
+  if (isQuestionOrComparison) {
+    return null;
+  }
+
   const tokens = clean.split(/\s+/).filter(t => t.length >= 2 && ![
     'what', 'are', 'the', 'for', 'you', 'have', 'and', 'with', 'from', 'our',
     'items', 'item', 'price', 'cost', 'show', 'buy', 'is', 'there', 'any',
@@ -539,12 +547,24 @@ function resolveCatalogItem(query) {
     return bestCandidate;
   }
 
-  // Check for specific products requested that are NOT available in inventory
-  if (/\boil\b|\boils\b/i.test(clean) && distinctiveTokens.length > 0) {
-    return { type: 'UNAVAILABLE_SPECIFIC', category: 'Oils', requested: distinctiveTokens.join(' ') };
+  // Check for specific products requested that are NOT available in inventory (e.g. "olive oil", "avocado oil")
+  const UNAVAILABLE_OILS = ['olive', 'avocado', 'neem', 'canola', 'soybean', 'soya', 'palm', 'argan', 'jojoba', 'macadamia', 'tea tree', 'rice bran', 'corn oil', 'vegetable oil', 'dalda'];
+  for (const unav of UNAVAILABLE_OILS) {
+    if (clean.includes(unav)) {
+      return { type: 'UNAVAILABLE_SPECIFIC', category: 'Oils', requested: unav };
+    }
   }
-  if (/\bghee\b/i.test(clean) && distinctiveTokens.length > 0) {
-    return { type: 'UNAVAILABLE_SPECIFIC', category: 'Ghee', requested: distinctiveTokens.join(' ') };
+
+  const UNAVAILABLE_GHEES = ['goat', 'sheep', 'camel', 'donkey', 'yak'];
+  for (const unav of UNAVAILABLE_GHEES) {
+    if (clean.includes(unav)) {
+      return { type: 'UNAVAILABLE_SPECIFIC', category: 'Ghee', requested: unav };
+    }
+  }
+
+  // Fallback check for distinctive token with oil if it looks like a requested item name
+  if (/\boil\b|\boils\b/i.test(clean) && distinctiveTokens.length > 0 && !/show|available|list|have|types|all/i.test(clean)) {
+    return { type: 'UNAVAILABLE_SPECIFIC', category: 'Oils', requested: distinctiveTokens.join(' ') };
   }
 
   // Broad category requests
@@ -602,6 +622,103 @@ async function findLiveProducts(searchTerm, limit = 4) {
     console.warn('⚠️ Product query error in chatEngine:', err.message);
     return [];
   }
+}
+
+// Detect price & budget queries (e.g. "under 500 cost", "products under 300", "cheapest products", etc.)
+function detectPriceFilter(query) {
+  const clean = (query || '').toLowerCase().trim();
+
+  let maxPrice = null;
+  let minPrice = null;
+  let isCheapest = false;
+  let isExpensive = false;
+  let categoryFilter = null;
+  let keywordFilter = null;
+
+  // 1. Check relative budget extremes
+  if (/\b(cheapest|lowest price|most affordable|lowest cost|budget friendly|low price|least expensive|cheap items|cheap products|cheaper items|cheaper products|budget options|best value)\b/i.test(clean)) {
+    isCheapest = true;
+  } else if (/\b(most expensive|highest price|highest cost|costliest|costly|premium range|top price|luxury)\b/i.test(clean)) {
+    isExpensive = true;
+  }
+
+  // 2. Check Range: between X and Y / from X to Y / X to Y
+  const rangeMatch = clean.match(/\b(?:between|from)\s*(?:rs\.?|inr|₹)?\s*(\d+)\s*(?:and|to|-)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i) ||
+                     clean.match(/\b(?:rs\.?|inr|₹)?\s*(\d+)\s*(?:to|-)\s*(?:rs\.?|inr|₹)?\s*(\d+)\s*(?:rs|rupees|cost|price|budget|inr)?\b/i);
+  if (rangeMatch) {
+    const val1 = parseInt(rangeMatch[1], 10);
+    const val2 = parseInt(rangeMatch[2], 10);
+    minPrice = Math.min(val1, val2);
+    maxPrice = Math.max(val1, val2);
+  }
+
+  // 3. Check Max Price (under, below, less than, up to, within, cheaper than, at most, etc.)
+  if (maxPrice === null) {
+    const maxPatterns = [
+      /\b(?:under|below|less than|cheaper than|within|at most|up to|maximum|max|underneath|not more than|<=?)\s*(?:the\s+)?(?:cost\s+of\s+|price\s+of\s+)?(?:rs\.?|inr|₹)?\s*(\d+)/i,
+      /\b(?:cost|price|rate)\s*(?:of\s+)?(?:rs\.?|inr|₹)?\s*(\d+)\s*(?:or\s+less|and\s+below|or\s+below|under|below)\b/i,
+      /\b(?:rs\.?|inr|₹)?\s*(\d+)\s*(?:cost|rupees|rs|bucks|inr)?\s*(?:under|below|or less|and less|and below)\b/i,
+      /\bunder\s*(?:the\s+)?cost\s*of\s*(\d+)/i,
+      /\b(?:buy|get|purchase|have|available)\s*(?:for|under|within|in)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i,
+      /\bbudget\s*(?:of|is|around|under)?\s*(?:rs\.?|inr|₹)?\s*(\d+)/i,
+      /\bprice\s*around\s*(?:rs\.?|inr|₹)?\s*(\d+)/i
+    ];
+
+    for (const pat of maxPatterns) {
+      const m = clean.match(pat);
+      if (m && m[1]) {
+        maxPrice = parseInt(m[1], 10);
+        break;
+      }
+    }
+  }
+
+  // 4. Check Min Price (above, over, more than, greater than, at least, etc.)
+  if (minPrice === null && maxPrice === null) {
+    const minPatterns = [
+      /\b(?:above|over|more than|greater than|at least|minimum|min|>=?)\s*(?:the\s+)?(?:cost\s+of\s+|price\s+of\s+)?(?:rs\.?|inr|₹)?\s*(\d+)/i,
+      /\b(?:rs\.?|inr|₹)?\s*(\d+)\s*(?:and\s+above|or\s+more|plus|\+)\b/i
+    ];
+    for (const pat of minPatterns) {
+      const m = clean.match(pat);
+      if (m && m[1]) {
+        minPrice = parseInt(m[1], 10);
+        break;
+      }
+    }
+  }
+
+  // 5. Category detection in price query
+  if (/\boil\b|\boils\b/i.test(clean)) categoryFilter = 'Oils';
+  else if (/\bghee\b|\bhoney\b/i.test(clean)) categoryFilter = 'Ghee and Honey';
+  else if (/\bseed\b|\bseeds\b/i.test(clean)) categoryFilter = 'Seeds';
+  else if (/\bdry fruits?\b|\bnuts?\b|\balmonds?\b|\bcashews?\b|\bwalnuts?\b|\bpistachio/i.test(clean)) categoryFilter = 'Dry Fruits';
+  else if (/\bspices?\b|\bmasala\b|\bchilli\b|\bturmeric\b|\bpodi\b|\bpowders?\b/i.test(clean)) categoryFilter = 'Powders & Masalas';
+
+  // 6. Specific item keywords (e.g. "mustard", "groundnut", "coconut", "almond", etc.)
+  const knownKeywords = [
+    'groundnut', 'mustard', 'sesame', 'coconut', 'sunflower', 'castor',
+    'ghee', 'honey', 'almond', 'cashew', 'walnut', 'pista', 'anjeer', 'raisin',
+    'chia', 'flax', 'chilli', 'turmeric', 'coriander', 'pappula'
+  ];
+  for (const kw of knownKeywords) {
+    if (clean.includes(kw)) {
+      keywordFilter = kw;
+      break;
+    }
+  }
+
+  const isPriceQuery = maxPrice !== null || minPrice !== null || isCheapest || isExpensive;
+
+  return {
+    isPriceQuery,
+    maxPrice,
+    minPrice,
+    isCheapest,
+    isExpensive,
+    categoryFilter,
+    keywordFilter
+  };
 }
 
 // Main conversation resolver
@@ -816,6 +933,122 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
     }
   }
 
+  // 2.5. Price & Budget Query Filter Engine (e.g. "under 500 cost", "products under the cost of 500", "below 300", "oils under 400", "cheapest products")
+  const priceFilter = detectPriceFilter(text);
+  if (priceFilter && priceFilter.isPriceQuery) {
+    try {
+      const allProducts = await Product.find({}).lean();
+      if (allProducts && allProducts.length > 0) {
+        let matched = allProducts.map(formatProduct).filter(Boolean);
+
+        // Filter by Category if user specified one (e.g. "oils under 400", "seeds under 150")
+        if (priceFilter.categoryFilter) {
+          const cat = priceFilter.categoryFilter.toLowerCase();
+          matched = matched.filter(p => {
+            const pCat = (p.category || '').toLowerCase();
+            const pName = (p.name || '').toLowerCase();
+            if (cat === 'oils') return pCat.includes('oil') || pName.includes('oil');
+            if (cat === 'ghee and honey' || cat === 'ghee') return pCat.includes('ghee') || pCat.includes('honey') || pName.includes('ghee') || pName.includes('honey');
+            if (cat === 'seeds') return pCat.includes('seed') || pName.includes('seed');
+            if (cat === 'dry fruits') return pCat.includes('fruit') || pCat.includes('nut') || pCat.includes('dry') || /almond|cashew|walnut|pista|fig|anjeer|raisin/i.test(pName);
+            if (cat === 'powders & masalas' || cat === 'spices') return pCat.includes('powder') || pCat.includes('masala') || pCat.includes('spice') || /chilli|turmeric|coriander|podi|karam|masala/i.test(pName);
+            return pCat.includes(cat);
+          });
+        }
+
+        // Filter by specific keyword if user mentioned an ingredient (e.g. "mustard under 200", "groundnut under 400")
+        if (priceFilter.keywordFilter) {
+          const kw = priceFilter.keywordFilter.toLowerCase();
+          const kwMatched = matched.filter(p => (p.name || '').toLowerCase().includes(kw));
+          if (kwMatched.length > 0) {
+            matched = kwMatched;
+          }
+        }
+
+        // Filter by price bounds
+        if (priceFilter.maxPrice !== null) {
+          matched = matched.filter(p => p.price <= priceFilter.maxPrice);
+        }
+        if (priceFilter.minPrice !== null) {
+          matched = matched.filter(p => p.price >= priceFilter.minPrice);
+        }
+
+        // Sort results
+        if (priceFilter.isExpensive) {
+          matched.sort((a, b) => b.price - a.price);
+        } else {
+          matched.sort((a, b) => a.price - b.price);
+        }
+
+        if (matched.length > 0) {
+          const catLabel = priceFilter.categoryFilter ? `**${priceFilter.categoryFilter}** ` : '';
+          let headerText = '';
+
+          if (priceFilter.maxPrice !== null && priceFilter.minPrice !== null) {
+            headerText = `Here are our verified 100% natural ${catLabel}products between **₹${priceFilter.minPrice}** and **₹${priceFilter.maxPrice}** directly from our inventory:`;
+          } else if (priceFilter.maxPrice !== null) {
+            headerText = `Here are our verified 100% natural ${catLabel}products under **₹${priceFilter.maxPrice}** directly from our inventory (starting from just **₹${matched[0].price}**):`;
+          } else if (priceFilter.minPrice !== null) {
+            headerText = `Here are our verified 100% natural ${catLabel}products priced at **₹${priceFilter.minPrice} and above** directly from our inventory:`;
+          } else if (priceFilter.isCheapest) {
+            headerText = `Here are our most affordable, budget-friendly 100% natural ${catLabel}products directly from our inventory (starting from just **₹${matched[0].price}**):`;
+          } else if (priceFilter.isExpensive) {
+            headerText = `Here are our premium quality natural ${catLabel}selections directly from our inventory:`;
+          }
+
+          const featuredBullets = matched.slice(0, 6).map(p => {
+            const unitStr = p.unit ? ` (${p.unit})` : '';
+            const mrpStr = p.originalPrice && p.originalPrice > p.price ? ` ~₹${p.originalPrice}~` : '';
+            return `• **${p.name}** — **₹${p.price}**${unitStr}${mrpStr}`;
+          }).join('\n');
+
+          const freeShipTip = `\n\n💡 *Tip: Add items totaling ₹1,000 or more to get **FREE Delivery** across India! Use coupon **WELCOME10** for 10% off.*`;
+          const reply = `${headerText}\n\n${featuredBullets}${freeShipTip}`;
+
+          return {
+            reply,
+            category: 'PRODUCTS',
+            chips: ['What oils do you have?', 'Pure Cow Ghee', 'Are there any current offers?', 'Talk to Support'],
+            products: matched.slice(0, 6),
+            quickActions: [
+              { label: 'View All Collections', action: 'url', value: '/pages/collections.html' },
+              { label: 'Open Cart Page', action: 'url', value: '/pages/cart.html' }
+            ],
+            matchedFaq: `Price Filter (${priceFilter.maxPrice ? 'under ' + priceFilter.maxPrice : 'budget'})`,
+            confidence: 0.98,
+            context: {
+              ...context,
+              lastIntent: 'PRODUCTS',
+              lastPriceFilter: priceFilter.maxPrice || priceFilter.minPrice || 'budget'
+            }
+          };
+        } else {
+          // No products found within the specified constraint (e.g. under ₹20)
+          const allSorted = allProducts.map(formatProduct).filter(Boolean).sort((a, b) => a.price - b.price);
+          const lowestPrice = allSorted.length > 0 ? allSorted[0].price : 49;
+          const lowestSample = allSorted.slice(0, 4);
+
+          const reply = `We currently do not have ${priceFilter.categoryFilter ? priceFilter.categoryFilter.toLowerCase() + ' ' : ''}products under **₹${priceFilter.maxPrice || priceFilter.minPrice}**.\n\nOur most affordable 100% natural, farm-fresh essentials start from **₹${lowestPrice}** (such as stone-ground Chilli Powder at ₹49, Flax Seeds at ₹90, and Castor Oil at ₹95).\n\nHere are our best budget-friendly options available right now:`;
+
+          return {
+            reply,
+            category: 'PRODUCTS',
+            chips: ['What oils do you have?', 'Pure Cow Ghee', 'Are there any current offers?', 'Talk to Support'],
+            products: lowestSample,
+            quickActions: [
+              { label: 'View All Collections', action: 'url', value: '/pages/collections.html' }
+            ],
+            matchedFaq: 'Price Filter (No Exact Match)',
+            confidence: 0.9,
+            context: { ...context, lastIntent: 'PRODUCTS' }
+          };
+        }
+      }
+    } catch (err) {
+      console.warn('⚠️ Price filter query database lookup error:', err.message);
+    }
+  }
+
   // 3. Precision Catalog & Product Intent Resolver
   const catalogMatch = resolveCatalogItem(text);
 
@@ -930,7 +1163,17 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
   if (bestFaq && highestScore >= 28) {
     let relatedProducts = [];
     if (bestFaq.category === 'PRODUCTS' || /product|price|available|buy|shop/i.test(lower)) {
-      relatedProducts = await findLiveProducts('oils', 3);
+      if (/ghee/i.test(lower) || /ghee/i.test(bestFaq.question)) {
+        relatedProducts = await findLiveProducts('ghee', 3);
+      } else if (/dry fruit|almond|cashew|walnut|fig|anjeer|nut|pista/i.test(lower) || /dry fruit/i.test(bestFaq.question)) {
+        relatedProducts = await findLiveProducts('dry fruits', 3);
+      } else if (/seed|chia|flax/i.test(lower) || /seed/i.test(bestFaq.question)) {
+        relatedProducts = await findLiveProducts('seeds', 3);
+      } else if (/spice|masala|turmeric|chilli|podi|curry/i.test(lower) || /spice|podi|turmeric|chilli/i.test(bestFaq.question)) {
+        relatedProducts = await findLiveProducts('spices', 3);
+      } else {
+        relatedProducts = await findLiveProducts('oils', 3);
+      }
     }
 
     Faq.findByIdAndUpdate(bestFaq._id, { $inc: { viewsCount: 1 } }).catch(() => {});

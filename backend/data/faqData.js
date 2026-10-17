@@ -702,6 +702,219 @@ const FAQ_DATA = [
       { label: 'Chat on WhatsApp', action: 'url', value: 'https://api.whatsapp.com/send/?phone=919945676029&text=Hi%20Arshith%20Fresh,%20I%20would%20like%20to%20speak%20with%20a%20human%20agent.' }
     ],
     order: 76
+  },
+
+  // =========================================================================
+  // CATEGORY I: HEALTH, CULINARY, PROCESSING & EXPANDED INTELLIGENCE (16 Questions)
+  // =========================================================================
+  {
+    category: 'PRODUCTS',
+    question: 'Which oil is best for heart health and cholesterol?',
+    answer: "For heart health and maintaining healthy cholesterol levels, cold-pressed oils are ideal because they retain natural plant sterols, monounsaturated fatty acids (MUFA), and polyunsaturated fatty acids (PUFA):\n• **Groundnut Oil**: Rich in resveratrol, oleic acid (MUFA), and vitamin E, helping lower LDL (bad) cholesterol while preserving HDL.\n• **Sesame (Gingelly) Oil**: Packed with sesamol and sesaminol, powerful antioxidants proven to support healthy blood pressure and artery health.\n• **Mustard Oil**: High in alpha-linolenic acid (omega-3) and balanced fatty acids.\n• **Pure A2 Cow Ghee**: Contains conjugated linoleic acid (CLA) and butyric acid which aid cardiovascular wellness in moderation.\nAll our oils are 100% unrefined and cold-pressed below 45°C without trans fats or chemical solvents.",
+    keywords: [
+      'best oil for heart', 'oil for cholesterol', 'heart health oil', 'bp oil',
+      'cardiac health', 'healthy oil for heart', 'cholesterol free', 'which oil for heart',
+      'heart disease', 'good for heart', 'heart', 'cholesterol', 'blood pressure'
+    ],
+    followUps: ['Show me groundnut oil', 'Show me sesame oil', 'Tell me about A2 cow ghee'],
+    quickActions: [
+      { label: 'Explore Heart-Healthy Oils', action: 'url', value: '/pages/collections.html?category=Oils' }
+    ],
+    order: 77
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'Which oil is best for diabetes and sugar patients?',
+    answer: "For managing blood sugar and diabetic wellness:\n• **Cold-Pressed Mustard Oil & Sesame Oil**: Naturally rich in alpha-linolenic acid and magnesium, helping improve insulin sensitivity and glycemic control.\n• **Cold-Pressed Groundnut Oil**: Has a low glycemic impact and healthy fats that stabilize post-meal glucose spikes.\n• **Superfood Seeds**: Our **Chia Seeds** and **Flax Seeds** are packed with soluble dietary fiber and omega-3s, which slow carbohydrate absorption.\n• **Natural Sweetener Alternative**: Replace refined white sugar with our **Wild Forest Raw Honey** or **Organic Jaggery** for a gentler glycemic index.",
+    keywords: [
+      'oil for diabetes', 'diabetic friendly oil', 'sugar patient oil', 'diabetes cooking oil',
+      'best oil for diabetics', 'sugar patient', 'diabetic', 'diabetes', 'blood sugar'
+    ],
+    followUps: ['Show me mustard oil', 'Show me chia seeds', 'Show me raw honey'],
+    quickActions: [
+      { label: 'View All Collections', action: 'url', value: '/pages/collections.html' }
+    ],
+    order: 78
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'Which oil is best for deep frying, high heat, and daily cooking?',
+    answer: "For deep frying and traditional Indian cooking, oils must have a high smoke point and heat stability so they do not break down into harmful free radicals:\n1. 🥥 **Cold-Pressed Groundnut Oil**: Smoke point of ~225°C to 232°C. Excellent heat stability, nutty taste, perfect for puris, pakoras, vadas, and daily curries.\n2. 🍯 **Pure Desi Ghee**: Exceptionally high smoke point of 250°C. Does not produce toxic acrolein during deep frying and imparts incredible flavor.\n3. 🌻 **Cold-Pressed Sunflower Oil**: Light, neutral aroma, and high smoke point (~227°C), ideal for sautéing, stir-fries, and baking.\nUnlike refined industrial oils, our oils undergo zero chemical solvent extraction or bleaching.",
+    keywords: [
+      'best oil for deep frying', 'high heat cooking oil', 'oil for frying', 'smoke point of oils',
+      'frying oil', 'deep fry', 'which oil for cooking', 'cooking oil', 'daily cooking oil',
+      'best oil for indian cooking', 'high smoke point', 'deep frying'
+    ],
+    followUps: ['Show me groundnut oil', 'Show me pure cow ghee', 'Show me sunflower oil'],
+    quickActions: [
+      { label: 'Shop Cooking Oils', action: 'url', value: '/pages/collections.html?category=Oils' }
+    ],
+    order: 79
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'Which oil is best for hair growth, dandruff, and skin massage?',
+    answer: "We offer natural, chemical-free cold-pressed oils ideal for hair and body wellness:\n• 🥥 **Virgin Coconut Oil**: Deep penetration into hair shafts, prevents protein loss, soothes dry scalp, and works as an all-natural body moisturizer.\n• 🌿 **Cold-Pressed Castor Oil**: Extremely rich in ricinoleic acid and essential fatty acids. Stimulates hair follicles, thickens thinning hair, and promotes eyebrow & eyelash density.\n• 🫘 **Pure Sesame Oil (Til Oil)**: The gold standard in Ayurveda for Abhyanga (body massage), joint relief, and daily oil pulling.\nAll oils are 100% pure single-ingredient with zero added perfumes or mineral oils.",
+    keywords: [
+      'oil for hair growth', 'oil for skin', 'hair oil', 'dandruff oil',
+      'coconut oil for hair', 'castor oil for hair', 'massage oil', 'body massage',
+      'hair fall', 'thick hair', 'skin care oil', 'abhyanga', 'oil pulling'
+    ],
+    followUps: ['Show me coconut oil', 'Show me castor oil', 'Show me sesame oil'],
+    quickActions: [
+      { label: 'View Pure Oils', action: 'url', value: '/pages/collections.html?category=Oils' }
+    ],
+    order: 80
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What is cold-pressed / wood-pressed (chekku / ghani / kachi ghani) oil?',
+    answer: "Cold-pressed (also known as Marachekku, Wooden Ghani, or Kachi Ghani) is the authentic ancient Indian method of extracting oils:\n• **Slow Crushing**: Seeds are slowly crushed inside a traditional wooden pestle (Vaagai wood) at low speeds (under 15-20 RPM).\n• **Low Temperature (< 45°C)**: No external heat is applied, preserving all delicate vitamins (A, D, E, K), natural antioxidants, and rich nutty aromas.\n• **Zero Chemicals**: Unlike refined oils, we never use chemical solvents (hexane), degumming agents, bleaching clays, or artificial deodorizers.\n• **Natural Sedimentation**: The oil is allowed to settle naturally in food-grade tanks and filtered through unbleached cotton fabric.",
+    keywords: [
+      'what is cold pressed oil', 'what is wood pressed oil', 'wood pressed vs cold pressed',
+      'chekku oil', 'ghani oil', 'kachi ghani', 'marachekku', 'unrefined oil',
+      'how is oil extracted', 'how do you make oil', 'process of oil', 'what is chekku'
+    ],
+    followUps: ['What oils do you have?', 'What is Bilona Ghee?', 'Are your products organic?'],
+    quickActions: [
+      { label: 'Explore Cold Pressed Oils', action: 'url', value: '/pages/collections.html?category=Oils' }
+    ],
+    order: 81
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What is Bilona Ghee and why is A2 Desi Cow Ghee special?',
+    answer: "Our A2 Desi Cow Ghee is crafted using the ancient 5-step Vedic Bilona method:\n1. **A2 Milk**: Sourced exclusively from indigenous Indian Gir and Sahiwal cows.\n2. **Curd Fermentation**: Whole boiled milk is naturally cultured into rich curd overnight.\n3. **Bilona Churning**: The curd is churned bi-directionally with a wooden churner (Bilona) to separate cultured butter (makkhan).\n4. **Slow Simmering**: The cultured butter is slowly simmered on a low flame until the water evaporates and golden, aromatic ghee granules form.\n5. **Purity**: 100% pure A2 beta-casein, lactose-free, easy to digest, rich in butyric acid, and deeply nourishing.",
+    keywords: [
+      'what is bilona ghee', 'a2 ghee benefits', 'bilona method', 'desi cow ghee',
+      'a2 cow ghee', 'why a2 ghee', 'bilona process', 'how is ghee made',
+      'vedic ghee', 'bilona churned', 'gir cow ghee'
+    ],
+    followUps: ['Show me pure cow ghee', 'Cow Ghee vs Buffalo Ghee', 'How to store ghee?'],
+    quickActions: [
+      { label: 'Shop Pure Ghee', action: 'url', value: '/pages/collections.html?category=Ghee%20and%20Honey' }
+    ],
+    order: 82
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What is the difference between Cow Ghee and Buffalo Ghee?',
+    answer: "Both are pure bilona churned, but cater to different nutritional and culinary preferences:\n• 🐄 **A2 Desi Cow Ghee (Golden Yellow)**:\n  - Lighter in fat (~99.5%), rich in carotenoids and natural vitamin A.\n  - Contains A2 beta-casein for easy digestion, ideal for children, elders, and daily wellness.\n  - Available in 250ml, 500ml, and 1L.\n• 🐃 **Pure Buffalo Ghee (Creamy White)**:\n  - Higher fat density, rich creamy granules, and higher calories.\n  - Best for traditional Indian sweets (halwa, ladoo), building stamina, and muscle gain.\n  - Available in 250ml, 500ml, and 1L.",
+    keywords: [
+      'cow ghee vs buffalo ghee', 'difference between cow and buffalo ghee',
+      'which ghee is better', 'yellow ghee vs white ghee', 'buffalo ghee benefits',
+      'compare ghee', 'cow or buffalo ghee'
+    ],
+    followUps: ['Show me cow ghee', 'Show me buffalo ghee', 'What is Bilona Ghee?'],
+    order: 83
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What are the health benefits of Chia Seeds and Flax Seeds?',
+    answer: "Both seeds are nutrient-dense plant superfoods:\n• 🌱 **Chia Seeds**: Absorbs 10x its weight in water to keep you hydrated, packed with soluble fiber to support gut health and weight management, rich in calcium and omega-3.\n• 🌾 **Flax Seeds (Alsi)**: Outstanding source of alpha-linolenic acid (ALA omega-3) and lignans (plant antioxidants). Supports cardiovascular health and hormonal balance.\n**How to consume**: Soak chia seeds in water, buttermilk, or smoothies for 15 mins. Roast flax seeds lightly and grind into powders for rotis or curries.",
+    keywords: [
+      'chia seeds benefits', 'flax seeds benefits', 'how to use chia seeds',
+      'seeds benefits', 'superfoods', 'alsi', 'chia seeds', 'flax seeds', 'how to eat seeds'
+    ],
+    followUps: ['Show me chia seeds', 'Show me flax seeds', 'What dry fruits do you have?'],
+    order: 84
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What dry fruits and nuts do you offer and what are their benefits?',
+    answer: "Our dry fruits are 100% natural, unpolished, and grade-A premium quality:\n• 🥜 **California Jumbo Almonds (Badam)**: Packed with vitamin E, magnesium, and protein for memory and heart health.\n• 🌰 **Whole Cashews (Kaju)**: Creamy, zero cholesterol, rich in copper and zinc for immune strength.\n• 🧠 **Walnuts (Akhrot)**: High in plant-based omega-3 fatty acids for cognitive and brain function.\n• 🍯 **Dry Figs (Anjeer)**: High in dietary fiber, iron, and calcium, excellent for gut health and hemoglobin.\n• 🟢 **Pistachios (Pista)**: Antioxidant-rich, low-calorie snacking.",
+    keywords: [
+      'dry fruits list', 'nuts available', 'almonds benefits', 'cashews',
+      'walnuts', 'dry fruits benefits', 'badam', 'kaju', 'akhrot', 'anjeer', 'dry fruits'
+    ],
+    followUps: ['Show me almonds', 'Show me cashews', 'Show me walnuts'],
+    order: 85
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What is the shelf life and expiry date of your products?',
+    answer: "Because our products are 100% natural with **zero synthetic preservatives**, here are our recommended shelf lives from packing date:\n• 🥥 **Cold-Pressed Oils**: 6 to 9 months (best consumed fresh).\n• 🍯 **Pure Bilona Ghee**: 12 months at room temperature (ghee is naturally self-preserving).\n• 🍯 **Raw Forest Honey**: Virtually indefinite shelf life when kept sealed.\n• 🌶️ **Stone-Ground Spices & Podis**: 9 to 12 months in airtight containers.\n• 🥜 **Dry Fruits & Seeds**: 6 to 9 months.\nEvery jar and pack clearly prints the exact batch manufacturing date, pack date, and best-before window.",
+    keywords: [
+      'shelf life', 'expiry date', 'best before', 'how long do products last',
+      'validity', 'product expiry', 'shelf life of oil', 'shelf life of ghee', 'how long does ghee last'
+    ],
+    followUps: ['How should I store oils and ghee?', 'Are your products organic?'],
+    order: 86
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'How should I store cold-pressed oils, ghee, and spices?',
+    answer: "Proper storage keeps natural unrefined foods fresh and aromatic:\n• **Cold-Pressed Oils**: Store in a cool, dry place away from direct sunlight and stovetop heat. Always keep the lid tightly sealed.\n• **Bilona Ghee**: Store at room temperature in an airtight glass or stainless-steel jar. **Do NOT refrigerate** (refrigeration creates condensation) and always use a dry, clean spoon.\n• **Stone-Ground Spices & Podis**: Keep in airtight containers away from humidity and moisture.\n• **Honey**: Store at room temperature. Natural honey may crystallize in cooler weather; simply place the jar in warm water to reliquify.",
+    keywords: [
+      'how to store oils', 'storage instructions', 'how to store ghee',
+      'refrigerate ghee', 'storage', 'how to keep products', 'how to store honey'
+    ],
+    followUps: ['What is the shelf life of products?', 'What products do you sell?'],
+    order: 87
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'Are your products 100% organic, pure, and chemical-free?',
+    answer: "Yes, 100% guaranteed! At Arshith Fresh:\n• **Zero Chemicals**: No synthetic pesticides, no artificial colors, and zero chemical preservatives.\n• **Zero Adulteration**: No mineral oils, no palm oil, and no blended lower-grade oils.\n• **Single-Origin Ingredients**: Direct from certified traditional farmer collectives.\n• **FSSAI Licensed**: Fully tested and compliant with national food safety standards.\nWhat you read on our labels is 100% what you receive in the jar.",
+    keywords: [
+      'are products organic', 'is it pure', 'chemical free', 'preservatives added',
+      'adulteration free', 'fssai certified', 'is it safe', 'natural products', 'pure', 'organic'
+    ],
+    followUps: ['How do you process your oils and ghee?', 'What products do you sell?'],
+    order: 88
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What are your top recommended products and best sellers?',
+    answer: "Our customer favorite best-sellers are:\n1. 🥥 **Wood-Pressed Groundnut Oil (1L - ₹349)**: Nutty, unrefined, single-origin staple for daily curries and frying.\n2. 🍯 **Pure A2 Desi Cow Bilona Ghee (250ml - ₹240)**: Aromatic golden granular ghee made from cultured butter.\n3. 🌶️ **Andhra Pappula Podi (₹108)**: Flavorful roasted chana dal podi for hot rice and ghee.\n4. 🥜 **California Jumbo Almonds (₹310)**: Crunchy, nutrient-dense natural almonds.\n5. 🍯 **Raw Wild Forest Honey (₹130)**: Pure unheated forest honey.",
+    keywords: [
+      'top recommendations', 'best sellers', 'what should i buy', 'popular products',
+      'famous products', 'customer favorites', 'recommend something', 'best items', 'recommendation'
+    ],
+    followUps: ['Show me groundnut oil', 'Show me pure cow ghee', 'Are there any current offers?'],
+    quickActions: [
+      { label: 'View All Collections', action: 'url', value: '/pages/collections.html' }
+    ],
+    order: 89
+  },
+  {
+    category: 'PRODUCTS',
+    question: 'What spices and traditional podis do you sell?',
+    answer: "We offer stone-ground single-origin spices and authentic South Indian podis:\n• **Pure Salem Turmeric Powder**: High natural curcumin, vibrant aroma.\n• **Guntur Red Chilli Powder**: Pure pungent heat without artificial color or brick powder.\n• **Coriander Powder (Dhania)**: Aromatic roasted coriander.\n• **Andhra Pappula Podi (Chana Dal Podi)**: Classic soothing blend for hot rice.\n• **Karivepaku Karam Podi (Curry Leaves Podi)**: Rich in iron and antioxidants for hair and digestion.\n• **Sambar & Rasam Masalas**: Stone-ground traditional recipes.",
+    keywords: [
+      'what spices do you sell', 'spices list', 'pappula podi', 'karam podi',
+      'turmeric powder', 'chilli powder', 'podis', 'traditional podis', 'masalas'
+    ],
+    followUps: ['Show me turmeric powder', 'Show me pappula podi', 'Are there any current offers?'],
+    order: 90
+  },
+  {
+    category: 'ORDERS_DELIVERY',
+    question: 'Where is your store located? Can I visit physically or buy online?',
+    answer: "Arshith Fresh is headquartered in **Karnataka, India**. To deliver the freshest batches directly from our processing mills at honest farm-gate prices, we operate as a direct-to-consumer online store shipping pan-India.\n\nYou can order anytime 24/7 on our website ([www.arshithfresh.com](http://localhost:5000/pages/collections.html)) with fast door delivery across 19,000+ pin codes. For urgent queries, reach us on WhatsApp at **+91 9945676029**.",
+    keywords: [
+      'where is your shop', 'where is shop', 'store location', 'where is your store', 'physical shop', 'shop address',
+      'bangalore store', 'karnataka address', 'store address', 'where is arshith fresh',
+      'headquarters', 'shop location', 'where are you located'
+    ],
+    followUps: ['Do you deliver to my location?', 'How long does delivery take?', 'Talk to Support'],
+    quickActions: [
+      { label: 'Shop Online', action: 'url', value: '/pages/collections.html' },
+      { label: 'WhatsApp Support', action: 'url', value: 'https://api.whatsapp.com/send/?phone=919945676029&text=Hi%20Arshith%20Fresh!' }
+    ],
+    order: 91
+  },
+  {
+    category: 'ORDERS_DELIVERY',
+    question: 'Do you deliver to my city / state across India?',
+    answer: "Yes! We ship across **all states and union territories in India**, covering over 19,000+ pincodes via trusted courier partners (Shiprocket, Bluedart, Delhivery, DTDC):\n• **Southern States** (Karnataka, Andhra Pradesh, Telangana, Tamil Nadu, Kerala): Usually 2-3 business days.\n• **Rest of India** (Maharashtra, Gujarat, Delhi NCR, UP, West Bengal, etc.): 3-5 business days.\n• **Free Shipping**: Automatically unlocked on all orders of ₹1,000 or more!",
+    keywords: [
+      'do you deliver to my city', 'delivery locations', 'pin codes', 'ship across india',
+      'delhi', 'mumbai', 'bangalore', 'hyderabad', 'chennai', 'pune', 'kolkata',
+      'all india delivery', 'delivery areas', 'shipping coverage'
+    ],
+    followUps: ['How long does delivery take?', 'How do I check my order status?'],
+    order: 92
   }
 ];
 

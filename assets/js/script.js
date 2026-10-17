@@ -6513,21 +6513,112 @@ window.closeBlogModal = closeBlogModal;
 
         function parseSimpleMarkdown(str) {
             if (!str) return '';
-            let formatted = String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
+            const rawLines = String(str).split('\n');
+            const out = [];
 
-            // Bold: **text**
-            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // Links: [label](url)
-            formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#0f7139;font-weight:700;text-decoration:underline;">$1</a>');
-            // Bullet points
-            formatted = formatted.replace(/^• (.*?)$/gm, '<div style="display:flex;gap:6px;margin:2px 0;"><span style="color:#16a34a;font-weight:bold;">•</span><span>$1</span></div>');
-            // Line breaks
-            formatted = formatted.replace(/\n/g, '<br/>');
+            for (let i = 0; i < rawLines.length; i++) {
+                let line = rawLines[i].trim();
+                if (!line) {
+                    if (out.length > 0 && !out[out.length - 1].includes('ai-spacer')) {
+                        out.push('<div class="ai-spacer"></div>');
+                    }
+                    continue;
+                }
 
-            return formatted;
+                // Escape HTML
+                line = line
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+
+                // Strikethrough: ~text~
+                line = line.replace(/~(.*?)~/g, '<del class="ai-del">$1</del>');
+
+                // Bold: **text**
+                line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                // Links: [label](url)
+                line = line.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#0f7139;font-weight:700;text-decoration:underline;">$1</a>');
+
+                // Check if line is a cart item: • [Name] × [Qty] — [Price]
+                const cartMatch = line.match(/^•\s*(.*?)\s*[×x]\s*(\d+)\s*[—–-]\s*(.*)$/);
+                if (cartMatch) {
+                    const name = cartMatch[1].trim();
+                    const qty = cartMatch[2].trim();
+                    const price = cartMatch[3].trim();
+                    out.push(`
+                        <div class="ai-receipt-row">
+                            <div class="ai-receipt-title-wrap">
+                                <span class="ai-receipt-dot">●</span>
+                                <span class="ai-receipt-name">${name}</span>
+                            </div>
+                            <div class="ai-receipt-right">
+                                <span class="ai-receipt-qty">×${qty}</span>
+                                <span class="ai-receipt-price">${price}</span>
+                            </div>
+                        </div>
+                    `);
+                    continue;
+                }
+
+                // Check if line is a product recommendation: • [Name] — [Price/Details]
+                const prodMatch = line.match(/^•\s*(.*?)\s*[—–-]\s*(.*)$/);
+                if (prodMatch) {
+                    const name = prodMatch[1].trim();
+                    const details = prodMatch[2].trim();
+                    out.push(`
+                        <div class="ai-receipt-row">
+                            <div class="ai-receipt-title-wrap">
+                                <span class="ai-receipt-dot">●</span>
+                                <span class="ai-receipt-name">${name}</span>
+                            </div>
+                            <div class="ai-receipt-right">
+                                <span class="ai-receipt-price">${details}</span>
+                            </div>
+                        </div>
+                    `);
+                    continue;
+                }
+
+                // Generic bullet point: • text
+                if (line.startsWith('•')) {
+                    const bulletText = line.replace(/^•\s*/, '');
+                    out.push(`
+                        <div class="ai-bullet-item">
+                            <span class="ai-bullet-dot">•</span>
+                            <span class="ai-bullet-content">${bulletText}</span>
+                        </div>
+                    `);
+                    continue;
+                }
+
+                // Subtotal row: 💰 Cart Subtotal: ₹...
+                if (line.includes('Cart Subtotal:')) {
+                    const cleanSubtotal = line.replace(/💰\s*/, '');
+                    out.push(`
+                        <div class="ai-receipt-subtotal">
+                            <span>💰 Subtotal</span>
+                            <span>${cleanSubtotal.replace(/<strong>Cart Subtotal:\s*<\/strong>|Cart Subtotal:\s*/i, '')}</span>
+                        </div>
+                    `);
+                    continue;
+                }
+
+                // Delivery notification: FREE Delivery or Add ₹...
+                if (line.includes('FREE Delivery') || line.includes('Add ₹') || line.includes('FREE Shipping')) {
+                    out.push(`
+                        <div class="ai-receipt-delivery-tip">
+                            ${line}
+                        </div>
+                    `);
+                    continue;
+                }
+
+                // Regular heading or text
+                out.push(`<div class="ai-text-line">${line}</div>`);
+            }
+
+            return out.join('');
         }
 
         function appendMessage(sender, text, products = [], chips = [], quickActions = []) {
@@ -6870,6 +6961,29 @@ window.closeBlogModal = closeBlogModal;
             } else if (/payment|pay|upi|card|cod|cash on delivery|money deducted/i.test(lower)) {
                 reply = "💳 **Supported Payment Methods:**\n• We accept 100% secure online payments only: UPI (Google Pay, PhonePe, Paytm), Credit & Debit Cards, Net Banking, and Wallets.\n• 🚫 **Cash on Delivery (COD) is NOT available.**\n• If payment was deducted without order confirmation, banks auto-refund within 24-48 hours.";
                 chips = ["Which payment methods are supported?", "Are there any current offers?", "Talk to Support"];
+            } else if (/\b(under|below|less than|within|cheaper than|up to|cost\s*under|cost\s*of)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i.test(lower) || /\b(\d+)\s*(?:cost|rupees|rs)?\s*(?:under|below|or less)\b/i.test(lower) || /\b(cheapest|lowest price|most affordable|budget|low price)\b/i.test(lower)) {
+                const maxMatch = lower.match(/\b(?:under|below|less than|within|cheaper than|up to|cost\s*under|cost\s*of)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i) || lower.match(/\b(\d+)\s*(?:cost|rupees|rs)?\s*(?:under|below|or less)\b/i);
+                const maxP = maxMatch ? parseInt(maxMatch[1], 10) : 500;
+                reply = `Here are our verified 100% natural products under **₹${maxP}** directly from our inventory (starting from just **₹49**):\n\n• **Chilli Powder** — ₹49 (100g)\n• **Flax Seeds** — ₹90 (200g)\n• **Castor Oil** — ₹95 (250ml)\n• **Mustard Oil** — ₹115 (500ml)\n• **Pure Cow Ghee** — ₹240 (250ml)\n• **Groundnut Oil** — ₹349 (1L)\n\n💡 *Tip: Add items totaling ₹1,000 or more to get **FREE Delivery** across India! Use coupon **WELCOME10** for 10% off.*`;
+                matched = [
+                    { id: "chilli-powder-premium", name: "Chilli Powder (Premium Quality)", price: 49, unit: "100 g", image: "/assets/images/products/powders/chilli_powder.jpg" },
+                    { id: "mustard-oil-premium", name: "Mustard Oil (Premium Quality)", price: 115, unit: "500 ml", image: "/assets/images/products/mustard_oil.jpg" },
+                    { id: "pure-cow-ghee-premium", name: "Pure Cow Ghee (Premium Quality)", price: 240, unit: "250 ml", image: "/assets/images/products/cow_ghee_front.jpg" },
+                    { id: "groundnut-oil-premium", name: "Groundnut Oil (Premium Quality)", price: 349, unit: "1 L", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533" }
+                ];
+                chips = ["What oils do you have?", "Pure Cow Ghee", "Are there any current offers?", "Talk to Support"];
+                actions = [{ label: 'View All Collections', value: '/pages/collections.html' }, { label: 'Open Cart', value: '/pages/cart.html' }];
+            } else if (/heart|cholesterol|bp|cardiac/i.test(lower)) {
+                reply = "❤️ **Heart-Healthy Selections:**\n• **Cold-Pressed Groundnut & Mustard Oils**: Rich in heart-protective MUFA, PUFA, and plant sterols that help reduce bad LDL cholesterol.\n• **Cold-Pressed Sesame Oil**: Packed with sesamol & sesaminol antioxidants to maintain healthy blood pressure.\n• **A2 Desi Cow Ghee**: Contains conjugated linoleic acid (CLA) to aid cardiovascular wellness in moderation.";
+                chips = ["Show me groundnut oil", "Show me sesame oil", "Tell me about A2 cow ghee"];
+            } else if (/fry|frying|deep fry|high smoke|high heat/i.test(lower)) {
+                reply = "🍳 **Best for High Heat & Deep Frying:**\n• **Cold-Pressed Groundnut Oil**: High smoke point (~225°C-232°C), extremely stable for frying puris, pakoras, and curries.\n• **Pure Desi Cow Ghee**: Smoke point of 250°C, zero oxidation and unmatched traditional flavor.\n• **Cold-Pressed Sunflower Oil**: High smoke point (~227°C) with a light, neutral flavor.";
+                chips = ["Show me groundnut oil", "Show me pure cow ghee", "Show me sunflower oil"];
+            } else if (/cold.?pressed|wood.?pressed|chekku|ghani|kachi ghani|process/i.test(lower)) {
+                reply = "🪵 **Authentic Wood-Pressed (Marachekku) Extraction:**\n• Seeds are slowly crushed in traditional wooden pestles (Vaagai wood) at low speeds under 45°C.\n• **Zero Chemicals, Zero Solvents, Zero Bleaching**: Retains 100% natural vitamins A, D, E, K and natural nutty aroma.";
+            } else if (/bilona|a2 ghee|desi cow ghee|how is ghee made/i.test(lower)) {
+                reply = "🍯 **Traditional Vedic Bilona Ghee:**\n• Crafted from pure A2 milk of indigenous Gir/Sahiwal cows.\n• Cultured into whole curd overnight, churned bi-directionally with a wooden bilona to yield pure makkhan, and slowly simmered on a low flame.\n• 100% pure golden granular ghee, rich in A2 beta-casein, butyric acid, and easy to digest.";
+                chips = ["Show me pure cow ghee", "Cow Ghee vs Buffalo Ghee", "How to store ghee?"];
             } else if (/contact|whatsapp|support|phone|human|agent|representative/i.test(lower)) {
                 reply = "📞 **Arshith Fresh Customer Support:**\n• **WhatsApp Direct:** [+91 9945676029](https://wa.me/919945676029) & [+91 8618471424](https://wa.me/918618471424)\n• **Email:** support@arshithfresh.com\n• **Hours:** Monday to Saturday, 9:00 AM - 7:00 PM IST.";
                 chips = ["Shop Products", "Orders & Delivery", "Returns & Cancellations"];
