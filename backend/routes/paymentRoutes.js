@@ -170,7 +170,7 @@ router.post('/create-order', async (req, res) => {
     const itemMap = new Map();
     (orderItems || []).forEach(item => {
       if (!item) return;
-      const key = String(item.product || item.name || item.title || '').trim().toLowerCase();
+      const key = String(item.product || item.productId || item.id || item._id || item.name || item.title || '').trim().toLowerCase();
       const qty = Math.max(1, Number(item.qty || item.quantity || 1));
       const price = Number(item.price || 0);
       if (itemMap.has(key)) {
@@ -185,7 +185,63 @@ router.post('/create-order', async (req, res) => {
         });
       }
     });
-    const sanitizedOrderItems = Array.from(itemMap.values());
+
+    // Safely sanitize each order item for MongoDB schema (guarantee no Cast to ObjectId errors)
+    const sanitizedOrderItems = [];
+    for (const rawItem of itemMap.values()) {
+      const rawProduct = rawItem.product || rawItem.productId || rawItem.id || rawItem._id;
+      let validProductObjectId = (rawProduct && mongoose.Types.ObjectId.isValid(String(rawProduct)))
+        ? rawProduct
+        : undefined;
+
+      const rawIdentifier = String(rawProduct || '').trim();
+
+      // If not a valid ObjectId, try finding the product in MongoDB by handle, id, or name
+      if (!validProductObjectId && (rawIdentifier || rawItem.name)) {
+        try {
+          const dbProd = await Product.findOne({
+            $or: [
+              ...(rawIdentifier ? [{ handle: rawIdentifier }, { id: rawIdentifier }] : []),
+              ...(rawItem.name ? [{ name: new RegExp(`^${escapeRegex(rawItem.name.trim())}$`, 'i') }] : [])
+            ]
+          }).select('_id handle name price');
+          if (dbProd) {
+            validProductObjectId = dbProd._id;
+          }
+        } catch (findErr) {
+          console.warn('⚠️ Product lookup during checkout note:', findErr.message);
+        }
+      }
+
+      sanitizedOrderItems.push({
+        product: validProductObjectId, // undefined if not a valid ObjectId, preventing Mongoose CastError
+        productId: rawIdentifier,
+        name: rawItem.name || rawItem.title || 'Fresh Product',
+        qty: Math.max(1, Number(rawItem.qty || rawItem.quantity || 1)),
+        price: Number(rawItem.price || 0),
+        unit: rawItem.unit || rawItem.weight || '1 unit',
+        image: rawItem.image || '',
+      });
+    }
+
+    // Safely extract and validate shipping address
+    const safeShippingAddress = {
+      address: (shippingAddress && shippingAddress.address) ? String(shippingAddress.address).trim() : 'Address',
+      apartment: (shippingAddress && shippingAddress.apartment) ? String(shippingAddress.apartment).trim() : '',
+      city: (shippingAddress && shippingAddress.city) ? String(shippingAddress.city).trim() : 'City',
+      state: (shippingAddress && shippingAddress.state) ? String(shippingAddress.state).trim() : 'Karnataka',
+      postalCode: (shippingAddress && shippingAddress.postalCode) ? String(shippingAddress.postalCode).trim() : '000000',
+      country: (shippingAddress && shippingAddress.country) ? String(shippingAddress.country).trim() : 'India',
+    };
+
+    const safeBillingAddress = {
+      address: (billingAddress && billingAddress.address) ? String(billingAddress.address).trim() : safeShippingAddress.address,
+      apartment: (billingAddress && billingAddress.apartment) ? String(billingAddress.apartment).trim() : safeShippingAddress.apartment,
+      city: (billingAddress && billingAddress.city) ? String(billingAddress.city).trim() : safeShippingAddress.city,
+      state: (billingAddress && billingAddress.state) ? String(billingAddress.state).trim() : safeShippingAddress.state,
+      postalCode: (billingAddress && billingAddress.postalCode) ? String(billingAddress.postalCode).trim() : safeShippingAddress.postalCode,
+      country: (billingAddress && billingAddress.country) ? String(billingAddress.country).trim() : safeShippingAddress.country,
+    };
 
     // Create pending Order in MongoDB
     const order = new Order({
@@ -193,24 +249,14 @@ router.post('/create-order', async (req, res) => {
       customerEmail: customerEmail || '',
       customerPhone: customerPhone || '',
       orderItems: sanitizedOrderItems,
-      shippingAddress: shippingAddress || {
-        address: 'N/A',
-        city: 'N/A',
-        postalCode: '000000',
-        country: 'India',
-      },
-      billingAddress: billingAddress || shippingAddress || {
-        address: 'N/A',
-        city: 'N/A',
-        postalCode: '000000',
-        country: 'India',
-      },
+      shippingAddress: safeShippingAddress,
+      billingAddress: safeBillingAddress,
       paymentMethod: 'Razorpay (Online)',
-      itemsPrice: itemsPrice || calculatedTotal,
-      discountPrice: discountPrice || 0,
+      itemsPrice: Number(itemsPrice) || Number(calculatedTotal) || 0,
+      discountPrice: Number(discountPrice) || 0,
       couponCode: couponCode || '',
-      shippingPrice: shippingPrice || 0,
-      totalPrice: calculatedTotal,
+      shippingPrice: Number(shippingPrice) || 0,
+      totalPrice: Number(calculatedTotal) || 0,
       status: 'Pending',
       paymentStatus: 'pending',
       isPaid: false,

@@ -2118,12 +2118,16 @@
             items.forEach(item => {
                 const key = String(item.id || item._id || item.product || item.title || item.name || '').trim().toLowerCase();
                 const qty = Math.max(1, Number(item.quantity || item.qty || 1));
+                const rawProduct = item._id || item.product || item.id || "";
+                const isValidHexId = Boolean(rawProduct && /^[0-9a-fA-F]{24}$/.test(String(rawProduct)));
+
                 if (itemMap.has(key)) {
                     const existing = itemMap.get(key);
                     existing.qty += qty;
                 } else {
                     itemMap.set(key, {
-                        product: item.id || item._id || item.product || "664c12345678901234567890",
+                        product: isValidHexId ? rawProduct : undefined,
+                        productId: String(item.id || item._id || item.product || ""),
                         name: item.title || item.name || "Arshith Product",
                         qty: qty,
                         price: Number(item.price || 0),
