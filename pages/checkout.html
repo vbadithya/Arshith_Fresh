@@ -49,11 +49,74 @@
             z-index: 100;
             box-sizing: border-box;
             width: 100%;
+            min-height: 64px;
+        }
+
+        .checkout-top-left {
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .checkout-top-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .checkout-top-right {
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-left: auto;
         }
 
         .checkout-header-logo-img {
-            height: 42px;
+            height: 44px;
+            max-height: 48px;
+            width: auto;
             object-fit: contain;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+
+        .checkout-logo-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .checkout-logo-link:hover .checkout-header-logo-img {
+            transform: scale(1.03);
+        }
+
+        .checkout-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .checkout-back-link:hover {
+            color: #0f7139;
+            background: #f0fdf4;
+            border-color: #bbf7d0;
         }
 
         .cart-icon-badge {
@@ -78,6 +141,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        @media (max-width: 640px) {
+            .checkout-top-bar {
+                padding: 10px 16px;
+                min-height: 56px;
+            }
+            .checkout-back-text {
+                display: none;
+            }
+            .checkout-back-link {
+                padding: 6px 8px;
+            }
+            .checkout-header-logo-img {
+                height: 36px;
+            }
         }
 
         /* MAIN TWO COLUMN GRID */
@@ -203,6 +282,195 @@
             color: #334155 !important;
             cursor: pointer !important;
             user-select: none !important;
+        }
+
+        /* ============================================================ */
+        /* ADDRESS AUTOCOMPLETE & GEOLOCATION STYLES                   */
+        /* ============================================================ */
+        .address-autocomplete-wrapper {
+            position: relative !important;
+            width: 100% !important;
+        }
+
+        .locate-btn {
+            cursor: pointer !important;
+            pointer-events: auto !important;
+            transition: all 0.25s ease !important;
+            user-select: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 15px !important;
+        }
+
+        .locate-btn:hover {
+            transform: translateY(-50%) scale(1.18) !important;
+            filter: drop-shadow(0 2px 6px rgba(15, 113, 57, 0.45)) !important;
+        }
+
+        .locate-btn.locating {
+            animation: spinLocateIcon 1s linear infinite !important;
+            color: #0f7139 !important;
+        }
+
+        @keyframes spinLocateIcon {
+            from { transform: translateY(-50%) rotate(0deg); }
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        .address-dropdown {
+            position: absolute !important;
+            top: calc(100% + 6px) !important;
+            left: 0 !important;
+            right: 0 !important;
+            background: #ffffff !important;
+            border-radius: 14px !important;
+            border: 1.5px solid #0f7139 !important;
+            box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(15, 113, 57, 0.1) !important;
+            z-index: 99999 !important;
+            max-height: 290px !important;
+            overflow-y: auto !important;
+            padding: 6px !important;
+            box-sizing: border-box !important;
+            animation: addressDropdownSlide 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        @keyframes addressDropdownSlide {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .address-dropdown::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .address-dropdown::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .address-dropdown::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .address-locate-action {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 10px 12px !important;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+            border-radius: 10px !important;
+            margin-bottom: 6px !important;
+            border: 1px dashed #10b981 !important;
+            cursor: pointer !important;
+            color: #065f46 !important;
+            font-weight: 700 !important;
+            font-size: 13px !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .address-locate-action:hover, .address-locate-action.active {
+            background: #dcfce7 !important;
+            transform: scale(0.99) !important;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15) !important;
+        }
+
+        .address-locate-action .locate-pulse-icon {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 24px !important;
+            height: 24px !important;
+            background: #0f7139 !important;
+            color: #ffffff !important;
+            border-radius: 50% !important;
+            font-size: 12px !important;
+            flex-shrink: 0 !important;
+            animation: locatePulse 1.8s infinite !important;
+        }
+
+        @keyframes locatePulse {
+            0% { box-shadow: 0 0 0 0 rgba(15, 113, 57, 0.45); }
+            70% { box-shadow: 0 0 0 8px rgba(15, 113, 57, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(15, 113, 57, 0); }
+        }
+
+        .address-dropdown-item {
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+            padding: 9px 12px !important;
+            border-radius: 9px !important;
+            cursor: pointer !important;
+            transition: all 0.15s ease !important;
+            border-bottom: 1px solid #f8fafc !important;
+        }
+
+        .address-dropdown-item:last-child {
+            border-bottom: none !important;
+        }
+
+        .address-dropdown-item:hover, .address-dropdown-item.active {
+            background: #f0fdf4 !important;
+            border-color: #bbf7d0 !important;
+        }
+
+        .address-item-icon {
+            font-size: 15px !important;
+            line-height: 1.2 !important;
+            flex-shrink: 0 !important;
+            color: #0f7139 !important;
+            margin-top: 2px !important;
+        }
+
+        .address-item-content {
+            flex: 1 !important;
+            min-width: 0 !important;
+        }
+
+        .address-item-title {
+            font-size: 13.5px !important;
+            font-weight: 700 !important;
+            color: #0f172a !important;
+            line-height: 1.3 !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+        .address-item-title mark {
+            background: rgba(16, 185, 129, 0.18) !important;
+            color: #0f7139 !important;
+            font-weight: 800 !important;
+            border-radius: 3px !important;
+            padding: 0 2px !important;
+        }
+
+        .address-item-sub {
+            font-size: 11.5px !important;
+            color: #64748b !important;
+            margin-top: 2px !important;
+            line-height: 1.2 !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+        .address-field-autofilled {
+            animation: fieldAutofillGlow 1.2s ease !important;
+        }
+
+        @keyframes fieldAutofillGlow {
+            0% {
+                border-color: #10b981 !important;
+                background-color: #f0fdf4 !important;
+                box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3) !important;
+            }
+            100% {
+                border-color: #cbd5e1;
+                background-color: #f8fafc;
+                box-shadow: none;
+            }
         }
 
         /* PAYMENT SECTION STYLING */
@@ -1129,21 +1397,36 @@
 
 <body>
 
-    <!-- TOP HEADER BAR -->
+    <!-- TOP HEADER BAR (Logo Centered) -->
     <header class="checkout-top-bar">
-        <a href="../index.html">
-            <img src="../assets/images/Arshithlogo111.jpg" alt="Arshith Fresh Logo" class="checkout-header-logo-img" onerror="this.onerror=null; this.src='../assets/images/Arshithlogo111.jpg';">
-        </a>
-        <a href="cart.html" class="checkout-header-cart-link" title="View Cart">
-            <div class="cart-icon-badge">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+        <div class="checkout-top-left">
+            <a href="cart.html" class="checkout-back-link" title="Return to Cart">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
                 </svg>
-                <span id="checkoutTopCartCount" class="cart-badge-num">0</span>
-            </div>
-        </a>
+                <span class="checkout-back-text">Return to Cart</span>
+            </a>
+        </div>
+
+        <div class="checkout-top-center">
+            <a href="../index.html" class="checkout-logo-link" title="Arshith Fresh Home">
+                <img src="../assets/images/Arshithlogo111.jpg" alt="Arshith Fresh Logo" class="checkout-header-logo-img" onerror="this.onerror=null; this.src='../assets/images/Arshithlogo111.jpg';">
+            </a>
+        </div>
+
+        <div class="checkout-top-right">
+            <a href="cart.html" class="checkout-header-cart-link" title="View Cart">
+                <div class="cart-icon-badge">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f7139" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="checkoutTopCartCount" class="cart-badge-num">0</span>
+                </div>
+            </a>
+        </div>
     </header>
 
     <!-- MAIN TWO COLUMN GRID -->
@@ -1188,9 +1471,10 @@
                     <input type="text" placeholder="Last name" required class="form-input-control" id="lastNameInput">
                 </div>
 
-                <div class="input-icon-wrap" style="margin-top: 12px;">
-                    <input type="text" placeholder="Address" required class="form-input-control" id="addressInput">
-                    <span class="input-icon-right">🔍</span>
+                <div class="input-icon-wrap address-autocomplete-wrapper" style="margin-top: 12px;" id="shippingAddressWrap">
+                    <input type="text" placeholder="Address (Type starting letter to locate address)" required class="form-input-control" id="addressInput" autocomplete="off" style="padding-right: 42px !important;">
+                    <span class="input-icon-right locate-btn" id="locateAddressBtn" title="Auto-detect current location (GPS)" style="cursor: pointer; pointer-events: auto;">🔍</span>
+                    <div class="address-dropdown" id="addressDropdown" style="display: none;"></div>
                 </div>
 
                 <div style="margin-top: 12px;">
@@ -1284,9 +1568,11 @@
                             </div>
                         </div>
 
-                        <div style="margin-top: 12px;">
-                            <label style="display: block; font-size: 12.5px; font-weight: 600; color: #374151; margin-bottom: 5px;">Address</label>
-                            <input type="text" id="billingAddressInput" placeholder="Street address, House No., Building" class="form-input-control">
+                        <div style="margin-top: 12px;" class="input-icon-wrap address-autocomplete-wrapper" id="billingAddressWrap">
+                            <label style="display: block; font-size: 12.5px; font-weight: 600; color: #374151; margin-bottom: 5px;">Address (Type starting letter to locate address)</label>
+                            <input type="text" id="billingAddressInput" placeholder="Street address, House No., Building" class="form-input-control" autocomplete="off" style="padding-right: 42px !important;">
+                            <span class="input-icon-right locate-btn" id="locateBillingAddressBtn" title="Auto-detect current location (GPS)" style="cursor: pointer; pointer-events: auto; top: 38px;">🔍</span>
+                            <div class="address-dropdown" id="billingAddressDropdown" style="display: none; top: calc(100% + 4px);"></div>
                         </div>
 
                         <div style="margin-top: 12px;">
@@ -3119,11 +3405,741 @@
             }
         }
 
+        /* ============================================================ */
+        /* SMART ADDRESS AUTOCOMPLETE & INSTANT LOCATOR ENGINE         */
+        /* ============================================================ */
+        const POPULAR_INDIAN_ADDRESSES = [
+            // A
+            { name: "Adugodi Main Road, Near Forum", city: "Bengaluru", state: "Karnataka", pincode: "560030" },
+            { name: "Ashok Nagar, Brigade Road Cross", city: "Bengaluru", state: "Karnataka", pincode: "560025" },
+            { name: "Austin Town, Neelasandra", city: "Bengaluru", state: "Karnataka", pincode: "560047" },
+            { name: "Anand Rao Circle, Gandhi Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560009" },
+            { name: "Ameerpet Metro Station Road", city: "Hyderabad", state: "Telangana", pincode: "500016" },
+            { name: "Anna Nagar 2nd Avenue", city: "Chennai", state: "Tamil Nadu", pincode: "600040" },
+            { name: "Adyar 1st Cross Road, Gandhi Nagar", city: "Chennai", state: "Tamil Nadu", pincode: "600020" },
+            { name: "Andheri West, Lokhandwala Complex", city: "Mumbai", state: "Maharashtra", pincode: "400053" },
+            { name: "Andheri East, MIDC Central Road", city: "Mumbai", state: "Maharashtra", pincode: "400093" },
+            { name: "Aundh, ITI Road", city: "Pune", state: "Maharashtra", pincode: "411007" },
+            { name: "Auto Nagar Main Road", city: "Vijayawada", state: "Andhra Pradesh", pincode: "520007" },
+            { name: "Akkayyapalem Main Road", city: "Visakhapatnam", state: "Andhra Pradesh", pincode: "530016" },
+            { name: "Abids Road, Gunfoundry", city: "Hyderabad", state: "Telangana", pincode: "500001" },
+
+            // B
+            { name: "BTM Layout 2nd Stage, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560076" },
+            { name: "BTM Layout 1st Stage, 16th Main", city: "Bengaluru", state: "Karnataka", pincode: "560068" },
+            { name: "Banashankari 3rd Stage, Kathriguppe", city: "Bengaluru", state: "Karnataka", pincode: "560085" },
+            { name: "Banashankari 2nd Stage, 24th Cross", city: "Bengaluru", state: "Karnataka", pincode: "560070" },
+            { name: "Bellandur Outer Ring Road, EcoSpace", city: "Bengaluru", state: "Karnataka", pincode: "560103" },
+            { name: "Basavanagudi, Gandhi Bazaar Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560004" },
+            { name: "Brigade Road, Ashok Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560001" },
+            { name: "Bannerghatta Main Road, Arekere", city: "Bengaluru", state: "Karnataka", pincode: "560076" },
+            { name: "Begur Road, Hongasandra", city: "Bengaluru", state: "Karnataka", pincode: "560068" },
+            { name: "Bommanahalli, Hosur Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560068" },
+            { name: "Byatarayanapura, Bellary Road", city: "Bengaluru", state: "Karnataka", pincode: "560092" },
+            { name: "Basaveshwaranagar 3rd Stage", city: "Bengaluru", state: "Karnataka", pincode: "560079" },
+            { name: "Brookefield, ITPL Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560037" },
+            { name: "Banjara Hills Road No 12", city: "Hyderabad", state: "Telangana", pincode: "500034" },
+            { name: "Bandra West, Linking Road", city: "Mumbai", state: "Maharashtra", pincode: "400050" },
+            { name: "Bandra East, BKC (Bandra Kurla Complex)", city: "Mumbai", state: "Maharashtra", pincode: "400051" },
+            { name: "Besant Nagar, 2nd Avenue", city: "Chennai", state: "Tamil Nadu", pincode: "600090" },
+            { name: "Benz Circle, MG Road", city: "Vijayawada", state: "Andhra Pradesh", pincode: "520010" },
+            { name: "Borivali West, Shimpoli Road", city: "Mumbai", state: "Maharashtra", pincode: "400092" },
+
+            // C
+            { name: "Commercial Street, Tasker Town", city: "Bengaluru", state: "Karnataka", pincode: "560001" },
+            { name: "Cunningham Road, Vasanth Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560052" },
+            { name: "CV Raman Nagar, DRDO Complex", city: "Bengaluru", state: "Karnataka", pincode: "560093" },
+            { name: "Chamrajpet 5th Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560018" },
+            { name: "Church Street, Shanthala Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560001" },
+            { name: "Cox Town, Wheeler Road", city: "Bengaluru", state: "Karnataka", pincode: "560005" },
+            { name: "Cooke Town, Milton Street", city: "Bengaluru", state: "Karnataka", pincode: "560005" },
+            { name: "Chandapura Circle, Hosur Road", city: "Bengaluru", state: "Karnataka", pincode: "560099" },
+            { name: "Central Silk Board, Hosur Road", city: "Bengaluru", state: "Karnataka", pincode: "560068" },
+            { name: "Cyber Towers, Hitec City", city: "Hyderabad", state: "Telangana", pincode: "500081" },
+            { name: "Connaught Place, Inner Circle", city: "New Delhi", state: "Delhi", pincode: "110001" },
+            { name: "Camp, MG Road", city: "Pune", state: "Maharashtra", pincode: "411001" },
+            { name: "Chembur, Diamond Garden", city: "Mumbai", state: "Maharashtra", pincode: "400071" },
+            { name: "Chandanagar Main Road", city: "Hyderabad", state: "Telangana", pincode: "500050" },
+
+            // D
+            { name: "Domlur Layout, 1st Stage", city: "Bengaluru", state: "Karnataka", pincode: "560071" },
+            { name: "Dollars Colony, JP Nagar 4th Phase", city: "Bengaluru", state: "Karnataka", pincode: "560078" },
+            { name: "Doddakallasandra, Kanakapura Road", city: "Bengaluru", state: "Karnataka", pincode: "560062" },
+            { name: "Doddathoguru, Electronic City Phase 1", city: "Bengaluru", state: "Karnataka", pincode: "560100" },
+            { name: "Dasarahalli, Tumkur Road", city: "Bengaluru", state: "Karnataka", pincode: "560057" },
+            { name: "Devanahalli, Near Kempegowda Airport", city: "Bengaluru", state: "Karnataka", pincode: "562110" },
+            { name: "Dilsukhnagar Main Road", city: "Hyderabad", state: "Telangana", pincode: "500060" },
+            { name: "Dadar West, Shivaji Park", city: "Mumbai", state: "Maharashtra", pincode: "400028" },
+            { name: "Defence Colony, Flyover Market", city: "New Delhi", state: "Delhi", pincode: "110024" },
+            { name: "Dwarka Sector 10 Metro Station", city: "New Delhi", state: "Delhi", pincode: "110075" },
+            { name: "Daba Gardens, Main Road", city: "Visakhapatnam", state: "Andhra Pradesh", pincode: "530020" },
+
+            // E
+            { name: "Electronic City Phase 1, Neeladri Road", city: "Bengaluru", state: "Karnataka", pincode: "560100" },
+            { name: "Electronic City Phase 2, Hosur Road", city: "Bengaluru", state: "Karnataka", pincode: "560100" },
+            { name: "Ejipura, Inner Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560047" },
+            { name: "Embassy GolfLinks Tech Park, Domlur", city: "Bengaluru", state: "Karnataka", pincode: "560071" },
+            { name: "Embassy Manyata Tech Park, Nagavara", city: "Bengaluru", state: "Karnataka", pincode: "560045" },
+            { name: "Embassy TechVillage, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560103" },
+            { name: "Egmore, Montieth Road", city: "Chennai", state: "Tamil Nadu", pincode: "600008" },
+            { name: "Ernakulam South, MG Road", city: "Kochi", state: "Kerala", pincode: "682016" },
+            { name: "ECIL Cross Roads, Moula Ali", city: "Hyderabad", state: "Telangana", pincode: "500062" },
+
+            // F
+            { name: "Frazer Town (Pulikeshi Nagar), Mosque Road", city: "Bengaluru", state: "Karnataka", pincode: "560005" },
+            { name: "Forum South Mall, Konanakunte Cross", city: "Bengaluru", state: "Karnataka", pincode: "560062" },
+            { name: "Film Nagar, Jubilee Hills", city: "Hyderabad", state: "Telangana", pincode: "500096" },
+            { name: "FC Road, Shivajinagar", city: "Pune", state: "Maharashtra", pincode: "411004" },
+            { name: "Fort, Horniman Circle", city: "Mumbai", state: "Maharashtra", pincode: "400001" },
+
+            // G
+            { name: "Gandhi Nagar, Subhash Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560009" },
+            { name: "Giri Nagar 1st Phase", city: "Bengaluru", state: "Karnataka", pincode: "560085" },
+            { name: "Gottigere, Bannerghatta Road", city: "Bengaluru", state: "Karnataka", pincode: "560083" },
+            { name: "Gandhi Bazaar Main Road, Basavanagudi", city: "Bengaluru", state: "Karnataka", pincode: "560004" },
+            { name: "Gachibowli, Financial District Road", city: "Hyderabad", state: "Telangana", pincode: "500032" },
+            { name: "Guindy Industrial Estate", city: "Chennai", state: "Tamil Nadu", pincode: "600032" },
+            { name: "Ghatkopar East, Tilak Road", city: "Mumbai", state: "Maharashtra", pincode: "400077" },
+            { name: "Greater Kailash 1, M Block Market", city: "New Delhi", state: "Delhi", pincode: "110048" },
+            { name: "Guntur Main Road, Arundelpet", city: "Guntur", state: "Andhra Pradesh", pincode: "522002" },
+            { name: "Gajuwaka Main Road", city: "Visakhapatnam", state: "Andhra Pradesh", pincode: "530026" },
+
+            // H
+            { name: "HSR Layout Sector 1, 27th Main", city: "Bengaluru", state: "Karnataka", pincode: "560102" },
+            { name: "HSR Layout Sector 2, 14th Main", city: "Bengaluru", state: "Karnataka", pincode: "560102" },
+            { name: "HSR Layout Sector 3, 9th Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560102" },
+            { name: "HSR Layout Sector 4, 19th Cross", city: "Bengaluru", state: "Karnataka", pincode: "560102" },
+            { name: "HSR Layout Sector 6, 17th Cross", city: "Bengaluru", state: "Karnataka", pincode: "560102" },
+            { name: "HSR Layout Sector 7, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560102" },
+            { name: "Hebbal, Bellary Road Flyover", city: "Bengaluru", state: "Karnataka", pincode: "560024" },
+            { name: "Horamavu Main Road, Banaswadi", city: "Bengaluru", state: "Karnataka", pincode: "560043" },
+            { name: "HAL 2nd Stage, Indiranagar", city: "Bengaluru", state: "Karnataka", pincode: "560008" },
+            { name: "HAL 3rd Stage, Jeevan Bhima Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560075" },
+            { name: "Hennur Gardens, Hennur Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560043" },
+            { name: "Hoodi, Whitefield Road", city: "Bengaluru", state: "Karnataka", pincode: "560048" },
+            { name: "Harlur Road, Off Sarjapur Road", city: "Bengaluru", state: "Karnataka", pincode: "560102" },
+            { name: "Hitec City, Madhapur", city: "Hyderabad", state: "Telangana", pincode: "500081" },
+            { name: "Hauz Khas, Aurobindo Marg", city: "New Delhi", state: "Delhi", pincode: "110016" },
+            { name: "Hinjewadi Phase 1, Rajiv Gandhi Infotech Park", city: "Pune", state: "Maharashtra", pincode: "411057" },
+            { name: "Hadapsar, Magarpatta City", city: "Pune", state: "Maharashtra", pincode: "411028" },
+            { name: "Himayatnagar Main Road", city: "Hyderabad", state: "Telangana", pincode: "500029" },
+
+            // I
+            { name: "Indiranagar 100 Feet Road, 12th Main Junction", city: "Bengaluru", state: "Karnataka", pincode: "560038" },
+            { name: "Indiranagar 12th Main Road, HAL 2nd Stage", city: "Bengaluru", state: "Karnataka", pincode: "560008" },
+            { name: "Indiranagar 1st Stage, CMH Road", city: "Bengaluru", state: "Karnataka", pincode: "560038" },
+            { name: "Indiranagar 2nd Stage, Double Road", city: "Bengaluru", state: "Karnataka", pincode: "560038" },
+            { name: "ITPL Main Road, Whitefield", city: "Bengaluru", state: "Karnataka", pincode: "560066" },
+            { name: "ISRO Layout, Kumaraswamy Layout", city: "Bengaluru", state: "Karnataka", pincode: "560078" },
+            { name: "Indira Nagar 1st Cross, Adyar", city: "Chennai", state: "Tamil Nadu", pincode: "600020" },
+            { name: "INA Colony, Sri Aurobindo Marg", city: "New Delhi", state: "Delhi", pincode: "110023" },
+
+            // J
+            { name: "Jayanagar 4th Block, Complex Road", city: "Bengaluru", state: "Karnataka", pincode: "560011" },
+            { name: "Jayanagar 3rd Block, 11th Main", city: "Bengaluru", state: "Karnataka", pincode: "560011" },
+            { name: "Jayanagar 9th Block, East End Circle", city: "Bengaluru", state: "Karnataka", pincode: "560069" },
+            { name: "JP Nagar 1st Phase, 15th Cross", city: "Bengaluru", state: "Karnataka", pincode: "560078" },
+            { name: "JP Nagar 2nd Phase, 24th Main", city: "Bengaluru", state: "Karnataka", pincode: "560078" },
+            { name: "JP Nagar 6th Phase, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560078" },
+            { name: "JP Nagar 7th Phase, Brigade Millennium Road", city: "Bengaluru", state: "Karnataka", pincode: "560078" },
+            { name: "Jeevan Bhima Nagar Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560075" },
+            { name: "Jalahalli West, Air Force Station Road", city: "Bengaluru", state: "Karnataka", pincode: "560015" },
+            { name: "Jubilee Hills Road No 36", city: "Hyderabad", state: "Telangana", pincode: "500033" },
+            { name: "Juhu Tara Road, Near Beach", city: "Mumbai", state: "Maharashtra", pincode: "400049" },
+            { name: "Janakpuri District Centre", city: "New Delhi", state: "Delhi", pincode: "110058" },
+            { name: "Jagadamba Junction, Main Road", city: "Visakhapatnam", state: "Andhra Pradesh", pincode: "530002" },
+
+            // K
+            { name: "Koramangala 4th Block, 80 Feet Road", city: "Bengaluru", state: "Karnataka", pincode: "560034" },
+            { name: "Koramangala 5th Block, Jyoti Nivas College Road", city: "Bengaluru", state: "Karnataka", pincode: "560095" },
+            { name: "Koramangala 6th Block, 100 Feet Road", city: "Bengaluru", state: "Karnataka", pincode: "560095" },
+            { name: "Koramangala 7th Block, Sony World Signal", city: "Bengaluru", state: "Karnataka", pincode: "560095" },
+            { name: "Koramangala 1st Block, Wipro Park", city: "Bengaluru", state: "Karnataka", pincode: "560034" },
+            { name: "Kalyan Nagar, HRBR Layout 2nd Block", city: "Bengaluru", state: "Karnataka", pincode: "560043" },
+            { name: "Kasturi Nagar, East of NGEF", city: "Bengaluru", state: "Karnataka", pincode: "560043" },
+            { name: "Kengeri Satellite Town, Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560060" },
+            { name: "KR Puram (Krishnarajapuram), Old Madras Road", city: "Bengaluru", state: "Karnataka", pincode: "560036" },
+            { name: "Kundalahalli Gate, Varthur Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560037" },
+            { name: "Kadugodi, Whitefield Railway Station Road", city: "Bengaluru", state: "Karnataka", pincode: "560067" },
+            { name: "Kasavanahalli, Sarjapur Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560035" },
+            { name: "Kumaraswamy Layout 1st Stage", city: "Bengaluru", state: "Karnataka", pincode: "560078" },
+            { name: "Kammanahalli Main Road, St Thomas Town", city: "Bengaluru", state: "Karnataka", pincode: "560084" },
+            { name: "Konanakunte Cross, Kanakapura Road", city: "Bengaluru", state: "Karnataka", pincode: "560062" },
+            { name: "Kondapur Main Road, Near Botanical Garden", city: "Hyderabad", state: "Telangana", pincode: "500084" },
+            { name: "Kukatpally Housing Board (KPHB)", city: "Hyderabad", state: "Telangana", pincode: "500072" },
+            { name: "Kilpauk Garden Road", city: "Chennai", state: "Tamil Nadu", pincode: "600010" },
+            { name: "Kothrud, Paud Road", city: "Pune", state: "Maharashtra", pincode: "411038" },
+            { name: "Karol Bagh, Arya Samaj Road", city: "New Delhi", state: "Delhi", pincode: "110005" },
+
+            // L
+            { name: "Lalbagh Road, Mavalli", city: "Bengaluru", state: "Karnataka", pincode: "560027" },
+            { name: "Lavelle Road, Shanthala Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560001" },
+            { name: "Lingarajapuram, Hennur Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560084" },
+            { name: "Langford Town, Richmond Town", city: "Bengaluru", state: "Karnataka", pincode: "560025" },
+            { name: "Laggere, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560058" },
+            { name: "LB Nagar Ring Road", city: "Hyderabad", state: "Telangana", pincode: "500074" },
+            { name: "Lokhandwala Complex, Andheri West", city: "Mumbai", state: "Maharashtra", pincode: "400053" },
+            { name: "Lajpat Nagar Central Market", city: "New Delhi", state: "Delhi", pincode: "110024" },
+            { name: "Lower Parel, Phoenix Mills Compound", city: "Mumbai", state: "Maharashtra", pincode: "400013" },
+
+            // M
+            { name: "Malleshwaram 8th Cross, Sampige Road", city: "Bengaluru", state: "Karnataka", pincode: "560003" },
+            { name: "Malleshwaram 18th Cross, Margosa Road", city: "Bengaluru", state: "Karnataka", pincode: "560055" },
+            { name: "Marathahalli Bridge, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560037" },
+            { name: "MG Road (Mahatma Gandhi Road)", city: "Bengaluru", state: "Karnataka", pincode: "560001" },
+            { name: "Manyata Tech Park, Nagavara", city: "Bengaluru", state: "Karnataka", pincode: "560045" },
+            { name: "Mathikere Main Road, Gokula Extension", city: "Bengaluru", state: "Karnataka", pincode: "560054" },
+            { name: "Mahadevapura, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560048" },
+            { name: "Madiwala Market, Hosur Road", city: "Bengaluru", state: "Karnataka", pincode: "560068" },
+            { name: "Murugeshpalya, Wind Tunnel Road", city: "Bengaluru", state: "Karnataka", pincode: "560017" },
+            { name: "Mysore Road, Satellite Bus Station", city: "Bengaluru", state: "Karnataka", pincode: "560026" },
+            { name: "Madhapur, 100 Feet Road", city: "Hyderabad", state: "Telangana", pincode: "500081" },
+            { name: "Miyapur Metro Station Road", city: "Hyderabad", state: "Telangana", pincode: "500049" },
+            { name: "Mehdipatnam Main Road", city: "Hyderabad", state: "Telangana", pincode: "500028" },
+            { name: "Mylapore, Luz Church Road", city: "Chennai", state: "Tamil Nadu", pincode: "600004" },
+            { name: "Malabar Hill, Walkeshwar Road", city: "Mumbai", state: "Maharashtra", pincode: "400006" },
+            { name: "Marine Drive, Nariman Point", city: "Mumbai", state: "Maharashtra", pincode: "400020" },
+            { name: "Magarpatta City, Hadapsar", city: "Pune", state: "Maharashtra", pincode: "411028" },
+            { name: "MVP Colony Sector 1", city: "Visakhapatnam", state: "Andhra Pradesh", pincode: "530017" },
+
+            // N
+            { name: "Nagavara Outer Ring Road, Near Hebbal", city: "Bengaluru", state: "Karnataka", pincode: "560045" },
+            { name: "Nagarabhavi 2nd Stage, 80 Feet Road", city: "Bengaluru", state: "Karnataka", pincode: "560072" },
+            { name: "Nandini Layout, Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560096" },
+            { name: "New Thippasandra Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560075" },
+            { name: "Nallurhalli, Whitefield Borewell Road", city: "Bengaluru", state: "Karnataka", pincode: "560066" },
+            { name: "Nanakramguda, Financial District", city: "Hyderabad", state: "Telangana", pincode: "500032" },
+            { name: "Nizampet Village Road", city: "Hyderabad", state: "Telangana", pincode: "500090" },
+            { name: "Nungambakkam High Road", city: "Chennai", state: "Tamil Nadu", pincode: "600034" },
+            { name: "Navi Mumbai, Sector 17 Vashi", city: "Navi Mumbai", state: "Maharashtra", pincode: "400703" },
+            { name: "Nehru Place Commercial Complex", city: "New Delhi", state: "Delhi", pincode: "110019" },
+
+            // O
+            { name: "Old Airport Road, Kodihalli", city: "Bengaluru", state: "Karnataka", pincode: "560008" },
+            { name: "Old Madras Road, Near Swami Vivekananda Metro", city: "Bengaluru", state: "Karnataka", pincode: "560038" },
+            { name: "Outer Ring Road, Bellandur Junction", city: "Bengaluru", state: "Karnataka", pincode: "560103" },
+            { name: "OMBR Layout, Banaswadi", city: "Bengaluru", state: "Karnataka", pincode: "560043" },
+            { name: "OMR Road, Thoraipakkam", city: "Chennai", state: "Tamil Nadu", pincode: "600097" },
+            { name: "Oshiwara, New Link Road", city: "Mumbai", state: "Maharashtra", pincode: "400102" },
+
+            // P
+            { name: "Padmanabhanagar, 15th Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560070" },
+            { name: "Peenya Industrial Area 1st Stage", city: "Bengaluru", state: "Karnataka", pincode: "560058" },
+            { name: "Pragathi Nagar, Electronic City", city: "Bengaluru", state: "Karnataka", pincode: "560100" },
+            { name: "Panathur Main Road, Outer Ring Road", city: "Bengaluru", state: "Karnataka", pincode: "560087" },
+            { name: "Pulikeshi Nagar (Frazer Town)", city: "Bengaluru", state: "Karnataka", pincode: "560005" },
+            { name: "Powai Hiranandani Gardens", city: "Mumbai", state: "Maharashtra", pincode: "400076" },
+            { name: "Parel, Dr Babasaheb Ambedkar Road", city: "Mumbai", state: "Maharashtra", pincode: "400012" },
+            { name: "Panjagutta Main Road", city: "Hyderabad", state: "Telangana", pincode: "500082" },
+            { name: "Porur, Arcot Road", city: "Chennai", state: "Tamil Nadu", pincode: "600116" },
+            { name: "Pimple Saudagar, Kunal Icon Road", city: "Pune", state: "Maharashtra", pincode: "411027" },
+            { name: "Pitampura, Netaji Subhash Place", city: "New Delhi", state: "Delhi", pincode: "110034" },
+
+            // Q
+            { name: "Queen's Road, Tasker Town", city: "Bengaluru", state: "Karnataka", pincode: "560052" },
+            { name: "Qutub Institutional Area", city: "New Delhi", state: "Delhi", pincode: "110016" },
+            { name: "Quthbullapur Main Road", city: "Hyderabad", state: "Telangana", pincode: "500055" },
+
+            // R
+            { name: "Rajajinagar 1st Block, Dr Rajkumar Road", city: "Bengaluru", state: "Karnataka", pincode: "560010" },
+            { name: "Rajajinagar 4th Block, West of Chord Road", city: "Bengaluru", state: "Karnataka", pincode: "560010" },
+            { name: "RT Nagar Main Road, Dinnur", city: "Bengaluru", state: "Karnataka", pincode: "560032" },
+            { name: "Richmond Town, Richmond Road", city: "Bengaluru", state: "Karnataka", pincode: "560025" },
+            { name: "RMV 2nd Stage, Dollars Colony", city: "Bengaluru", state: "Karnataka", pincode: "560094" },
+            { name: "Ramamurthy Nagar Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560016" },
+            { name: "Residency Road, Ashok Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560025" },
+            { name: "Rajendra Nagar Main Road", city: "Hyderabad", state: "Telangana", pincode: "500030" },
+            { name: "Royapettah High Road", city: "Chennai", state: "Tamil Nadu", pincode: "600014" },
+            { name: "Rohini Sector 7, Outer Ring Road", city: "New Delhi", state: "Delhi", pincode: "110085" },
+            { name: "RTC Cross Roads", city: "Hyderabad", state: "Telangana", pincode: "500020" },
+
+            // S
+            { name: "Sarjapur Road, Carmelaram Post", city: "Bengaluru", state: "Karnataka", pincode: "560035" },
+            { name: "Sahakara Nagar, Bellary Road", city: "Bengaluru", state: "Karnataka", pincode: "560092" },
+            { name: "Sanjaynagar Main Road, RMV Extension", city: "Bengaluru", state: "Karnataka", pincode: "560094" },
+            { name: "Shivajinagar, Commercial Street Cross", city: "Bengaluru", state: "Karnataka", pincode: "560051" },
+            { name: "Sadashivanagar, Bashyam Circle", city: "Bengaluru", state: "Karnataka", pincode: "560080" },
+            { name: "Seshadripuram, Kumara Park West", city: "Bengaluru", state: "Karnataka", pincode: "560020" },
+            { name: "Shanthi Nagar, Double Road", city: "Bengaluru", state: "Karnataka", pincode: "560027" },
+            { name: "Subramanyapura, Uttarahalli Road", city: "Bengaluru", state: "Karnataka", pincode: "560061" },
+            { name: "Somajiguda, Raj Bhavan Road", city: "Hyderabad", state: "Telangana", pincode: "500082" },
+            { name: "Sanath Nagar Main Road", city: "Hyderabad", state: "Telangana", pincode: "500018" },
+            { name: "Secunderabad Station Road", city: "Secunderabad", state: "Telangana", pincode: "500003" },
+            { name: "T Nagar (Thyagaraya Nagar), Usman Road", city: "Chennai", state: "Tamil Nadu", pincode: "600017" },
+            { name: "Santacruz West, SV Road", city: "Mumbai", state: "Maharashtra", pincode: "400054" },
+            { name: "Saket District Centre, Press Enclave Marg", city: "New Delhi", state: "Delhi", pincode: "110017" },
+            { name: "Shivaji Nagar, FC Road", city: "Pune", state: "Maharashtra", pincode: "411005" },
+            { name: "Suryaraopeta Main Road", city: "Vijayawada", state: "Andhra Pradesh", pincode: "520002" },
+            { name: "Seethammadhara North Extension", city: "Visakhapatnam", state: "Andhra Pradesh", pincode: "530013" },
+
+            // T
+            { name: "Thanisandra Main Road, Manyata Backgate", city: "Bengaluru", state: "Karnataka", pincode: "560077" },
+            { name: "Thippasandra 80 Feet Road, HAL 3rd Stage", city: "Bengaluru", state: "Karnataka", pincode: "560075" },
+            { name: "TC Palya Main Road, Ramamurthy Nagar", city: "Bengaluru", state: "Karnataka", pincode: "560036" },
+            { name: "Tavarekere Main Road, BTM 1st Stage", city: "Bengaluru", state: "Karnataka", pincode: "560029" },
+            { name: "T Dasarahalli, Tumkur Road", city: "Bengaluru", state: "Karnataka", pincode: "560057" },
+            { name: "Tambaram West, GST Road", city: "Chennai", state: "Tamil Nadu", pincode: "600045" },
+            { name: "Thane West, Ghodbunder Road", city: "Thane", state: "Maharashtra", pincode: "400601" },
+            { name: "Tarnaka Cross Roads", city: "Hyderabad", state: "Telangana", pincode: "500017" },
+
+            // U
+            { name: "Ulsoor Lake Road, Sivanchetti Gardens", city: "Bengaluru", state: "Karnataka", pincode: "560008" },
+            { name: "Uttarahalli Main Road, Channasandra", city: "Bengaluru", state: "Karnataka", pincode: "560061" },
+            { name: "UB City, Vittal Mallya Road", city: "Bengaluru", state: "Karnataka", pincode: "560001" },
+            { name: "Uppal Ring Road", city: "Hyderabad", state: "Telangana", pincode: "500039" },
+
+            // V
+            { name: "Vijayanagar 1st Stage, RPC Layout", city: "Bengaluru", state: "Karnataka", pincode: "560040" },
+            { name: "Vasanth Nagar, Millers Road", city: "Bengaluru", state: "Karnataka", pincode: "560052" },
+            { name: "Vidyaranyapura Main Road, BEL Layout", city: "Bengaluru", state: "Karnataka", pincode: "560097" },
+            { name: "Varthur Road, Whitefield Suburb", city: "Bengaluru", state: "Karnataka", pincode: "560087" },
+            { name: "Victoria Layout, Richmond Town", city: "Bengaluru", state: "Karnataka", pincode: "560047" },
+            { name: "Viveknagar Main Road", city: "Bengaluru", state: "Karnataka", pincode: "560047" },
+            { name: "Viman Nagar, Central Avenue", city: "Pune", state: "Maharashtra", pincode: "411014" },
+            { name: "Vashi Sector 17, Palm Beach Road", city: "Navi Mumbai", state: "Maharashtra", pincode: "400703" },
+            { name: "Vadapalani 100 Feet Road", city: "Chennai", state: "Tamil Nadu", pincode: "600026" },
+            { name: "Velachery Main Road, Vijaya Nagar", city: "Chennai", state: "Tamil Nadu", pincode: "600042" },
+            { name: "Vijayawada Benz Circle, MG Road", city: "Vijayawada", state: "Andhra Pradesh", pincode: "520010" },
+            { name: "Visakhapatnam MVP Colony, Sector 3", city: "Visakhapatnam", state: "Andhra Pradesh", pincode: "530017" },
+            { name: "Vasant Kunj Sector B, Pocket 1", city: "New Delhi", state: "Delhi", pincode: "110070" },
+            { name: "Vanasthalipuram Main Road", city: "Hyderabad", state: "Telangana", pincode: "500070" },
+
+            // W
+            { name: "Whitefield Main Road, Hope Farm Junction", city: "Bengaluru", state: "Karnataka", pincode: "560066" },
+            { name: "Whitefield ITPL Road, Pattandur Agrahara", city: "Bengaluru", state: "Karnataka", pincode: "560066" },
+            { name: "Wilson Garden 10th Cross, Hosur Road", city: "Bengaluru", state: "Karnataka", pincode: "560027" },
+            { name: "Wind Tunnel Road, Murugeshpalya", city: "Bengaluru", state: "Karnataka", pincode: "560017" },
+            { name: "Worli Sea Face, Khan Abdul Ghaffar Khan Road", city: "Mumbai", state: "Maharashtra", pincode: "400018" },
+            { name: "Wakad, Datta Mandir Road", city: "Pune", state: "Maharashtra", pincode: "411057" },
+
+            // Y
+            { name: "Yelahanka New Town, 4th Phase", city: "Bengaluru", state: "Karnataka", pincode: "560064" },
+            { name: "Yelahanka Old Town, BB Road", city: "Bengaluru", state: "Karnataka", pincode: "560064" },
+            { name: "Yeshwanthpur Industrial Area, Tumkur Road", city: "Bengaluru", state: "Karnataka", pincode: "560022" },
+            { name: "Yemalur Main Road, Off Old Airport Road", city: "Bengaluru", state: "Karnataka", pincode: "560037" },
+            { name: "Yousufguda Main Road", city: "Hyderabad", state: "Telangana", pincode: "500045" },
+
+            // Z
+            { name: "Zoo Road, Bannerghatta National Park Road", city: "Bengaluru", state: "Karnataka", pincode: "560083" }
+        ];
+
+        function smartSetStateSelect(selectEl, stateName) {
+            if (!selectEl || !stateName) return;
+            const target = stateName.trim().toLowerCase();
+            let found = false;
+            for (let i = 0; i < selectEl.options.length; i++) {
+                const opt = selectEl.options[i];
+                const optVal = opt.value.toLowerCase();
+                const optText = opt.text.toLowerCase();
+                if (optVal === target || optText === target || target.includes(optVal) || optVal.includes(target)) {
+                    selectEl.selectedIndex = i;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                const newOpt = document.createElement("option");
+                newOpt.value = stateName.trim();
+                newOpt.textContent = stateName.trim();
+                const otherOpt = Array.from(selectEl.options).find(o => o.value.toLowerCase() === "other");
+                if (otherOpt) {
+                    selectEl.insertBefore(newOpt, otherOpt);
+                } else {
+                    selectEl.appendChild(newOpt);
+                }
+                newOpt.selected = true;
+            }
+        }
+
+        function applyAutofillGlow(elements) {
+            elements.forEach(el => {
+                if (!el) return;
+                el.classList.add("address-field-autofilled");
+                setTimeout(() => el.classList.remove("address-field-autofilled"), 1300);
+            });
+        }
+
+        async function detectAndFillAddress(targetElements, locateBtn) {
+            if (!navigator.geolocation) {
+                if (typeof showToast === 'function') showToast("⚠️ Geolocation is not supported by your browser");
+                else alert("Geolocation is not supported by your browser");
+                return;
+            }
+
+            if (locateBtn) locateBtn.classList.add("locating");
+            if (typeof showToast === 'function') showToast("🛰️ Detecting your current address...");
+
+            navigator.geolocation.getCurrentPosition(
+                async (pos) => {
+                    try {
+                        const lat = pos.coords.latitude;
+                        const lon = pos.coords.longitude;
+
+                        let addressText = "";
+                        let cityText = "";
+                        let stateText = "";
+                        let pincodeText = "";
+
+                        // 1. Try Photon reverse
+                        try {
+                            const photonRes = await fetch(`https://photon.komoot.io/reverse?lat=${lat}&lon=${lon}`);
+                            if (photonRes.ok) {
+                                const pData = await photonRes.json();
+                                if (pData && pData.features && pData.features.length > 0) {
+                                    const props = pData.features[0].properties;
+                                    const street = props.name || props.street || "";
+                                    const locality = props.locality || props.district || props.suburb || "";
+                                    addressText = [street, locality].filter(Boolean).join(", ");
+                                    cityText = props.city || props.county || props.district || "";
+                                    stateText = props.state || "";
+                                    pincodeText = props.postcode || "";
+                                }
+                            }
+                        } catch (pe) {
+                            console.warn("Photon reverse warning:", pe);
+                        }
+
+                        // 2. Fallback to OpenStreetMap Nominatim
+                        if (!addressText || !cityText) {
+                            try {
+                                const nomRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`);
+                                if (nomRes.ok) {
+                                    const nData = await nomRes.json();
+                                    if (nData && nData.address) {
+                                        const road = nData.address.road || nData.address.pedestrian || "";
+                                        const suburb = nData.address.suburb || nData.address.neighbourhood || "";
+                                        addressText = addressText || [road, suburb].filter(Boolean).join(", ") || nData.name || "";
+                                        cityText = cityText || nData.address.city || nData.address.town || nData.address.village || nData.address.county || "";
+                                        stateText = stateText || nData.address.state || "";
+                                        pincodeText = pincodeText || nData.address.postcode || "";
+                                    }
+                                }
+                            } catch (ne) {
+                                console.warn("Nominatim reverse warning:", ne);
+                            }
+                        }
+
+                        if (!addressText && !cityText) {
+                            throw new Error("Could not determine exact address from GPS coordinates");
+                        }
+
+                        if (targetElements.addressInput) targetElements.addressInput.value = addressText || "My Location";
+                        if (targetElements.cityInput && cityText) targetElements.cityInput.value = cityText;
+                        if (targetElements.stateSelect && stateText) smartSetStateSelect(targetElements.stateSelect, stateText);
+                        if (targetElements.pinCodeInput && pincodeText) targetElements.pinCodeInput.value = pincodeText;
+
+                        // Trigger change/input events
+                        [targetElements.addressInput, targetElements.cityInput, targetElements.stateSelect, targetElements.pinCodeInput].forEach(el => {
+                            if (el) {
+                                el.dispatchEvent(new Event('input', { bubbles: true }));
+                                el.dispatchEvent(new Event('change', { bubbles: true }));
+                            }
+                        });
+
+                        applyAutofillGlow([targetElements.addressInput, targetElements.cityInput, targetElements.stateSelect, targetElements.pinCodeInput]);
+
+                        if (typeof showToast === 'function') {
+                            showToast(`📍 Located: ${addressText ? addressText + ", " : ""}${cityText}`);
+                        }
+                    } catch (err) {
+                        console.error("Locate address error:", err);
+                        if (typeof showToast === 'function') showToast("⚠️ Could not detect address. Please pick from suggestions.");
+                    } finally {
+                        if (locateBtn) locateBtn.classList.remove("locating");
+                    }
+                },
+                (err) => {
+                    console.warn("Geolocation permission error:", err);
+                    if (locateBtn) locateBtn.classList.remove("locating");
+                    const msg = err.code === 1 ? "Location access denied. Please select from suggestions." : "Could not acquire GPS signal. Please type your area.";
+                    if (typeof showToast === 'function') showToast(`⚠️ ${msg}`);
+                    else alert(msg);
+                },
+                { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+            );
+        }
+
+        function highlightMatch(text, query) {
+            if (!query || !text) return text || "";
+            const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escaped})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        function setupAddressAutocomplete(config) {
+            const input = document.getElementById(config.inputId);
+            const dropdown = document.getElementById(config.dropdownId);
+            const locateBtn = document.getElementById(config.locateBtnId);
+            const cityInput = document.getElementById(config.cityId);
+            const stateSelect = document.getElementById(config.stateId);
+            const pinCodeInput = document.getElementById(config.pinCodeId);
+            const wrap = document.getElementById(config.wrapId);
+
+            if (!input || !dropdown) return;
+
+            let debounceTimer = null;
+            let activeIndex = -1;
+            let currentItems = [];
+
+            const targetEls = {
+                addressInput: input,
+                cityInput: cityInput,
+                stateSelect: stateSelect,
+                pinCodeInput: pinCodeInput
+            };
+
+            if (locateBtn) {
+                locateBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    detectAndFillAddress(targetEls, locateBtn);
+                });
+            }
+
+            function selectItem(item) {
+                input.value = item.name || item.address || "";
+                if (cityInput && item.city) cityInput.value = item.city;
+                if (stateSelect && item.state) smartSetStateSelect(stateSelect, item.state);
+                if (pinCodeInput && item.pincode) pinCodeInput.value = item.pincode;
+
+                [input, cityInput, stateSelect, pinCodeInput].forEach(el => {
+                    if (el) {
+                        el.dispatchEvent(new Event('input', { bubbles: true }));
+                        el.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+
+                applyAutofillGlow([input, cityInput, stateSelect, pinCodeInput]);
+                closeDropdown();
+                input.focus();
+            }
+
+            function renderDropdown(items, query) {
+                currentItems = items;
+                activeIndex = -1;
+                dropdown.innerHTML = "";
+
+                // Top "Use my current location" Action
+                const locateAction = document.createElement("div");
+                locateAction.className = "address-locate-action";
+                locateAction.innerHTML = `
+                    <span class="locate-pulse-icon">📍</span>
+                    <div>
+                        <div style="font-size: 13px; font-weight: 700;">Use my current location</div>
+                        <div style="font-size: 11px; font-weight: 500; opacity: 0.85;">Auto-detect address via GPS</div>
+                    </div>
+                `;
+                locateAction.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    detectAndFillAddress(targetEls, locateBtn);
+                    closeDropdown();
+                });
+                dropdown.appendChild(locateAction);
+
+                if (!items || items.length === 0) {
+                    if (query && query.length > 0) {
+                        const emptyNotice = document.createElement("div");
+                        emptyNotice.style.padding = "10px 12px";
+                        emptyNotice.style.fontSize = "12.5px";
+                        emptyNotice.style.color = "#64748b";
+                        emptyNotice.style.textAlign = "center";
+                        emptyNotice.textContent = "No addresses matched. Keep typing or use current location.";
+                        dropdown.appendChild(emptyNotice);
+                    }
+                    dropdown.style.display = "block";
+                    return;
+                }
+
+                items.forEach((item, idx) => {
+                    const row = document.createElement("div");
+                    row.className = "address-dropdown-item";
+                    row.dataset.index = idx;
+
+                    const titleHtml = highlightMatch(item.name, query);
+                    const subText = `${item.city || ""}, ${item.state || ""}${item.pincode ? " • " + item.pincode : ""}`;
+
+                    row.innerHTML = `
+                        <div class="address-item-icon">📍</div>
+                        <div class="address-item-content">
+                            <div class="address-item-title">${titleHtml}</div>
+                            <div class="address-item-sub">${subText}</div>
+                        </div>
+                    `;
+
+                    row.addEventListener("mousedown", (e) => {
+                        e.preventDefault();
+                        selectItem(item);
+                    });
+
+                    dropdown.appendChild(row);
+                });
+
+                dropdown.style.display = "block";
+            }
+
+            function closeDropdown() {
+                dropdown.style.display = "none";
+                activeIndex = -1;
+                currentItems = [];
+            }
+
+            function getLocalMatches(q) {
+                const query = (q || "").trim().toLowerCase();
+                if (!query) {
+                    return POPULAR_INDIAN_ADDRESSES.slice(0, 7);
+                }
+
+                return POPULAR_INDIAN_ADDRESSES
+                    .filter(item => {
+                        const full = `${item.name} ${item.city} ${item.state} ${item.pincode}`.toLowerCase();
+                        return full.includes(query);
+                    })
+                    .sort((a, b) => {
+                        const aName = a.name.toLowerCase();
+                        const bName = b.name.toLowerCase();
+                        const aStarts = aName.startsWith(query);
+                        const bStarts = bName.startsWith(query);
+                        if (aStarts && !bStarts) return -1;
+                        if (!aStarts && bStarts) return 1;
+
+                        const aWords = aName.split(/\s+/).some(w => w.startsWith(query));
+                        const bWords = bName.split(/\s+/).some(w => w.startsWith(query));
+                        if (aWords && !bWords) return -1;
+                        if (!aWords && bWords) return 1;
+
+                        return aName.localeCompare(bName);
+                    })
+                    .slice(0, 8);
+            }
+
+            async function fetchLiveSuggestions(query) {
+                if (!query || query.trim().length < 2) return;
+                try {
+                    const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&lat=12.9716&lon=77.5946&limit=6`);
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    if (!data || !data.features || data.features.length === 0) return;
+
+                    const liveItems = [];
+                    data.features.forEach(f => {
+                        const p = f.properties;
+                        const name = p.name || p.street || p.locality || "";
+                        if (!name) return;
+                        const locality = p.locality || p.district || p.suburb || "";
+                        const fullName = locality && !name.includes(locality) ? `${name}, ${locality}` : name;
+                        const city = p.city || p.county || p.district || "Bengaluru";
+                        const state = p.state || "Karnataka";
+                        const pincode = p.postcode || "";
+
+                        const isDuplicate = currentItems.some(existing => 
+                            existing.name.toLowerCase() === fullName.toLowerCase() ||
+                            existing.name.toLowerCase().includes(fullName.toLowerCase())
+                        );
+
+                        if (!isDuplicate) {
+                            liveItems.push({
+                                name: fullName,
+                                city: city,
+                                state: state,
+                                pincode: pincode,
+                                isLive: true
+                            });
+                        }
+                    });
+
+                    if (liveItems.length > 0 && input === document.activeElement && input.value.trim().toLowerCase() === query.toLowerCase()) {
+                        const combined = [...currentItems, ...liveItems].slice(0, 10);
+                        renderDropdown(combined, query);
+                    }
+                } catch (e) {
+                    console.warn("Live photon search warning:", e);
+                }
+            }
+
+            input.addEventListener("input", () => {
+                const val = input.value.trim();
+                const localMatches = getLocalMatches(val);
+                renderDropdown(localMatches, val);
+
+                clearTimeout(debounceTimer);
+                if (val.length >= 2) {
+                    debounceTimer = setTimeout(() => {
+                        fetchLiveSuggestions(val);
+                    }, 260);
+                }
+            });
+
+            input.addEventListener("focus", () => {
+                const val = input.value.trim();
+                const matches = getLocalMatches(val);
+                renderDropdown(matches, val);
+            });
+
+            input.addEventListener("keydown", (e) => {
+                if (dropdown.style.display === "none") return;
+
+                const items = dropdown.querySelectorAll(".address-dropdown-item");
+                if (!items || items.length === 0) return;
+
+                if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    activeIndex++;
+                    if (activeIndex >= items.length) activeIndex = 0;
+                    items.forEach((item, idx) => item.classList.toggle("active", idx === activeIndex));
+                    if (items[activeIndex]) items[activeIndex].scrollIntoView({ block: "nearest" });
+                } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    activeIndex--;
+                    if (activeIndex < 0) activeIndex = items.length - 1;
+                    items.forEach((item, idx) => item.classList.toggle("active", idx === activeIndex));
+                    if (items[activeIndex]) items[activeIndex].scrollIntoView({ block: "nearest" });
+                } else if (e.key === "Enter") {
+                    if (activeIndex >= 0 && currentItems[activeIndex]) {
+                        e.preventDefault();
+                        selectItem(currentItems[activeIndex]);
+                    }
+                } else if (e.key === "Escape") {
+                    closeDropdown();
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (wrap && !wrap.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+        }
+
+        function initAddressAutocomplete() {
+            // Shipping Address Autocomplete
+            setupAddressAutocomplete({
+                inputId: "addressInput",
+                dropdownId: "addressDropdown",
+                locateBtnId: "locateAddressBtn",
+                cityId: "cityInput",
+                stateId: "stateSelect",
+                pinCodeId: "pinCodeInput",
+                wrapId: "shippingAddressWrap"
+            });
+
+            // Billing Address Autocomplete
+            setupAddressAutocomplete({
+                inputId: "billingAddressInput",
+                dropdownId: "billingAddressDropdown",
+                locateBtnId: "locateBillingAddressBtn",
+                cityId: "billingCityInput",
+                stateId: "billingStateSelect",
+                pinCodeId: "billingPinCodeInput",
+                wrapId: "billingAddressWrap"
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             renderCheckoutPage();
             renderClassicAddons();
             renderAvailableCoupons();
             setupAddonsCarouselInteractions();
+            initAddressAutocomplete();
             
             checkPendingRazorpayOrder().catch(err => console.warn(err));
             fetchLiveAddonsFromDB().catch(err => console.warn(err));

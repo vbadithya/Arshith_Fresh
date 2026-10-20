@@ -262,7 +262,7 @@ const CATALOG_DATA = [
     originalPrice: 110,
     unit: '100 g',
     image: '/assets/images/products/garam_masala_front.jpg',
-    hoverImage: '/assets/images/products/garam_masala_back.jpg'
+    hoverImage: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533'
   },
   {
     handle: 'pepper-powder-premium',

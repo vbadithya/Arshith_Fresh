@@ -1196,7 +1196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "originalPrice": 110,
     "unit": "100 g",
     "image": "/assets/images/products/garam_masala_front.jpg",
-    "hoverImage": "/assets/images/products/garam_masala_back.jpg",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
     "description": "100% Pure & authentic Garam Masala Powder (Premium Quality) freshly packed by Arshith Fresh.",
     "rating": 4.9,
     "numReviews": 35,
@@ -1204,11 +1204,11 @@ document.addEventListener("DOMContentLoaded", () => {
     "countInStock": 40,
     "images": [
       "/assets/images/products/garam_masala_front.jpg",
-      "/assets/images/products/garam_masala_back.jpg"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533"
     ],
     "imageUrls": [
       "/assets/images/products/garam_masala_front.jpg",
-      "/assets/images/products/garam_masala_back.jpg"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533"
     ]
   },
   {
@@ -5412,7 +5412,7 @@ async function syncHomepageRealRatingsAndReviews() {
     if (!reviewsGrid) return;
 
     try {
-        const revRes = await fetch('/api/reviews/latest?limit=8');
+        const revRes = await fetch('/api/reviews/latest?limit=15');
         if (!revRes.ok) throw new Error('API ' + revRes.status);
         const revData = await revRes.json();
         const reviews = revData.reviews || [];
@@ -5426,10 +5426,12 @@ async function syncHomepageRealRatingsAndReviews() {
                     <a href="pages/collections.html?category=all" style="display: inline-block; background: #0f7139; color: #fff; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 13px;">Shop Our Products &rarr;</a>
                 </div>
             `;
+            const dropdownWrap = document.getElementById('homepageReviewsDropdownWrap');
+            if (dropdownWrap) dropdownWrap.style.display = 'none';
             return;
         }
 
-        reviewsGrid.innerHTML = reviews.map(r => {
+        reviewsGrid.innerHTML = reviews.map((r, index) => {
             const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
             const dateStr = r.createdAt ? new Date(r.createdAt).toLocaleDateString('en-IN', {
                 month: 'short',
@@ -5440,9 +5442,10 @@ async function syncHomepageRealRatingsAndReviews() {
             const prodName = r.productName || (r.productId && r.productId.name) || 'Arshith Fresh Product';
             const prodImg = (r.productId && r.productId.image) || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=120';
             const customerInitial = (r.customerName || 'C').charAt(0).toUpperCase();
+            const isExtra = index >= 3;
 
             return `
-                <div class="homepage-real-review-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.03); transition: transform 0.2s ease, box-shadow 0.2s ease;">
+                <div class="homepage-real-review-card ${isExtra ? 'homepage-review-extra' : ''}" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; display: ${isExtra ? 'none' : 'flex'}; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.03); transition: transform 0.2s ease, box-shadow 0.2s ease;">
                     <!-- Top Author Row -->
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
                         <div style="width: 38px; height: 38px; border-radius: 50%; background: #e8f5e9; color: #0f7139; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -5479,10 +5482,61 @@ async function syncHomepageRealRatingsAndReviews() {
             `;
         }).join('');
 
+        const dropdownWrap = document.getElementById('homepageReviewsDropdownWrap');
+        const dropdownBtnText = document.getElementById('homepageReviewsDropdownBtnText');
+        if (dropdownWrap) {
+            if (reviews.length > 3) {
+                dropdownWrap.style.display = 'block';
+                if (dropdownBtnText) {
+                    dropdownBtnText.textContent = `▼ View All ${reviews.length} Customer Reviews (Dropdown)`;
+                }
+            } else {
+                dropdownWrap.style.display = 'none';
+            }
+        }
+
     } catch (err) {
         console.debug('[Reviews Sync] Latest reviews fetch error:', err);
     }
 }
+
+// Global Toggle Function for Homepage Reviews Dropdown
+window.toggleHomepageReviewsDropdown = function() {
+    const extraCards = document.querySelectorAll('.homepage-review-extra');
+    const btnText = document.getElementById('homepageReviewsDropdownBtnText');
+    const btn = document.getElementById('homepageReviewsDropdownBtn');
+    if (!extraCards || extraCards.length === 0) return;
+
+    // Check if the first extra card is currently displayed
+    const isExpanded = extraCards[0].style.display !== 'none';
+    const totalCount = 3 + extraCards.length;
+
+    if (isExpanded) {
+        // Collapse: hide extra cards
+        extraCards.forEach(card => {
+            card.style.display = 'none';
+        });
+        if (btnText) btnText.textContent = `▼ View All ${totalCount} Customer Reviews (Dropdown)`;
+        if (btn) {
+            btn.style.background = '#f0fdf4';
+            btn.style.borderColor = '#a7f3d0';
+            btn.style.color = '#0f7139';
+        }
+        const section = document.querySelector('.real-customer-reviews-section');
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+        // Expand: display extra cards
+        extraCards.forEach(card => {
+            card.style.display = 'flex';
+        });
+        if (btnText) btnText.textContent = `▲ Collapse Reviews List`;
+        if (btn) {
+            btn.style.background = '#0f7139';
+            btn.style.borderColor = '#0f7139';
+            btn.style.color = '#ffffff';
+        }
+    }
+};
 
 // Automatically trigger on page load
 if (document.readyState === 'loading') {
