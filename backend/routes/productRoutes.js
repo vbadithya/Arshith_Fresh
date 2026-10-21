@@ -64,18 +64,20 @@ const FALLBACK_CATALOG = [
     "price": 115,
     "originalPrice": 115,
     "unit": "250 ml",
-    "image": "/assets/images/products/sesame_oil_250ml.png",
-    "hoverImage": "/assets/images/products/sesame_oil_250ml.png",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
     "description": "Traditional wooden pressed gingelly sesame oil.",
     "rating": 4.9,
     "numReviews": 37,
     "isFeatured": true,
     "countInStock": 40,
     "images": [
-      "/assets/images/products/sesame_oil_250ml.png"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
     ],
     "imageUrls": [
-      "/assets/images/products/sesame_oil_250ml.png"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
     ]
   },
   {
@@ -928,7 +930,7 @@ function formatProduct(p) {
         { keys: ['poppy', 'khasa'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_1_5a2dd782-b7e9-4467-9bb3-93cfc319c5c2.jpg?v=1757334005&width=533' },
         { keys: ['groundnut oil', 'groundnut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
         { keys: ['sunflower oil', 'sunflower-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
-        { keys: ['sesame oil', 'sesame-oil'], url: '/assets/images/products/sesame_oil_250ml.png' },
+        { keys: ['sesame oil', 'sesame-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
         { keys: ['castor'], url: '/assets/images/products/castor_oil_250ml.png' },
         { keys: ['coconut oil', 'coconut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533' },
         { keys: ['neem'], url: '/assets/images/products/sesame_oil_bowl.jpg' },
