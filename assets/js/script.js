@@ -637,21 +637,19 @@ document.addEventListener("DOMContentLoaded", () => {
       "price": 115,
       "originalPrice": 115,
       "unit": "250 ml",
-      "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+      "image": "/assets/images/products/sesame_oil_250ml.png",
+      "hoverImage": "/assets/images/products/sesame_oil_250ml.png",
       "description": "100% Pure & authentic Sesame Oil (Premium Quality) freshly packed by Arshith Fresh.",
       "rating": 4.9,
       "numReviews": 35,
       "isFeatured": true,
       "countInStock": 40,
       "images": [
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+          "/assets/images/products/sesame_oil_250ml.png",
           "/assets/images/products/sesame_oil_bowl.jpg"
       ],
       "imageUrls": [
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+          "/assets/images/products/sesame_oil_250ml.png",
           "/assets/images/products/sesame_oil_bowl.jpg"
       ]
   },
@@ -2569,7 +2567,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     { keys: ['poppy', 'khasa'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533' },
                     { keys: ['groundnut oil', 'groundnut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
                     { keys: ['sunflower oil', 'sunflower-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
-                    { keys: ['sesame oil', 'sesame-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
+                    { keys: ['sesame oil', 'sesame-oil'], url: '/assets/images/products/sesame_oil_250ml.png' },
                     { keys: ['castor oil', 'castor-oil', 'castor'], url: '/assets/images/products/castor_oil_250ml.png' },
                     { keys: ['coconut oil', 'coconut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533' },
                     { keys: ['neem oil', 'neem-oil'], url: '/assets/images/products/sesame_oil_bowl.jpg' },
@@ -2645,15 +2643,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function formatPriceNum(val) {
         if (typeof val !== 'number' || isNaN(val)) val = Number(val) || 0;
-        const rounded = Math.round(val * 100) / 100;
-        return (rounded % 1 === 0) ? rounded.toLocaleString('en-IN') : rounded.toFixed(2);
+        return Math.round(val).toLocaleString('en-IN');
     }
     window.formatPriceNum = formatPriceNum;
 
     function calculate22PercentDiscount(originalPrice) {
         const orig = Math.max(0, Number(originalPrice) || 0);
-        const disc = Math.round(orig * 0.78 * 100) / 100;
-        const save = Math.round((orig - disc) * 100) / 100;
+        const disc = Math.round(orig * 0.78);
+        const save = orig - disc;
         return {
             originalPrice: orig,
             discountedPrice: disc,
@@ -3505,7 +3502,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const discPrice = pricing.discountedPrice;
         const savings = pricing.savings;
         const discount = 22;
-        const discountAmount = savings.toFixed(2);
+        const discountAmount = formatPriceNum(savings);
         if (initialVariant) {
             initialVariant.price = discPrice;
             initialVariant.originalPrice = origPrice;
@@ -7309,7 +7306,7 @@ window.closeBlogModal = closeBlogModal;
                 matched = [
                     { id: "chilli-powder-premium", name: "Chilli Powder (Premium Quality)", price: 49, unit: "100 g", image: "/assets/images/products/powders/chilli_powder.jpg" },
                     { id: "castor-oil-premium", name: "Castor Oil (Premium Quality)", price: 112, unit: "250 ml", image: "/assets/images/products/castor_oil_250ml.png" },
-                    { id: "sesame-oil-premium", name: "Sesame Oil (Premium Quality)", price: 115, unit: "250 ml", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533" },
+                    { id: "sesame-oil-premium", name: "Sesame Oil (Premium Quality)", price: 115, unit: "250 ml", image: "/assets/images/products/sesame_oil_250ml.png" },
                     { id: "groundnut-oil-premium", name: "Groundnut Oil (Premium Quality)", price: 399, unit: "1 L", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533" }
                 ];
                 chips = ["What oils do you have?", "Pure Cow Ghee", "Are there any current offers?", "Talk to Support"];
