@@ -1559,11 +1559,7 @@
 }
 
 .product-detail-regular-price {
-    font-size: 15px !important;
-    text-decoration: line-through !important;
-    -webkit-text-decoration-line: line-through !important;
-    color: #64748b !important;
-    font-weight: 500 !important;
+    display: none !important;
 }
 
 .product-detail-save-badge {
@@ -1755,11 +1751,7 @@
 }
 
 .product-detail-regular-price {
-    font-size: 15px !important;
-    text-decoration: line-through !important;
-    -webkit-text-decoration-line: line-through !important;
-    color: #64748b !important;
-    font-weight: 500 !important;
+    display: none !important;
 }
 
 .product-detail-save-badge {
@@ -1940,10 +1932,7 @@
     }
 
     .product-detail-regular-price {
-        font-size: 14px !important;
-        color: #64748b !important;
-        text-decoration: line-through !important;
-        -webkit-text-decoration-line: line-through !important;
+        display: none !important;
     }
 
     .product-detail-save-badge {
@@ -2296,4 +2285,40 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(5, 150, 105, 0.5);
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+/* Product Detail Net Weight Variant Dropdown */
+.detail-weight-dropdown {
+    width: 100% !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    background-color: #f8fafc !important;
+    padding: 3px 24px 3px 6px !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    cursor: pointer !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    font-family: inherit !important;
+    box-sizing: border-box !important;
+    line-height: 1.2 !important;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s !important;
+}
+
+.detail-weight-dropdown:focus {
+    border-color: #0f7139 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 2px rgba(15, 113, 57, 0.15) !important;
+}
+
+@media (max-width: 768px) {
+    .detail-weight-dropdown {
+        font-size: 11.5px !important;
+        padding: 2px 20px 2px 4px !important;
+        height: 24px !important;
+        border-width: 1px !important;
+    }
 }

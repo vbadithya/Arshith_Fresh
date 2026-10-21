@@ -71,7 +71,6 @@
                             <li><a href="categories/dry-seeds.html">Dry Seeds</a></li>
                             <li><a href="categories/ghee-and-honey.html">Ghee and Honey</a></li>
                             
-                            <li><a href="categories/spices.html">Spices</a></li>
                             <li><a href="categories/spice-powders-podulu.html">Spice Powders</a></li>
                         </ul>
                     </li>
@@ -315,13 +314,18 @@
                     <div class="cart-items-rows">
                         ${CART_ITEMS.map((item, index) => {
                             const itemTotal = (item.price * item.quantity).toFixed(2);
+                            const origPrice = item.originalPrice || Math.round((item.price / 0.78) * 100) / 100;
                             return `
                                 <div class="cart-row-item">
                                     <div class="cart-col-product">
                                         <img src="${item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png'}" alt="${item.title}" class="cart-product-img">
                                         <div class="cart-product-details">
                                             <h3 class="cart-item-title">${item.title}</h3>
-                                            <div class="cart-item-price">Rs. ${item.price.toFixed(2)}</div>
+                                            <div class="cart-item-price" style="display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-top: 4px;">
+                                                <span style="font-weight: 800; color: #1e293b; font-size: 15px;">₹${item.price.toFixed(2)}</span>
+                                                <span style="text-decoration: line-through; color: #94a3b8; font-size: 12.5px;">₹${origPrice.toFixed(2)}</span>
+                                                <span style="background: #e6f7ed; color: #0f7139; font-size: 10.5px; font-weight: 800; padding: 1px 5px; border-radius: 4px; border: 1px solid #bbf7d0;">22% OFF</span>
+                                            </div>
                                             <div class="cart-item-weight">Weight: ${item.weight || '250g'}</div>
                                         </div>
                                     </div>
@@ -341,7 +345,7 @@
                                     </div>
 
                                     <div class="cart-col-total">
-                                        <span class="cart-item-total-price">Rs. ${itemTotal}</span>
+                                        <span class="cart-item-total-price">₹${itemTotal}</span>
                                     </div>
                                 </div>
                             `;
@@ -351,7 +355,13 @@
 
                 <div class="cart-summary-section">
                     <div class="cart-summary-box">
-                        <div class="estimated-total-row">
+                        <div class="estimated-total-row" style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                            <span class="estimated-total-label" style="font-weight: 600; font-size: 16px;">Estimated total</span>
+                            <span class="estimated-total-price" style="font-size: 20px; font-weight: 800; color: #1e293b;">₹${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div style="color: #16a34a; font-size: 13px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 4px;">
+                            <span>✓</span> You save 22% with our storewide discount!
+                        </div>
                         <p class="cart-tax-notice">Taxes included. Discounts and shipping calculated at checkout.</p>
                         <button class="cart-checkout-btn" onclick="handleCartCheckout()">Check out</button>
                     </div>

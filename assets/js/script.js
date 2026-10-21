@@ -129,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     else if (slug === 'seeds' || slug === 'dry-seeds') link = `${pagePrefix}categories/dry-seeds.html`;
                     else if (slug === 'ghee-honey' || slug === 'ghee-and-honey') link = `${pagePrefix}categories/ghee-and-honey.html`;
                     else if (slug === 'cooking-essentials') link = `${pagePrefix}categories/cooking-essentials.html`;
-                    else if (slug === 'spices') link = `${pagePrefix}categories/spices.html`;
                     else if (slug === 'powders-masalas' || slug === 'spice-powders-podulu') link = `${pagePrefix}categories/spice-powders-podulu.html`;
                     
                     const subs = Array.isArray(col.subcategories) ? col.subcategories : [];
@@ -171,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     else if (slug === 'seeds' || slug === 'dry-seeds') link = `${pagePrefix}categories/dry-seeds.html`;
                     else if (slug === 'ghee-honey' || slug === 'ghee-and-honey') link = `${pagePrefix}categories/ghee-and-honey.html`;
                     else if (slug === 'cooking-essentials') link = `${pagePrefix}categories/cooking-essentials.html`;
-                    else if (slug === 'spices') link = `${pagePrefix}categories/spices.html`;
                     else if (slug === 'powders-masalas' || slug === 'spice-powders-podulu') link = `${pagePrefix}categories/spice-powders-podulu.html`;
 
                     const isActive = (activeCat && (activeCat.toLowerCase() === slug || activeCat.toLowerCase() === col.title.toLowerCase())) || (pathname.includes(slug));
@@ -580,8 +578,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Groundnut Oil (Premium Quality)",
       "title": "Groundnut Oil (Premium Quality)",
       "category": "Oils",
-      "price": 349,
-      "originalPrice": 471,
+      "price": 399,
+      "originalPrice": 499,
       "unit": "1 L",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533",
@@ -608,8 +606,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Sunflower Oil (Premium Quality)",
       "title": "Sunflower Oil (Premium Quality)",
       "category": "Oils",
-      "price": 499,
-      "originalPrice": 608,
+      "price": 559,
+      "originalPrice": 699,
       "unit": "1 L",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533",
@@ -636,9 +634,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Sesame Oil (Premium Quality)",
       "title": "Sesame Oil (Premium Quality)",
       "category": "Oils",
-      "price": 148,
-      "originalPrice": 185,
-      "unit": "500 ml",
+      "price": 115,
+      "originalPrice": 115,
+      "unit": "250 ml",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
       "description": "100% Pure & authentic Sesame Oil (Premium Quality) freshly packed by Arshith Fresh.",
@@ -664,25 +662,21 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Castor Oil (Premium Quality)",
     "title": "Castor Oil (Premium Quality)",
     "category": "Oils",
-    "price": 95,
-    "originalPrice": 118,
+    "price": 112,
+    "originalPrice": 112,
     "unit": "250 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533",
+    "image": "/assets/images/products/castor_oil_250ml.png",
+    "hoverImage": "/assets/images/products/castor_oil_250ml.png",
     "description": "100% Pure & authentic Castor Oil (Premium Quality) freshly packed by Arshith Fresh.",
     "rating": 4.9,
     "numReviews": 35,
     "isFeatured": true,
     "countInStock": 40,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533",
-      "/assets/images/products/castor_oil_benefits.jpg"
+      "/assets/images/products/castor_oil_250ml.png"
     ],
     "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533",
-      "/assets/images/products/castor_oil_benefits.jpg"
+      "/assets/images/products/castor_oil_250ml.png"
     ]
   },
   {
@@ -692,9 +686,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Coconut Oil (Premium Quality)",
       "title": "Coconut Oil (Premium Quality)",
       "category": "Oils",
-      "price": 165,
-      "originalPrice": 214,
-      "unit": "500 ml",
+      "price": 174,
+      "originalPrice": 174,
+      "unit": "250 ml",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
       "description": "100% Pure & authentic Coconut Oil (Premium Quality) freshly packed by Arshith Fresh.",
@@ -714,43 +708,15 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
   },
   {
-    "_id": "mustard-oil-premium",
-    "id": "mustard-oil-premium",
-    "handle": "mustard-oil-premium",
-    "name": "Mustard Oil (Premium Quality)",
-    "title": "Mustard Oil (Premium Quality)",
-    "category": "Oils",
-    "price": 115,
-    "originalPrice": 150,
-    "unit": "500 ml",
-    "image": "/assets/images/products/mustard_oil_front.jpg",
-    "hoverImage": "/assets/images/products/mustard_oil_benefits.jpg",
-    "description": "100% Pure & authentic Mustard Oil (Premium Quality) freshly packed by Arshith Fresh.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "isFeatured": true,
-    "countInStock": 40,
-    "images": [
-      "/assets/images/products/mustard_oil_front.jpg",
-      "/assets/images/products/mustard_oil_benefits.jpg",
-      "/assets/images/products/mustard_oil_bowl.jpg"
-    ],
-    "imageUrls": [
-      "/assets/images/products/mustard_oil_front.jpg",
-      "/assets/images/products/mustard_oil_benefits.jpg",
-      "/assets/images/products/mustard_oil_bowl.jpg"
-    ]
-  },
-  {
     "_id": "pure-cow-ghee-premium",
     "id": "pure-cow-ghee-premium",
     "handle": "pure-cow-ghee-premium",
     "name": "Pure Cow Ghee (Premium Quality)",
     "title": "Pure Cow Ghee (Premium Quality)",
     "category": "Ghee and Honey",
-    "price": 240,
-    "originalPrice": 310,
-    "unit": "250 ml",
+    "price": 2249,
+    "originalPrice": 2810,
+    "unit": "1 Litre",
     "image": "/assets/images/products/cow_ghee_front.jpg",
     "hoverImage": "/assets/images/products/cow_ghee_back.jpg",
     "description": "100% Pure & authentic Pure Cow Ghee (Premium Quality) freshly packed by Arshith Fresh.",
@@ -774,9 +740,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Pure Buffalo Ghee (Premium Quality)",
       "title": "Pure Buffalo Ghee (Premium Quality)",
       "category": "Ghee and Honey",
-      "price": 222,
-      "originalPrice": 288,
-      "unit": "250 ml",
+      "price": 2449,
+      "originalPrice": 3060,
+      "unit": "1 Litre",
       "image": "/assets/images/products/buffalo_ghee_front.jpg",
       "hoverImage": "/assets/images/products/buffalo_ghee_back.jpg",
       "description": "100% Pure & authentic Pure Buffalo Ghee (Premium Quality) freshly packed by Arshith Fresh.",
@@ -802,9 +768,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Pure Natural Honey (Raw Wild Honey) (Premium Quality)",
     "title": "Pure Natural Honey (Raw Wild Honey) (Premium Quality)",
     "category": "Ghee and Honey",
-    "price": 130,
-    "originalPrice": 150,
-    "unit": "250 g",
+    "price": 650,
+    "originalPrice": 810,
+    "unit": "1 kg",
     "image": "/assets/images/products/natural_honey_front.jpg",
     "hoverImage": "/assets/images/products/natural_honey_back.jpg",
     "description": "100% Pure & authentic Pure Natural Honey (Raw Wild Honey) (Premium Quality) freshly packed by Arshith Fresh.",
@@ -828,8 +794,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Cashew Nuts (Kaju) (Premium Quality)",
       "title": "Cashew Nuts (Kaju) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 265,
-      "originalPrice": 340,
+      "price": 82,
+      "originalPrice": 103,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533",
@@ -856,8 +822,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Almonds (Badam) (Premium Quality)",
       "title": "Almonds (Badam) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 225,
-      "originalPrice": 295,
+      "price": 71,
+      "originalPrice": 89,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533",
@@ -884,8 +850,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Figs (Dry Anjeer) (Premium Quality)",
       "title": "Figs (Dry Anjeer) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 375,
-      "originalPrice": 480,
+      "price": 118.5,
+      "originalPrice": 148,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533",
@@ -912,8 +878,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Walnuts (Akhrot) (Premium Quality)",
       "title": "Walnuts (Akhrot) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 320,
-      "originalPrice": 420,
+      "price": 97.25,
+      "originalPrice": 121.5,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533",
@@ -940,8 +906,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Pistachio (With Shell) (Premium Quality)",
       "title": "Pistachio (With Shell) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 340,
-      "originalPrice": 430,
+      "price": 98.5,
+      "originalPrice": 123,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533",
@@ -968,8 +934,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Raisins (Kishmish) (Premium Quality)",
       "title": "Raisins (Kishmish) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 140,
-      "originalPrice": 185,
+      "price": 47,
+      "originalPrice": 59,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533",
@@ -998,9 +964,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Dates (Khajoor) (Premium Quality)",
       "title": "Dates (Khajoor) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 180,
-      "originalPrice": 225,
-      "unit": "500 g",
+      "price": 64,
+      "originalPrice": 80,
+      "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
       "description": "100% Pure & authentic Dates (Khajoor) (Premium Quality) freshly packed by Arshith Fresh.",
@@ -1020,31 +986,31 @@ document.addEventListener("DOMContentLoaded", () => {
       ]
   },
   {
-    "_id": "chilli-powder",
-    "id": "chilli-powder",
-    "handle": "chilli-powder",
-    "name": "Chilli Powder (Premium Quality)",
-    "title": "Chilli Powder (Premium Quality)",
+    "_id": "chilli-powder-softgrindingpremium",
+    "id": "chilli-powder-softgrindingpremium",
+    "handle": "chilli-powder-softgrindingpremium",
+    "name": "Chilli Powder (Soft Grinding) (Premium Quality)",
+    "title": "Chilli Powder (Soft Grinding) (Premium Quality)",
     "category": "Powders & Masalas",
-    "price": 49,
-    "originalPrice": 65,
-    "unit": "100 g",
-    "image": "assets/images/products/chilli-powder.jpg",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img.jpg?v=1758707697",
-    "description": "100% Pure & authentic Chilli Powder (Premium Quality) freshly packed by Arshith Fresh.",
+    "price": 699,
+    "originalPrice": 699,
+    "unit": "1 kg",
+    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712",
+    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img_fcb89557-d7f7-4978-b739-055e63849348.jpg?v=1759208024",
+    "description": "Authentic cold ground soft red chilli powder with vibrant color and pungent aroma freshly packed by Arshith Fresh.",
     "rating": 4.9,
-    "numReviews": 35,
+    "numReviews": 38,
     "isFeatured": true,
-    "countInStock": 40,
+    "countInStock": 50,
     "images": [
-      "assets/images/products/chilli-powder.jpg",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img.jpg?v=1758707697",
-      "assets/images/products/chilli_powder_benefits.jpg"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img_fcb89557-d7f7-4978-b739-055e63849348.jpg?v=1759208024",
+      "/assets/images/products/chilli_powder_benefits.jpg"
     ],
     "imageUrls": [
-      "assets/images/products/chilli-powder.jpg",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img.jpg?v=1758707697",
-      "assets/images/products/chilli_powder_benefits.jpg"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img_fcb89557-d7f7-4978-b739-055e63849348.jpg?v=1759208024",
+      "/assets/images/products/chilli_powder_benefits.jpg"
     ]
   },
   {
@@ -1054,8 +1020,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Chana Dal Spice Powder / Pappula Podi (Premium Quality)",
     "title": "Chana Dal Spice Powder / Pappula Podi (Premium Quality)",
     "category": "Spice Powders",
-    "price": 89,
-    "originalPrice": 115,
+    "price": 79,
+    "originalPrice": 79,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533",
@@ -1080,8 +1046,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Kobbari Karam Podi (Premium Quality)",
     "title": "Kobbari Karam Podi (Premium Quality)",
     "category": "Spice Powders",
-    "price": 95,
-    "originalPrice": 120,
+    "price": 79,
+    "originalPrice": 79,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533",
@@ -1108,8 +1074,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Nalla Karam Podi (Premium Quality)",
     "title": "Nalla Karam Podi (Premium Quality)",
     "category": "Spice Powders",
-    "price": 98,
-    "originalPrice": 125,
+    "price": 79,
+    "originalPrice": 79,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533",
@@ -1136,8 +1102,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Garlic Powder / Vellulli Karam Podi (Premium Quality)",
     "title": "Garlic Powder / Vellulli Karam Podi (Premium Quality)",
     "category": "Spice Powders",
-    "price": 99,
-    "originalPrice": 130,
+    "price": 79,
+    "originalPrice": 79,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
     "hoverImage": "/assets/images/products/garlic_powder_back.jpg",
@@ -1164,8 +1130,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)",
     "title": "Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)",
     "category": "Spice Powders",
-    "price": 95,
-    "originalPrice": 120,
+    "price": 79,
+    "originalPrice": 79,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533",
@@ -1192,8 +1158,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Garam Masala Powder (Premium Quality)",
     "title": "Garam Masala Powder (Premium Quality)",
     "category": "Powders & Masalas",
-    "price": 85,
-    "originalPrice": 110,
+    "price": 59,
+    "originalPrice": 59,
     "unit": "100 g",
     "image": "/assets/images/products/garam_masala_front.jpg",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
@@ -1212,40 +1178,14 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
   },
   {
-    "_id": "pepper-powder-premium",
-    "id": "pepper-powder-premium",
-    "handle": "pepper-powder-premium",
-    "name": "Black Pepper Powder (Premium Quality)",
-    "title": "Black Pepper Powder (Premium Quality)",
-    "category": "Powders & Masalas",
-    "price": 95,
-    "originalPrice": 125,
-    "unit": "100 g",
-    "image": "/assets/images/products/pepper_powder_front.jpg",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533",
-    "description": "100% Pure & authentic Black Pepper Powder (Premium Quality) freshly packed by Arshith Fresh.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "isFeatured": true,
-    "countInStock": 40,
-    "images": [
-      "/assets/images/products/pepper_powder_front.jpg",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533"
-    ],
-    "imageUrls": [
-      "/assets/images/products/pepper_powder_front.jpg",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.04.27_AM_fdc73816-1464-4430-93ba-4bde3c52f6ad.jpg?v=1757334023&width=533"
-    ]
-  },
-  {
     "_id": "coriander-powder-premium",
     "id": "coriander-powder-premium",
     "handle": "coriander-powder-premium",
     "name": "Coriander Powder (Dhania) (Premium Quality)",
     "title": "Coriander Powder (Dhania) (Premium Quality)",
     "category": "Powders & Masalas",
-    "price": 55,
-    "originalPrice": 75,
+    "price": 39,
+    "originalPrice": 39,
     "unit": "100 g",
     "image": "/assets/images/products/coriander_powder_front.jpg",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
@@ -1264,206 +1204,14 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
   },
   {
-    "_id": "red-chillies-guntur-premium",
-    "id": "red-chillies-guntur-premium",
-    "handle": "red-chillies-guntur-premium",
-    "name": "Red Chillies (Guntur) (Premium Quality)",
-    "title": "Red Chillies (Guntur) (Premium Quality)",
-    "category": "Spices",
-    "price": 85,
-    "originalPrice": 115,
-    "unit": "250 g",
-    "image": "/assets/images/products/guntur_chillies_front.jpg",
-    "hoverImage": "/assets/images/products/guntur_chillies_back.jpg",
-    "description": "100% Pure & authentic Red Chillies (Guntur) (Premium Quality) freshly packed by Arshith Fresh.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "isFeatured": true,
-    "countInStock": 40,
-    "images": [
-      "/assets/images/products/guntur_chillies_front.jpg",
-      "/assets/images/products/guntur_chillies_back.jpg"
-    ],
-    "imageUrls": [
-      "/assets/images/products/guntur_chillies_front.jpg",
-      "/assets/images/products/guntur_chillies_back.jpg"
-    ]
-  },
-  {
-    "_id": "red-chillies-byadgi-premium",
-    "id": "red-chillies-byadgi-premium",
-    "handle": "red-chillies-byadgi-premium",
-    "name": "Red Chillies (Byadagi) (Premium Quality)",
-    "title": "Red Chillies (Byadagi) (Premium Quality)",
-    "category": "Spices",
-    "price": 95,
-    "originalPrice": 125,
-    "unit": "250 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/Byadgi_65ac3367-c79c-48f3-a5e1-af2985ebbd33.png?v=1757333963",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.59_PM_1_3e1688f4-b68c-45fb-9217-3872fd18bf23.jpg?v=1757333963",
-    "description": "100% Pure & authentic Red Chillies (Byadagi) (Premium Quality) freshly packed by Arshith Fresh.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "isFeatured": true,
-    "countInStock": 40,
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/Byadgi_65ac3367-c79c-48f3-a5e1-af2985ebbd33.png?v=1757333963",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.59_PM_1_3e1688f4-b68c-45fb-9217-3872fd18bf23.jpg?v=1757333963",
-      "/assets/images/products/byadgi_chillies_comparison.jpg"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/Byadgi_65ac3367-c79c-48f3-a5e1-af2985ebbd33.png?v=1757333963",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.05.59_PM_1_3e1688f4-b68c-45fb-9217-3872fd18bf23.jpg?v=1757333963",
-      "/assets/images/products/byadgi_chillies_comparison.jpg"
-    ]
-  },
-  {
-      "_id": "black-pepper-premium",
-      "id": "black-pepper-premium",
-      "handle": "black-pepper-premium",
-      "name": "Black Pepper (Whole) (Premium Quality)",
-      "title": "Black Pepper (Whole) (Premium Quality)",
-      "category": "Spices",
-      "price": 135,
-      "originalPrice": 175,
-      "unit": "100 g",
-      "image": "/assets/images/products/black_pepper_front.jpg",
-      "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
-      "description": "100% Pure & authentic Black Pepper (Whole) (Premium Quality) freshly packed by Arshith Fresh.",
-      "rating": 4.9,
-      "numReviews": 35,
-      "isFeatured": true,
-      "countInStock": 40,
-      "images": [
-          "/assets/images/products/black_pepper_front.jpg",
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
-          "/assets/images/products/black_pepper_bowl.jpg"
-      ],
-      "imageUrls": [
-          "/assets/images/products/black_pepper_front.jpg",
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.11_PM_1_30a1bf5b-4da7-42a6-92d6-9f209d0d91c0.jpg?v=1757333996&width=533",
-          "/assets/images/products/black_pepper_bowl.jpg"
-      ]
-  },
-  {
-    "_id": "cinnamon-kerala-style-premium",
-    "id": "cinnamon-kerala-style-premium",
-    "handle": "cinnamon-kerala-style-premium",
-    "name": "Cinnamon (Premium Quality)",
-    "title": "Cinnamon (Premium Quality)",
-    "category": "Spices",
-    "price": 54,
-    "originalPrice": 78,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533",
-    "description": "100% Pure & authentic Cinnamon (Premium Quality) freshly packed by Arshith Fresh.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "isFeatured": true,
-    "countInStock": 40,
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/cinnamon_bd2c52bb-d2df-4d09-baca-93aab2223e68.jpg?v=1757333965&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-12_at_11.48.48_AM.jpg?v=1757333965&width=533"
-    ]
-  },
-  {
-    "_id": "cloves-premium",
-    "id": "cloves-premium",
-    "handle": "cloves-premium",
-    "name": "Cloves (Lavangalu) (Premium Quality)",
-    "title": "Cloves (Lavangalu) (Premium Quality)",
-    "category": "Spices",
-    "price": 110,
-    "originalPrice": 145,
-    "unit": "100 g",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
-    "description": "100% Pure & authentic Cloves (Lavangalu) (Premium Quality) freshly packed by Arshith Fresh.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "isFeatured": true,
-    "countInStock": 40,
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
-      "/assets/images/products/cloves_bowl.jpg"
-    ],
-    "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.33.17_PM_e7455739-c811-4135-8760-da32b445f0f0.jpg?v=1757333998&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.09_PM_d713ec77-5974-4551-9346-b1e592b0a512.jpg?v=1757333998&width=533",
-      "/assets/images/products/cloves_bowl.jpg"
-    ]
-  },
-  {
-      "_id": "cardamom-premium",
-      "id": "cardamom-premium",
-      "handle": "cardamom-premium",
-      "name": "Cardamom (Elaichi) (Premium Quality)",
-      "title": "Cardamom (Elaichi) (Premium Quality)",
-      "category": "Spices",
-      "price": 240,
-      "originalPrice": 310,
-      "unit": "100 g",
-      "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
-      "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533",
-      "description": "100% Pure & authentic Cardamom (Elaichi) (Premium Quality) freshly packed by Arshith Fresh.",
-      "rating": 4.9,
-      "numReviews": 35,
-      "isFeatured": true,
-      "countInStock": 40,
-      "images": [
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533",
-          "/assets/images/products/cardamom_bowl.jpg"
-      ],
-      "imageUrls": [
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-12_at_12.41.25_PM_dd385152-2aab-4061-9f20-60f6b9fec186.jpg?v=1757333997&width=533",
-          "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.10_PM_c6567ba5-d81e-4691-a4be-331305e3f75c.jpg?v=1757333998&width=533",
-          "/assets/images/products/cardamom_bowl.jpg"
-      ]
-  },
-  {
-    "_id": "star-anise-premium",
-    "id": "star-anise-premium",
-    "handle": "star-anise-premium",
-    "name": "Star Anise (Anasa Puvvu) (Premium Quality)",
-    "title": "Star Anise (Anasa Puvvu) (Premium Quality)",
-    "category": "Spices",
-    "price": 95,
-    "originalPrice": 125,
-    "unit": "100 g",
-    "image": "/assets/images/products/star_anise_front.jpg",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
-    "description": "100% Pure & authentic Star Anise (Anasa Puvvu) (Premium Quality) freshly packed by Arshith Fresh.",
-    "rating": 4.9,
-    "numReviews": 35,
-    "isFeatured": true,
-    "countInStock": 40,
-    "images": [
-      "/assets/images/products/star_anise_front.jpg",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
-      "/assets/images/products/star_anise_bowl.jpg"
-    ],
-    "imageUrls": [
-      "/assets/images/products/star_anise_front.jpg",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_7.59.12_PM_2_a7222bbd-81fe-4bd2-8e22-c0f5fb85fadd.jpg?v=1757334019&width=533",
-      "/assets/images/products/star_anise_bowl.jpg"
-    ]
-  },
-  {
     "_id": "flax-seeds-premium",
     "id": "flax-seeds-premium",
     "handle": "flax-seeds-premium",
     "name": "Flax Seeds (Premium Quality)",
     "title": "Flax Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 65,
-    "originalPrice": 85,
+    "price": 149,
+    "originalPrice": 189,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533",
@@ -1490,8 +1238,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Chia Seeds (Premium Quality)",
     "title": "Chia Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 95,
-    "originalPrice": 125,
+    "price": 189,
+    "originalPrice": 240,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533",
@@ -1518,8 +1266,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Pumpkin Seeds (Premium Quality)",
     "title": "Pumpkin Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 135,
-    "originalPrice": 175,
+    "price": 224,
+    "originalPrice": 280,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533",
@@ -1546,8 +1294,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Sunflower Seeds (Premium Quality)",
     "title": "Sunflower Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 85,
-    "originalPrice": 115,
+    "price": 195,
+    "originalPrice": 245,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533",
@@ -1574,8 +1322,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Watermelon Seeds (Premium Quality)",
     "title": "Watermelon Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 90,
-    "originalPrice": 120,
+    "price": 450,
+    "originalPrice": 560,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533",
@@ -1602,8 +1350,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Sabja Seeds (Basil Seeds) (Premium Quality)",
     "title": "Sabja Seeds (Basil Seeds) (Premium Quality)",
     "category": "Seeds",
-    "price": 75,
-    "originalPrice": 95,
+    "price": 378,
+    "originalPrice": 475,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533",
@@ -1628,8 +1376,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Sesame Seeds (Til) (Premium Quality)",
     "title": "Sesame Seeds (Til) (Premium Quality)",
     "category": "Seeds",
-    "price": 80,
-    "originalPrice": 105,
+    "price": 179,
+    "originalPrice": 225,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533",
@@ -1650,6 +1398,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
   }
 ];
+    window.FALLBACK_STOREFRONT_PRODUCTS = FALLBACK_STOREFRONT_PRODUCTS;
 
     // Helper to render products instantly onto page elements synchronously
     function renderStorefrontProductsUI(apiProducts) {
@@ -2097,11 +1846,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     existing.price = sanitizeCartItemPrice(existing.price);
                 }
                 if (!existing.image && item.image) existing.image = item.image;
+                if (!existing.weight && item.weight) existing.weight = item.weight;
+                if (!existing.unit && item.unit) existing.unit = item.unit;
                 if (title.includes(' (') && !existing.title.includes(' (')) {
                     existing.title = title;
                     existing.name = title;
                 }
             } else {
+                const itemWeight = item.weight || (title.includes('500gram') || title.includes('500g') ? '500gram' : (title.includes('250g') ? '250g' : (item.unit || '250g')));
                 map.set(key, {
                     ...item,
                     id: item.id || item._id || item.product || key,
@@ -2109,7 +1861,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     name: title,
                     price: price,
                     quantity: qty,
-                    qty: qty
+                    qty: qty,
+                    weight: itemWeight,
+                    unit: item.unit || itemWeight
                 });
             }
         });
@@ -2466,7 +2220,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, true);
     }
 
-    function addToStoreCart(id, name, price, image, qty = 1) {
+    function addToStoreCart(id, name, price, image, qty = 1, weight = '') {
         if (!id && !name) return;
         CART_ITEMS = consolidateCartItems(CART_ITEMS);
         const cleanName = String(name || id || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
@@ -2483,10 +2237,25 @@ document.addEventListener("DOMContentLoaded", () => {
         let finalQty = addQty;
         let sanitizedPrice = sanitizeCartItemPrice(price);
 
+        let finalWeight = weight;
+        if (!finalWeight) {
+            if (cleanName.includes('500gram') || cleanName.includes('500g')) finalWeight = '500gram';
+            else if (cleanName.includes('250g')) finalWeight = '250g';
+            else if (existing && (existing.weight || existing.unit)) finalWeight = existing.weight || existing.unit;
+            else finalWeight = '250g';
+        }
+
+        const origPrice = Math.round((sanitizedPrice / 0.78) * 100) / 100;
+
         if (existing) {
             existing.quantity = (Number(existing.quantity || existing.qty || 1)) + addQty;
             existing.qty = existing.quantity;
-            existing.price = Math.max(Number(existing.price || 0), sanitizedPrice);
+            existing.price = sanitizedPrice;
+            existing.originalPrice = origPrice;
+            if (finalWeight) {
+                existing.weight = finalWeight;
+                existing.unit = finalWeight;
+            }
             finalQty = existing.quantity;
         } else {
             CART_ITEMS.push({
@@ -2494,9 +2263,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: cleanName || "Arshith Fresh Product",
                 name: cleanName || "Arshith Fresh Product",
                 price: sanitizedPrice,
+                originalPrice: origPrice,
                 image: image || "assets/images/placeholder.svg",
                 quantity: addQty,
-                qty: addQty
+                qty: addQty,
+                weight: finalWeight,
+                unit: finalWeight
             });
         }
         saveCart();
@@ -2711,19 +2483,20 @@ document.addEventListener("DOMContentLoaded", () => {
             return { primary: neutralPlaceholder, hover: '', all: [neutralPlaceholder], hasValid: false };
         }
 
+        const isCastorProduct = String(p.handle || p.slug || p.id || p._id || p.name || p.title || '').toLowerCase().includes('castor');
         const candidates = [];
         const addCandidate = (val) => {
             if (!val) return;
+            let url = '';
             if (typeof val === 'string') {
-                const trimmed = val.trim();
-                if (trimmed && !trimmed.includes('placeholder.svg') && !candidates.includes(trimmed)) {
-                    candidates.push(trimmed);
-                }
+                url = val.trim();
             } else if (typeof val === 'object') {
-                const url = (val.url || val.src || val.path || val.location || '').trim();
-                if (url && !url.includes('placeholder.svg') && !candidates.includes(url)) {
-                    candidates.push(url);
-                }
+                url = (val.url || val.src || val.path || val.location || '').trim();
+            }
+            if (!url || url.includes('placeholder.svg')) return;
+            if (isCastorProduct && (url.includes('11.41.18_AM_3.jpg') || url.includes('500ml') || url.includes('500_ml') || url.includes('7.28.40_PM_1'))) return;
+            if (!candidates.includes(url)) {
+                candidates.push(url);
             }
         };
 
@@ -2797,10 +2570,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     { keys: ['groundnut oil', 'groundnut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
                     { keys: ['sunflower oil', 'sunflower-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
                     { keys: ['sesame oil', 'sesame-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
-                    { keys: ['castor oil', 'castor-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
+                    { keys: ['castor oil', 'castor-oil', 'castor'], url: '/assets/images/products/castor_oil_250ml.png' },
                     { keys: ['coconut oil', 'coconut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533' },
-                    { keys: ['mustard oil', 'mustard-oil'], url: '/assets/images/products/mustard_oil_front.jpg' },
-                    { keys: ['neem oil', 'neem-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533' },
+                    { keys: ['neem oil', 'neem-oil'], url: '/assets/images/products/sesame_oil_bowl.jpg' },
                     { keys: ['ghee', 'buffalo ghee'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
                     { keys: ['cashew', 'kaju'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b7e9-4467-9bb3-93cfc319c5c2.jpg?v=1757334003&width=533' },
                     { keys: ['almond', 'badam'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533' },
@@ -2871,6 +2643,26 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
+    function formatPriceNum(val) {
+        if (typeof val !== 'number' || isNaN(val)) val = Number(val) || 0;
+        const rounded = Math.round(val * 100) / 100;
+        return (rounded % 1 === 0) ? rounded.toLocaleString('en-IN') : rounded.toFixed(2);
+    }
+    window.formatPriceNum = formatPriceNum;
+
+    function calculate22PercentDiscount(originalPrice) {
+        const orig = Math.max(0, Number(originalPrice) || 0);
+        const disc = Math.round(orig * 0.78 * 100) / 100;
+        const save = Math.round((orig - disc) * 100) / 100;
+        return {
+            originalPrice: orig,
+            discountedPrice: disc,
+            savings: save,
+            discountPercent: 22
+        };
+    }
+    window.calculate22PercentDiscount = calculate22PercentDiscount;
+
     function createProductCardHTML(p) {
         if (!p) return "";
         try {
@@ -2890,24 +2682,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const rawName = p.name || p.title || p.productName || "Arshith Fresh Product";
             const name = rawName.replace(/"/g, '&quot;');
-            const safeNameForJs = rawName.replace(/['"\\]/g, "\\$&");
             const safeImgForJs = primaryImgUrl.replace(/['"\\]/g, "\\$&");
 
-            const price = Number(p.price || p.salePrice || p.currentPrice || 30);
-            const originalPrice = Number(p.originalPrice || p.regularPrice || p.mrp || Math.round(price * 1.25));
-            const discount = originalPrice > price ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
+            const isGheeOrHoney = typeof isGheeOrHoneyProduct === 'function' ? isGheeOrHoneyProduct(p) : false;
+            const isOilWithVariants = typeof isOilWithVariantsProduct === 'function' ? isOilWithVariantsProduct(p) : false;
+            const isSpiceWithVariants = typeof isSpiceOrPowderWithVariants === 'function' ? isSpiceOrPowderWithVariants(p) : false;
+            const weightVariants = (isGheeOrHoney || isOilWithVariants || isSpiceWithVariants) && typeof getProductWeightVariants === 'function' ? getProductWeightVariants(p) : null;
+            const hasVariants = Boolean(weightVariants && Object.keys(weightVariants).length > 0);
+
+            const variantKeys = hasVariants ? Object.keys(weightVariants) : [];
+            const currentVariant = hasVariants ? weightVariants[variantKeys[0]] : null;
+
+            const baseId = p.handle || p.slug || p.id || p._id || (rawName || '').toLowerCase().replace(/[^a-z0-9]/g, '-');
+            const id = hasVariants && currentVariant ? `${baseId}_${currentVariant.weight.replace(/[^a-zA-Z0-9]/g, '')}` : baseId;
+
+            const cleanBaseName = rawName.replace(/\s*-\s*(100gram|250gram|100g|250g|100\s*g|250\s*g|250ml|500ml|250\s*ml|500\s*ml|500gram|500g|250\s*g|500\s*g|1litre|1\s*litre|1l|1\s*kg|1kg)/gi, '').trim();
+            const displayName = hasVariants && currentVariant ? `${cleanBaseName} - ${currentVariant.weight}` : rawName;
+            const safeDisplayNameForJs = displayName.replace(/['"\\]/g, "\\$&");
+
+            const origPrice = currentVariant ? (currentVariant.originalPrice || currentVariant.price) : Number(p.originalPrice || p.regularPrice || p.price || 30);
+            const pricing = calculate22PercentDiscount(origPrice);
+            const price = pricing.discountedPrice;
+            const originalPrice = pricing.originalPrice;
+            const discPrice = pricing.discountedPrice;
+            const savings = pricing.savings;
+            const discount = 22;
             const reviewsCount = p.reviewsCount || p.numReviews || Math.floor(Math.random() * 20) + 25;
-            const id = p.handle || p.slug || p.id || p._id || (rawName || '').toLowerCase().replace(/[^a-z0-9]/g, '-');
 
             let productUrl = "pages/product.html";
             if (depth === 2) productUrl = "../product.html";
             else if (depth === 1) productUrl = "product.html";
-            if (id) productUrl += `?id=${encodeURIComponent(id)}`;
+            if (baseId) productUrl += `?id=${encodeURIComponent(baseId)}`;
 
             const inStock = (p.countInStock === undefined || p.countInStock === null) ? true : (Number(p.countInStock) > 0);
-            const isWishlisted = typeof isItemInWishlist === 'function' ? isItemInWishlist(id) : false;
+            const isWishlisted = typeof isItemInWishlist === 'function' ? isItemInWishlist(baseId) : false;
 
-            const searchKey = typeof getCardProductKey === 'function' ? getCardProductKey(id, rawName) : id;
+            const searchKey = typeof getCardProductKey === 'function' ? getCardProductKey(id, displayName) : id;
             const idKey = String(id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
             const cartItem = (typeof CART_ITEMS !== 'undefined' && Array.isArray(CART_ITEMS)) ? CART_ITEMS.find(item => {
                 const itemKey = typeof normalizeCartProductKey === 'function' ? normalizeCartProductKey(item) : '';
@@ -2921,8 +2731,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const stepperHTML = inStock ? `
                 <div class="product-qty-overlay ${isInCart ? 'in-cart' : ''}" 
                      data-product-id="${id}" 
-                     data-product-name="${safeNameForJs}" 
-                     data-product-price="${price}" 
+                     data-base-id="${baseId}"
+                     data-product-name="${safeDisplayNameForJs}" 
+                     data-product-price="${discPrice}" 
                      data-product-image="${safeImgForJs}" 
                      data-rendered-qty="${qty}"
                      onclick="event.stopPropagation();">
@@ -2937,11 +2748,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ` : '';
 
             return `
-                <div class="product-card ${inStock ? '' : 'product-card-out-of-stock'}" data-product-id="${id}" data-product-name="${safeNameForJs}" data-product-price="${price}">
+                <div class="product-card ${inStock ? '' : 'product-card-out-of-stock'}" data-product-id="${id}" data-base-id="${baseId}" data-product-name="${safeDisplayNameForJs}" data-product-price="${discPrice}">
                     <a href="${productUrl}" class="product-card-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 1 1 auto; cursor: pointer;">
                         <div class="product-image-container ${hasSecondImage ? 'has-second-img' : ''}" ontouchstart="if (this.classList.contains('has-second-img')) { this.classList.toggle('touch-active'); }">
-                            ${discount > 0 ? `<span class="card-discount-tag">${discount}% Off</span>` : ''}
-                            <button type="button" class="product-card-wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlistFromCard('${id}', '${safeNameForJs}', ${price}, '${safeImgForJs}', this)" title="${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}" aria-label="Wishlist">
+                            <span class="card-discount-tag">22% OFF</span>
+                            <button type="button" class="product-card-wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlistFromCard('${baseId}', '${safeDisplayNameForJs}', ${discPrice}, '${safeImgForJs}', this)" title="${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}" aria-label="Wishlist">
                                 <svg width="17" height="17" viewBox="0 0 24 24" fill="${isWishlisted ? '#ef4444' : 'none'}" stroke="${isWishlisted ? '#ef4444' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                                 </svg>
@@ -2958,13 +2769,19 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <span class="rating-text">4.9 / 5.0 (${reviewsCount})</span>
                             </div>
                             <div class="price-box">
-                                ${originalPrice > price ? `<span class="regular-price">Rs. ${originalPrice.toFixed(2)}</span>` : ''}
-                                <span class="sale-price">From Rs. ${price.toFixed(2)}</span>
+                                <div class="price-row" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
+                                    <span class="sale-price" style="font-weight: 800; color: #1e293b; font-size: 16px; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
+                                    <span class="regular-price" style="text-decoration: line-through; color: #94a3b8; font-size: 13px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
+                                    <span class="badge-22-off" style="background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 11px; padding: 2.5px 6px; border-radius: 4px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">22% OFF</span>
+                                </div>
+                                <div class="savings-row" style="color: #16a34a; font-size: 12px; font-weight: 700; text-align: center; width: 100%; margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                                    Save ₹${formatPriceNum(savings)}
+                                </div>
                             </div>
                         </div>
                     </a>
                     ${inStock ? `
-                        <button class="add-to-cart-btn" style="display: none !important;" onclick="addToStoreCart('${id}', '${safeNameForJs}', ${price}, '${safeImgForJs}')">ADD TO CART</button>
+                        <button class="add-to-cart-btn" style="display: none !important;" onclick="addToStoreCart('${id}', '${safeDisplayNameForJs}', ${discPrice}, '${safeImgForJs}')">ADD TO CART</button>
                     ` : `
                         <button class="add-to-cart-btn disabled" disabled style="background: #f1f5f9; color: #94a3b8; border: 1px solid #cbd5e1; cursor: not-allowed; opacity: 0.85;">OUT OF STOCK</button>
                     `}
@@ -3194,10 +3011,505 @@ document.addEventListener("DOMContentLoaded", () => {
         viewContainer.innerHTML = `<div style="text-align: center; padding: 60px 20px;"><h2>Product Not Found</h2><p style="color:#64748b; margin-top:8px;">The product you requested could not be found.</p><a href="../index.html" class="continue-shopping-btn" style="display:inline-block; margin-top:16px;">Back to Home</a></div>`;
     }
 
+    // Helper to check if a product belongs to Dry Fruits or Dry Seeds
+    function isDryFruitOrSeedProduct(p) {
+        if (!p) return false;
+        const cat = String(p.category || '').toLowerCase();
+        const subcat = String(p.subcategory || '').toLowerCase();
+        const name = String(p.name || p.title || '').toLowerCase();
+
+        if (cat.includes('fruit') || cat.includes('dry seed') || (cat === 'seeds' && !cat.includes('spice')) ||
+            subcat.includes('fruit') || subcat.includes('dry seed')) {
+            return true;
+        }
+        const keywords = [
+            'cashew', 'kaju', 'almond', 'badam', 'fig', 'anjeer', 'walnut', 'akhrot', 
+            'pistachio', 'pista', 'raisin', 'kishmish', 'khajoor',
+            'flax seed', 'chia seed', 'pumpkin seed', 'sunflower seed', 'watermelon seed', 
+            'sabja seed', 'basil seed', 'sesame seed'
+        ];
+        return keywords.some(k => name.includes(k));
+    }
+    window.isDryFruitOrSeedProduct = isDryFruitOrSeedProduct;
+
+    // Helper to check if a product belongs to Ghee or Honey
+    function isGheeOrHoneyProduct(p) {
+        if (!p) return false;
+        const cat = String(p.category || '').toLowerCase();
+        const subcat = String(p.subcategory || '').toLowerCase();
+        const name = String(p.name || p.title || '').toLowerCase();
+        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
+
+        if (cat.includes('ghee') || cat.includes('honey') || subcat.includes('ghee') || subcat.includes('honey')) {
+            return true;
+        }
+        return (
+            name.includes('ghee') || name.includes('honey') ||
+            id.includes('ghee') || id.includes('honey')
+        );
+    }
+    window.isGheeOrHoneyProduct = isGheeOrHoneyProduct;
+
+    function getGheeOrHoneyType(p) {
+        if (!p) return null;
+        const name = String(p.name || p.title || '').toLowerCase();
+        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
+
+        if (name.includes('buffalo') || id.includes('buffalo')) {
+            return 'buffalo-ghee';
+        }
+        if (name.includes('cow') || id.includes('cow')) {
+            return 'cow-ghee';
+        }
+        if (name.includes('honey') || id.includes('honey')) {
+            return 'honey';
+        }
+        if (name.includes('ghee') || id.includes('ghee')) {
+            return 'buffalo-ghee';
+        }
+        return null;
+    }
+    window.getGheeOrHoneyType = getGheeOrHoneyType;
+
+    const GHEE_HONEY_VARIANTS = {
+        'buffalo-ghee': {
+            unitType: 'ghee',
+            variants: {
+                '250g': {
+                    key: '250g',
+                    weight: '250 gram',
+                    label: '250 gram',
+                    price: 615,
+                    originalPrice: 765,
+                    discount: 20,
+                    saveAmount: 150
+                },
+                '500g': {
+                    key: '500g',
+                    weight: '500gram',
+                    label: '500gram',
+                    price: 1225,
+                    originalPrice: 1530,
+                    discount: 20,
+                    saveAmount: 305
+                },
+                '1L': {
+                    key: '1L',
+                    weight: '1litre',
+                    label: '1litre',
+                    price: 2449,
+                    originalPrice: 3060,
+                    discount: 20,
+                    saveAmount: 611
+                }
+            }
+        },
+        'cow-ghee': {
+            unitType: 'ghee',
+            variants: {
+                '250g': {
+                    key: '250g',
+                    weight: '250 gram',
+                    label: '250 gram',
+                    price: 565,
+                    originalPrice: 705,
+                    discount: 20,
+                    saveAmount: 140
+                },
+                '500g': {
+                    key: '500g',
+                    weight: '500gram',
+                    label: '500gram',
+                    price: 1125,
+                    originalPrice: 1405,
+                    discount: 20,
+                    saveAmount: 280
+                },
+                '1L': {
+                    key: '1L',
+                    weight: '1litre',
+                    label: '1litre',
+                    price: 2249,
+                    originalPrice: 2810,
+                    discount: 20,
+                    saveAmount: 561
+                }
+            }
+        },
+        'honey': {
+            unitType: 'honey',
+            variants: {
+                '250g': {
+                    key: '250g',
+                    weight: '250 gram',
+                    label: '250 gram',
+                    price: 165,
+                    originalPrice: 205,
+                    discount: 20,
+                    saveAmount: 40
+                },
+                '500g': {
+                    key: '500g',
+                    weight: '500gram',
+                    label: '500gram',
+                    price: 325,
+                    originalPrice: 405,
+                    discount: 20,
+                    saveAmount: 80
+                },
+                '1kg': {
+                    key: '1kg',
+                    weight: '1 kg',
+                    label: '1 kg',
+                    price: 650,
+                    originalPrice: 810,
+                    discount: 20,
+                    saveAmount: 160
+                }
+            }
+        }
+    };
+    window.GHEE_HONEY_VARIANTS = GHEE_HONEY_VARIANTS;
+
+    const OIL_VARIANTS = {
+        'sesame-oil': {
+            unitType: 'oil',
+            variants: {
+                '250ml': {
+                    key: '250ml',
+                    weight: '250 ml',
+                    label: '250 ml',
+                    price: 115,
+                    originalPrice: 115,
+                    discount: 0,
+                    saveAmount: 0
+                },
+                '500ml': {
+                    key: '500ml',
+                    weight: '500 ml',
+                    label: '500 ml',
+                    price: 229,
+                    originalPrice: 229,
+                    discount: 0,
+                    saveAmount: 0
+                }
+            }
+        },
+        'coconut-oil': {
+            unitType: 'oil',
+            variants: {
+                '250ml': {
+                    key: '250ml',
+                    weight: '250 ml',
+                    label: '250 ml',
+                    price: 174,
+                    originalPrice: 174,
+                    discount: 0,
+                    saveAmount: 0
+                },
+                '500ml': {
+                    key: '500ml',
+                    weight: '500 ml',
+                    label: '500 ml',
+                    price: 349,
+                    originalPrice: 349,
+                    discount: 0,
+                    saveAmount: 0
+                }
+            }
+        }
+    };
+    window.OIL_VARIANTS = OIL_VARIANTS;
+
+    const SPICE_POWDER_VARIANTS = {
+        'garam-masala': {
+            unitType: 'powder',
+            variants: {
+                '100g': {
+                    key: '100g',
+                    weight: '100gram',
+                    label: '100 gram',
+                    price: 59,
+                    originalPrice: 59,
+                    discount: 0,
+                    saveAmount: 0
+                },
+                '250g': {
+                    key: '250g',
+                    weight: '250gram',
+                    label: '250 gram',
+                    price: 149,
+                    originalPrice: 149,
+                    discount: 0,
+                    saveAmount: 0
+                }
+            }
+        },
+        'coriander': {
+            unitType: 'powder',
+            variants: {
+                '100g': {
+                    key: '100g',
+                    weight: '100gram',
+                    label: '100 gram',
+                    price: 39,
+                    originalPrice: 39,
+                    discount: 0,
+                    saveAmount: 0
+                },
+                '250g': {
+                    key: '250g',
+                    weight: '250gram',
+                    label: '250 gram',
+                    price: 99,
+                    originalPrice: 99,
+                    discount: 0,
+                    saveAmount: 0
+                }
+            }
+        },
+        'default-spices': {
+            unitType: 'powder',
+            variants: {
+                '100g': {
+                    key: '100g',
+                    weight: '100gram',
+                    label: '100 gram',
+                    price: 79,
+                    originalPrice: 79,
+                    discount: 0,
+                    saveAmount: 0
+                },
+                '250g': {
+                    key: '250g',
+                    weight: '250gram',
+                    label: '250 gram',
+                    price: 199,
+                    originalPrice: 199,
+                    discount: 0,
+                    saveAmount: 0
+                }
+            }
+        }
+    };
+    window.SPICE_POWDER_VARIANTS = SPICE_POWDER_VARIANTS;
+
+    function isChilliPowderProduct(p) {
+        if (!p) return false;
+        const name = String(p.name || p.title || '').toLowerCase();
+        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
+        return name.includes('chilli') || name.includes('chili') || name.includes('mirchi') || id.includes('chilli') || id.includes('chili') || id.includes('mirchi');
+    }
+    window.isChilliPowderProduct = isChilliPowderProduct;
+
+    function isSpiceOrPowderWithVariants(p) {
+        if (!p) return false;
+        if (isChilliPowderProduct(p)) return false;
+
+        const name = String(p.name || p.title || '').toLowerCase();
+        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
+        const cat = String(p.category || '').toLowerCase();
+
+        if (cat.includes('powder') || cat.includes('masala') || cat.includes('podulu') || cat.includes('spice')) {
+            return true;
+        }
+        if (name.includes('karam') || name.includes('podi') || name.includes('masala') || name.includes('coriander') || name.includes('dhania')) {
+            return true;
+        }
+        if (id.includes('karam') || id.includes('podi') || id.includes('masala') || id.includes('coriander') || id.includes('dhania')) {
+            return true;
+        }
+        return false;
+    }
+    window.isSpiceOrPowderWithVariants = isSpiceOrPowderWithVariants;
+
+    function getSpicePowderVariantType(p) {
+        if (!p) return null;
+        const name = String(p.name || p.title || '').toLowerCase();
+        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
+
+        if (name.includes('garam masala') || id.includes('garam-masala') || (name.includes('garam') && name.includes('masala'))) {
+            return 'garam-masala';
+        }
+        if (name.includes('coriander') || id.includes('coriander') || name.includes('dhania') || id.includes('dhania')) {
+            return 'coriander';
+        }
+        return 'default-spices';
+    }
+    window.getSpicePowderVariantType = getSpicePowderVariantType;
+
+    function isOilWithVariantsProduct(p) {
+        if (!p) return false;
+        const name = String(p.name || p.title || '').toLowerCase();
+        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
+        if (name.includes('sesame') || id.includes('sesame') || name.includes('gingelly') || id.includes('gingelly')) {
+            return true;
+        }
+        if (name.includes('coconut') || id.includes('coconut')) {
+            return true;
+        }
+        return false;
+    }
+    window.isOilWithVariantsProduct = isOilWithVariantsProduct;
+
+    function getOilVariantType(p) {
+        if (!p) return null;
+        const name = String(p.name || p.title || '').toLowerCase();
+        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
+        if (name.includes('sesame') || id.includes('sesame') || name.includes('gingelly') || id.includes('gingelly')) {
+            return 'sesame-oil';
+        }
+        if (name.includes('coconut') || id.includes('coconut')) {
+            return 'coconut-oil';
+        }
+        return null;
+    }
+    window.getOilVariantType = getOilVariantType;
+
+    // User-specified 500gram prices for Dry Fruits (250g is proportionally half)
+    const DRY_FRUITS_500G_CUSTOM_CONFIG = [
+        { match: /cashew|kaju/i, p500: 164, orig500: 205 },
+        { match: /almond|badam/i, p500: 142, orig500: 178 },
+        { match: /fig|anjeer/i, p500: 237, orig500: 296 },
+        { match: /pistachio|pista/i, p500: 197, orig500: 246 },
+        { match: /date|khajoor/i, p500: 128, orig500: 160 },
+        { match: /walnut|akhrot/i, p500: 194.50, orig500: 243 },
+        { match: /raisin|kishmish/i, p500: 94, orig500: 118 }
+    ];
+
+    function apply22PercentDiscountToVariants(rawVariants) {
+        if (!rawVariants) return null;
+        const result = {};
+        for (const k in rawVariants) {
+            if (!Object.prototype.hasOwnProperty.call(rawVariants, k)) continue;
+            const v = { ...rawVariants[k] };
+            const orig = Number(v.originalPrice || v.price || 0);
+            const disc = Math.round(orig * 0.78 * 100) / 100;
+            const save = Math.round((orig - disc) * 100) / 100;
+            v.originalPrice = orig;
+            v.price = disc;
+            v.discountedPrice = disc;
+            v.discount = 22;
+            v.saveAmount = save;
+            result[k] = v;
+        }
+        return result;
+    }
+    window.apply22PercentDiscountToVariants = apply22PercentDiscountToVariants;
+
+    // Helper to calculate 250g and 500gram pricing for dry fruits & seeds or ghee & honey or oils or spices & powders
+    function getProductWeightVariants(p) {
+        if (!p) return null;
+
+        // Check if Ghee or Honey first
+        if (isGheeOrHoneyProduct(p)) {
+            const ghType = getGheeOrHoneyType(p);
+            if (ghType && GHEE_HONEY_VARIANTS[ghType]) {
+                return apply22PercentDiscountToVariants(GHEE_HONEY_VARIANTS[ghType].variants);
+            }
+        }
+
+        // Check if Sesame or Coconut Oil
+        if (typeof isOilWithVariantsProduct === 'function' && isOilWithVariantsProduct(p)) {
+            const oilType = getOilVariantType(p);
+            if (oilType && OIL_VARIANTS[oilType]) {
+                return apply22PercentDiscountToVariants(OIL_VARIANTS[oilType].variants);
+            }
+        }
+
+        // Check if Spices & Powders (excluding Chilli Powder)
+        if (typeof isSpiceOrPowderWithVariants === 'function' && isSpiceOrPowderWithVariants(p)) {
+            const spType = getSpicePowderVariantType(p);
+            if (spType && SPICE_POWDER_VARIANTS[spType]) {
+                return apply22PercentDiscountToVariants(SPICE_POWDER_VARIANTS[spType].variants);
+            }
+        }
+
+        const nameStr = String(p.name || p.title || '').toLowerCase();
+        const customOverride = DRY_FRUITS_500G_CUSTOM_CONFIG.find(item => item.match.test(nameStr));
+
+        let p250, p500, orig250, orig500;
+
+        if (customOverride) {
+            p500 = Number(customOverride.p500);
+            p250 = Math.round((p500 / 2) * 100) / 100;
+            orig500 = Number(customOverride.orig500);
+            orig250 = Math.round((orig500 / 2) * 100) / 100;
+        } else {
+            const basePrice = Number(p.price || p.salePrice || 0);
+            const baseOrig = Number(p.originalPrice || p.regularPrice || Math.round(basePrice * 1.25));
+            const baseUnit = String(p.unit || '').toLowerCase();
+
+            p250 = basePrice;
+            orig250 = baseOrig;
+            p500 = basePrice * 2;
+            orig500 = baseOrig * 2;
+
+            if (baseUnit.includes('500')) {
+                p500 = basePrice;
+                orig500 = baseOrig;
+                p250 = Math.round((basePrice / 2) * 100) / 100;
+                orig250 = Math.round((baseOrig / 2) * 100) / 100;
+            }
+        }
+
+        const rawVariants = {
+            '250g': {
+                key: '250g',
+                weight: '250g',
+                label: '250g',
+                price: p250,
+                originalPrice: orig250,
+                discount: 0,
+                saveAmount: 0
+            },
+            '500g': {
+                key: '500g',
+                weight: '500gram',
+                label: '500gram',
+                price: p500,
+                originalPrice: orig500,
+                discount: 0,
+                saveAmount: 0
+            }
+        };
+        return apply22PercentDiscountToVariants(rawVariants);
+    }
+    window.getProductWeightVariants = getProductWeightVariants;
+
     function renderSingleProductDetail(p, viewContainer) {
+        const isDryFruitOrSeed = isDryFruitOrSeedProduct(p);
+        const isGheeOrHoney = isGheeOrHoneyProduct(p);
+        const isOilWithVariants = typeof isOilWithVariantsProduct === 'function' ? isOilWithVariantsProduct(p) : false;
+        const isSpiceWithVariants = typeof isSpiceOrPowderWithVariants === 'function' ? isSpiceOrPowderWithVariants(p) : false;
+        const hasWeightVariants = isDryFruitOrSeed || isGheeOrHoney || isOilWithVariants || isSpiceWithVariants;
+        const weightVariants = hasWeightVariants ? getProductWeightVariants(p) : null;
+
+        let initialKey = weightVariants ? Object.keys(weightVariants)[0] : null;
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const variantParam = urlParams.get('variant');
+            if (variantParam && weightVariants && weightVariants[variantParam]) {
+                initialKey = variantParam;
+            }
+        } catch(e) {}
+
+        const initialVariant = (weightVariants && initialKey) ? weightVariants[initialKey] : null;
+        window.CURRENT_DETAIL_SELECTED_VARIANT = initialVariant;
+
         const name = p.name || p.title || "Arshith Fresh Product";
-        const price = Number(p.price || 0);
-        const originalPrice = Number(p.originalPrice || Math.round(price * 1.25));
+        const origPrice = initialVariant ? (initialVariant.originalPrice || initialVariant.price) : Number(p.originalPrice || p.regularPrice || p.price || 0);
+        const pricing = calculate22PercentDiscount(origPrice);
+        const price = pricing.discountedPrice;
+        const originalPrice = pricing.originalPrice;
+        const discPrice = pricing.discountedPrice;
+        const savings = pricing.savings;
+        const discount = 22;
+        const discountAmount = savings.toFixed(2);
+        if (initialVariant) {
+            initialVariant.price = discPrice;
+            initialVariant.originalPrice = origPrice;
+        }
 
         const path = window.location.pathname.toLowerCase();
         let depth = 0;
@@ -3212,8 +3524,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const allImgs = imgData.all;
         const mainImage = imgData.primary;
 
-        const discount = originalPrice > price ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
-        const discountAmount = (originalPrice - price).toFixed(2);
         const isInstock = (p.countInStock ?? 10) > 0;
         const category = p.category || 'Natural Food';
         const subcategory = p.subcategory || '';
@@ -3245,7 +3555,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <!-- LEFT GALLERY -->
                 <div class="product-gallery-side">
                     <div style="position: relative; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; background: #fafbfc; text-align: center; padding: 24px;">
-                        ${discount > 0 ? `<span class="card-discount-tag" style="position: absolute; top: 14px; left: 14px; background: #005d4a; color: #ffffff; padding: 5px 11px; border-radius: 6px; font-weight: 800; font-size: 12px; letter-spacing: 0.3px; z-index: 5; box-shadow: 0 2px 8px rgba(0,93,74,0.25);">${discount}% OFF</span>` : ''}
+                        <span class="card-discount-tag" style="position: absolute; top: 14px; left: 14px; background: #005d4a; color: #ffffff; padding: 5px 11px; border-radius: 6px; font-weight: 800; font-size: 12px; letter-spacing: 0.3px; z-index: 5; box-shadow: 0 2px 8px rgba(0,93,74,0.25);">22% OFF</span>
                         <img src="${mainImage}" alt="${name}" id="mainDetailProductImg" style="width: 100%; max-height: 440px; object-fit: contain; transition: transform 0.3s ease;" onerror="this.onerror=null; this.src='${neutralPlaceholder}';">
                     </div>
 
@@ -3281,17 +3591,30 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <!-- Price Box -->
-                    <div class="product-detail-price-box" style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;">
-                        <span class="product-detail-sale-price" style="font-size: 24px; font-weight: 800; color: #1e293b; line-height: 1;">₹${price.toFixed(2)}</span>
-                        ${(originalPrice > price) ? `<span class="product-detail-regular-price" style="font-size: 15px; color: #64748b; text-decoration: line-through; -webkit-text-decoration-line: line-through; font-weight: 500; line-height: 1;">₹${originalPrice.toFixed(2)}</span>` : ''}
-                        ${(originalPrice > price) ? `<span class="product-detail-save-badge" style="font-size: 14px; font-weight: 700; color: #16a34a; line-height: 1;">Save ₹${(originalPrice - price).toFixed(2)}</span>` : ''}
+                    <div class="product-detail-price-box" style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;">
+                        <span class="product-detail-sale-price" style="font-size: 26px; font-weight: 800; color: #1e293b; line-height: 1; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
+                        <span class="product-detail-regular-price" style="font-size: 16px; color: #94a3b8; text-decoration: line-through; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
+                        <span class="product-detail-save-badge" style="font-size: 13px; font-weight: 700; color: #16a34a; background: #ecfdf5; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">Save ₹${formatPriceNum(savings)}</span>
+                        <span class="badge-22-off" style="background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 12px; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">22% OFF</span>
                     </div>
 
                     <!-- Specs List -->
                     <div style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13.5px; align-items: stretch;">
                         <div style="background: #fff; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; min-height: 54px; box-sizing: border-box;">
                             <strong style="color:#64748b; font-size:11.5px; display:block; text-transform:uppercase; margin-bottom: 2px;">UNIT / NET WEIGHT</strong>
+                            ${hasWeightVariants ? `
+                            <div style="position: relative; width: 100%;">
+                                <select id="detailWeightSelect" class="detail-weight-dropdown" onchange="window.switchDetailWeightVariant(this.value)" aria-label="Select unit net weight" style="width: 100%; border: 1.5px solid #cbd5e1; border-radius: 6px; background: #ffffff url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230f7139' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E&quot;) no-repeat right 8px center; padding: 3px 24px 3px 6px; font-size: 13.5px; font-weight: 700; color: #1e293b; cursor: pointer; outline: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; font-family: inherit; box-sizing: border-box; line-height: 1.2;">
+                                    ${Object.keys(weightVariants).map(key => {
+                                        const v = weightVariants[key];
+                                        const isSel = (initialKey === key) ? 'selected' : '';
+                                        return `<option value="${key}" ${isSel}>${v.label || v.weight}</option>`;
+                                    }).join('')}
+                                </select>
+                            </div>
+                            ` : `
                             <span style="font-weight:700; color:#1e293b; line-height: 1.2;">${unit}</span>
+                            `}
                         </div>
                         <div style="background: #fff; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; min-height: 54px; box-sizing: border-box;">
                             <strong style="color:#64748b; font-size:11.5px; display:block; text-transform:uppercase; margin-bottom: 2px;">AVAILABILITY</strong>
@@ -3350,11 +3673,83 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         // Initialize Amazon-Style Customer Reviews Section
-        initAmazonProductReviews(p);
+        if (typeof initAmazonProductReviews === 'function') {
+            initAmazonProductReviews(p);
+        } else if (typeof window.initAmazonProductReviews === 'function') {
+            window.initAmazonProductReviews(p);
+        }
 
         // Load Related Products
-        loadRelatedProducts(p);
+        if (typeof loadRelatedProducts === 'function') {
+            loadRelatedProducts(p);
+        } else if (typeof window.loadRelatedProducts === 'function') {
+            window.loadRelatedProducts(p);
+        }
     }
+    window.renderSingleProductDetail = renderSingleProductDetail;
+
+    window.switchDetailWeightVariant = function(weightKey) {
+        if (!window.CURRENT_DETAIL_PRODUCT) return;
+        const p = window.CURRENT_DETAIL_PRODUCT;
+        const variants = typeof getProductWeightVariants === 'function' ? getProductWeightVariants(p) : null;
+        if (!variants) return;
+        const defaultKey = Object.keys(variants)[0];
+        const variant = variants[weightKey] || variants[defaultKey];
+        if (!variant) return;
+
+        const origPrice = Number(variant.originalPrice || variant.price || 0);
+        const pricing = calculate22PercentDiscount(origPrice);
+        const discPrice = pricing.discountedPrice;
+        const savings = pricing.savings;
+        variant.price = discPrice;
+        variant.originalPrice = origPrice;
+        window.CURRENT_DETAIL_SELECTED_VARIANT = variant;
+
+        // 1. Update Sale Price
+        const salePriceEl = document.querySelector('.product-detail-sale-price');
+        if (salePriceEl) {
+            salePriceEl.textContent = `₹${formatPriceNum(discPrice)}`;
+            salePriceEl.style.fontWeight = '800';
+        }
+
+        // 2. Update Regular Price & Save Badge in Price Box
+        const priceBox = document.querySelector('.product-detail-price-box');
+        if (priceBox) {
+            let regPriceEl = priceBox.querySelector('.product-detail-regular-price');
+            if (!regPriceEl) {
+                regPriceEl = document.createElement('span');
+                regPriceEl.className = 'product-detail-regular-price';
+                priceBox.appendChild(regPriceEl);
+            }
+            regPriceEl.textContent = `₹${formatPriceNum(origPrice)}`;
+            regPriceEl.style.cssText = 'font-size: 16px; color: #94a3b8; text-decoration: line-through; font-weight: 500; display: inline-flex; align-items: center; font-family: "Plus Jakarta Sans", sans-serif;';
+
+            let saveBadgeEl = priceBox.querySelector('.product-detail-save-badge');
+            if (!saveBadgeEl) {
+                saveBadgeEl = document.createElement('span');
+                saveBadgeEl.className = 'product-detail-save-badge';
+                priceBox.appendChild(saveBadgeEl);
+            }
+            saveBadgeEl.textContent = `Save ₹${formatPriceNum(savings)}`;
+            saveBadgeEl.style.cssText = 'font-size: 13px; font-weight: 700; color: #16a34a; background: #ecfdf5; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; display: inline-flex; align-items: center; font-family: "Plus Jakarta Sans", sans-serif;';
+
+            let badgeEl = priceBox.querySelector('.badge-22-off');
+            if (!badgeEl) {
+                badgeEl = document.createElement('span');
+                badgeEl.className = 'badge-22-off';
+                priceBox.appendChild(badgeEl);
+            }
+            badgeEl.textContent = '22% OFF';
+            badgeEl.style.cssText = 'background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 12px; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; display: inline-flex; align-items: center; font-family: "Plus Jakarta Sans", sans-serif;';
+        }
+
+        // 3. Update Discount Tag on Main Image
+        const discountTag = document.querySelector('.product-gallery-side .card-discount-tag');
+        if (discountTag) {
+            discountTag.textContent = '22% OFF';
+            discountTag.style.display = 'inline-block';
+        }
+    };
 
     window.changeDetailQty = function(delta, ev) {
         if (ev) {
@@ -3387,15 +3782,141 @@ document.addEventListener("DOMContentLoaded", () => {
         const qInput = document.getElementById('detailQtyInput');
         const qty = qInput ? (Number(qInput.value) || 1) : 1;
         const pImg = prod.image || (prod.images && prod.images[0] ? (prod.images[0].url || prod.images[0]) : '') || "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495";
+
+        let itemPrice = 0;
+        let itemTitle = prod.name || prod.title || 'Arshith Fresh Product';
+        let itemId = prod._id || prod.id || '';
+        let itemWeight = prod.unit || '1 unit';
+
+        const hasWeightVariants = (typeof isDryFruitOrSeedProduct === 'function' && isDryFruitOrSeedProduct(prod)) ||
+                                  (typeof isGheeOrHoneyProduct === 'function' && isGheeOrHoneyProduct(prod)) ||
+                                  (typeof isOilWithVariantsProduct === 'function' && isOilWithVariantsProduct(prod)) ||
+                                  (typeof isSpiceOrPowderWithVariants === 'function' && isSpiceOrPowderWithVariants(prod));
+        if (hasWeightVariants) {
+            const selectEl = document.getElementById('detailWeightSelect');
+            const variants = typeof getProductWeightVariants === 'function' ? getProductWeightVariants(prod) : null;
+            const defaultKey = variants ? Object.keys(variants)[0] : '';
+            const selectedVal = selectEl ? selectEl.value : defaultKey;
+            const v = variants ? (variants[selectedVal] || variants[defaultKey]) : null;
+            if (v) {
+                itemPrice = v.price;
+                itemWeight = v.weight;
+                itemId = `${itemId}_${v.weight.replace(/[^a-zA-Z0-9]/g, '')}`;
+                let cleanBaseTitle = itemTitle.replace(/\s*-\s*(100gram|250gram|100g|250g|100\s*g|250\s*g|250ml|500ml|250\s*ml|500\s*ml|500gram|500g|250\s*g|500\s*g|1litre|1\s*litre|1l|1\s*kg|1kg)/gi, '').trim();
+                itemTitle = `${cleanBaseTitle} - ${v.weight}`;
+            }
+        }
+        if (!itemPrice) {
+            const orig = Number(prod.originalPrice || prod.regularPrice || prod.price || 0);
+            itemPrice = Math.round(orig * 0.78 * 100) / 100;
+        }
+
         addToStoreCart(
-            prod._id || '',
-            prod.name || prod.title || 'Arshith Fresh Product',
-            Number(prod.price) || 0,
+            itemId,
+            itemTitle,
+            itemPrice,
             pImg,
-            qty
+            qty,
+            itemWeight
         );
         if (isBuyNow) {
             window.location.href = 'cart.html';
+        }
+    };
+
+    window.handleCardWeightVariantChange = function(selectEl, baseId) {
+        if (!selectEl) return;
+        const card = selectEl.closest('.product-card, .af-product-card, .collection-product-card, .collection-product-card-box');
+        if (!card) return;
+
+        let p = null;
+        if (window.activeCollectionsProducts && Array.isArray(window.activeCollectionsProducts)) {
+            p = window.activeCollectionsProducts.find(item => (item.id === baseId || item._id === baseId || item.handle === baseId || item.slug === baseId));
+        }
+        if (!p && Array.isArray(FALLBACK_STOREFRONT_PRODUCTS)) {
+            p = FALLBACK_STOREFRONT_PRODUCTS.find(item => (item.id === baseId || item._id === baseId || item.handle === baseId || item.slug === baseId));
+        }
+        if (!p) {
+            try {
+                const cached = JSON.parse(localStorage.getItem('arshith_cached_products') || '[]');
+                p = cached.find(item => (item.id === baseId || item._id === baseId || item.handle === baseId || item.slug === baseId));
+            } catch(e) {}
+        }
+        if (!p) {
+            p = { id: baseId, name: card.dataset.productName || baseId };
+        }
+
+        const variants = typeof getProductWeightVariants === 'function' ? getProductWeightVariants(p) : null;
+        if (!variants) return;
+        const selectedKey = selectEl.value;
+        const variant = variants[selectedKey];
+        if (!variant) return;
+
+        const rawName = p.name || p.title || card.dataset.productName || 'Product';
+        const cleanBaseTitle = rawName.replace(/\s*-\s*(250g|500gram|500g|250 g|500 g|1litre|1 litre|1l|1 kg|1kg)/gi, '').trim();
+        const variantTitle = `${cleanBaseTitle} - ${variant.weight}`;
+        const variantId = `${baseId}_${variant.weight.replace(/[^a-zA-Z0-9]/g, '')}`;
+
+        const origPrice = Number(variant.originalPrice || variant.price || 0);
+        const discPrice = Number(variant.price);
+        const savings = Math.round((origPrice - discPrice) * 100) / 100;
+
+        // 1. Update price in DOM
+        const priceBox = card.querySelector('.price-box');
+        if (priceBox) {
+            priceBox.innerHTML = `
+                <div class="price-row" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
+                    <span class="sale-price" style="font-weight: 800; color: #1e293b; font-size: 16px; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
+                    <span class="regular-price" style="text-decoration: line-through; color: #94a3b8; font-size: 13px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
+                    <span class="badge-22-off" style="background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 11px; padding: 2.5px 6px; border-radius: 4px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">22% OFF</span>
+                </div>
+                <div class="savings-row" style="color: #16a34a; font-size: 12px; font-weight: 700; text-align: center; width: 100%; margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    Save ₹${formatPriceNum(savings)}
+                </div>
+            `;
+        }
+
+        // 2. Update discount tag on image
+        const discountTag = card.querySelector('.card-discount-tag');
+        if (discountTag) {
+            discountTag.textContent = '22% OFF';
+            discountTag.style.display = 'block';
+        }
+
+        // 3. Update card dataset
+        card.dataset.productPrice = discPrice;
+        card.dataset.productName = variantTitle;
+        card.dataset.productId = variantId;
+
+        // 4. Update overlay dataset
+        const overlay = card.querySelector('.product-qty-overlay');
+        if (overlay) {
+            overlay.dataset.productId = variantId;
+            overlay.dataset.productName = variantTitle;
+            overlay.dataset.productPrice = variant.price;
+            delete overlay.dataset.renderedQty;
+        }
+
+        // 5. Update add-to-cart button
+        const addBtn = card.querySelector('.add-to-cart-btn');
+        if (addBtn) {
+            addBtn.dataset.productId = variantId;
+            addBtn.dataset.productName = variantTitle;
+            addBtn.dataset.productPrice = variant.price;
+        }
+
+        // 6. Update card link href
+        const linkEl = card.querySelector('a.product-card-link');
+        if (linkEl) {
+            let currentHref = linkEl.getAttribute('href') || '';
+            currentHref = currentHref.replace(/([?&])variant=[^&]*/g, '').replace(/([?&])weight=[^&]*/g, '');
+            const sep = currentHref.includes('?') ? '&' : '?';
+            linkEl.setAttribute('href', `${currentHref}${sep}variant=${encodeURIComponent(selectedKey)}`);
+        }
+
+        // 7. Re-sync steppers so if this variant is in cart, stepper shows count
+        if (typeof syncProductCardSteppers === 'function') {
+            syncProductCardSteppers();
         }
     };
 
@@ -3704,11 +4225,6 @@ function closeSignupModal() {
     try {
         sessionStorage.setItem('arshith_signup_popup_dismissed', 'true');
     } catch (e) {}
-    
-    // Smoothly reveal the Festive Offers popup modal dialog IMMEDIATELY after welcome popup closes
-    setTimeout(() => {
-        showFestiveOfferModal();
-    }, 50);
 }
 
 let currentActiveBannerConfig = {
@@ -3720,8 +4236,8 @@ let currentActiveBannerConfig = {
     buttonText: 'SHOP NOW',
     buttonLink: 'pages/collections.html?category=all',
     image: 'assets/images/festive-dussehra-banner.jpg',
-    isActive: true,
-    showPopupModal: true,
+    isActive: false,
+    showPopupModal: false,
     deal1Title: '20% OFF on Fresh Fruits',
     deal1Sub: 'Almonds, Cashews & Native Organic Fruits',
     deal1Badge: '20% OFF',
@@ -3744,195 +4260,14 @@ function getActiveBannerConfigSync() {
 }
 
 async function fetchActiveBannerConfigAsync() {
-    try {
-        const res = await fetch('/api/banners/active');
-        if (res.ok) {
-            const data = await res.json();
-            if (data && data.banner) {
-                currentActiveBannerConfig = data.banner;
-            }
-        }
-    } catch (e) {}
     return currentActiveBannerConfig;
 }
 
 function showFestiveOfferModal(force = false) {
-    const path = window.location.pathname.toLowerCase();
-    // CRITICAL: NEVER display festive popup on user profile, account, or admin pages
-    if (path.includes('profile.html') || path.includes('/profile') || path.includes('/account') || path.includes('/admin/')) {
-        return;
-    }
-
-    if (!force) {
-        try {
-            if (sessionStorage.getItem('arshith_festive_popup_dismissed') === 'true') return;
-        } catch (e) {}
-    }
-
-    if (document.getElementById('arshithFestiveModalOverlay')) return;
-
-    const banner = getActiveBannerConfigSync();
-    if (!banner || banner.isActive === false || banner.showPopupModal === false) {
-        return;
-    }
-
-    // Detect path depth for assets & links
-    const isSubpage = path.includes('/pages/');
-    const isDeep = path.includes('/categories/') || path.includes('/policies/') || path.includes('/auth/');
-    const rootPath = isDeep ? '../../' : (isSubpage ? '../' : '');
-
-    const resolveImg = (img, fallback) => {
-        if (!img) return fallback || rootPath + 'assets/images/festive-dussehra-banner.jpg';
-        let clean = img.replace('https://arshithfresh.com/cdn/shop/', 'https://cdn.shopify.com/s/files/1/0858/0772/6869/');
-        if (clean.startsWith('http') || clean.startsWith('data:')) return clean;
-        return rootPath + clean.replace(/^\/+/, '');
-    };
-
-    const resolveLink = (link) => {
-        if (!link) return rootPath + 'pages/collections.html?category=all';
-        if (link.startsWith('http')) return link;
-        return rootPath + link.replace(/^\/+/, '');
-    };
-
-    const deal1Default = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/seeds_dry_fruits_nuts_webp_200x200_crop_center.jpg?v=1746963459';
-    const deal2Default = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/groceries_200x200_crop_center.jpg?v=1746965740';
-    const deal3Default = 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/ghee_1_200x200_crop_center.jpg?v=1746964905';
-
-    const imgHamper = resolveImg(banner.image);
-    const deal1ImgUrl = resolveImg(banner.deal1Image, deal1Default);
-    const deal2ImgUrl = resolveImg(banner.deal2Image, deal2Default);
-    const deal3ImgUrl = resolveImg(banner.deal3Image, deal3Default);
-
-    const collectionsUrl = resolveLink(banner.buttonLink);
-    const fruitsUrl = resolveLink(banner.deal1Link);
-    const veggiesUrl = resolveLink(banner.deal2Link);
-    const comboUrl = resolveLink(banner.deal3Link);
-    const couponCode = (banner.couponCode || 'FESTIVE40').toUpperCase();
-
-    const modalHTML = `
-        <div id="arshithFestiveModalOverlay" class="festive-modal-overlay">
-            <div class="festive-modal-container">
-                <button type="button" class="festive-modal-close" onclick="closeFestiveOfferModal()" title="Close Festive Offer">&times;</button>
-                
-                <div class="festive-promo-card festive-modal-card">
-                    <!-- Subtle Festive Mandala & Sparkle Backgrounds -->
-                    <div class="festive-mandala-watermark"></div>
-                    <div class="festive-sparkle sparkle-1">✦</div>
-                    <div class="festive-sparkle sparkle-2">✨</div>
-                    <div class="festive-sparkle sparkle-3">✦</div>
-                    <div class="festive-sparkle sparkle-4">✨</div>
-                    <div class="festive-sparkle sparkle-5">✦</div>
-
-                    <!-- Hanging Traditional Festive Lanterns with Animated Flames -->
-                    <div class="festive-lanterns-wrapper">
-                        <div class="festive-lantern lantern-1">
-                            <div class="lantern-rope"></div>
-                            <div class="lantern-body"><div class="lantern-flame"></div></div>
-                        </div>
-                        <div class="festive-lantern lantern-2">
-                            <div class="lantern-rope"></div>
-                            <div class="lantern-body"><div class="lantern-flame"></div></div>
-                        </div>
-                        <div class="festive-lantern lantern-3">
-                            <div class="lantern-rope"></div>
-                            <div class="lantern-body"><div class="lantern-flame"></div></div>
-                        </div>
-                    </div>
-
-                    <!-- Left Main Content Column -->
-                    <div class="festive-main-content">
-                        <div class="festive-header-block">
-                            <div class="festive-pill-tag">
-                                <span class="tag-icon">✨</span>
-                                <span>${banner.badgeText || 'Grand Festive Celebration'}</span>
-                            </div>
-
-                            <h2 class="festive-headline">${banner.title || 'Festive Offers Are Here!'}</h2>
-                            <p class="festive-subtitle">${banner.subtitle || 'Celebrate More. Save More. Shop Your Favorites.'}</p>
-
-                            <div class="festive-hero-offer-row">
-                                <div class="festive-discount-pill">
-                                    <span>${banner.discountText || 'UP TO 40% OFF'}</span>
-                                </div>
-                                <div class="festive-code-box" id="festiveCodeBoxModal" onclick="copyFestiveCode('${couponCode}')" title="Click to copy coupon code" style="cursor:pointer;">
-                                    <span>Use Code:</span>
-                                    <strong id="festiveCodeText">${couponCode}</strong>
-                                    <span id="festiveCopyBadge" class="festive-copy-hint"><i class="fa-regular fa-copy"></i> Copy</span>
-                                </div>
-                                <a href="${collectionsUrl}" class="festive-shop-btn" onclick="closeFestiveOfferModal()">
-                                    <span>${banner.buttonText || 'SHOP NOW'}</span>
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- 3 Specific Festive Category Discount Cards -->
-                        <div class="festive-deals-grid">
-                            <!-- Card 1 -->
-                            <a href="${fruitsUrl}" class="festive-deal-card" onclick="closeFestiveOfferModal()">
-                                <span class="deal-card-badge">${banner.deal1Badge || '20% OFF'}</span>
-                                <div class="deal-card-icon-wrap">
-                                    <img src="${deal1ImgUrl}" alt="${banner.deal1Title || 'Fresh Fruits'}" class="deal-card-img" onerror="this.onerror=null; this.src='${deal1Default}';">
-                                </div>
-                                <div class="deal-card-info">
-                                    <h4 class="deal-title">${banner.deal1Title || '20% OFF on Fresh Fruits'}</h4>
-                                    <p class="deal-sub">${banner.deal1Sub || 'Almonds, Cashews & Native Organic Fruits'}</p>
-                                    <span class="deal-link-text">Shop Deal ➔</span>
-                                </div>
-                            </a>
-
-                            <!-- Card 2 -->
-                            <a href="${veggiesUrl}" class="festive-deal-card" onclick="closeFestiveOfferModal()">
-                                <span class="deal-card-badge badge-green">${banner.deal2Badge || '30% OFF'}</span>
-                                <div class="deal-card-icon-wrap">
-                                    <img src="${deal2ImgUrl}" alt="${banner.deal2Title || 'Vegetables'}" class="deal-card-img" onerror="this.onerror=null; this.src='${deal2Default}';">
-                                </div>
-                                <div class="deal-card-info">
-                                    <h4 class="deal-title">${banner.deal2Title || '30% OFF on Vegetables'}</h4>
-                                    <p class="deal-sub">${banner.deal2Sub || 'Farm Vegetables & Pure Cooking Essentials'}</p>
-                                    <span class="deal-link-text">Shop Deal ➔</span>
-                                </div>
-                            </a>
-
-                            <!-- Card 3 -->
-                            <a href="${comboUrl}" class="festive-deal-card" onclick="closeFestiveOfferModal()">
-                                <span class="deal-card-badge badge-gold">${banner.deal3Badge || '40% OFF'}</span>
-                                <div class="deal-card-icon-wrap">
-                                    <img src="${deal3ImgUrl}" alt="${banner.deal3Title || 'Combo Offers'}" class="deal-card-img" onerror="this.onerror=null; this.src='${deal3Default}';">
-                                </div>
-                                <div class="deal-card-info">
-                                    <h4 class="deal-title">${banner.deal3Title || '40% OFF on Combo Offers'}</h4>
-                                    <p class="deal-sub">${banner.deal3Sub || 'A2 Bilona Ghee + Wood-Pressed Oils Hamper'}</p>
-                                    <span class="deal-link-text">Shop Deal ➔</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Right Festive Hamper Visual Showcase -->
-                    <div class="festive-visual-showcase">
-                        <div class="festive-card-frame">
-                            <div class="festive-img-wrap">
-                                <img src="${imgHamper}" alt="${banner.title || 'Royal Festive Organic Hamper'}" class="festive-hamper-img" onerror="this.onerror=null;this.src='${rootPath}assets/images/Arshithlogo111.jpg';">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="festive-modal-footer">
-                    <button type="button" class="festive-skip-link" onclick="closeFestiveOfferModal()">No thanks, continue browsing</button>
-                </div>
-            </div>
-        </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    setTimeout(() => {
-        const overlay = document.getElementById('arshithFestiveModalOverlay');
-        if (overlay) overlay.classList.add('show');
-    }, 50);
+    // Festive banner has been completely disabled and removed
+    const existing = document.getElementById('arshithFestiveModalOverlay');
+    if (existing) existing.remove();
+    return;
 }
 
 function closeFestiveOfferModal() {
@@ -3973,72 +4308,12 @@ function copyFestiveCode(customCode = null) {
 }
 
 async function initFestiveBannerDisplay() {
-    const path = window.location.pathname.toLowerCase();
-    // STRICT CHECK: User profile, account, or admin pages must NEVER display the festive popup
-    if (path.includes('profile.html') || path.includes('/profile') || path.includes('/account') || path.includes('/admin/')) {
-        return;
-    }
-
-    let banner = null;
-    try {
-        if (typeof fetchActiveBannerConfigAsync === 'function') {
-            banner = await fetchActiveBannerConfigAsync();
-        }
-    } catch (e) {}
-
-    // Dynamically update static festive section if on index.html
+    // Festive banner has been completely disabled and removed
+    const existing = document.getElementById('arshithFestiveModalOverlay');
+    if (existing) existing.remove();
     const festiveSection = document.getElementById('festiveOffers');
-    if (festiveSection) {
-        if (!banner || banner.isActive === false) {
-            festiveSection.style.display = 'none';
-        } else {
-            festiveSection.style.display = 'block';
-            festiveSection.classList.add('festive-visible');
-
-            const headline = festiveSection.querySelector('.festive-headline');
-            if (headline && banner.title) headline.textContent = banner.title;
-            const subtitle = festiveSection.querySelector('.festive-subtitle');
-            if (subtitle && banner.subtitle) subtitle.textContent = banner.subtitle;
-            const pillTag = festiveSection.querySelector('.festive-pill-tag span:last-child');
-            if (pillTag && banner.badgeText) pillTag.textContent = banner.badgeText;
-            const discountPill = festiveSection.querySelector('.festive-discount-pill span');
-            if (discountPill && banner.discountText) discountPill.textContent = banner.discountText;
-            const codeBox = festiveSection.querySelector('.festive-code-box strong');
-            if (codeBox && banner.couponCode) codeBox.textContent = banner.couponCode;
-            const hamperImg = festiveSection.querySelector('.festive-hamper-img');
-            if (hamperImg && banner.image) {
-                hamperImg.src = banner.image.startsWith('http') || banner.image.startsWith('data:') ? banner.image : banner.image;
-            }
-        }
-    }
-
-    if (!banner || banner.isActive === false || banner.showPopupModal === false) return;
-
-    let isSignupDismissed = false;
-    try {
-    isSignupDismissed = sessionStorage.getItem('arshith_signup_popup_dismissed') === 'true';
-    } catch(e) {}
-
-    let isFestiveDismissed = false;
-    try {
-        isFestiveDismissed = sessionStorage.getItem('arshith_festive_popup_dismissed') === 'true';
-    } catch(e) {}
-
-    if (isFestiveDismissed) return;
-
-    let currentUser = null;
-    try {
-        currentUser = JSON.parse(localStorage.getItem('arshith_user'));
-    } catch(e) {}
-
-    const isLoggedIn = !!(currentUser && (currentUser._id || currentUser.email));
-
-    // If user is already logged in or previously dismissed signup, pop up festive offers immediately
-    if (isLoggedIn || isSignupDismissed) {
-        setTimeout(() => {
-            showFestiveOfferModal();
-        }, 100);
-    }
+    if (festiveSection) festiveSection.remove();
+    return;
 }
 
 window.showFestiveOfferModal = showFestiveOfferModal;
@@ -4218,7 +4493,7 @@ function initLiveSearchAutocomplete() {
         { _id: 's2', title: 'Cold Pressed Sunflower Oil (Premium Quality)', category: 'Oils', price: 499, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
         { _id: 's3', title: 'Groundnut Oil (Cold Pressed)', category: 'Oils', price: 349, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
         { _id: 's4', title: 'Flax Seeds (Organic & Premium)', category: 'Dry Seeds', price: 29, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334051&width=533' },
-        { _id: 's5', title: 'Chia Seeds (High Fiber)', category: 'Dry Seeds', price: 49, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334051&width=533' },
+        { _id: 's5', title: 'Chia Seeds (High Fiber)', category: 'Dry Seeds', price: 49, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533' },
         { _id: 's6', title: 'Raw Wild Forest Honey', category: 'Ghee and Honey', price: 399, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png?v=1757334051&width=533' },
         { _id: 's7', title: 'Cashews (W240 Grade Premium)', category: 'Dry Fruits', price: 899, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
         { _id: 's8', title: 'California Almonds (Badam)', category: 'Dry Fruits', price: 799, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' }
@@ -5233,8 +5508,9 @@ async function syncHomepageProductsWithAdminDatabase() {
     const dryfruitsGrid = document.querySelector('.sec-dryfruits .products-grid');
     const powdersGrid = document.querySelector('.sec-powders .products-grid');
     const wellnessGrid = document.querySelector('.sec-wellness .products-grid');
+    const seedsGrid = document.querySelector('.sec-seeds .products-grid');
 
-    if (!favoriteGrid && !oilsGrid && !dryfruitsGrid && !powdersGrid && !wellnessGrid) {
+    if (!favoriteGrid && !oilsGrid && !dryfruitsGrid && !powdersGrid && !wellnessGrid && !seedsGrid) {
         return;
     }
 
@@ -5254,18 +5530,12 @@ async function syncHomepageProductsWithAdminDatabase() {
             const imgData = extractProductImageData(p, 0);
             const pId = p._id || p.id || '';
             const name = escapeHtml(p.name || p.title || 'Product');
-            const price = Number(p.price) || 0;
-            const origPrice = Number(p.originalPrice) || 0;
+            const origPrice = Number(p.originalPrice || p.regularPrice || p.price || 0);
+            const pricing = calculate22PercentDiscount(origPrice);
+            const discPrice = pricing.discountedPrice;
+            const savings = pricing.savings;
             const imgPrimary = imgData.primary;
             const imgHover = imgData.hover || imgPrimary;
-
-            let discountTagHtml = '';
-            if (origPrice > price) {
-                const pct = Math.round(((origPrice - price) / origPrice) * 100);
-                if (pct > 0) discountTagHtml = `<span class="card-discount-tag">${pct}% Off</span>`;
-            } else if (p.isFeatured) {
-                discountTagHtml = `<span class="card-discount-tag" style="background:#005d4a;">Featured</span>`;
-            }
 
             const ratingNum = Number(p.rating || 4.9).toFixed(1);
             const numReviews = Number(p.numReviews || 0);
@@ -5280,7 +5550,7 @@ async function syncHomepageProductsWithAdminDatabase() {
                         <div class="product-image-container ${imgHover !== imgPrimary ? 'has-second-img' : ''}">
                             <img src="${imgPrimary}" alt="${name}" class="primary-img" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';">
                             ${imgHover !== imgPrimary ? `<img src="${imgHover}" alt="${name} Hover" class="hover-img" onerror="this.onerror=null; this.style.display='none';">` : ''}
-                            ${discountTagHtml}
+                            <span class="card-discount-tag">22% OFF</span>
                         </div>
                         <div class="product-info">
                             <h3 class="card__heading">${name}</h3>
@@ -5289,12 +5559,18 @@ async function syncHomepageProductsWithAdminDatabase() {
                                 <span class="rating-text">${ratingText}</span>
                             </div>
                             <div class="price-box">
-                                <span class="sale-price">Rs. ${price.toFixed(2)}</span>
-                                ${origPrice > price ? `<span class="regular-price">Rs. ${origPrice.toFixed(2)}</span>` : ''}
+                                <div class="price-row" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
+                                    <span class="sale-price" style="font-weight: 800; color: #1e293b; font-size: 16px; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
+                                    <span class="regular-price" style="text-decoration: line-through; color: #94a3b8; font-size: 13px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
+                                    <span class="badge-22-off" style="background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 11px; padding: 2.5px 6px; border-radius: 4px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">22% OFF</span>
+                                </div>
+                                <div class="savings-row" style="color: #16a34a; font-size: 12px; font-weight: 700; text-align: center; width: 100%; margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                                    Save ₹${formatPriceNum(savings)}
+                                </div>
                             </div>
                         </div>
                     </a>
-                    <button class="add-to-cart-btn" onclick="addToStoreCart('${pId}', '${name.replace(/'/g, "\\'")}', ${price}, '${imgPrimary}')">ADD TO CART</button>
+                    <button class="add-to-cart-btn" onclick="addToStoreCart('${pId}', '${name.replace(/'/g, "\\'")}', ${discPrice}, '${imgPrimary}')">ADD TO CART</button>
                 </div>
             `;
         };
@@ -5338,7 +5614,7 @@ async function syncHomepageProductsWithAdminDatabase() {
             powdersGrid.innerHTML = items.map(buildCardHtml).join('');
         }
 
-        // 5. Wellness & Seeds Section
+        // 5. Wellness Section
         if (wellnessGrid) {
             const wlProducts = activeProducts.filter(p => {
                 const cat = (p.category || '').toLowerCase();
@@ -5347,6 +5623,17 @@ async function syncHomepageProductsWithAdminDatabase() {
             });
             const items = wlProducts.length > 0 ? wlProducts : activeProducts.slice(0, 8);
             wellnessGrid.innerHTML = items.map(buildCardHtml).join('');
+        }
+
+        // 6. Seeds Section
+        if (seedsGrid) {
+            const seedProducts = activeProducts.filter(p => {
+                const cat = (p.category || '').toLowerCase();
+                const nm = (p.name || '').toLowerCase();
+                return cat.includes('seed') || nm.includes('seed');
+            });
+            const items = seedProducts.length > 0 ? seedProducts : activeProducts.slice(0, 8);
+            seedsGrid.innerHTML = items.map(buildCardHtml).join('');
         }
 
     } catch (err) {
@@ -6984,7 +7271,7 @@ window.closeBlogModal = closeBlogModal;
                         {
                             id: "groundnut-oil-premium",
                             name: "Groundnut Oil (Premium Quality)",
-                            price: 349,
+                            price: 399,
                             unit: "1 L",
                             image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533"
                         },
@@ -7018,17 +7305,17 @@ window.closeBlogModal = closeBlogModal;
             } else if (/\b(under|below|less than|within|cheaper than|up to|cost\s*under|cost\s*of)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i.test(lower) || /\b(\d+)\s*(?:cost|rupees|rs)?\s*(?:under|below|or less)\b/i.test(lower) || /\b(cheapest|lowest price|most affordable|budget|low price)\b/i.test(lower)) {
                 const maxMatch = lower.match(/\b(?:under|below|less than|within|cheaper than|up to|cost\s*under|cost\s*of)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i) || lower.match(/\b(\d+)\s*(?:cost|rupees|rs)?\s*(?:under|below|or less)\b/i);
                 const maxP = maxMatch ? parseInt(maxMatch[1], 10) : 500;
-                reply = `Here are our verified 100% natural products under **₹${maxP}** directly from our inventory (starting from just **₹49**):\n\n• **Chilli Powder** — ₹49 (100g)\n• **Flax Seeds** — ₹90 (200g)\n• **Castor Oil** — ₹95 (250ml)\n• **Mustard Oil** — ₹115 (500ml)\n• **Pure Cow Ghee** — ₹240 (250ml)\n• **Groundnut Oil** — ₹349 (1L)\n\n💡 *Tip: Add items totaling ₹1,000 or more to get **FREE Delivery** across India! Use coupon **WELCOME10** for 10% off.*`;
+                reply = `Here are our verified 100% natural products under **₹${maxP}** directly from our inventory (starting from just **₹49**):\n\n• **Chilli Powder** — ₹49 (100g)\n• **Flax Seeds** — ₹90 (200g)\n• **Castor Oil** — ₹112 (250ml)\n• **Sesame Oil** — ₹115 (250ml)\n• **Coconut Oil** — ₹174 (250ml)\n• **Groundnut Oil** — ₹399 (1L)\n\n💡 *Tip: Add items totaling ₹1,000 or more to get **FREE Delivery** across India! Use coupon **WELCOME10** for 10% off.*`;
                 matched = [
                     { id: "chilli-powder-premium", name: "Chilli Powder (Premium Quality)", price: 49, unit: "100 g", image: "/assets/images/products/powders/chilli_powder.jpg" },
-                    { id: "mustard-oil-premium", name: "Mustard Oil (Premium Quality)", price: 115, unit: "500 ml", image: "/assets/images/products/mustard_oil.jpg" },
-                    { id: "pure-cow-ghee-premium", name: "Pure Cow Ghee (Premium Quality)", price: 240, unit: "250 ml", image: "/assets/images/products/cow_ghee_front.jpg" },
-                    { id: "groundnut-oil-premium", name: "Groundnut Oil (Premium Quality)", price: 349, unit: "1 L", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533" }
+                    { id: "castor-oil-premium", name: "Castor Oil (Premium Quality)", price: 112, unit: "250 ml", image: "/assets/images/products/castor_oil_250ml.png" },
+                    { id: "sesame-oil-premium", name: "Sesame Oil (Premium Quality)", price: 115, unit: "250 ml", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533" },
+                    { id: "groundnut-oil-premium", name: "Groundnut Oil (Premium Quality)", price: 399, unit: "1 L", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533" }
                 ];
                 chips = ["What oils do you have?", "Pure Cow Ghee", "Are there any current offers?", "Talk to Support"];
                 actions = [{ label: 'View All Collections', value: '/pages/collections.html' }, { label: 'Open Cart', value: '/pages/cart.html' }];
             } else if (/heart|cholesterol|bp|cardiac/i.test(lower)) {
-                reply = "❤️ **Heart-Healthy Selections:**\n• **Cold-Pressed Groundnut & Mustard Oils**: Rich in heart-protective MUFA, PUFA, and plant sterols that help reduce bad LDL cholesterol.\n• **Cold-Pressed Sesame Oil**: Packed with sesamol & sesaminol antioxidants to maintain healthy blood pressure.\n• **A2 Desi Cow Ghee**: Contains conjugated linoleic acid (CLA) to aid cardiovascular wellness in moderation.";
+                reply = "❤️ **Heart-Healthy Selections:**\n• **Cold-Pressed Groundnut & Sesame Oils**: Rich in heart-protective MUFA, PUFA, and plant sterols that help reduce bad LDL cholesterol.\n• **Cold-Pressed Sesame Oil**: Packed with sesamol & sesaminol antioxidants to maintain healthy blood pressure.\n• **A2 Desi Cow Ghee**: Contains conjugated linoleic acid (CLA) to aid cardiovascular wellness in moderation.";
                 chips = ["Show me groundnut oil", "Show me sesame oil", "Tell me about A2 cow ghee"];
             } else if (/fry|frying|deep fry|high smoke|high heat/i.test(lower)) {
                 reply = "🍳 **Best for High Heat & Deep Frying:**\n• **Cold-Pressed Groundnut Oil**: High smoke point (~225°C-232°C), extremely stable for frying puris, pakoras, and curries.\n• **Pure Desi Cow Ghee**: Smoke point of 250°C, zero oxidation and unmatched traditional flavor.\n• **Cold-Pressed Sunflower Oil**: High smoke point (~227°C) with a light, neutral flavor.";
@@ -7051,7 +7338,7 @@ window.closeBlogModal = closeBlogModal;
                     {
                         id: "groundnut-oil-premium",
                         name: "Groundnut Oil (Premium Quality)",
-                        price: 349,
+                        price: 399,
                         unit: "1 L",
                         image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533"
                     },

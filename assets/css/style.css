@@ -749,29 +749,15 @@ main {
     border-color: rgba(189, 163, 128, 0.6);
 }
 
-/* Card Themes - Signature Green Palette */
-.instamart-banner-card.card-oils {
-    background: linear-gradient(135deg, #022c1b 0%, #064e3b 55%, #005d4a 100%);
-}
-
-.instamart-banner-card.card-podulu {
-    background: linear-gradient(135deg, #0b3718 0%, #0f5132 55%, #1b5b33 100%);
-}
-
-.instamart-banner-card.card-ghee {
-    background: linear-gradient(135deg, #012b1d 0%, #04432c 55%, #0d5e40 100%);
-}
-
-.instamart-banner-card.card-seeds {
-    background: linear-gradient(135deg, #043825 0%, #0c5738 55%, #156d47 100%);
-}
-
-.instamart-banner-card.card-nuts {
-    background: linear-gradient(135deg, #06311d 0%, #0d4d2e 55%, #13633c 100%);
-}
-
+/* Card Themes - Exact Signature Green Matching Image 1 (#094b3d) */
+.instamart-banner-card,
+.instamart-banner-card.card-oils,
+.instamart-banner-card.card-podulu,
+.instamart-banner-card.card-ghee,
+.instamart-banner-card.card-seeds,
+.instamart-banner-card.card-nuts,
 .instamart-banner-card.card-spices {
-    background: linear-gradient(135deg, #022e1e 0%, #084931 55%, #0d5f40 100%);
+    background: #094b3d !important;
 }
 
 /* Top Badge */
@@ -960,7 +946,7 @@ main {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: #005d4a;
+    background: #094b3d !important;
     color: #ffffff;
     border: 1.5px solid rgba(189, 163, 128, 0.45);
     box-shadow: 0 4px 14px rgba(0, 45, 34, 0.35);
@@ -976,7 +962,7 @@ main {
 }
 
 .instamart-arrow:hover {
-    background: #0f7139;
+    background: #04362a !important;
     color: #BDA380;
     border-color: #BDA380;
     transform: translateY(-50%) scale(1.08);
@@ -1003,14 +989,14 @@ main {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #005d4a;
+    background: #094b3d !important;
     opacity: 0.5;
     display: inline-block;
     transition: background 0.2s, opacity 0.2s;
 }
 
 .instamart-pill-counter {
-    background: #005d4a;
+    background: #094b3d !important;
     color: #BDA380;
     border: 1px solid rgba(189, 163, 128, 0.35);
     font-family: 'Montserrat', sans-serif;
@@ -1019,7 +1005,7 @@ main {
     padding: 4px 16px;
     border-radius: 9999px;
     letter-spacing: 0.8px;
-    box-shadow: 0 3px 8px rgba(0, 45, 34, 0.2);
+    box-shadow: 0 3px 8px rgba(9, 75, 61, 0.3) !important;
 }
 
 /* Responsive Breakpoints */
@@ -2120,7 +2106,7 @@ main {
 
 /* Banner Highlight Text */
 .banner-highlight {
-    background: #50001a;
+    background: #094b3d !important;
     color: #ffffff;
     text-align: center;
     padding: 8px 10px;
@@ -2545,36 +2531,78 @@ main {
 }
 
 .price-box {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    height: 26px;
-    min-height: 26px;
-    max-height: 26px;
-    margin: auto 0 8px 0;
-    width: 100%;
-    overflow: hidden;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    height: auto !important;
+    min-height: 44px !important;
+    max-height: none !important;
+    margin: auto 0 8px 0 !important;
+    width: 100% !important;
+    overflow: visible !important;
+    white-space: normal !important;
+}
+
+.price-box .price-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    flex-wrap: nowrap !important;
+    line-height: 1 !important;
+    width: 100% !important;
+    text-align: center !important;
 }
 
 .sale-price {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--color-primary);
-    white-space: nowrap;
-    line-height: 1;
-    flex-shrink: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #1e293b !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
 }
 
 .regular-price {
-    font-size: 12.5px;
-    color: #999999;
-    text-decoration: line-through;
-    white-space: nowrap;
-    line-height: 1;
-    flex-shrink: 0;
+    display: inline-block !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #94a3b8 !important;
+    text-decoration: line-through !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+}
+
+.savings-row,
+.save-badge {
+    display: inline-block !important;
+    color: #16a34a !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+}
+
+.badge-22-off {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: #e6f7ed !important;
+    color: #0f7139 !important;
+    font-weight: 800 !important;
+    font-size: 11px !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    border: 1px solid #bbf7d0 !important;
+    text-transform: uppercase !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
 }
 
 .add-to-cart-btn {
@@ -3047,13 +3075,13 @@ main {
 }
 
 .feature-box {
-    background: linear-gradient(135deg, #094b3d 0%, #0f7139 100%);
+    background: #094b3d !important;
     color: #ffffff;
     border-radius: 18px;
     padding: 34px 22px;
     text-align: center;
-    box-shadow: 0 8px 24px rgba(9, 75, 61, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(9, 75, 61, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -3295,7 +3323,7 @@ main {
     margin-left: -50vw !important;
     margin-right: -50vw !important;
     margin-top: 0 !important;
-    background: linear-gradient(180deg, #005d4a 0%, #0B3214 100%);
+    background: #094b3d !important;
     color: #e2e8f0;
     padding: 40px 24px 40px;
     overflow: visible;
@@ -9525,13 +9553,13 @@ body {
 
 /* 5. Luxury Emerald Ribbon ("Best E-Commerce Platform") */
 .banner-highlight {
-    background: linear-gradient(135deg, #005d4a 0%, #0f7139 50%, #005d4a 100%) !important;
+    background: #094b3d !important;
     padding: 16px 20px !important;
     margin: 24px auto !important;
     max-width: 1400px !important;
     border-radius: 14px !important;
-    box-shadow: 0 4px 20px rgba(0, 93, 74, 0.2) !important;
-    border: 1px solid rgba(189, 163, 128, 0.3) !important;
+    box-shadow: 0 4px 20px rgba(9, 75, 61, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -10046,37 +10074,89 @@ body {
 .price-box,
 .product-price {
     display: flex !important;
-    align-items: baseline !important;
+    flex-direction: column !important;
+    align-items: center !important;
     justify-content: center !important;
-    gap: 8px !important;
-    flex-wrap: nowrap !important;
-    white-space: nowrap !important;
-    height: 26px !important;
-    min-height: 26px !important;
-    max-height: 26px !important;
-    margin: 2px 0 10px !important;
+    gap: 3px !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    margin: 4px 0 8px 0 !important;
     width: 100% !important;
     overflow: visible !important;
     line-height: 1.2 !important;
-    padding: 0 2px !important;
+    padding: 0 !important;
+    text-align: center !important;
 }
 
-.regular-price {
-    font-family: 'Playfair Display', Georgia, serif !important;
-    font-size: 13.5px !important;
-    font-weight: 700 !important;
-    color: #003805 !important;
-    text-decoration: line-through !important;
-    white-space: nowrap !important;
-    opacity: 0.9 !important;
+.price-box .price-row,
+.price-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    flex-wrap: nowrap !important;
+    line-height: 1 !important;
 }
 
 .sale-price {
-    font-family: 'Playfair Display', Georgia, serif !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
     font-size: 16px !important;
     font-weight: 800 !important;
-    color: #003805 !important;
+    color: #1e293b !important;
     white-space: nowrap !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    letter-spacing: -0.2px !important;
+}
+
+.regular-price {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    text-decoration: line-through !important;
+    color: #94a3b8 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+}
+
+.savings-row,
+.save-badge {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    color: #16a34a !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    margin: 3px auto 0 auto !important;
+}
+
+.badge-22-off {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #e6f7ed !important;
+    color: #0f7139 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 11px !important;
+    padding: 2.5px 6px !important;
+    border-radius: 4px !important;
+    border: 1px solid #bbf7d0 !important;
+    text-transform: uppercase !important;
+    line-height: 1 !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+    vertical-align: middle !important;
 }
 
 .btn-add-to-cart,
@@ -10259,7 +10339,7 @@ body {
     margin-left: -50vw !important;
     margin-right: -50vw !important;
     margin-top: 0 !important;
-    background: linear-gradient(180deg, #005d4a 0%, #0B3214 100%) !important;
+    background: #094b3d !important;
     color: #e2e8f0 !important;
     padding: 40px 24px 40px !important;
     border-top: none !important;
@@ -11145,12 +11225,11 @@ body {
     }
 
     .product-detail-regular-price {
-        font-size: 15px !important;
-        color: #64748b !important;
-        text-decoration: line-through !important;
-        -webkit-text-decoration-line: line-through !important;
+        display: inline-block !important;
+        font-size: 16px !important;
         font-weight: 500 !important;
-        line-height: 1 !important;
+        color: #94a3b8 !important;
+        text-decoration: line-through !important;
     }
 
     .product-detail-save-badge {
@@ -11493,15 +11572,15 @@ body {
         max-height: initial !important;
         padding: 20px 14px !important;
         border-radius: 14px !important;
-        background: linear-gradient(135deg, #094b3d 0%, #0f7139 100%) !important;
+        background: #094b3d !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         text-align: center !important;
         box-sizing: border-box !important;
-        box-shadow: 0 4px 14px rgba(9, 75, 61, 0.2) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 4px 14px rgba(9, 75, 61, 0.25) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
     }
 
     .feature-icon {
@@ -13381,3 +13460,29 @@ body {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+/* ==========================================================================
+   PERMANENT SUPPRESSION: Festive Offer Banner Popup Modal & Sections
+   ========================================================================== */
+#arshithFestiveModalOverlay,
+.festive-modal-overlay,
+.festive-modal-container,
+.festive-promo-card,
+.festive-modal-card,
+#festiveOffers,
+.festive-section,
+.festive-banner-overlay,
+.festive-popup {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: -99999px !important;
+    left: -99999px !important;
+    z-index: -9999 !important;
+}
+

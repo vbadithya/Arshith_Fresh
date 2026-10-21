@@ -8,8 +8,8 @@ const mongoose = require('mongoose');
 const Product = require('./models/Product');
 
 // 1. Target removal patterns
-const REMOVE_REGEX = /almond-oil|neem-oil|coriander|coriender|dhania|cumin|jeera|poppy|gasa|coconut-powder|coffee-powder/i;
-const REMOVE_NAME_REGEX = /Almond Oil|Neem Oil|Coriander|Coriender|Dhania|Cumin|Jeera|Poppy|Khasa Khasa|Coconut Powder|Coffee Powder/i;
+const REMOVE_REGEX = /almond-oil|neem-oil|coriander|coriender|dhania|cumin|jeera|poppy|gasa|coconut-powder|coffee-powder|mustard-oil/i;
+const REMOVE_NAME_REGEX = /Almond Oil|Neem Oil|Coriander|Coriender|Dhania|Cumin|Jeera|Poppy|Khasa Khasa|Coconut Powder|Coffee Powder|Mustard Oil/i;
 
 async function purge() {
   try {

@@ -151,13 +151,6 @@ function levenshtein(a, b) {
 // Canonical catalog registry for Arshith Fresh (41 items)
 const CATALOG_MAP = [
   {
-    key: 'mustard_oil',
-    nameMatch: /mustard oil/i,
-    category: 'Oils',
-    canonical: 'Mustard Oil (Premium Quality)',
-    synonyms: ['mustard oil', 'mustard', 'musturd oil', 'musturd', 'mustrad oil', 'mustrad', 'mustred oil', 'mustred', 'mustared oil', 'mustared', 'masted oil', 'sarson oil', 'sarson', 'sarso oil', 'sarso', 'avalu noone', 'rai oil', 'ಸಾಸಿವೆ ಎಣ್ಣೆ', 'ಸಾಸಿವೆ', 'सरसों तेल', 'सरसों का तेल', 'सरसों', 'ఆవనూనె', 'கடுகு எண்ணெய்', 'मोहरी तेल']
-  },
-  {
     key: 'sesame_oil',
     nameMatch: /sesame oil/i,
     category: 'Oils',
@@ -338,20 +331,6 @@ const CATALOG_MAP = [
     category: 'Spices',
     canonical: 'Star Anise (Anasa Puvvu) (Premium Quality)',
     synonyms: ['star anise', 'anasa puvvu', 'chakra phool']
-  },
-  {
-    key: 'pepper_whole',
-    nameMatch: /black pepper \(whole\)/i,
-    category: 'Spices',
-    canonical: 'Black Pepper (Whole) (Premium Quality)',
-    synonyms: ['black pepper whole', 'whole pepper', 'sabut kali mirch', 'miriyalu']
-  },
-  {
-    key: 'pepper_powder',
-    nameMatch: /black pepper powder/i,
-    category: 'Spices',
-    canonical: 'Black Pepper Powder (Premium Quality)',
-    synonyms: ['black pepper powder', 'pepper powder', 'kali mirch powder', 'miriyala podi']
   },
   {
     key: 'coriander_powder',
@@ -695,9 +674,9 @@ function detectPriceFilter(query) {
   else if (/\bdry fruits?\b|\bnuts?\b|\balmonds?\b|\bcashews?\b|\bwalnuts?\b|\bpistachio/i.test(clean)) categoryFilter = 'Dry Fruits';
   else if (/\bspices?\b|\bmasala\b|\bchilli\b|\bturmeric\b|\bpodi\b|\bpowders?\b/i.test(clean)) categoryFilter = 'Powders & Masalas';
 
-  // 6. Specific item keywords (e.g. "mustard", "groundnut", "coconut", "almond", etc.)
+  // 6. Specific item keywords (e.g. "groundnut", "coconut", "almond", etc.)
   const knownKeywords = [
-    'groundnut', 'mustard', 'sesame', 'coconut', 'sunflower', 'castor',
+    'groundnut', 'sesame', 'coconut', 'sunflower', 'castor',
     'ghee', 'honey', 'almond', 'cashew', 'walnut', 'pista', 'anjeer', 'raisin',
     'chia', 'flax', 'chilli', 'turmeric', 'coriander', 'pappula'
   ];
@@ -760,7 +739,7 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
   if (/^product information$|^product info$/i.test(lower)) {
     const liveProds = await findLiveProducts('oils', 3);
     return {
-      reply: `🌿 **Arshith Fresh Product Catalog:**\nWe specialize in 100% pure, farm-fresh essentials:\n• **Cold-Pressed Oils:** Wood-pressed Groundnut, Coconut, Sesame, Mustard, Sunflower, Castor Oil (zero chemicals, zero trans fat)\n• **Pure Bilona Ghee:** Handcrafted A2 Desi Cow Ghee & Buffalo Ghee\n• **Authentic Spices:** Stone-ground Turmeric, Chilli powder, Coriander, Karampodi\n• **Natural Sweeteners:** Raw Honey\n• **Groceries:** Premium Dry Fruits, Nuts & Healthy Seeds`,
+      reply: `🌿 **Arshith Fresh Product Catalog:**\nWe specialize in 100% pure, farm-fresh essentials:\n• **Cold-Pressed Oils:** Wood-pressed Groundnut, Coconut, Sesame, Sunflower, Castor Oil (zero chemicals, zero trans fat)\n• **Pure Bilona Ghee:** Handcrafted A2 Desi Cow Ghee & Buffalo Ghee\n• **Authentic Spices:** Stone-ground Turmeric, Chilli powder, Coriander, Karampodi\n• **Natural Sweeteners:** Raw Honey\n• **Groceries:** Premium Dry Fruits, Nuts & Healthy Seeds`,
       category: 'PRODUCTS',
       chips: ['What products are available?', 'How do I check a product\'s price?', 'How do I check ingredients or product specifications?', 'Is this product currently available?'],
       products: liveProds,
@@ -1028,7 +1007,7 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
           const lowestPrice = allSorted.length > 0 ? allSorted[0].price : 49;
           const lowestSample = allSorted.slice(0, 4);
 
-          const reply = `We currently do not have ${priceFilter.categoryFilter ? priceFilter.categoryFilter.toLowerCase() + ' ' : ''}products under **₹${priceFilter.maxPrice || priceFilter.minPrice}**.\n\nOur most affordable 100% natural, farm-fresh essentials start from **₹${lowestPrice}** (such as stone-ground Chilli Powder at ₹49, Flax Seeds at ₹90, and Castor Oil at ₹95).\n\nHere are our best budget-friendly options available right now:`;
+          const reply = `We currently do not have ${priceFilter.categoryFilter ? priceFilter.categoryFilter.toLowerCase() + ' ' : ''}products under **₹${priceFilter.maxPrice || priceFilter.minPrice}**.\n\nOur most affordable 100% natural, farm-fresh essentials start from **₹${lowestPrice}** (such as stone-ground Chilli Powder at ₹49, Castor Oil at ₹95, and Flax Seeds at ₹149).\n\nHere are our best budget-friendly options available right now:`;
 
           return {
             reply,
@@ -1110,7 +1089,7 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
       if (catalogMatch.type === 'UNAVAILABLE_SPECIFIC') {
         if (catalogMatch.category === 'Oils') {
           return {
-            reply: `We currently do not stock **${catalogMatch.requested} oil** in our inventory.\n\nWe specialize in 100% pure, chemical-free cold-pressed traditional oils including:\n• **Groundnut Oil**\n• **Sesame Oil (Gingelly / Til)**\n• **Coconut Oil**\n• **Sunflower Oil**\n• **Mustard Oil**\n• **Castor Oil**\n\nWould you like to explore any of these pure cold-pressed oils?`,
+            reply: `We currently do not stock **${catalogMatch.requested} oil** in our inventory.\n\nWe specialize in 100% pure, chemical-free cold-pressed traditional oils including:\n• **Groundnut Oil**\n• **Sesame Oil (Gingelly / Til)**\n• **Coconut Oil**\n• **Sunflower Oil**\n• **Castor Oil**\n\nWould you like to explore any of these pure cold-pressed oils?`,
             category: 'PRODUCTS',
             chips: ['Show all oils', 'Shop Products', 'Talk to Support'],
             products: [],

@@ -45,8 +45,8 @@ const CATALOG_DATA = [
     price: 95,
     originalPrice: 118,
     unit: '250 ml',
-    image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334049&width=533',
-    hoverImage: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.40_PM_1_73d71147-06da-4205-b360-66ad1642a18c.jpg?v=1757334049&width=533'
+    image: '/assets/images/products/castor_oil_250ml.png',
+    hoverImage: '/assets/images/products/castor_oil_250ml.png'
   },
   {
     handle: 'coconut-oil-premium',

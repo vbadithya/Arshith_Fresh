@@ -30,7 +30,7 @@ const FAQ_DATA = [
   {
     category: 'GREETINGS',
     question: 'What products do you sell?',
-    answer: "We offer 6 core categories of pure, chemical-free food essentials:\n1. 🥥 **Cold-Pressed Oils**: Groundnut, Coconut, Sesame/Gingelly, Sunflower, Deepam Oil & Mustard Oil.\n2. 🍯 **Ghee & Honey**: Pure A2 Desi Cow Bilona Ghee, Buffalo Ghee & Raw Wild Forest Honey.\n3. 🌶️ **Spices & Podulu**: Turmeric, Guntur Red Chilli, Coriander, Sambar Masala, Pappula Podi & Karampodi.\n4. 🥜 **Dry Fruits & Seeds**: California Almonds, Whole Cashews, Walnuts, Chia & Flax Seeds.\n5. 🥭 **Traditional Pickles**: Avakaya (Mango), Gongura, Lemon & Tomato Pickles.\n6. 🌾 **Cooking Essentials**: Sulphur-free sugar, natural jaggery & premium pulses.",
+    answer: "We offer 6 core categories of pure, chemical-free food essentials:\n1. 🥥 **Cold-Pressed Oils**: Groundnut, Coconut, Sesame/Gingelly, Sunflower, Castor & Deepam Oil.\n2. 🍯 **Ghee & Honey**: Pure A2 Desi Cow Bilona Ghee, Buffalo Ghee & Raw Wild Forest Honey.\n3. 🌶️ **Spices & Podulu**: Turmeric, Guntur Red Chilli, Coriander, Sambar Masala, Pappula Podi & Karampodi.\n4. 🥜 **Dry Fruits & Seeds**: California Almonds, Whole Cashews, Walnuts, Chia & Flax Seeds.\n5. 🥭 **Traditional Pickles**: Avakaya (Mango), Gongura, Lemon & Tomato Pickles.\n6. 🌾 **Cooking Essentials**: Sulphur-free sugar, natural jaggery & premium pulses.",
     keywords: ['what products do you sell', 'product list', 'catalog', 'what do you offer', 'categories', 'items available'],
     followUps: ['Show me cold-pressed oils', 'Tell me about your A2 cow ghee', 'How do I place an order?'],
     quickActions: [
@@ -99,7 +99,7 @@ const FAQ_DATA = [
   {
     category: 'PRODUCTS',
     question: 'What products are available?',
-    answer: "All our active products are sourced directly from verified organic farmers. Our collection includes:\n• **Oils**: Groundnut Oil (₹349/1L), Sunflower Oil (₹499/1L), Sesame Oil (₹148/500ml), Coconut Oil (₹155/500ml), Mustard Oil.\n• **Ghee & Honey**: Pure A2 Cow Ghee (₹240/250ml), Pure Buffalo Ghee (₹222/250ml), Raw Natural Honey (₹130/250g).\n• **Spices**: Guntur Chilli, Salem Turmeric, Coriander, Pappula Podi, Karampodi.\n• **Dry Fruits**: California Almonds, Cashew Nuts, Walnuts.\n• **Pickles**: Avakaya Mango, Gongura, Lemon Pickles.\n\nAsk me for any item to view its current live stock and price!",
+    answer: "All our active products are sourced directly from verified organic farmers. Our collection includes:\n• **Oils**: Groundnut Oil (₹399/1L), Sunflower Oil (₹559/1L), Sesame Oil (₹115/250ml), Coconut Oil (₹174/250ml), Castor Oil (₹112/250ml).\n• **Ghee & Honey**: Pure A2 Cow Ghee (₹2249/1L), Pure Buffalo Ghee (₹2449/1L), Raw Natural Honey (₹650/1kg).\n• **Spices**: Guntur Chilli, Salem Turmeric, Coriander, Pappula Podi, Karampodi.\n• **Dry Fruits**: California Almonds, Cashew Nuts, Walnuts.\n• **Pickles**: Avakaya Mango, Gongura, Lemon Pickles.\n\nAsk me for any item to view its current live stock and price!",
     keywords: ['what products are available', 'available items', 'list of items in stock', 'what do you have in stock'],
     followUps: ['Show me cold pressed oils', 'Show me pure cow ghee', 'Are there any discounts?'],
     quickActions: [
@@ -110,7 +110,7 @@ const FAQ_DATA = [
   {
     category: 'PRODUCTS',
     question: 'How do I search for a product?',
-    answer: "You can search in three easy ways:\n1. **Search Bar**: Type any keyword (e.g. 'Ghee', 'Mustard') into the search box in the top website header.\n2. **Category Directory**: Tap the 'Collections' tab or category circles on the homepage.\n3. **Directly in this Chat**: Tell me what you're looking for, and I'll pull live product cards with photos and 'Add to Cart' buttons right here!",
+    answer: "You can search in three easy ways:\n1. **Search Bar**: Type any keyword (e.g. 'Ghee', 'Castor Oil') into the search box in the top website header.\n2. **Category Directory**: Tap the 'Collections' tab or category circles on the homepage.\n3. **Directly in this Chat**: Tell me what you're looking for, and I'll pull live product cards with photos and 'Add to Cart' buttons right here!",
     keywords: ['how do i search', 'search product', 'how to find item', 'search bar'],
     followUps: ['Can you recommend products?', 'How do I view product details?'],
     order: 10
@@ -710,7 +710,7 @@ const FAQ_DATA = [
   {
     category: 'PRODUCTS',
     question: 'Which oil is best for heart health and cholesterol?',
-    answer: "For heart health and maintaining healthy cholesterol levels, cold-pressed oils are ideal because they retain natural plant sterols, monounsaturated fatty acids (MUFA), and polyunsaturated fatty acids (PUFA):\n• **Groundnut Oil**: Rich in resveratrol, oleic acid (MUFA), and vitamin E, helping lower LDL (bad) cholesterol while preserving HDL.\n• **Sesame (Gingelly) Oil**: Packed with sesamol and sesaminol, powerful antioxidants proven to support healthy blood pressure and artery health.\n• **Mustard Oil**: High in alpha-linolenic acid (omega-3) and balanced fatty acids.\n• **Pure A2 Cow Ghee**: Contains conjugated linoleic acid (CLA) and butyric acid which aid cardiovascular wellness in moderation.\nAll our oils are 100% unrefined and cold-pressed below 45°C without trans fats or chemical solvents.",
+    answer: "For heart health and maintaining healthy cholesterol levels, cold-pressed oils are ideal because they retain natural plant sterols, monounsaturated fatty acids (MUFA), and polyunsaturated fatty acids (PUFA):\n• **Groundnut Oil**: Rich in resveratrol, oleic acid (MUFA), and vitamin E, helping lower LDL (bad) cholesterol while preserving HDL.\n• **Sesame (Gingelly) Oil**: Packed with sesamol and sesaminol, powerful antioxidants proven to support healthy blood pressure and artery health.\n• **Sunflower Oil**: High in polyunsaturated linoleic acid and vitamin E.\n• **Pure A2 Cow Ghee**: Contains conjugated linoleic acid (CLA) and butyric acid which aid cardiovascular wellness in moderation.\nAll our oils are 100% unrefined and cold-pressed below 45°C without trans fats or chemical solvents.",
     keywords: [
       'best oil for heart', 'oil for cholesterol', 'heart health oil', 'bp oil',
       'cardiac health', 'healthy oil for heart', 'cholesterol free', 'which oil for heart',
@@ -725,12 +725,12 @@ const FAQ_DATA = [
   {
     category: 'PRODUCTS',
     question: 'Which oil is best for diabetes and sugar patients?',
-    answer: "For managing blood sugar and diabetic wellness:\n• **Cold-Pressed Mustard Oil & Sesame Oil**: Naturally rich in alpha-linolenic acid and magnesium, helping improve insulin sensitivity and glycemic control.\n• **Cold-Pressed Groundnut Oil**: Has a low glycemic impact and healthy fats that stabilize post-meal glucose spikes.\n• **Superfood Seeds**: Our **Chia Seeds** and **Flax Seeds** are packed with soluble dietary fiber and omega-3s, which slow carbohydrate absorption.\n• **Natural Sweetener Alternative**: Replace refined white sugar with our **Wild Forest Raw Honey** or **Organic Jaggery** for a gentler glycemic index.",
+    answer: "For managing blood sugar and diabetic wellness:\n• **Cold-Pressed Sesame Oil & Groundnut Oil**: Naturally rich in magnesium and heart-healthy unsaturated fats, helping improve insulin sensitivity and glycemic control.\n• **Superfood Seeds**: Our **Chia Seeds** and **Flax Seeds** are packed with soluble dietary fiber and omega-3s, which slow carbohydrate absorption.\n• **Natural Sweetener Alternative**: Replace refined white sugar with our **Wild Forest Raw Honey** or **Organic Jaggery** for a gentler glycemic index.",
     keywords: [
       'oil for diabetes', 'diabetic friendly oil', 'sugar patient oil', 'diabetes cooking oil',
       'best oil for diabetics', 'sugar patient', 'diabetic', 'diabetes', 'blood sugar'
     ],
-    followUps: ['Show me mustard oil', 'Show me chia seeds', 'Show me raw honey'],
+    followUps: ['Show me sesame oil', 'Show me chia seeds', 'Show me raw honey'],
     quickActions: [
       { label: 'View All Collections', action: 'url', value: '/pages/collections.html' }
     ],

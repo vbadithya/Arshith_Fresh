@@ -15,8 +15,8 @@ const defaultBannerData = {
   buttonLink: 'pages/collections.html?category=all',
   image: 'assets/images/festive-dussehra-banner.jpg',
   bannerType: 'homepage_festive',
-  isActive: true,
-  showPopupModal: true,
+  isActive: false,
+  showPopupModal: false,
   deal1Title: '20% OFF on Fresh Fruits',
   deal1Sub: 'Almonds, Cashews & Native Organic Fruits',
   deal1Badge: '20% OFF',
@@ -70,18 +70,14 @@ function sanitizeBanner(b) {
 // @desc    Get the current active banner for Homepage & Festive Popup
 router.get('/active', async (req, res) => {
   try {
-    let activeBanner = await Banner.findOne({ isActive: true }).sort({ updatedAt: -1 });
+    const activeBanner = await Banner.findOne({ isActive: true }).sort({ updatedAt: -1 });
     if (!activeBanner) {
-      // Check if any banner exists at all
-      activeBanner = await Banner.findOne({}).sort({ updatedAt: -1 });
-      if (!activeBanner) {
-        activeBanner = await Banner.create(defaultBannerData);
-      }
+      return res.json({ success: true, banner: null });
     }
     res.json({ success: true, banner: sanitizeBanner(activeBanner) });
   } catch (error) {
     console.error('Error fetching active banner:', error);
-    res.json({ success: true, banner: sanitizeBanner(defaultBannerData) });
+    res.json({ success: true, banner: null });
   }
 });
 
