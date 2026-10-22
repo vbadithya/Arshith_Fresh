@@ -2057,11 +2057,235 @@
             if (!summaryList || !subtotalEl || !totalEl) return;
 
             const items = getActiveCartItems();
+            function getCheckoutItemPricing(item) {
+                let price = Number(item.price || 0);
+                let orig = Number(item.originalPrice || item.compareAtPrice || item.mrp || 0);
+                const name = String(item.title || item.name || item.id || '').toLowerCase();
+                const weight = String(item.weight || item.unit || '').toLowerCase();
+
+                if (name.includes('groundnut')) {
+                    price = 399;
+                    orig = 512;
+                } else if (name.includes('sunflower') && (name.includes('oil') || !name.includes('seed'))) {
+                    price = 559;
+                    orig = 699;
+                } else if (name.includes('sesame') && (name.includes('oil') || !name.includes('seed'))) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 229;
+                        orig = 294;
+                    } else {
+                        price = 115;
+                        orig = 147;
+                    }
+                } else if (name.includes('castor') && (name.includes('oil') || name.includes('castor-oil'))) {
+                    price = 112;
+                    orig = 147;
+                } else if (name.includes('coconut') && (name.includes('oil') || name.includes('coconut-oil'))) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 349;
+                        orig = 448;
+                    } else {
+                        price = 174;
+                        orig = 223;
+                    }
+                } else if (name.includes('buffalo') && (name.includes('ghee') || name.includes('pure-buffalo'))) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 1224;
+                        orig = 1570;
+                    } else {
+                        price = 612;
+                        orig = 785;
+                    }
+                } else if (name.includes('cow') && (name.includes('ghee') || name.includes('pure-cow'))) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 1124;
+                        orig = 1441;
+                    } else {
+                        price = 562;
+                        orig = 721;
+                    }
+                } else if (name.includes('honey')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 325;
+                        orig = 417;
+                    } else {
+                        price = 162.50;
+                        orig = 208.50;
+                    }
+                } else if (name.includes('cashew') || name.includes('kaju')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 658;
+                        orig = 844;
+                    } else {
+                        price = 329;
+                        orig = 422;
+                    }
+                } else if (name.includes('almond') || name.includes('badam')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 570;
+                        orig = 730;
+                    } else {
+                        price = 285;
+                        orig = 365;
+                    }
+                } else if (name.includes('fig') || name.includes('anjeer')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 950;
+                        orig = 1218;
+                    } else {
+                        price = 475;
+                        orig = 609;
+                    }
+                } else if (name.includes('pistachio') || name.includes('pista')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 788;
+                        orig = 1010;
+                    } else {
+                        price = 394;
+                        orig = 505;
+                    }
+                } else if (name.includes('date') || name.includes('khajoor') || name.includes('kharjur')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 512;
+                        orig = 656;
+                    } else {
+                        price = 256;
+                        orig = 328;
+                    }
+                } else if (name.includes('walnut') || name.includes('akhrot')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 778;
+                        orig = 998;
+                    } else {
+                        price = 389;
+                        orig = 499;
+                    }
+                } else if (name.includes('raisin') || name.includes('kishmish')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 376;
+                        orig = 482;
+                    } else {
+                        price = 188;
+                        orig = 241;
+                    }
+                } else if (name.includes('flax')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 298;
+                        orig = 382;
+                    } else {
+                        price = 149;
+                        orig = 191;
+                    }
+                } else if (name.includes('chia')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 378;
+                        orig = 485;
+                    } else {
+                        price = 189;
+                        orig = 242;
+                    }
+                } else if (name.includes('pumpkin')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 448;
+                        orig = 574;
+                    } else {
+                        price = 224;
+                        orig = 287;
+                    }
+                } else if (name.includes('sunflower') && (name.includes('seed') || !name.includes('oil'))) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 390;
+                        orig = 500;
+                    } else {
+                        price = 195;
+                        orig = 250;
+                    }
+                } else if (name.includes('watermelon')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 450;
+                        orig = 577;
+                    } else {
+                        price = 225;
+                        orig = 288;
+                    }
+                } else if (name.includes('sabja') || name.includes('basil')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 378;
+                        orig = 485;
+                    } else {
+                        price = 189;
+                        orig = 242;
+                    }
+                } else if (name.includes('sesame') || name.includes('til')) {
+                    if (weight.includes('500') || name.includes('500')) {
+                        price = 358;
+                        orig = 459;
+                    } else {
+                        price = 179;
+                        orig = 230;
+                    }
+                } else if (name.includes('chilli') || name.includes('chili') || name.includes('mirchi')) {
+                    price = 699;
+                    orig = 896;
+                } else if (name.includes('coriander') || name.includes('dhania')) {
+                    if (weight.includes('250') || name.includes('250')) {
+                        price = 149;
+                        orig = 191;
+                    } else {
+                        price = 59;
+                        orig = 76;
+                    }
+                } else if (name.includes('garam') && name.includes('masala')) {
+                    if (weight.includes('250') || name.includes('250')) {
+                        price = 99;
+                        orig = 127;
+                    } else {
+                        price = 39;
+                        orig = 50;
+                    }
+                } else if (
+                    name.includes('pappula') || name.includes('chana dal') ||
+                    name.includes('kobbari') ||
+                    name.includes('nalla karam') ||
+                    name.includes('vellulli') || name.includes('garlic') ||
+                    name.includes('karivepaku')
+                ) {
+                    if (weight.includes('250') || name.includes('250')) {
+                        price = 199;
+                        orig = 255;
+                    } else {
+                        price = 79;
+                        orig = 101;
+                    }
+                }
+
+                let discount = 25;
+                if (orig > price) {
+                    const raw = ((orig - price) / orig) * 100;
+                    if (raw >= 21.5 && raw <= 25.5) {
+                        discount = Math.round(raw);
+                    } else {
+                        discount = 25;
+                        orig = Math.round(price / 0.75);
+                    }
+                } else if (price > 0) {
+                    discount = 25;
+                    orig = Math.round(price / 0.75);
+                }
+
+                return {
+                    price,
+                    originalPrice: orig,
+                    discount,
+                    savings: Math.max(0, orig - price)
+                };
+            }
+
             const totalCount = items.reduce((sum, item) => sum + (item.quantity || item.qty || 1), 0);
             const subtotal = items.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || item.qty || 1)), 0);
             const itemsOriginalMRP = items.reduce((sum, item) => {
-                const orig = item.compareAtPrice || item.mrp || item.originalPrice || Math.round((item.price || 0) * 1.15);
-                return sum + (orig * (item.quantity || item.qty || 1));
+                const pr = getCheckoutItemPricing(item);
+                return sum + (pr.originalPrice * (item.quantity || item.qty || 1));
             }, 0);
 
             // Dynamic Delivery Fee Tiers: 100-300: ₹50 | 301-999: ₹30 | 1000+: FREE
@@ -2142,9 +2366,6 @@
             const finalTotal = Math.max(0, subtotal - appliedDiscount - redeemedCoinsDiscount + deliveryCharge + selectedDonationAmount);
             const totalSavings = itemSavings + appliedDiscount + redeemedCoinsDiscount;
 
-
-
-
             if (items.length === 0) {
                 summaryList.innerHTML = `
                     <div class="empty-checkout-cart" style="text-align: center; padding: 28px 16px; background: #ffffff; border-radius: 12px; border: 1px dashed #cbd5e1; margin-bottom: 20px;">
@@ -2161,20 +2382,32 @@
                     const itemKey = String(item.id || item._id || item.product || item.title || item.name || '').trim();
                     const safeTitle = (item.title || item.name || 'Product').replace(/'/g, "\\'");
                     const safeKey = itemKey.replace(/'/g, "\\'");
+                    const itemQty = item.quantity || item.qty || 1;
+                    const pr = getCheckoutItemPricing(item);
+                    const itemSaleTotal = (item.price || 0) * itemQty;
+                    const itemOrigTotal = pr.originalPrice * itemQty;
+                    const itemSavings = Math.max(0, itemOrigTotal - itemSaleTotal);
+
                     return `
                         <div class="summary-item-row">
                             <div class="summary-item-left">
                                 <div class="summary-img-wrap">
                                     <img src="${item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495'}" alt="${item.title || item.name}" class="summary-img" onerror="this.onerror=null; this.src='https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495';">
-                                    <span class="summary-qty-badge">${item.quantity || item.qty || 1}</span>
+                                    <span class="summary-qty-badge">${itemQty}</span>
                                 </div>
                                 <div>
                                     <h4 class="summary-item-title">${item.title || item.name}</h4>
                                     <p class="summary-item-weight">${item.weight || item.unit || 'Standard'}</p>
+                                    <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 3px; flex-wrap: wrap;">
+                                        <span style="font-weight: 800; color: #1e293b; font-size: 13.5px;">₹${itemSaleTotal.toFixed(0)}</span>
+                                        <span style="text-decoration: line-through; color: #94a3b8; font-size: 11.5px; font-weight: 500;">₹${itemOrigTotal.toFixed(0)}</span>
+                                        <span style="background: #e6f7ed; color: #0f7139; font-size: 9.5px; font-weight: 800; padding: 1px 4px; border-radius: 4px; border: 1px solid #bbf7d0;">${pr.discount}% OFF</span>
+                                    </div>
+                                    ${itemSavings > 0 ? `<div style="color: #16a34a; font-size: 11px; font-weight: 700; margin-top: 2px;">Save ₹${itemSavings.toFixed(0)}</div>` : ''}
                                 </div>
                             </div>
                             <div class="summary-item-right">
-                                <div class="summary-item-price">₹${((item.price || 0) * (item.quantity || item.qty || 1)).toFixed(0)}</div>
+                                <div class="summary-item-price" style="font-weight: 800; color: #1e293b;">₹${itemSaleTotal.toFixed(0)}</div>
                                 <button type="button" 
                                         class="summary-remove-btn" 
                                         onclick="removeCheckoutItem('${safeKey}')" 
@@ -2964,8 +3197,8 @@
                 title: "Almonds (Badam) (Premium Quality)",
                 weight: "250 g",
                 rating: "4.9 ★",
-                price: 225,
-                originalPrice: 295,
+                price: 285,
+                originalPrice: 365,
                 image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/dryfruits_200x200_crop_center.png?v=1746965740",
                 badge: "Bestseller"
             },
@@ -2975,8 +3208,8 @@
                 title: "Figs (Dry Anjeer) (Premium Quality)",
                 weight: "250 g",
                 rating: "4.92 ★",
-                price: 375,
-                originalPrice: 480,
+                price: 475,
+                originalPrice: 609,
                 image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/dryfruits_200x200_crop_center.png?v=1746965740",
                 badge: "Premium"
             },
@@ -2986,8 +3219,8 @@
                 title: "Walnuts (Akhrot) (Premium Quality)",
                 weight: "250 g",
                 rating: "4.9 ★",
-                price: 320,
-                originalPrice: 420,
+                price: 389,
+                originalPrice: 499,
                 image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/dryfruits_200x200_crop_center.png?v=1746965740",
                 badge: "Superfood"
             },
@@ -3064,7 +3297,7 @@
                 weight: "1 Litre",
                 rating: "4.9 ★",
                 price: 399,
-                originalPrice: 499,
+                originalPrice: 512,
                 image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
                 badge: "Top Seller"
             },

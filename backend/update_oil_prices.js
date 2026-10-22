@@ -35,7 +35,7 @@ async function updateOilPrices() {
     );
     console.log(`Updated Groundnut Oil: ${gnRes.modifiedCount} document(s)`);
 
-    // 2. Sunflower Oil: MRP 559, 22% discount = 436 per litre
+    // 2. Sunflower Oil: MRP 699, 20% discount = 559 per litre
     const sfRes = await Product.updateMany(
       {
         $or: [
@@ -46,8 +46,8 @@ async function updateOilPrices() {
       },
       {
         $set: {
-          price: 436,
-          originalPrice: 559,
+          price: 559,
+          originalPrice: 699,
           unit: '1 L'
         }
       }

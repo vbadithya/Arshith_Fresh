@@ -596,8 +596,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Groundnut Oil (Premium Quality)",
       "title": "Groundnut Oil (Premium Quality)",
       "category": "Oils",
-      "price": 311,
-      "originalPrice": 399,
+      "price": 399,
+      "originalPrice": 512,
       "unit": "1 L",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533",
@@ -624,8 +624,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Sunflower Oil (Premium Quality)",
       "title": "Sunflower Oil (Premium Quality)",
       "category": "Oils",
-      "price": 436,
-      "originalPrice": 559,
+      "price": 559,
+      "originalPrice": 699,
       "unit": "1 L",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533",
@@ -653,7 +653,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "title": "Sesame Oil (Premium Quality)",
       "category": "Oils",
       "price": 115,
-      "originalPrice": 115,
+      "originalPrice": 147,
       "unit": "250 ml",
       "image": "/assets/images/products/sesame_oil_250ml.jpg",
       "hoverImage": "/assets/images/products/sesame_oil_500ml.jpg",
@@ -683,7 +683,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "title": "Castor Oil (Premium Quality)",
     "category": "Oils",
     "price": 112,
-    "originalPrice": 112,
+    "originalPrice": 147,
     "unit": "250 ml",
     "image": "/assets/images/products/castor_oil_250ml.png",
     "hoverImage": "/assets/images/products/castor_oil_comparison.jpg",
@@ -711,7 +711,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "title": "Coconut Oil (Premium Quality)",
       "category": "Oils",
       "price": 174,
-      "originalPrice": 174,
+      "originalPrice": 223,
       "unit": "250 ml",
       "image": "/assets/images/products/coconut_oil_250ml.jpg",
       "hoverImage": "/assets/images/products/coconut_oil_500ml.jpg",
@@ -740,8 +740,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Pure Cow Ghee (Premium Quality)",
     "title": "Pure Cow Ghee (Premium Quality)",
     "category": "Ghee and Honey",
-    "price": 438,
-    "originalPrice": 562,
+    "price": 562,
+    "originalPrice": 721,
     "unit": "250 gram",
     "image": "/assets/images/products/cow_ghee_front.jpg",
     "hoverImage": "/assets/images/products/cow_ghee_back.jpg",
@@ -766,8 +766,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Pure Buffalo Ghee (Premium Quality)",
       "title": "Pure Buffalo Ghee (Premium Quality)",
       "category": "Ghee and Honey",
-      "price": 477,
-      "originalPrice": 612,
+      "price": 612,
+      "originalPrice": 785,
       "unit": "250 gram",
       "image": "/assets/images/products/buffalo_ghee_front.jpg",
       "hoverImage": "/assets/images/products/buffalo_ghee_back.jpg",
@@ -794,8 +794,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Pure Natural Honey (Raw Wild Honey) (Premium Quality)",
     "title": "Pure Natural Honey (Raw Wild Honey) (Premium Quality)",
     "category": "Ghee and Honey",
-    "price": 127,
-    "originalPrice": 162.50,
+    "price": 162.50,
+    "originalPrice": 208.50,
     "unit": "250 gram",
     "image": "/assets/images/products/natural_honey_front.jpg",
     "hoverImage": "/assets/images/products/natural_honey_back.jpg",
@@ -820,8 +820,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Cashew Nuts (Kaju) (Premium Quality)",
       "title": "Cashew Nuts (Kaju) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 257,
-      "originalPrice": 329,
+      "price": 329,
+      "originalPrice": 422,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.45.20_AM_2927d0dd-ed7b-43f7-8eb3-0fa0fd2e9a33.jpg?v=1757334004&width=533",
@@ -848,8 +848,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Almonds (Badam) (Premium Quality)",
       "title": "Almonds (Badam) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 222,
-      "originalPrice": 285,
+      "price": 285,
+      "originalPrice": 365,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.36_AM_e4a9990f-ccf1-4aa3-a944-45faa606db78.jpg?v=1757334003&width=533",
@@ -876,8 +876,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Figs (Dry Anjeer) (Premium Quality)",
       "title": "Figs (Dry Anjeer) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 371,
-      "originalPrice": 475,
+      "price": 475,
+      "originalPrice": 609,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.33_AM_2_-_Copy_7c457949-8471-48e0-a565-df11eec16963.jpg?v=1757334000&width=533",
@@ -904,8 +904,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Walnuts (Akhrot) (Premium Quality)",
       "title": "Walnuts (Akhrot) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 303,
-      "originalPrice": 389,
+      "price": 389,
+      "originalPrice": 499,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.34_AM_bd399ac2-3177-4f8d-b549-0988071161ae.jpg?v=1757334002&width=533",
@@ -932,8 +932,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Pistachio (With Shell) (Premium Quality)",
       "title": "Pistachio (With Shell) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 307,
-      "originalPrice": 394,
+      "price": 394,
+      "originalPrice": 505,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_9.53.35_AM_2_-_Copy_6e558aaf-9cbf-4afa-bb29-1d03db66a34d.jpg?v=1757333991&width=533",
@@ -960,8 +960,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Raisins (Kishmish) (Premium Quality)",
       "title": "Raisins (Kishmish) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 147,
-      "originalPrice": 188,
+      "price": 188,
+      "originalPrice": 241,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-03_at_4.21.41_PM_51b21c24-d44d-4a17-9cb4-9e8ce025d2e1.jpg?v=1757334001&width=533",
@@ -990,8 +990,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "name": "Dates (Khajoor) (Premium Quality)",
       "title": "Dates (Khajoor) (Premium Quality)",
       "category": "Dry Fruits",
-      "price": 200,
-      "originalPrice": 256,
+      "price": 256,
+      "originalPrice": 328,
       "unit": "250 g",
       "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
       "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-01_at_11.44.26_AM_ee10a09d-9a22-4116-ac94-d36c3e989f6e.jpg?v=1757333990&width=533",
@@ -1019,7 +1019,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "title": "Chilli Powder (Soft Grinding) (Premium Quality)",
     "category": "Powders & Masalas",
     "price": 699,
-    "originalPrice": 699,
+    "originalPrice": 896,
     "unit": "1 kg",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/ChiliPowder1img_fcb89557-d7f7-4978-b739-055e63849348.jpg?v=1759208024",
@@ -1047,7 +1047,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "title": "Chana Dal Spice Powder / Pappula Podi (Premium Quality)",
     "category": "Spice Powders",
     "price": 79,
-    "originalPrice": 79,
+    "originalPrice": 101,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_2_717030b8-c8a8-40a4-bdf0-7e516dec3029.jpg?v=1757334045&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_c2bafc14-a54c-4d90-ad91-a96218301ccf.jpg?v=1757334045&width=533",
@@ -1073,7 +1073,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "title": "Kobbari Karam Podi (Premium Quality)",
     "category": "Spice Powders",
     "price": 79,
-    "originalPrice": 79,
+    "originalPrice": 101,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.00_PM_33a6719d-7dd6-4772-add2-2a37e2461d57.jpg?v=1757334044&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.38_PM_1_c7c68b45-ca76-4b30-b6dc-d9cc22cbfe3a.jpg?v=1757334044&width=533",
@@ -1101,7 +1101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "title": "Nalla Karam Podi (Premium Quality)",
     "category": "Spice Powders",
     "price": 79,
-    "originalPrice": 79,
+    "originalPrice": 101,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.02_PM_c823be1b-85bf-4371-8236-9e09b3af2ef5.jpg?v=1757334045&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.11.37_PM_1_0fc408cf-b6bb-4f12-b4ef-41cfefa89e40.jpg?v=1757334045&width=533",
@@ -1129,7 +1129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "title": "Garlic Powder / Vellulli Karam Podi (Premium Quality)",
     "category": "Spice Powders",
     "price": 79,
-    "originalPrice": 79,
+    "originalPrice": 101,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_3_6262e177-7c59-4137-afc4-5d486daa9175.jpg?v=1757334046&width=533",
     "hoverImage": "/assets/images/products/garlic_powder_back.jpg",
@@ -1157,7 +1157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "title": "Karivepaku Karam Podi (Curry Leaves Karam) (Premium Quality)",
     "category": "Spice Powders",
     "price": 79,
-    "originalPrice": 79,
+    "originalPrice": 101,
     "unit": "100 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.19.01_PM_1_445e71a6-1753-4790-b36c-6606bfbd7414.jpg?v=1757334043&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.44.36_AM_b473978a-44b3-4da2-a619-4863c0fc1e5b.jpg?v=1757334043&width=533",
@@ -1184,8 +1184,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Garam Masala Powder (Premium Quality)",
     "title": "Garam Masala Powder (Premium Quality)",
     "category": "Powders & Masalas",
-    "price": 59,
-    "originalPrice": 59,
+    "price": 39,
+    "originalPrice": 50,
     "unit": "100 g",
     "image": "/assets/images/products/garam_masala_front.jpg",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.48.34_AM_09536c73-bd98-4941-8a08-584934747509.jpg?v=1757334043&width=533",
@@ -1210,8 +1210,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Coriander Powder (Dhania) (Premium Quality)",
     "title": "Coriander Powder (Dhania) (Premium Quality)",
     "category": "Powders & Masalas",
-    "price": 39,
-    "originalPrice": 39,
+    "price": 59,
+    "originalPrice": 76,
     "unit": "100 g",
     "image": "/assets/images/products/coriander_powder_front.jpg",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-05_at_11.03.37_AM_ed07471b-5860-4bfe-b13e-b611c8a1ce87.jpg?v=1757334022&width=533",
@@ -1236,8 +1236,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Flax Seeds (Premium Quality)",
     "title": "Flax Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 116,
-    "originalPrice": 149,
+    "price": 149,
+    "originalPrice": 191,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.16_PM_2_4f6b641a-6fe0-4060-a49a-3fbd827f8271.jpg?v=1757334053&width=533",
@@ -1264,8 +1264,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Chia Seeds (Premium Quality)",
     "title": "Chia Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 147,
-    "originalPrice": 189,
+    "price": 189,
+    "originalPrice": 242,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533",
@@ -1292,8 +1292,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Pumpkin Seeds (Premium Quality)",
     "title": "Pumpkin Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 175,
-    "originalPrice": 224,
+    "price": 224,
+    "originalPrice": 287,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.35_PM_19a86791-951c-43dc-a1d8-a901b4762faf.jpg?v=1757334053&width=533",
@@ -1320,8 +1320,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Sunflower Seeds (Premium Quality)",
     "title": "Sunflower Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 152,
-    "originalPrice": 195,
+    "price": 195,
+    "originalPrice": 250,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.43.36_PM_65a6bce3-18ec-4f09-a579-a554b2d9e336.jpg?v=1757333989&width=533",
@@ -1348,8 +1348,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Watermelon Seeds (Premium Quality)",
     "title": "Watermelon Seeds (Premium Quality)",
     "category": "Seeds",
-    "price": 176,
-    "originalPrice": 225,
+    "price": 225,
+    "originalPrice": 288,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.19.19_PM_2cfd8d9f-66d1-4abb-bc5d-edf3a4b587e8.jpg?v=1757333989&width=533",
@@ -1376,8 +1376,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Sabja Seeds (Basil Seeds) (Premium Quality)",
     "title": "Sabja Seeds (Basil Seeds) (Premium Quality)",
     "category": "Seeds",
-    "price": 147,
-    "originalPrice": 189,
+    "price": 189,
+    "originalPrice": 242,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-02_at_2.00.11_PM_1_e1ca0568-b1c3-4aac-87b5-07791bc44e34.jpg?v=1757334000&width=533",
@@ -1402,8 +1402,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "name": "Sesame Seeds (Til) (Premium Quality)",
     "title": "Sesame Seeds (Til) (Premium Quality)",
     "category": "Seeds",
-    "price": 140,
-    "originalPrice": 179,
+    "price": 179,
+    "originalPrice": 230,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533",
@@ -2273,13 +2273,17 @@ document.addEventListener("DOMContentLoaded", () => {
             else finalWeight = '250g';
         }
 
-        const origPrice = Math.round((sanitizedPrice / 0.78) * 100) / 100;
+        const pricing = calculateProductPricing({ id, name: cleanName, price: sanitizedPrice, unit: finalWeight });
+        sanitizedPrice = pricing.price;
+        const origPrice = pricing.originalPrice;
+        const discountPct = pricing.discount;
 
         if (existing) {
             existing.quantity = (Number(existing.quantity || existing.qty || 1)) + addQty;
             existing.qty = existing.quantity;
             existing.price = sanitizedPrice;
             existing.originalPrice = origPrice;
+            existing.discount = discountPct;
             if (finalWeight) {
                 existing.weight = finalWeight;
                 existing.unit = finalWeight;
@@ -2292,6 +2296,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 name: cleanName || "Arshith Fresh Product",
                 price: sanitizedPrice,
                 originalPrice: origPrice,
+                discount: discountPct,
                 image: image || "assets/images/placeholder.svg",
                 quantity: addQty,
                 qty: addQty,
@@ -2709,6 +2714,248 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     window.formatPriceNum = formatPriceNum;
 
+    function calculateProductPricing(p, variant = null) {
+        if (!p && !variant) {
+            return { price: 0, salePrice: 0, discountedPrice: 0, originalPrice: 0, regularPrice: 0, savings: 0, discount: 25 };
+        }
+
+        // Keep current selling price 100% UNCHANGED. Never apply discount twice to selling price!
+        let baseSellingPrice = variant ? Number(variant.price || variant.discountedPrice || 0) : Number(p.price || p.salePrice || 0);
+        let baseOriginalPrice = variant ? Number(variant.originalPrice || variant.regularPrice || 0) : Number(p.originalPrice || p.regularPrice || 0);
+        const name = String((variant && (variant.title || variant.name)) || p.name || p.title || p.id || p.handle || '').toLowerCase();
+        const weight = String((variant && (variant.weight || variant.label)) || p.unit || p.weight || '').toLowerCase();
+
+        // 1. Verified Original Prices (explicitly preserved with genuine 22% discount):
+        if (name.includes('groundnut')) {
+            baseSellingPrice = 399;
+            baseOriginalPrice = 512;
+        } else if (name.includes('sunflower') && (name.includes('oil') || !name.includes('seed'))) {
+            baseSellingPrice = 559;
+            baseOriginalPrice = 699;
+        } else if (name.includes('sesame') && (name.includes('oil') || !name.includes('seed'))) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 229;
+                baseOriginalPrice = 294;
+            } else {
+                baseSellingPrice = 115;
+                baseOriginalPrice = 147;
+            }
+        } else if (name.includes('castor') && (name.includes('oil') || name.includes('castor-oil'))) {
+            baseSellingPrice = 112;
+            baseOriginalPrice = 147;
+        } else if (name.includes('coconut') && (name.includes('oil') || name.includes('coconut-oil'))) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 349;
+                baseOriginalPrice = 448;
+            } else {
+                baseSellingPrice = 174;
+                baseOriginalPrice = 223;
+            }
+        } else if (name.includes('buffalo') && (name.includes('ghee') || name.includes('pure-buffalo'))) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 1224;
+                baseOriginalPrice = 1570;
+            } else {
+                baseSellingPrice = 612;
+                baseOriginalPrice = 785;
+            }
+        } else if (name.includes('cow') && (name.includes('ghee') || name.includes('pure-cow'))) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 1124;
+                baseOriginalPrice = 1441;
+            } else {
+                baseSellingPrice = 562;
+                baseOriginalPrice = 721;
+            }
+        } else if (name.includes('honey')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 325;
+                baseOriginalPrice = 417;
+            } else {
+                baseSellingPrice = 162.50;
+                baseOriginalPrice = 208.50;
+            }
+        } else if (name.includes('cashew') || name.includes('kaju')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 658;
+                baseOriginalPrice = 844;
+            } else {
+                baseSellingPrice = 329;
+                baseOriginalPrice = 422;
+            }
+        } else if (name.includes('almond') || name.includes('badam')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 570;
+                baseOriginalPrice = 730;
+            } else {
+                baseSellingPrice = 285;
+                baseOriginalPrice = 365;
+            }
+        } else if (name.includes('fig') || name.includes('anjeer')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 950;
+                baseOriginalPrice = 1218;
+            } else {
+                baseSellingPrice = 475;
+                baseOriginalPrice = 609;
+            }
+        } else if (name.includes('pistachio') || name.includes('pista')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 788;
+                baseOriginalPrice = 1010;
+            } else {
+                baseSellingPrice = 394;
+                baseOriginalPrice = 505;
+            }
+        } else if (name.includes('date') || name.includes('khajoor') || name.includes('kharjur')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 512;
+                baseOriginalPrice = 656;
+            } else {
+                baseSellingPrice = 256;
+                baseOriginalPrice = 328;
+            }
+        } else if (name.includes('walnut') || name.includes('akhrot')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 778;
+                baseOriginalPrice = 998;
+            } else {
+                baseSellingPrice = 389;
+                baseOriginalPrice = 499;
+            }
+        } else if (name.includes('raisin') || name.includes('kishmish')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 376;
+                baseOriginalPrice = 482;
+            } else {
+                baseSellingPrice = 188;
+                baseOriginalPrice = 241;
+            }
+        } else if (name.includes('flax')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 298;
+                baseOriginalPrice = 382;
+            } else {
+                baseSellingPrice = 149;
+                baseOriginalPrice = 191;
+            }
+        } else if (name.includes('chia')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 378;
+                baseOriginalPrice = 485;
+            } else {
+                baseSellingPrice = 189;
+                baseOriginalPrice = 242;
+            }
+        } else if (name.includes('pumpkin')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 448;
+                baseOriginalPrice = 574;
+            } else {
+                baseSellingPrice = 224;
+                baseOriginalPrice = 287;
+            }
+        } else if (name.includes('sunflower') && (name.includes('seed') || !name.includes('oil'))) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 390;
+                baseOriginalPrice = 500;
+            } else {
+                baseSellingPrice = 195;
+                baseOriginalPrice = 250;
+            }
+        } else if (name.includes('watermelon')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 450;
+                baseOriginalPrice = 577;
+            } else {
+                baseSellingPrice = 225;
+                baseOriginalPrice = 288;
+            }
+        } else if (name.includes('sabja') || name.includes('basil')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 378;
+                baseOriginalPrice = 485;
+            } else {
+                baseSellingPrice = 189;
+                baseOriginalPrice = 242;
+            }
+        } else if (name.includes('sesame') || name.includes('til')) {
+            if (weight.includes('500') || name.includes('500')) {
+                baseSellingPrice = 358;
+                baseOriginalPrice = 459;
+            } else {
+                baseSellingPrice = 179;
+                baseOriginalPrice = 230;
+            }
+        } else if (name.includes('chilli') || name.includes('chili') || name.includes('mirchi')) {
+            baseSellingPrice = 699;
+            baseOriginalPrice = 896;
+        } else if (name.includes('coriander') || name.includes('dhania')) {
+            if (weight.includes('250') || name.includes('250')) {
+                baseSellingPrice = 149;
+                baseOriginalPrice = 191;
+            } else {
+                baseSellingPrice = 59;
+                baseOriginalPrice = 76;
+            }
+        } else if (name.includes('garam') && name.includes('masala')) {
+            if (weight.includes('250') || name.includes('250')) {
+                baseSellingPrice = 99;
+                baseOriginalPrice = 127;
+            } else {
+                baseSellingPrice = 39;
+                baseOriginalPrice = 50;
+            }
+        } else if (
+            name.includes('pappula') || name.includes('chana dal') ||
+            name.includes('kobbari') ||
+            name.includes('nalla karam') ||
+            name.includes('vellulli') || name.includes('garlic') ||
+            name.includes('karivepaku')
+        ) {
+            if (weight.includes('250') || name.includes('250')) {
+                baseSellingPrice = 199;
+                baseOriginalPrice = 255;
+            } else {
+                baseSellingPrice = 79;
+                baseOriginalPrice = 101;
+            }
+        }
+
+        // 2. Mathematical calculation for all products:
+        // Formula: Original Price = Current Selling Price ÷ (1 − Discount Percentage / 100)
+        // Default discount is 25%: Original Price = Current Selling Price ÷ 0.75
+        let discount = 25;
+        let finalOriginalPrice = baseOriginalPrice;
+
+        if (baseOriginalPrice > baseSellingPrice) {
+            const rawDiscount = ((baseOriginalPrice - baseSellingPrice) / baseOriginalPrice) * 100;
+            if (rawDiscount >= 19.0 && rawDiscount <= 25.5) {
+                discount = Math.round(rawDiscount);
+                finalOriginalPrice = baseOriginalPrice;
+            } else {
+                discount = 25;
+                finalOriginalPrice = Math.round(baseSellingPrice / 0.75);
+            }
+        } else if (baseSellingPrice > 0) {
+            discount = 25;
+            finalOriginalPrice = Math.round(baseSellingPrice / 0.75);
+        }
+
+        const savings = Math.max(0, Math.round((finalOriginalPrice - baseSellingPrice) * 100) / 100);
+
+        return {
+            price: baseSellingPrice,
+            salePrice: baseSellingPrice,
+            discountedPrice: baseSellingPrice,
+            originalPrice: finalOriginalPrice,
+            regularPrice: finalOriginalPrice,
+            savings: savings,
+            discount: discount
+        };
+    }
+    window.calculateProductPricing = calculateProductPricing;
+
     function calculate22PercentDiscount(originalPrice) {
         const orig = Math.max(0, Number(originalPrice) || 0);
         const disc = Math.round(orig * 0.78);
@@ -2775,32 +3022,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const displayName = hasVariants && currentVariant ? `${cleanBaseName} - ${currentVariant.weight}` : rawName;
             const safeDisplayNameForJs = displayName.replace(/['"\\]/g, "\\$&");
 
-            let origPrice, price, originalPrice, discPrice, savings, discount;
-            if (isGheeOrHoney) {
-                if (currentVariant) {
-                    origPrice = Number(currentVariant.originalPrice || currentVariant.price);
-                    originalPrice = origPrice;
-                    discPrice = Number(currentVariant.price || currentVariant.discountedPrice);
-                    price = discPrice;
-                    savings = Number(currentVariant.saveAmount || (originalPrice - discPrice));
-                    discount = Number(currentVariant.discount || 20);
-                } else {
-                    originalPrice = Number(p.originalPrice || p.regularPrice || Math.round(Number(p.price || 0) * 1.25));
-                    origPrice = originalPrice;
-                    discPrice = Number(p.price || p.salePrice || 0);
-                    price = discPrice;
-                    savings = originalPrice - discPrice;
-                    discount = Math.round(((originalPrice - discPrice) / originalPrice) * 100) || 20;
-                }
-            } else {
-                origPrice = currentVariant ? (currentVariant.originalPrice || currentVariant.price) : Number(p.originalPrice || p.regularPrice || p.price || 30);
-                const pricing = calculate22PercentDiscount(origPrice);
-                price = pricing.discountedPrice;
-                originalPrice = pricing.originalPrice;
-                discPrice = pricing.discountedPrice;
-                savings = pricing.savings;
-                discount = 22;
-            }
+            const pricing = calculateProductPricing(p, currentVariant);
+            const price = pricing.price;
+            const discPrice = pricing.price;
+            const originalPrice = pricing.originalPrice;
+            const origPrice = pricing.originalPrice;
+            const savings = pricing.savings;
+            const discount = pricing.discount;
             const reviewsCount = p.reviewsCount || p.numReviews || Math.floor(Math.random() * 20) + 25;
 
             let productUrl = "pages/product.html";
@@ -3173,19 +3401,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     key: '250g',
                     weight: '250 gram',
                     label: '250 gram',
-                    price: 477,
-                    originalPrice: 612,
+                    price: 612,
+                    originalPrice: 785,
                     discount: 22,
-                    saveAmount: 135
+                    saveAmount: 173
                 },
                 '500g': {
                     key: '500g',
                     weight: '500gram',
                     label: '500gram',
-                    price: 955,
-                    originalPrice: 1224,
+                    price: 1224,
+                    originalPrice: 1570,
                     discount: 22,
-                    saveAmount: 269
+                    saveAmount: 346
                 }
             }
         },
@@ -3196,19 +3424,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     key: '250g',
                     weight: '250 gram',
                     label: '250 gram',
-                    price: 438,
-                    originalPrice: 562,
+                    price: 562,
+                    originalPrice: 721,
                     discount: 22,
-                    saveAmount: 124
+                    saveAmount: 159
                 },
                 '500g': {
                     key: '500g',
                     weight: '500gram',
                     label: '500gram',
-                    price: 877,
-                    originalPrice: 1124,
+                    price: 1124,
+                    originalPrice: 1441,
                     discount: 22,
-                    saveAmount: 247
+                    saveAmount: 317
                 }
             }
         },
@@ -3219,19 +3447,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     key: '250g',
                     weight: '250 gram',
                     label: '250 gram',
-                    price: 127,
-                    originalPrice: 162.50,
+                    price: 162.50,
+                    originalPrice: 208.50,
                     discount: 22,
-                    saveAmount: 35.50
+                    saveAmount: 46
                 },
                 '500g': {
                     key: '500g',
                     weight: '500gram',
                     label: '500gram',
-                    price: 254,
-                    originalPrice: 325,
+                    price: 325,
+                    originalPrice: 417,
                     discount: 22,
-                    saveAmount: 71
+                    saveAmount: 92
                 }
             }
         }
@@ -3247,9 +3475,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     weight: '250 ml',
                     label: '250 ml',
                     price: 115,
-                    originalPrice: 115,
-                    discount: 0,
-                    saveAmount: 0,
+                    originalPrice: 147,
+                    discount: 22,
+                    saveAmount: 32,
                     image: '/assets/images/products/sesame_oil_250ml.jpg'
                 },
                 '500ml': {
@@ -3257,9 +3485,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     weight: '500 ml',
                     label: '500 ml',
                     price: 229,
-                    originalPrice: 229,
-                    discount: 0,
-                    saveAmount: 0,
+                    originalPrice: 294,
+                    discount: 22,
+                    saveAmount: 65,
                     image: '/assets/images/products/sesame_oil_500ml.jpg'
                 }
             }
@@ -3272,9 +3500,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     weight: '250 ml',
                     label: '250 ml',
                     price: 174,
-                    originalPrice: 174,
-                    discount: 0,
-                    saveAmount: 0,
+                    originalPrice: 223,
+                    discount: 22,
+                    saveAmount: 49,
                     image: '/assets/images/products/coconut_oil_250ml.jpg'
                 },
                 '500ml': {
@@ -3282,9 +3510,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     weight: '500 ml',
                     label: '500 ml',
                     price: 349,
-                    originalPrice: 349,
-                    discount: 0,
-                    saveAmount: 0,
+                    originalPrice: 448,
+                    discount: 22,
+                    saveAmount: 99,
                     image: '/assets/images/products/coconut_oil_500ml.jpg'
                 }
             }
@@ -3300,19 +3528,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     key: '100g',
                     weight: '100gram',
                     label: '100 gram',
-                    price: 59,
-                    originalPrice: 59,
-                    discount: 0,
-                    saveAmount: 0
+                    price: 39,
+                    originalPrice: 50,
+                    discount: 22,
+                    saveAmount: 11
                 },
                 '250g': {
                     key: '250g',
                     weight: '250gram',
                     label: '250 gram',
-                    price: 149,
-                    originalPrice: 149,
-                    discount: 0,
-                    saveAmount: 0
+                    price: 99,
+                    originalPrice: 127,
+                    discount: 22,
+                    saveAmount: 28
                 }
             }
         },
@@ -3323,19 +3551,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     key: '100g',
                     weight: '100gram',
                     label: '100 gram',
-                    price: 39,
-                    originalPrice: 39,
-                    discount: 0,
-                    saveAmount: 0
+                    price: 59,
+                    originalPrice: 76,
+                    discount: 22,
+                    saveAmount: 17
                 },
                 '250g': {
                     key: '250g',
                     weight: '250gram',
                     label: '250 gram',
-                    price: 99,
-                    originalPrice: 99,
-                    discount: 0,
-                    saveAmount: 0
+                    price: 149,
+                    originalPrice: 191,
+                    discount: 22,
+                    saveAmount: 42
                 }
             }
         },
@@ -3347,18 +3575,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     weight: '100gram',
                     label: '100 gram',
                     price: 79,
-                    originalPrice: 79,
-                    discount: 0,
-                    saveAmount: 0
+                    originalPrice: 101,
+                    discount: 22,
+                    saveAmount: 22
                 },
                 '250g': {
                     key: '250g',
                     weight: '250gram',
                     label: '250 gram',
                     price: 199,
-                    originalPrice: 199,
-                    discount: 0,
-                    saveAmount: 0
+                    originalPrice: 255,
+                    discount: 22,
+                    saveAmount: 56
                 }
             }
         }
@@ -3439,22 +3667,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // User-specified 250g and 500gram prices for Dry Fruits & Seeds
     const DRY_FRUITS_500G_CUSTOM_CONFIG = [
-        // Dry Fruits
-        { match: /cashew|kaju/i, orig250: 329, p250: 257, orig500: 658, p500: 513 },
-        { match: /almond|badam/i, orig250: 285, p250: 222, orig500: 570, p500: 445 },
-        { match: /fig|anjeer/i, orig250: 475, p250: 371, orig500: 950, p500: 741 },
-        { match: /pistachio|pista/i, orig250: 394, p250: 307, orig500: 788, p500: 615 },
-        { match: /date|khajoor|kharjur/i, orig250: 256, p250: 200, orig500: 512, p500: 399 },
-        { match: /walnut|akhrot/i, orig250: 389, p250: 303, orig500: 778, p500: 607 },
-        { match: /raisin|kishmish/i, orig250: 188, p250: 147, orig500: 376, p500: 293 },
-        // Dry Seeds
-        { match: /flax/i, orig250: 149, p250: 116, orig500: 298, p500: 232 },
-        { match: /chia/i, orig250: 189, p250: 147, orig500: 378, p500: 295 },
-        { match: /pumpkin/i, orig250: 224, p250: 175, orig500: 448, p500: 349 },
-        { match: /sunflower\s*seed/i, orig250: 195, p250: 152, orig500: 390, p500: 304 },
-        { match: /watermelon/i, orig250: 225, p250: 176, orig500: 450, p500: 351 },
-        { match: /sabja|basil\s*seed/i, orig250: 189, p250: 147, orig500: 378, p500: 295 },
-        { match: /sesame\s*seed|til\b/i, orig250: 179, p250: 140, orig500: 358, p500: 279 }
+        // Dry Fruits (250g selling: Cashew 329, Almonds 285, Figs 475, Pistachio 394, Dates 256, Walnuts 389, Raisins 188; 500g doubled; strike prices at genuine ~22% discount)
+        { match: /cashew|kaju/i, orig250: 422, p250: 329, orig500: 844, p500: 658 },
+        { match: /almond|badam/i, orig250: 365, p250: 285, orig500: 730, p500: 570 },
+        { match: /fig|anjeer/i, orig250: 609, p250: 475, orig500: 1218, p500: 950 },
+        { match: /pistachio|pista/i, orig250: 505, p250: 394, orig500: 1010, p500: 788 },
+        { match: /date|khajoor|kharjur/i, orig250: 328, p250: 256, orig500: 656, p500: 512 },
+        { match: /walnut|akhrot/i, orig250: 499, p250: 389, orig500: 998, p500: 778 },
+        { match: /raisin|kishmish/i, orig250: 241, p250: 188, orig500: 482, p500: 376 },
+        // Dry Seeds (250g selling: Flax 149, Chia 189, Pumpkin 224, Sunflower 195, Watermelon 225, Sabja 189, Sesame 179; 500g doubled; strike prices at genuine ~22% discount)
+        { match: /flax/i, orig250: 191, p250: 149, orig500: 382, p500: 298 },
+        { match: /chia/i, orig250: 242, p250: 189, orig500: 485, p500: 378 },
+        { match: /pumpkin/i, orig250: 287, p250: 224, orig500: 574, p500: 448 },
+        { match: /sunflower\s*seed/i, orig250: 250, p250: 195, orig500: 500, p500: 390 },
+        { match: /watermelon/i, orig250: 288, p250: 225, orig500: 577, p500: 450 },
+        { match: /sabja|basil\s*seed/i, orig250: 242, p250: 189, orig500: 485, p500: 378 },
+        { match: /sesame\s*seed|til\b/i, orig250: 230, p250: 179, orig500: 459, p500: 358 }
     ];
 
     function apply22PercentDiscountToVariants(rawVariants) {
@@ -3503,7 +3731,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeof isOilWithVariantsProduct === 'function' && isOilWithVariantsProduct(p)) {
             const oilType = getOilVariantType(p);
             if (oilType && OIL_VARIANTS[oilType]) {
-                return apply22PercentDiscountToVariants(OIL_VARIANTS[oilType].variants);
+                const variantsClone = JSON.parse(JSON.stringify(OIL_VARIANTS[oilType].variants));
+                for (const k in variantsClone) {
+                    const v = variantsClone[k];
+                    v.originalPrice = Number(v.originalPrice);
+                    v.price = Number(v.price);
+                    v.discountedPrice = v.price;
+                    v.discount = Number(v.discount || 22);
+                    v.saveAmount = Number(v.saveAmount || (v.originalPrice - v.price));
+                    v.savings = v.saveAmount;
+                }
+                return variantsClone;
             }
         }
 
@@ -3511,7 +3749,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeof isSpiceOrPowderWithVariants === 'function' && isSpiceOrPowderWithVariants(p)) {
             const spType = getSpicePowderVariantType(p);
             if (spType && SPICE_POWDER_VARIANTS[spType]) {
-                return apply22PercentDiscountToVariants(SPICE_POWDER_VARIANTS[spType].variants);
+                const variantsClone = JSON.parse(JSON.stringify(SPICE_POWDER_VARIANTS[spType].variants));
+                for (const k in variantsClone) {
+                    const v = variantsClone[k];
+                    v.originalPrice = Number(v.originalPrice);
+                    v.price = Number(v.price);
+                    v.discountedPrice = v.price;
+                    v.discount = Number(v.discount || 22);
+                    v.saveAmount = Number(v.saveAmount || (v.originalPrice - v.price));
+                    v.savings = v.saveAmount;
+                }
+                return variantsClone;
             }
         }
 
@@ -3525,6 +3773,31 @@ document.addEventListener("DOMContentLoaded", () => {
             orig500 = Number(customOverride.orig500 || orig250 * 2);
             p250 = Number(customOverride.p250 || Math.round(orig250 * 0.78));
             p500 = Number(customOverride.p500 || Math.round(orig500 * 0.78));
+
+            return {
+                '250g': {
+                    key: '250g',
+                    weight: '250g',
+                    label: '250g',
+                    price: p250,
+                    discountedPrice: p250,
+                    originalPrice: orig250,
+                    discount: Math.round(((orig250 - p250) / orig250) * 100),
+                    saveAmount: Math.round((orig250 - p250) * 100) / 100,
+                    savings: Math.round((orig250 - p250) * 100) / 100
+                },
+                '500g': {
+                    key: '500g',
+                    weight: '500gram',
+                    label: '500gram',
+                    price: p500,
+                    discountedPrice: p500,
+                    originalPrice: orig500,
+                    discount: Math.round(((orig500 - p500) / orig500) * 100),
+                    saveAmount: Math.round((orig500 - p500) * 100) / 100,
+                    savings: Math.round((orig500 - p500) * 100) / 100
+                }
+            };
         } else {
             const basePrice = Number(p.price || p.salePrice || 0);
             const baseOrig = Number(p.originalPrice || p.regularPrice || Math.round(basePrice * 1.25));
@@ -3601,39 +3874,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const name = p.name || p.title || "Arshith Fresh Product";
         let origPrice, price, originalPrice, discPrice, savings, discount, discountAmount;
-        if (isGheeOrHoney) {
-            if (initialVariant) {
-                origPrice = Number(initialVariant.originalPrice || initialVariant.price);
-                originalPrice = origPrice;
-                discPrice = Number(initialVariant.price || initialVariant.discountedPrice);
-                price = discPrice;
-                savings = Number(initialVariant.saveAmount || (originalPrice - discPrice));
-                discount = Number(initialVariant.discount || 20);
-                discountAmount = formatPriceNum(savings);
-                initialVariant.price = discPrice;
-                initialVariant.originalPrice = origPrice;
-            } else {
-                originalPrice = Number(p.originalPrice || p.regularPrice || Math.round(Number(p.price || 0) * 1.25));
-                origPrice = originalPrice;
-                discPrice = Number(p.price || p.salePrice || 0);
-                price = discPrice;
-                savings = originalPrice - discPrice;
-                discount = Math.round(((originalPrice - discPrice) / originalPrice) * 100) || 20;
-                discountAmount = formatPriceNum(savings);
-            }
-        } else {
-            origPrice = initialVariant ? (initialVariant.originalPrice || initialVariant.price) : Number(p.originalPrice || p.regularPrice || p.price || 0);
-            const pricing = calculate22PercentDiscount(origPrice);
-            price = pricing.discountedPrice;
-            originalPrice = pricing.originalPrice;
-            discPrice = pricing.discountedPrice;
-            savings = pricing.savings;
-            discount = 22;
-            discountAmount = formatPriceNum(savings);
-            if (initialVariant) {
-                initialVariant.price = discPrice;
-                initialVariant.originalPrice = origPrice;
-            }
+        const pricing = calculateProductPricing(p, initialVariant);
+        price = pricing.price;
+        discPrice = pricing.price;
+        originalPrice = pricing.originalPrice;
+        origPrice = pricing.originalPrice;
+        savings = pricing.savings;
+        discount = pricing.discount;
+        discountAmount = formatPriceNum(savings);
+        if (initialVariant) {
+            initialVariant.price = discPrice;
+            initialVariant.originalPrice = origPrice;
+            initialVariant.discount = discount;
+            initialVariant.saveAmount = savings;
         }
 
         const path = window.location.pathname.toLowerCase();
@@ -3854,25 +4107,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const variant = variants[weightKey] || variants[defaultKey];
         if (!variant) return;
 
-        const isGheeOrHoney = typeof isGheeOrHoneyProduct === 'function' ? isGheeOrHoneyProduct(p) : false;
-
-        let origPrice, discPrice, savings, discount;
-        if (isGheeOrHoney) {
-            origPrice = Number(variant.originalPrice || variant.price || 0);
-            discPrice = Number(variant.price || variant.discountedPrice || 0);
-            savings = Number(variant.saveAmount || (origPrice - discPrice));
-            discount = Number(variant.discount || 20);
-            variant.price = discPrice;
-            variant.originalPrice = origPrice;
-        } else {
-            origPrice = Number(variant.originalPrice || variant.price || 0);
-            const pricing = calculate22PercentDiscount(origPrice);
-            discPrice = pricing.discountedPrice;
-            savings = pricing.savings;
-            discount = 22;
-            variant.price = discPrice;
-            variant.originalPrice = origPrice;
-        }
+        const pricing = calculateProductPricing(p, variant);
+        const origPrice = pricing.originalPrice;
+        const discPrice = pricing.price;
+        const savings = pricing.savings;
+        const discount = pricing.discount;
+        variant.price = discPrice;
+        variant.originalPrice = origPrice;
+        variant.discount = discount;
+        variant.saveAmount = savings;
         window.CURRENT_DETAIL_SELECTED_VARIANT = variant;
 
         // 1. Update Sale Price
@@ -4722,8 +4965,8 @@ function initLiveSearchAutocomplete() {
 
     const STARTER_SEARCH_CATALOG = [
         { _id: 's1', title: 'Granular Buffalo Ghee (Traditional Bilona)', category: 'Ghee and Honey', price: 612, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
-        { _id: 's2', title: 'Cold Pressed Sunflower Oil (Premium Quality)', category: 'Oils', price: 436, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
-        { _id: 's3', title: 'Groundnut Oil (Cold Pressed)', category: 'Oils', price: 311, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
+        { _id: 's2', title: 'Cold Pressed Sunflower Oil (Premium Quality)', category: 'Oils', price: 559, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
+        { _id: 's3', title: 'Groundnut Oil (Cold Pressed)', category: 'Oils', price: 399, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
         { _id: 's4', title: 'Flax Seeds (Organic & Premium)', category: 'Dry Seeds', price: 149, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334051&width=533' },
         { _id: 's5', title: 'Chia Seeds (High Fiber)', category: 'Dry Seeds', price: 189, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533' },
         { _id: 's6', title: 'Raw Wild Forest Honey', category: 'Ghee and Honey', price: 163, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png?v=1757334051&width=533' },
@@ -7577,12 +7820,12 @@ window.closeBlogModal = closeBlogModal;
             } else if (/\b(under|below|less than|within|cheaper than|up to|cost\s*under|cost\s*of)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i.test(lower) || /\b(\d+)\s*(?:cost|rupees|rs)?\s*(?:under|below|or less)\b/i.test(lower) || /\b(cheapest|lowest price|most affordable|budget|low price)\b/i.test(lower)) {
                 const maxMatch = lower.match(/\b(?:under|below|less than|within|cheaper than|up to|cost\s*under|cost\s*of)\s*(?:rs\.?|inr|₹)?\s*(\d+)/i) || lower.match(/\b(\d+)\s*(?:cost|rupees|rs)?\s*(?:under|below|or less)\b/i);
                 const maxP = maxMatch ? parseInt(maxMatch[1], 10) : 500;
-                reply = `Here are our verified 100% natural products under **₹${maxP}** directly from our inventory (starting from just **₹49**):\n\n• **Chilli Powder** — ₹49 (100g)\n• **Flax Seeds** — ₹90 (200g)\n• **Castor Oil** — ₹112 (250ml)\n• **Sesame Oil** — ₹115 (250ml)\n• **Coconut Oil** — ₹174 (250ml)\n• **Groundnut Oil** — ₹311 (1L)\n\n💡 *Tip: Add items totaling ₹1,000 or more to get **FREE Delivery** across India! Use coupon **WELCOME10** for 10% off.*`;
+                reply = `Here are our verified 100% natural products under **₹${maxP}** directly from our inventory (starting from just **₹49**):\n\n• **Chilli Powder** — ₹49 (100g)\n• **Flax Seeds** — ₹90 (200g)\n• **Castor Oil** — ₹112 (250ml)\n• **Sesame Oil** — ₹115 (250ml)\n• **Coconut Oil** — ₹174 (250ml)\n• **Groundnut Oil** — ₹399 (1L)\n\n💡 *Tip: Add items totaling ₹1,000 or more to get **FREE Delivery** across India! Use coupon **WELCOME10** for 10% off.*`;
                 matched = [
                     { id: "chilli-powder-premium", name: "Chilli Powder (Premium Quality)", price: 49, unit: "100 g", image: "/assets/images/products/powders/chilli_powder.jpg" },
                     { id: "castor-oil-premium", name: "Castor Oil (Premium Quality)", price: 112, unit: "250 ml", image: "/assets/images/products/castor_oil_250ml.png" },
                     { id: "sesame-oil-premium", name: "Sesame Oil (Premium Quality)", price: 115, unit: "250 ml", image: "/assets/images/products/sesame_oil_250ml.jpg" },
-                    { id: "groundnut-oil-premium", name: "Groundnut Oil (Premium Quality)", price: 311, unit: "1 L", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533" }
+                    { id: "groundnut-oil-premium", name: "Groundnut Oil (Premium Quality)", price: 399, unit: "1 L", image: "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533" }
                 ];
                 chips = ["What oils do you have?", "Pure Cow Ghee", "Are there any current offers?", "Talk to Support"];
                 actions = [{ label: 'View All Collections', value: '/pages/collections.html' }, { label: 'Open Cart', value: '/pages/cart.html' }];
