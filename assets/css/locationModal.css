@@ -1,0 +1,859 @@
+/* ==========================================================================
+   ARSHITH FRESH — INSTAMART-STYLE LOCATION DETECTION & MODAL SYSTEM
+   ========================================================================== */
+
+/* 1. Header Location Selector Badge */
+.header-location-selector {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 10px;
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    margin: 0;
+    max-width: 210px;
+    flex-shrink: 0;
+}
+
+.nav-location-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-left: 2px !important;
+}
+
+.nav-location-item .header-location-selector {
+    margin: 0 !important;
+}
+
+.header-location-selector:hover {
+    background: #dcfce7;
+    border-color: #22c55e;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+    transform: translateY(-1px);
+}
+
+.header-loc-pin-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #15803d;
+    flex-shrink: 0;
+}
+
+.header-loc-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    text-align: left;
+}
+
+.header-loc-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #15803d;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header-loc-desc {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.25;
+}
+
+.header-loc-address-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+}
+
+.header-loc-chevron {
+    color: #64748b;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.header-location-selector:hover .header-loc-chevron {
+    transform: translateY(1.5px);
+    color: #15803d;
+}
+
+/* Responsive adjustment for Mobile Header */
+@media screen and (max-width: 991px) {
+    .header-location-selector {
+        order: 3 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 6px 0 0 0 !important;
+        padding: 7px 12px !important;
+        background: #f8fafc !important;
+        border-color: #e2e8f0 !important;
+        display: flex !important;
+    }
+    .header-loc-address-text {
+        max-width: calc(100vw - 120px) !important;
+    }
+}
+
+/* ==========================================================================
+   2. Instamart Location Popup Modal
+   ========================================================================== */
+.arshith-loc-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 100050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.arshith-loc-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.arshith-loc-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.95) translateY(12px);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.arshith-loc-backdrop.active .arshith-loc-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal Header */
+.arshith-loc-header {
+    padding: 20px 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.arshith-loc-header-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.arshith-loc-header-sub {
+    font-size: 12.5px;
+    color: #64748b;
+    margin: 2px 0 0 0;
+}
+
+.arshith-loc-close-btn {
+    background: #f1f5f9;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #475569;
+    font-size: 18px;
+    transition: all 0.15s ease;
+}
+
+.arshith-loc-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* Modal Body */
+.arshith-loc-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Search Bar */
+.arshith-loc-search-box {
+    position: relative;
+    width: 100%;
+}
+
+.arshith-loc-search-input {
+    width: 100%;
+    padding: 13px 40px 13px 42px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 14.5px;
+    color: #0f172a;
+    outline: none;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.arshith-loc-search-input:focus {
+    background: #ffffff;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+.arshith-loc-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.arshith-loc-clear-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #e2e8f0;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #475569;
+}
+
+.arshith-loc-clear-btn.visible {
+    display: flex;
+}
+
+/* Live Search Suggestions Dropdown */
+.arshith-loc-suggestions {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.arshith-loc-suggestion-item {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f8fafc;
+    transition: background 0.15s ease;
+}
+
+.arshith-loc-suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.arshith-loc-suggestion-item:hover,
+.arshith-loc-suggestion-item.active {
+    background: #f0fdf4;
+}
+
+.arshith-loc-sugg-icon {
+    color: #16a34a;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.arshith-loc-sugg-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.arshith-loc-sugg-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.arshith-loc-sugg-sub {
+    font-size: 12px;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+.arshith-loc-sugg-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: #15803d;
+    background: #dcfce7;
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* "Use Current Location" Card */
+.arshith-loc-gps-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+}
+
+.arshith-loc-gps-card:hover {
+    background: #dcfce7;
+    border-color: #22c55e;
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.15);
+    transform: translateY(-1px);
+}
+
+.arshith-loc-gps-card.locating {
+    opacity: 0.75;
+    pointer-events: none;
+    border-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.arshith-loc-gps-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #16a34a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.arshith-loc-gps-card:hover .arshith-loc-gps-icon-box {
+    transform: scale(1.08);
+}
+
+.arshith-loc-gps-card.locating .arshith-loc-gps-icon-box {
+    background: #d97706;
+}
+
+.arshith-loc-gps-details {
+    flex: 1;
+}
+
+.arshith-loc-gps-title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #15803d;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.arshith-loc-gps-sub {
+    font-size: 12.5px;
+    color: #475569;
+    margin-top: 2px;
+}
+
+/* Status / Alert Banner */
+.arshith-loc-alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    animation: fadeInLoc 0.2s ease-out;
+}
+
+.arshith-loc-alert.info {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.arshith-loc-alert.warning {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+}
+
+.arshith-loc-alert.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+@keyframes fadeInLoc {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Saved Addresses Pill Row */
+.arshith-loc-saved-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.arshith-loc-saved-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.arshith-loc-saved-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.arshith-loc-chip {
+    padding: 8px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.arshith-loc-chip:hover {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #15803d;
+}
+
+/* ==========================================================================
+   3. Address Confirmation & Details Form (Step 2)
+   ========================================================================== */
+.arshith-loc-confirm-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: fadeInLoc 0.25s ease-out;
+}
+
+.arshith-loc-estimate-badge-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: #ecfdf5;
+    border: 1.5px solid #6ee7b7;
+}
+
+.arshith-loc-est-tag {
+    font-size: 14px;
+    font-weight: 800;
+    color: #065f46;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.arshith-loc-est-sub {
+    font-size: 12px;
+    font-weight: 600;
+    color: #047857;
+}
+
+.arshith-loc-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.arshith-loc-form-grid.full-width {
+    grid-column: span 2;
+}
+
+.arshith-loc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.arshith-loc-field.full {
+    grid-column: span 2;
+}
+
+.arshith-loc-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.arshith-loc-label .req {
+    color: #ef4444;
+}
+
+.arshith-loc-input {
+    padding: 10px 12px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 13.5px;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.arshith-loc-input:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+}
+
+.arshith-loc-input.error {
+    border-color: #ef4444;
+    background: #fff5f5;
+}
+
+.arshith-loc-error-msg {
+    font-size: 11.5px;
+    color: #dc2626;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* Modal Actions */
+.arshith-loc-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.arshith-loc-btn-primary {
+    flex: 2;
+    padding: 13px 20px;
+    background: #0f7139;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14.5px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 14px rgba(15, 113, 57, 0.25);
+}
+
+.arshith-loc-btn-primary:hover {
+    background: #0d5f30;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15, 113, 57, 0.35);
+}
+
+.arshith-loc-btn-secondary {
+    flex: 1;
+    padding: 13px 16px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.arshith-loc-btn-secondary:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* Loading Spinner */
+.arshith-loc-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spinLoc 0.6s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spinLoc {
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile Bottom Sheet Mode for Location Modal */
+@media screen and (max-width: 600px) {
+    .arshith-loc-backdrop {
+        align-items: flex-end;
+        padding: 0;
+    }
+    .arshith-loc-modal {
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 85vh;
+        transform: translateY(100%);
+    }
+    .arshith-loc-backdrop.active .arshith-loc-modal {
+        transform: translateY(0);
+    }
+    .arshith-loc-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .arshith-loc-field {
+        grid-column: span 1 !important;
+    }
+}
+
+/* ==========================================================================
+   3. Standard Delivery Timeline Card (Instamart / Express Tracking)
+   ========================================================================== */
+.arshith-loc-timeline-card {
+    margin-top: 16px;
+    padding: 18px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.arshith-loc-timeline-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+}
+
+.arshith-loc-timeline-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+    letter-spacing: -0.2px;
+}
+
+.arshith-loc-dispatch-box {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.arshith-loc-bullet-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #16a34a;
+    flex-shrink: 0;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+.arshith-loc-dispatch-text {
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: #0f172a;
+}
+
+.arshith-loc-green-highlight {
+    color: #16a34a;
+    font-weight: 700;
+}
+
+.arshith-loc-timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.arshith-loc-timeline-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: #1e293b;
+}
+
+.arshith-loc-timeline-list strong {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.arshith-loc-remote-notice {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #334155;
+    margin: 0 0 14px 0;
+}
+
+.arshith-loc-check-btn-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.arshith-loc-check-chip-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    background: #ffffff;
+    border: 1.5px solid #86efac;
+    border-radius: 9999px;
+    color: #15803d;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 6px rgba(34, 197, 94, 0.08);
+    font-family: inherit;
+    outline: none;
+}
+
+.arshith-loc-check-chip-btn:hover {
+    background: #f0fdf4;
+    border-color: #22c55e;
+    color: #166534;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.16);
+}
+
+.arshith-loc-check-chip-btn:active {
+    transform: translateY(0);
+}
+
+.arshith-loc-timeline-feedback {
+    margin-top: 12px;
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    border-radius: 12px;
+    padding: 12px 14px;
+    animation: locFeedbackSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes locFeedbackSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.loc-feedback-badge {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.arshith-loc-timeline-feedback p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #166534;
+    line-height: 1.45;
+}
+
+.pulse-focus {
+    animation: pulseInput 1.2s ease;
+}
+
+@keyframes pulseInput {
+    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+    50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.2); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.arshith-loc-confirm-timeline-info {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.confirm-timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #334155;
+}
+
+.confirm-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #16a34a;
+    flex-shrink: 0;
+}
+

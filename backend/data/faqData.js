@@ -99,7 +99,7 @@ const FAQ_DATA = [
   {
     category: 'PRODUCTS',
     question: 'What products are available?',
-    answer: "All our active products are sourced directly from verified organic farmers. Our collection includes:\n• **Oils**: Groundnut Oil (₹399/1L), Sunflower Oil (₹559/1L), Sesame Oil (₹115/250ml), Coconut Oil (₹174/250ml), Castor Oil (₹112/250ml).\n• **Ghee & Honey**: Pure A2 Cow Ghee (₹2249/1L), Pure Buffalo Ghee (₹2449/1L), Raw Natural Honey (₹650/1kg).\n• **Spices**: Guntur Chilli, Salem Turmeric, Coriander, Pappula Podi, Karampodi.\n• **Dry Fruits**: California Almonds, Cashew Nuts, Walnuts.\n• **Pickles**: Avakaya Mango, Gongura, Lemon Pickles.\n\nAsk me for any item to view its current live stock and price!",
+    answer: "All our active products are sourced directly from verified organic farmers with a flat 22% OFF sitewide:\n• **Cold-Pressed Oils**: Groundnut Oil (₹389/1L ~₹499~), Sunflower Oil (₹545/1L ~₹699~), Sesame Oil (₹90/250ml ~₹115~), Coconut Oil (₹136/250ml ~₹174~), Castor Oil (₹87/250ml ~₹112~).\n• **Pure Bilona Ghee & Honey**: Pure A2 Desi Cow Ghee (₹2192/1L ~₹2810~), Pure Buffalo Ghee (₹2387/1L ~₹3060~), Raw Wild Honey (₹632/1kg ~₹810~).\n• **Authentic Spices & Podis**: Garam Masala (₹46/100g ~₹59~), Coriander Powder (₹30/100g ~₹39~), Pappula Podi & Karampodi (₹62/100g ~₹79~), Soft Grinding Chilli (₹545/1kg ~₹699~).\n• **Wholesome Dry Fruits & Seeds**: California Almonds (₹69/250g ~₹89~), Cashew Nuts (₹80/250g ~₹103~), Walnuts (₹95/250g ~₹121.5~), Flax Seeds (₹147/250g ~₹189~), Chia Seeds (₹187/250g ~₹240~).\n\nAsk me for any item to view its current live stock, strike price, and add it directly to your cart!",
     keywords: ['what products are available', 'available items', 'list of items in stock', 'what do you have in stock'],
     followUps: ['Show me cold pressed oils', 'Show me pure cow ghee', 'Are there any discounts?'],
     quickActions: [
@@ -341,17 +341,25 @@ const FAQ_DATA = [
   {
     category: 'ORDERS_DELIVERY',
     question: 'How long does delivery take?',
-    answer: "Standard delivery timeline:\n• **Processing & Dispatch**: 24 to 48 hours (we pack freshly in tamper-evident containers).\n• **South India (Karnataka, AP, Telangana, TN, Kerala)**: 2 to 3 business days.\n• **Rest of India**: 3 to 5 business days.\nDeliveries to remote pin codes may take up to 6–7 business days. You will receive live courier tracking updates throughout.",
-    keywords: ['how long does delivery take', 'delivery time', 'when will i receive', 'shipping duration', 'delivery days'],
+    answer: "Standard delivery timeline:\n• **Processing & Dispatch**: 24 to 48 hours (we pack freshly in tamper evident containers).\n• **South India (Karnataka, AP, Telangana, TN, Kerala)**: 2 to 3 business days.\n• **Rest of India**: 3 to 5 business days.\nDeliveries to remote pin codes may take up to 6–7 business days. You will receive live courier tracking updates throughout.",
+    keywords: ['how long does delivery take', 'delivery time', 'delivery timeline', 'standard delivery timeline', 'when will i receive', 'shipping duration', 'delivery days', 'location tracking'],
     followUps: ['Do you deliver to my location?', 'Why is my order delayed?'],
+    quickActions: [
+      { label: 'Check My Location', action: 'url', value: '/pages/track-order.html' },
+      { label: 'Track Order', action: 'url', value: '/pages/track-order.html' }
+    ],
     order: 36
   },
   {
     category: 'ORDERS_DELIVERY',
     question: 'Do you deliver to my location?',
-    answer: "We ship nationwide across all 28 states and union territories in India covering 26,000+ PIN codes via reliable courier partners (BlueDart, Delhivery, Shiprocket, DTDC). You can enter your 6-digit PIN code on any product page or checkout to verify instant coverage.",
-    keywords: ['do you deliver to my location', 'pincode check', 'delivery coverage', 'serviceable pin codes', 'all india delivery'],
+    answer: "Yes! We deliver across 100% of Indian pin codes (covering all 28 states and Union Territories).\n\nStandard delivery timeline:\n• **Processing & Dispatch**: 24 to 48 hours (we pack freshly in tamper evident containers).\n• **South India (Karnataka, AP, Telangana, TN, Kerala)**: 2 to 3 business days.\n• **Rest of India**: 3 to 5 business days.\nDeliveries to remote pin codes may take up to 6–7 business days. You will receive live courier tracking updates throughout.",
+    keywords: ['do you deliver to my location', 'pincode check', 'delivery coverage', 'serviceable pin codes', 'all india delivery', 'deliver to my area', 'location delivery', 'location tracking'],
     followUps: ['How long does delivery take?', 'How do I check delivery availability?'],
+    quickActions: [
+      { label: 'Check My Location', action: 'url', value: '/pages/track-order.html' },
+      { label: 'Track Order', action: 'url', value: '/pages/track-order.html' }
+    ],
     order: 37
   },
   {

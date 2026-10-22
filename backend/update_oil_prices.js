@@ -16,7 +16,7 @@ async function updateOilPrices() {
     await mongoose.connect(uri, { serverSelectionTimeoutMS: 8000 });
     console.log('✅ Connected to MongoDB Atlas!');
 
-    // 1. Groundnut Oil: 399 per litre, MRP 499
+    // 1. Groundnut Oil: MRP 399, 22% discount = 311 per litre
     const gnRes = await Product.updateMany(
       {
         $or: [
@@ -27,15 +27,15 @@ async function updateOilPrices() {
       },
       {
         $set: {
-          price: 399,
-          originalPrice: 499,
+          price: 311,
+          originalPrice: 399,
           unit: '1 L'
         }
       }
     );
     console.log(`Updated Groundnut Oil: ${gnRes.modifiedCount} document(s)`);
 
-    // 2. Sunflower Oil: 559 per litre, MRP 699
+    // 2. Sunflower Oil: MRP 559, 22% discount = 436 per litre
     const sfRes = await Product.updateMany(
       {
         $or: [
@@ -46,8 +46,8 @@ async function updateOilPrices() {
       },
       {
         $set: {
-          price: 559,
-          originalPrice: 699,
+          price: 436,
+          originalPrice: 559,
           unit: '1 L'
         }
       }

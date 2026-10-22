@@ -2263,6 +2263,37 @@
                     }
                 }
             } catch(e) {}
+
+            // Autofill confirmed delivery location if available
+            try {
+                const deliveryLoc = JSON.parse(localStorage.getItem('arshith_delivery_location'));
+                if (deliveryLoc && deliveryLoc.pincode) {
+                    if (!document.getElementById('pinCodeInput').value) {
+                        document.getElementById('pinCodeInput').value = deliveryLoc.pincode;
+                    }
+                    if (!document.getElementById('cityInput').value && deliveryLoc.city) {
+                        document.getElementById('cityInput').value = deliveryLoc.city;
+                    }
+                    if (deliveryLoc.state && document.getElementById('stateSelect')) {
+                        const sel = document.getElementById('stateSelect');
+                        for (let i = 0; i < sel.options.length; i++) {
+                            if (sel.options[i].text.toLowerCase() === deliveryLoc.state.toLowerCase()) {
+                                sel.selectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                    if (!document.getElementById('addressInput').value) {
+                        const streetParts = [deliveryLoc.house, deliveryLoc.street, deliveryLoc.area].filter(Boolean);
+                        if (streetParts.length > 0) {
+                            document.getElementById('addressInput').value = streetParts.join(', ');
+                        }
+                    }
+                    if (deliveryLoc.landmark && !document.getElementById('apartmentInput').value) {
+                        document.getElementById('apartmentInput').value = `Near ${deliveryLoc.landmark}`;
+                    }
+                }
+            } catch(e) {}
         }
 
         async function applyCoupon(customCode) {

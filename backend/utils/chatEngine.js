@@ -63,6 +63,11 @@ async function getBotSettings() {
   };
 }
 
+const COMMON_STOPWORDS = new Set([
+  'how', 'to', 'the', 'a', 'an', 'is', 'it', 'in', 'for', 'of', 'and', 'or', 'i', 'you', 'my', 'your',
+  'do', 'can', 'will', 'be', 'on', 'at', 'by', 'with', 'from', 'as', 'what', 'which', 'where', 'why', 'me', 'we', 'asked'
+]);
+
 // Tokenize and normalize input string
 function tokenize(text) {
   return (text || '')
@@ -70,6 +75,59 @@ function tokenize(text) {
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
     .filter(t => t.length > 1);
+}
+
+// Levenshtein distance calculation for typo tolerance
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+  const matrix = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+// Comprehensive Delivery Timeline & Tracking Intent Detector with typo tolerance
+function isDeliveryTimelineInquiry(text) {
+  const clean = (text || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
+  const tokens = clean.split(/\s+/).filter(Boolean);
+
+  const hasDeliveryWord = tokens.some(t => {
+    if (['deliver', 'delivery', 'delivering', 'delivered', 'dispatch', 'dispatching', 'dispatched', 'courier', 'shipping', 'shipment', 'arrive', 'arrival', 'tracking', 'track'].includes(t)) return true;
+    if (t.length >= 5 && levenshtein(t, 'deliver') <= 2) return true;
+    if (t.length >= 6 && levenshtein(t, 'delivery') <= 2) return true;
+    return false;
+  });
+
+  const hasTimeOrLongWord = tokens.some(t => {
+    return ['long', 'time', 'days', 'hours', 'when', 'fast', 'duration', 'timeline', 'schedule'].includes(t);
+  });
+
+  const hasDeliveryPattern = (
+    /\b(how\s*(long|much\s*long|much\s*time|many\s*days|much\s*days|fast|soon))\b/i.test(clean) ||
+    /\b(when\s*(will|can|does|is))\b/i.test(clean) ||
+    /\b(delivery\s*(time|timeline|days|schedule|status|duration|speed))\b/i.test(clean) ||
+    /\b(deliver\s*to\s*(my\s*)?location)\b/i.test(clean) ||
+    /\b(standard\s*delivery)\b/i.test(clean) ||
+    /\b(location\s*tracking)\b/i.test(clean) ||
+    /\b(take\s*to\s*(deliver|reach|arrive))\b/i.test(clean)
+  );
+
+  return (hasDeliveryWord && hasTimeOrLongWord) || (hasDeliveryWord && hasDeliveryPattern) || hasDeliveryPattern;
 }
 
 // Calculate similarity score between user query and FAQ
@@ -97,25 +155,29 @@ function calculateMatchScore(queryText, faq) {
         score += 55;
       } else if (kwLower.includes(' ') && queryLower.includes(kwLower)) {
         score += 35;
-      } else if (!kwLower.includes(' ') && qTokens.includes(kwLower) && kwLower.length >= 3) {
+      } else if (!kwLower.includes(' ') && qTokens.includes(kwLower) && kwLower.length >= 3 && !COMMON_STOPWORDS.has(kwLower)) {
         score += 20;
       } else {
-        const kwTokens = tokenize(kwLower);
-        const matchCount = kwTokens.filter(t => qTokens.includes(t)).length;
-        if (matchCount > 0 && matchCount === kwTokens.length) {
-          score += 25;
-        } else if (matchCount >= 2 && kwTokens.length >= 3) {
-          score += (matchCount / kwTokens.length) * 15;
+        const kwTokens = tokenize(kwLower).filter(t => !COMMON_STOPWORDS.has(t));
+        const qContentTokens = qTokens.filter(t => !COMMON_STOPWORDS.has(t));
+        if (kwTokens.length > 0) {
+          const matchCount = kwTokens.filter(t => qContentTokens.includes(t)).length;
+          if (matchCount > 0 && matchCount === kwTokens.length) {
+            score += 25;
+          } else if (matchCount >= 2 && kwTokens.length >= 3) {
+            score += (matchCount / kwTokens.length) * 15;
+          }
         }
       }
     }
   }
 
-  // Question word overlap
-  const faqQTokens = tokenize(faq.question);
-  const matchedTokens = qTokens.filter(t => faqQTokens.includes(t));
-  if (matchedTokens.length > 0) {
-    const overlapRatio = matchedTokens.length / Math.max(qTokens.length, faqQTokens.length);
+  // Question word overlap (excluding stopwords)
+  const faqQTokens = tokenize(faq.question).filter(t => !COMMON_STOPWORDS.has(t));
+  const qContentTokens = qTokens.filter(t => !COMMON_STOPWORDS.has(t));
+  const matchedTokens = qContentTokens.filter(t => faqQTokens.includes(t));
+  if (matchedTokens.length > 0 && faqQTokens.length > 0) {
+    const overlapRatio = matchedTokens.length / Math.max(qContentTokens.length, faqQTokens.length);
     if (overlapRatio >= 0.3) {
       score += overlapRatio * 30;
     }
@@ -425,12 +487,36 @@ function formatProduct(p) {
   if (img && !img.startsWith('http://') && !img.startsWith('https://') && !img.startsWith('/')) {
     img = '/' + img;
   }
+
+  let rawPrice = Number(p.price || 0);
+  let rawOrig = Number(p.originalPrice || 0);
+
+  let price = rawPrice;
+  let originalPrice = rawOrig;
+
+  // Sitewide 22% promotional discount sync:
+  if (originalPrice > 0 && price === originalPrice) {
+    price = Math.round(originalPrice * 0.78);
+  } else if (originalPrice === 0 && price > 0) {
+    originalPrice = Math.round(price / 0.78);
+  } else if (originalPrice > 0 && price > originalPrice) {
+    const temp = price;
+    price = originalPrice;
+    originalPrice = temp;
+  }
+
+  const hasDiscount = originalPrice > price;
+  const discountPercent = hasDiscount ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
+  const savings = hasDiscount ? (originalPrice - price) : 0;
+
   return {
     id: p.id || p.handle || (p._id ? p._id.toString() : ''),
     handle: p.handle || p.id || (p._id ? p._id.toString() : ''),
     name: p.name || p.title || 'Arshith Fresh Product',
-    price: Number(p.price || 0),
-    originalPrice: Number(p.originalPrice || 0),
+    price: Number(price),
+    originalPrice: Number(originalPrice),
+    discountPercent,
+    savings,
     unit: p.unit || '',
     image: img,
     countInStock: typeof p.countInStock === 'number' ? p.countInStock : 50,
@@ -912,7 +998,24 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
     }
   }
 
-  // 2.5. Price & Budget Query Filter Engine (e.g. "under 500 cost", "products under the cost of 500", "below 300", "oils under 400", "cheapest products")
+  // 2.6 Explicit Delivery Timeline & Location Tracking Handler (Comprehensive matching with typo tolerance)
+  if (isDeliveryTimelineInquiry(text)) {
+    return {
+      reply: `📍 **Standard delivery timeline:**\n\n📦 **Processing & Dispatch:**\n• 24 to 48 hours (we pack freshly in tamper evident containers).\n\n🚚 **Delivery Timelines:**\n• **South India (Karnataka, AP, Telangana, TN, Kerala):** 2 to 3 business days.\n• **Rest of India:** 3 to 5 business days.\n\n*Deliveries to remote pin codes may take up to 6–7 business days. You will receive live courier tracking updates throughout.*\n\n✅ **We deliver to 100% of Indian PIN codes!** Tap **"Check My Location"** or **"Track Order"** to view your exact delivery estimate.`,
+      category: 'ORDERS_DELIVERY',
+      chips: ['Are there any current offers?', 'Which payment methods are supported?', 'What products do you sell?'],
+      products: [],
+      quickActions: [
+        { label: 'Check My Location', action: 'url', value: '/pages/track-order.html' },
+        { label: 'Track Order', action: 'url', value: '/pages/track-order.html' }
+      ],
+      matchedFaq: 'How long does delivery take?',
+      confidence: 1.0,
+      context: { ...context, lastIntent: 'ORDERS_DELIVERY' }
+    };
+  }
+
+  // 2.7. Price & Budget Query Filter Engine (e.g. "under 500 cost", "products under the cost of 500", "below 300", "oils under 400", "cheapest products")
   const priceFilter = detectPriceFilter(text);
   if (priceFilter && priceFilter.isPriceQuery) {
     try {
@@ -977,7 +1080,8 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
 
           const featuredBullets = matched.slice(0, 6).map(p => {
             const unitStr = p.unit ? ` (${p.unit})` : '';
-            const mrpStr = p.originalPrice && p.originalPrice > p.price ? ` ~₹${p.originalPrice}~` : '';
+            const discBadge = p.discountPercent > 0 ? ` (${p.discountPercent}% OFF)` : '';
+            const mrpStr = p.originalPrice && p.originalPrice > p.price ? ` ~₹${p.originalPrice}~${discBadge}` : '';
             return `• **${p.name}** — **₹${p.price}**${unitStr}${mrpStr}`;
           }).join('\n');
 
@@ -1041,8 +1145,10 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
         if (matchedProduct) {
           const formatted = formatProduct(matchedProduct);
           const isPriceInquiry = /price|cost|how much|rate/i.test(lower);
+          const discBadge = formatted.discountPercent > 0 ? ` (${formatted.discountPercent}% OFF)` : '';
+          const mrpStr = formatted.originalPrice > formatted.price ? ` ~₹${formatted.originalPrice}~${discBadge}` : '';
           const replyText = isPriceInquiry
-            ? `**${formatted.name}** is available for **₹${formatted.price}** (${formatted.unit || ''})${formatted.originalPrice ? ` [MRP: ₹${formatted.originalPrice}]` : ''} and is currently **In Stock** directly from our inventory:`
+            ? `**${formatted.name}** is available for **₹${formatted.price}** (${formatted.unit || ''})${mrpStr} and is currently **In Stock** directly from our inventory:`
             : `Here are our verified natural products matching **"${text}"** directly from our inventory:`;
 
           return {
@@ -1121,12 +1227,18 @@ async function processUserMessage(userMessage, context = {}, cart = []) {
   }
 
   // 5. Context resolution: If user asks follow-up like "what is the price?" with product in previous context
-  if (context.lastProductSearch && (/price|cost|how much|in stock|available|buy|details/i.test(lower))) {
+  const isAskingPriceOrStock = (
+    /\b(price|cost|how\s*much\s*(is\s*it|for\s*this|does\s*it\s*cost|\?|$)|rate|in\s*stock|available|buy\s*this|details\s*of\s*this)\b/i.test(lower)
+  ) && !/\b(deliver|delivery|shipping|ship|arrive|days|time|long|refund|cancel|return|track|order)\b/i.test(lower);
+
+  if (context.lastProductSearch && isAskingPriceOrStock) {
     const ctxProds = await findLiveProducts(context.lastProductSearch, 1);
     if (ctxProds.length > 0) {
       const p = ctxProds[0];
+      const discBadge = p.discountPercent > 0 ? ` (${p.discountPercent}% OFF)` : '';
+      const mrpStr = p.originalPrice > p.price ? ` ~₹${p.originalPrice}~${discBadge}` : '';
       return {
-        reply: `**${p.name}** is available for **₹${p.price}** (${p.unit || ''})${p.originalPrice ? ` [MRP: ₹${p.originalPrice}]` : ''} and is currently **In Stock**.`,
+        reply: `**${p.name}** is available for **₹${p.price}** (${p.unit || ''})${mrpStr} and is currently **In Stock**.`,
         category: 'PRODUCTS',
         chips: ['How do I add to cart?', 'How long does delivery take?', 'Talk to Support'],
         products: [p],

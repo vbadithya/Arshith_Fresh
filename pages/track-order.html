@@ -147,6 +147,39 @@
             <div class="track-help-text">
                 Having trouble? <a href="seller.html">Contact Support</a>
             </div>
+
+            <!-- Standard Delivery Timeline Card -->
+            <div class="arshith-loc-timeline-card" style="margin-top: 24px;">
+                <div class="arshith-loc-timeline-title">Standard delivery timeline:</div>
+                
+                <div class="arshith-loc-dispatch-box">
+                    <span class="arshith-loc-bullet-dot"></span>
+                    <div class="arshith-loc-dispatch-text">
+                        <strong>Processing &amp; Dispatch: 24 to 48 hours</strong> (we pack freshly in <span class="arshith-loc-green-highlight">evident containers).</span>
+                    </div>
+                </div>
+
+                <ul class="arshith-loc-timeline-list">
+                    <li>
+                        <span class="arshith-loc-bullet-dot"></span>
+                        <span><strong>South India (Karnataka, AP, Telangana, TN, Kerala):</strong> 2 to 3 business days.</span>
+                    </li>
+                    <li>
+                        <span class="arshith-loc-bullet-dot"></span>
+                        <span><strong>Rest of India:</strong> 3 to 5 business days.</span>
+                    </li>
+                </ul>
+
+                <p class="arshith-loc-remote-notice">
+                    Deliveries to remote pin codes may take up to 6–7 business days. You will receive live courier tracking updates throughout.
+                </p>
+
+                <div class="arshith-loc-check-btn-wrap">
+                    <button type="button" class="arshith-loc-check-chip-btn" onclick="if(window.ArshithLocation){window.ArshithLocation.open();}else{alert('Loading location service...');}">
+                        Do you deliver to my location?
+                    </button>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -200,6 +233,7 @@
     </footer>
 
     <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/locationModal.js"></script>
 </body>
 
 </html>

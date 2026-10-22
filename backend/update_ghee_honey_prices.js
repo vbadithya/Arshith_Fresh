@@ -16,40 +16,40 @@ async function updateGheeHoney() {
     await mongoose.connect(uri, { serverSelectionTimeoutMS: 8000 });
     console.log('✅ Connected to MongoDB Atlas!');
 
-    // 1. Buffalo Ghee: 1 Litre = 2449
+    // 1. Buffalo Ghee: 250 gram = 477 (orig 612)
     const bgRes = await Product.updateMany(
       { handle: 'pure-buffalo-ghee-premium' },
       { 
         $set: { 
-          price: 2449,
-          originalPrice: 3060,
-          unit: '1 Litre'
+          price: 477,
+          originalPrice: 612,
+          unit: '250 gram'
         } 
       }
     );
     console.log(`Updated Buffalo Ghee: ${bgRes.modifiedCount} document(s)`);
 
-    // 2. Cow Ghee: 1 Litre = 2249
+    // 2. Cow Ghee: 250 gram = 438 (orig 562)
     const cgRes = await Product.updateMany(
       { handle: 'pure-cow-ghee-premium' },
       { 
         $set: { 
-          price: 2249,
-          originalPrice: 2810,
-          unit: '1 Litre'
+          price: 438,
+          originalPrice: 562,
+          unit: '250 gram'
         } 
       }
     );
     console.log(`Updated Cow Ghee: ${cgRes.modifiedCount} document(s)`);
 
-    // 3. Honey: 1 kg = 650
+    // 3. Honey: 250 gram = 127 (orig 162.50)
     const hRes = await Product.updateMany(
       { handle: 'natural-honey-premium' },
       { 
         $set: { 
-          price: 650,
-          originalPrice: 810,
-          unit: '1 kg'
+          price: 127,
+          originalPrice: 162.50,
+          unit: '250 gram'
         } 
       }
     );

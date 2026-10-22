@@ -9,8 +9,8 @@ const FALLBACK_CATALOG = [
     "name": "Groundnut Oil (Premium Quality)",
     "title": "Groundnut Oil (Premium Quality)",
     "category": "Oils",
-    "price": 399,
-    "originalPrice": 499,
+    "price": 311,
+    "originalPrice": 399,
     "unit": "1 L",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.42_PM_1_3752719d-4e83-4d00-a8be-0c4d13076c23.jpg?v=1757334051&width=533",
@@ -35,8 +35,8 @@ const FALLBACK_CATALOG = [
     "name": "Sunflower Oil (Premium Quality)",
     "title": "Sunflower Oil (Premium Quality)",
     "category": "Oils",
-    "price": 559,
-    "originalPrice": 699,
+    "price": 436,
+    "originalPrice": 559,
     "unit": "1 L",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533",
     "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-28_at_4.14.16_PM_1_ee159cd3-c09a-443d-a28c-6c4b116ce904.jpg?v=1757334052&width=533",
@@ -64,20 +64,22 @@ const FALLBACK_CATALOG = [
     "price": 115,
     "originalPrice": 115,
     "unit": "250 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+    "image": "/assets/images/products/sesame_oil_250ml.jpg",
+    "hoverImage": "/assets/images/products/sesame_oil_500ml.jpg",
     "description": "Traditional wooden pressed gingelly sesame oil.",
     "rating": 4.9,
     "numReviews": 37,
     "isFeatured": true,
     "countInStock": 40,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "/assets/images/products/sesame_oil_250ml.jpg",
+      "/assets/images/products/sesame_oil_500ml.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
       "/assets/images/products/sesame_oil_bowl.jpg"
     ],
     "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
+      "/assets/images/products/sesame_oil_250ml.jpg",
+      "/assets/images/products/sesame_oil_500ml.jpg",
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
       "/assets/images/products/sesame_oil_bowl.jpg"
     ]
@@ -120,20 +122,24 @@ const FALLBACK_CATALOG = [
     "price": 174,
     "originalPrice": 174,
     "unit": "250 ml",
-    "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-    "hoverImage": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
+    "image": "/assets/images/products/coconut_oil_250ml.jpg",
+    "hoverImage": "/assets/images/products/coconut_oil_500ml.jpg",
     "description": "Pure virgin cold-pressed coconut oil.",
     "rating": 4.9,
     "numReviews": 26,
     "isFeatured": true,
     "countInStock": 35,
     "images": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
+      "/assets/images/products/coconut_oil_250ml.jpg",
+      "/assets/images/products/coconut_oil_500ml.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
+      "/assets/images/products/coconut_oil_bowl.jpg"
     ],
     "imageUrls": [
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533"
+      "/assets/images/products/coconut_oil_250ml.jpg",
+      "/assets/images/products/coconut_oil_500ml.jpg",
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_7.28.41_PM_887d3105-a7d1-45a3-b1b0-e0054291d902.jpg?v=1757334050&width=533",
+      "/assets/images/products/coconut_oil_bowl.jpg"
     ]
   },
   {
@@ -145,9 +151,9 @@ const FALLBACK_CATALOG = [
     "name": "Pure Cow Ghee (Premium Quality)",
     "title": "Pure Cow Ghee (Premium Quality)",
     "category": "Ghee and Honey",
-    "price": 2249,
-    "originalPrice": 2810,
-    "unit": "1 Litre",
+    "price": 438,
+    "originalPrice": 562,
+    "unit": "250 gram",
     "image": "/assets/images/products/cow_ghee_front.jpg",
     "hoverImage": "/assets/images/products/cow_ghee_back.jpg",
     "description": "Rich traditional A2 Gir cow ghee made using Vedic bilona method.",
@@ -171,9 +177,9 @@ const FALLBACK_CATALOG = [
     "name": "Pure Buffalo Ghee (Premium Quality)",
     "title": "Pure Buffalo Ghee (Premium Quality)",
     "category": "Ghee and Honey",
-    "price": 2449,
-    "originalPrice": 3060,
-    "unit": "1 Litre",
+    "price": 477,
+    "originalPrice": 612,
+    "unit": "250 gram",
     "image": "/assets/images/products/buffalo_ghee_front.jpg",
     "hoverImage": "/assets/images/products/buffalo_ghee_back.jpg",
     "description": "Rich traditional A2 buffalo ghee made using Vedic bilona method.",
@@ -199,9 +205,9 @@ const FALLBACK_CATALOG = [
     "name": "Pure Natural Honey / Raw Wild Honey (Premium Quality)",
     "title": "Pure Natural Honey / Raw Wild Honey (Premium Quality)",
     "category": "Ghee and Honey",
-    "price": 650,
-    "originalPrice": 810,
-    "unit": "1 kg",
+    "price": 127,
+    "originalPrice": 162.50,
+    "unit": "250 gram",
     "image": "/assets/images/products/natural_honey_front.jpg",
     "hoverImage": "/assets/images/products/natural_honey_back.jpg",
     "description": "100% pure raw unprocessed wild forest honey naturally harvested.",
@@ -225,8 +231,8 @@ const FALLBACK_CATALOG = [
     "name": "Cashew Nuts (Kaju) (Premium Quality)",
     "title": "Cashew Nuts (Kaju) (Premium Quality)",
     "category": "Dry Fruits",
-    "price": 265,
-    "originalPrice": 340,
+    "price": 257,
+    "originalPrice": 329,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b703-43bd-ae6f-6bb812afa6ba.jpg?v=1757334003&width=533",
     "description": "Whole crispy premium cashew nuts rich in antioxidants.",
@@ -251,8 +257,8 @@ const FALLBACK_CATALOG = [
     "name": "Almonds (Badam) (Premium Quality)",
     "title": "Almonds (Badam) (Premium Quality)",
     "category": "Dry Fruits",
-    "price": 225,
-    "originalPrice": 295,
+    "price": 222,
+    "originalPrice": 285,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2112456d-40bc-4ca8-a380-52828943ee32.jpg?v=1757334003&width=533",
     "description": "Hand-picked California almonds packed with protein.",
@@ -277,8 +283,8 @@ const FALLBACK_CATALOG = [
     "name": "Figs (Dry Anjeer) (Premium Quality)",
     "title": "Figs (Dry Anjeer) (Premium Quality)",
     "category": "Dry Fruits",
-    "price": 375,
-    "originalPrice": 480,
+    "price": 371,
+    "originalPrice": 475,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-16_at_6.03.06_PM_34ff0f49-adf5-47c3-979c-8e5ab7a6db71.jpg?v=1757334000&width=533",
     "description": "Rich, chewy dried figs naturally packed with iron.",
@@ -303,8 +309,8 @@ const FALLBACK_CATALOG = [
     "name": "Walnuts (Akhrot) (Premium Quality)",
     "title": "Walnuts (Akhrot) (Premium Quality)",
     "category": "Dry Fruits",
-    "price": 320,
-    "originalPrice": 420,
+    "price": 303,
+    "originalPrice": 389,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.52.28_PM_2_372210ff-499e-4854-b1ba-7ac50bb3a105.jpg?v=1757334002&width=533",
     "description": "Raw shelled California walnut halves.",
@@ -331,8 +337,8 @@ const FALLBACK_CATALOG = [
     "name": "Pistachio (With Shell) (Premium Quality)",
     "title": "Pistachio (With Shell) (Premium Quality)",
     "category": "Dry Fruits",
-    "price": 340,
-    "originalPrice": 430,
+    "price": 307,
+    "originalPrice": 394,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.30_PM_6c318297-0c92-4757-979e-e2f0cfce82b1.jpg?v=1757333991&width=533",
     "description": "Roasted salted pistachio in shell.",
@@ -356,8 +362,8 @@ const FALLBACK_CATALOG = [
     "name": "Raisins (Kishmish) (Premium Quality)",
     "title": "Raisins (Kishmish) (Premium Quality)",
     "category": "Dry Fruits",
-    "price": 140,
-    "originalPrice": 185,
+    "price": 147,
+    "originalPrice": 188,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-23_at_11.08.13_AM_4544f222-c407-433a-b6a9-1bdaf1c17e70.jpg?v=1757334001&width=533",
     "description": "Sweet golden green raisins.",
@@ -385,9 +391,9 @@ const FALLBACK_CATALOG = [
     "name": "Dates (Khajoor) (Premium Quality)",
     "title": "Dates (Khajoor) (Premium Quality)",
     "category": "Dry Fruits",
-    "price": 180,
-    "originalPrice": 225,
-    "unit": "500 g",
+    "price": 200,
+    "originalPrice": 256,
+    "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_5.03.23_PM_21ec1f88-8a08-488f-a8ce-1967e45fef85.jpg?v=1757333990&width=533",
     "description": "Soft juicy seedless dates.",
     "rating": 4.9,
@@ -582,7 +588,7 @@ const FALLBACK_CATALOG = [
     "name": "Garam Masala Powder (Premium Quality)",
     "title": "Garam Masala Powder (Premium Quality)",
     "category": "Spice Powders",
-    "price": 59,
+    "price": 46,
     "originalPrice": 59,
     "unit": "100 g",
     "image": "/assets/images/products/garam_masala_front.jpg",
@@ -607,7 +613,7 @@ const FALLBACK_CATALOG = [
     "name": "Coriander Powder (Dhania) (Premium Quality)",
     "title": "Coriander Powder (Dhania) (Premium Quality)",
     "category": "Spice Powders",
-    "price": 39,
+    "price": 30,
     "originalPrice": 39,
     "unit": "100 g",
     "image": "/assets/images/products/coriander_powder_front.jpg",
@@ -634,7 +640,7 @@ const FALLBACK_CATALOG = [
     "name": "Chilli Powder (Soft Grinding) (Premium Quality)",
     "title": "Chilli Powder (Soft Grinding) (Premium Quality)",
     "category": "Spice Powders",
-    "price": 699,
+    "price": 545,
     "originalPrice": 699,
     "unit": "1 kg",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-31_at_7.42.30_PM_1_92dd0928-e3ea-4b36-84ec-ea82c7efd33f.jpg?v=1758619712",
@@ -686,8 +692,8 @@ const FALLBACK_CATALOG = [
     "name": "Flax Seeds (Premium Quality)",
     "title": "Flax Seeds (Premium Quality)",
     "category": "Dry Seeds",
-    "price": 149,
-    "originalPrice": 189,
+    "price": 116,
+    "originalPrice": 149,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_2_ce2dcb8e-81dc-46c5-b343-1a14dff25208.jpg?v=1757334052&width=533",
     "description": "Raw organic flax seeds rich in Omega-3 fatty acids.",
@@ -712,8 +718,8 @@ const FALLBACK_CATALOG = [
     "name": "Chia Seeds (Premium Quality)",
     "title": "Chia Seeds (Premium Quality)",
     "category": "Dry Seeds",
-    "price": 189,
-    "originalPrice": 240,
+    "price": 147,
+    "originalPrice": 189,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.01_PM_6b2e5750-03f7-4a0a-b4e3-9ef639891875.jpg?v=1757333987&width=533",
     "description": "Nutritious raw black chia seeds packed with fiber.",
@@ -738,8 +744,8 @@ const FALLBACK_CATALOG = [
     "name": "Pumpkin Seeds (Premium Quality)",
     "title": "Pumpkin Seeds (Premium Quality)",
     "category": "Dry Seeds",
-    "price": 224,
-    "originalPrice": 280,
+    "price": 175,
+    "originalPrice": 224,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_75dca399-7bd1-4c42-a209-50572b825bbe.jpg?v=1757334052&width=533",
     "description": "Raw shelled green pumpkin seeds rich in zinc and magnesium.",
@@ -764,8 +770,8 @@ const FALLBACK_CATALOG = [
     "name": "Sunflower Seeds (Premium Quality)",
     "title": "Sunflower Seeds (Premium Quality)",
     "category": "Dry Seeds",
-    "price": 195,
-    "originalPrice": 245,
+    "price": 152,
+    "originalPrice": 195,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533",
     "description": "Raw peeled sunflower seeds.",
@@ -789,8 +795,8 @@ const FALLBACK_CATALOG = [
     "name": "Watermelon Seeds (Premium Quality)",
     "title": "Watermelon Seeds (Premium Quality)",
     "category": "Dry Seeds",
-    "price": 450,
-    "originalPrice": 560,
+    "price": 176,
+    "originalPrice": 225,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533",
     "description": "Raw shelled watermelon kernels.",
@@ -814,8 +820,8 @@ const FALLBACK_CATALOG = [
     "name": "Sabja Seeds (Basil Seeds) (Premium Quality)",
     "title": "Sabja Seeds (Basil Seeds) (Premium Quality)",
     "category": "Dry Seeds",
-    "price": 378,
-    "originalPrice": 475,
+    "price": 147,
+    "originalPrice": 189,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533",
     "description": "Natural cooling sweet basil seeds.",
@@ -839,8 +845,8 @@ const FALLBACK_CATALOG = [
     "name": "Sesame Seeds (Til) (Premium Quality)",
     "title": "Sesame Seeds (Til) (Premium Quality)",
     "category": "Dry Seeds",
-    "price": 179,
-    "originalPrice": 225,
+    "price": 140,
+    "originalPrice": 179,
     "unit": "250 g",
     "image": "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.00_AM_-_Copy_ac6c63f6-9657-46dd-a729-82f10320c447.jpg?v=1757333988&width=533",
     "description": "Cleaned white sesame til seeds.",
@@ -883,7 +889,11 @@ function formatProduct(p) {
     }
     if (!url || url.includes('placeholder.svg')) return;
     if (isCastor && (url.includes('11.41.18_AM_3.jpg') || url.includes('500ml') || url.includes('500_ml') || url.includes('7.28.40_PM_1'))) return;
-    if (!extracted.includes(url)) extracted.push(url);
+    if (url.includes('WhatsApp_Image_2025-08-06_at_4.24.45_PM') || url.includes('WhatsApp_Image_2025-08-22_at_11.41.18_AM_2')) return;
+    const normUrl = url.startsWith('/') ? url : (url.startsWith('http') ? url : '/' + url);
+    if (!extracted.some(u => (u === normUrl || u.replace(/^\//, '') === normUrl.replace(/^\//, '')))) {
+      extracted.push(normUrl);
+    }
   };
 
   if (Array.isArray(obj.images)) obj.images.forEach(addCandidate);
@@ -942,9 +952,9 @@ function formatProduct(p) {
         { keys: ['poppy', 'khasa'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_1_5a2dd782-b7e9-4467-9bb3-93cfc319c5c2.jpg?v=1757334005&width=533' },
         { keys: ['groundnut oil', 'groundnut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
         { keys: ['sunflower oil', 'sunflower-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
-        { keys: ['sesame oil', 'sesame-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533' },
+        { keys: ['sesame oil', 'sesame-oil'], url: '/assets/images/products/sesame_oil_250ml.jpg' },
         { keys: ['castor'], url: '/assets/images/products/castor_oil_250ml.png' },
-        { keys: ['coconut oil', 'coconut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334050&width=533' },
+        { keys: ['coconut oil', 'coconut-oil'], url: '/assets/images/products/coconut_oil_250ml.jpg' },
         { keys: ['neem'], url: '/assets/images/products/sesame_oil_bowl.jpg' },
         { keys: ['ghee', 'honey'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
         { keys: ['cashew', 'kaju'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_7.45.38_PM_83923da9-b7e9-4467-9bb3-93cfc319c5c2.jpg?v=1757334003&width=533' },
@@ -1242,6 +1252,107 @@ router.put('/bulk-category', async (req, res) => {
     res.json({ success: true, message: `Updated category for ${result.modifiedCount} products`, count: result.modifiedCount });
   } catch (error) {
     res.status(500).json({ message: 'Error updating bulk category', error: error.message });
+  }
+});
+
+// @route   ALL /api/products/sync-pricing
+// @desc    Sync MongoDB products with exact website sale prices (22% OFF) and original strike prices (MRP)
+router.all('/sync-pricing', async (req, res) => {
+  try {
+    const CANONICAL_PRICING = [
+      // Oils
+      { match: /groundnut oil/i, origPrice: 499, salePrice: 389 },
+      { match: /sunflower oil/i, origPrice: 699, salePrice: 545 },
+      { match: /sesame oil/i, origPrice: 115, salePrice: 90 },
+      { match: /castor oil/i, origPrice: 112, salePrice: 87 },
+      { match: /coconut oil/i, origPrice: 174, salePrice: 136 },
+
+      // Ghee & Honey
+      { match: /buffalo ghee/i, origPrice: 3060, salePrice: 2387 },
+      { match: /cow ghee/i, origPrice: 2810, salePrice: 2192 },
+      { match: /natural honey|raw wild honey/i, origPrice: 810, salePrice: 632 },
+
+      // Cooking Essentials
+      { match: /besan/i, origPrice: 140, salePrice: 109 },
+
+      // Spices & Powders
+      { match: /garam masala/i, origPrice: 59, salePrice: 46 },
+      { match: /coriander/i, origPrice: 39, salePrice: 30 },
+      { match: /chana dal|pappula podi/i, origPrice: 79, salePrice: 62 },
+      { match: /garlic powder|vellul/i, origPrice: 79, salePrice: 62 },
+      { match: /kobbari karam/i, origPrice: 79, salePrice: 62 },
+      { match: /nalla karam/i, origPrice: 79, salePrice: 62 },
+      { match: /karivepaku/i, origPrice: 79, salePrice: 62 },
+      { match: /chilli.*soft|soft.*chilli|chilli.*powder.*soft/i, origPrice: 699, salePrice: 545 },
+
+      // Dry Fruits
+      { match: /almond|badam/i, origPrice: 89, salePrice: 69 },
+      { match: /cashew|kaju/i, origPrice: 103, salePrice: 80 },
+      { match: /fig|anjeer/i, origPrice: 148, salePrice: 115 },
+      { match: /pistachio|pista/i, origPrice: 399, salePrice: 311 },
+      { match: /walnut|akhrot/i, origPrice: 121.5, salePrice: 95 },
+      { match: /raisin|kishmish/i, origPrice: 59, salePrice: 46 },
+      { match: /date|khajoor/i, origPrice: 125, salePrice: 98 },
+
+      // Seeds
+      { match: /flax/i, origPrice: 189, salePrice: 147 },
+      { match: /chia/i, origPrice: 240, salePrice: 187 },
+      { match: /pumpkin/i, origPrice: 280, salePrice: 218 },
+      { match: /sunflower seed/i, origPrice: 245, salePrice: 191 },
+      { match: /watermelon/i, origPrice: 560, salePrice: 437 },
+      { match: /sabja|basil seed/i, origPrice: 475, salePrice: 371 },
+      { match: /sesame seed|til seed/i, origPrice: 225, salePrice: 176 },
+
+      // Cooking Essentials
+      { match: /besan/i, origPrice: 140, salePrice: 109 }
+    ];
+
+    const allProducts = await Product.find({});
+    let updatedCount = 0;
+    const details = [];
+
+    for (const p of allProducts) {
+      const pName = (p.name || p.title || '').trim();
+      const pHandle = (p.handle || '').trim();
+
+      const matchedRule = CANONICAL_PRICING.find(r => r.match.test(pName) || r.match.test(pHandle));
+      let orig = 0;
+      let sale = 0;
+
+      if (matchedRule) {
+        orig = matchedRule.origPrice;
+        sale = matchedRule.salePrice;
+      } else {
+        orig = Number(p.originalPrice || p.price || 100);
+        sale = Math.round(orig * 0.78);
+      }
+
+      p.originalPrice = orig;
+      p.price = sale;
+      await p.save();
+      updatedCount++;
+      details.push({ handle: p.handle, name: p.name, originalPrice: orig, salePrice: sale, discount: '22% OFF' });
+    }
+
+    try {
+      const Faq = require('../models/Faq');
+      const FAQ_DATA = require('../data/faqData');
+      const { invalidateFaqCache } = require('../utils/chatEngine');
+      await Faq.deleteMany({});
+      await Faq.insertMany(FAQ_DATA.map((item, idx) => ({ ...item, isPublished: true, order: item.order || idx + 1 })));
+      if (typeof invalidateFaqCache === 'function') invalidateFaqCache();
+    } catch(e) {
+      console.warn('FAQ sync warning:', e.message);
+    }
+
+    res.json({
+      success: true,
+      message: `🎉 Successfully updated ${updatedCount} products with exact website sale & strike prices!`,
+      updatedCount,
+      products: details
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error syncing product prices', error: error.message });
   }
 });
 
