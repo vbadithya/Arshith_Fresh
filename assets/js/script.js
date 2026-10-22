@@ -2516,9 +2516,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return { primary: neutralPlaceholder, hover: '', all: [neutralPlaceholder], hasValid: false };
         }
 
-        const isCastorProduct = String(p.handle || p.slug || p.id || p._id || p.name || p.title || '').toLowerCase().includes('castor');
-        const isSesameOilProduct = String(p.handle || p.slug || p.id || p._id || p.name || p.title || '').toLowerCase().includes('sesame') && !String(p.name || p.title || '').toLowerCase().includes('seed');
-        const isCoconutOilProduct = String(p.handle || p.slug || p.id || p._id || p.name || p.title || '').toLowerCase().includes('coconut') && String(p.category || p.name || '').toLowerCase().includes('oil');
+        const allText = `${p.handle || ''} ${p.slug || ''} ${p.id || ''} ${p._id || ''} ${p.name || ''} ${p.title || ''} ${p.category || ''}`.toLowerCase();
+        const isSeedProduct = allText.includes('seed');
+        const isCastorProduct = allText.includes('castor');
+        const isSesameOilProduct = (allText.includes('sesame') || allText.includes('gingelly')) && allText.includes('oil') && !isSeedProduct;
+        const isCoconutOilProduct = allText.includes('coconut') && allText.includes('oil') && !isSeedProduct;
 
         const normKey = (u) => String(u || '').trim().replace(/^https?:\/\/[^\/]+/, '').replace(/^\//, '').split('?')[0];
 
@@ -2629,6 +2631,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     { keys: ['watermelon seed', 'watermelon-seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_97f038b4-8e5f-4d8c-92db-2f4ea8bd24c0.jpg?v=1757333989&width=533' },
                     { keys: ['sabja', 'basil seed'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.02_PM_1_50ee6a3f-891c-482c-95cd-e8fb3bace709.jpg?v=1757333999&width=533' },
                     { keys: ['poppy', 'khasa'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-05-22_at_2.34.06_PM_a31b633d-23d9-4314-9b5b-8dcdd932dab6.jpg?v=1757334024&width=533' },
+                    { keys: ['sesame seed', 'sesame-seed', 'til seed', 'sesame seeds'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-08_at_4.04.03_PM_1_6a153ddd-2028-47c7-8388-3b9f9c660240.jpg?v=1757333989&width=533' },
                     { keys: ['groundnut oil', 'groundnut-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
                     { keys: ['sunflower oil', 'sunflower-oil'], url: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
                     { keys: ['sesame oil', 'sesame-oil'], url: '/assets/images/products/sesame_oil_250ml.jpg' },
@@ -3639,12 +3642,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function isOilWithVariantsProduct(p) {
         if (!p) return false;
-        const name = String(p.name || p.title || '').toLowerCase();
-        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
-        if (name.includes('sesame') || id.includes('sesame') || name.includes('gingelly') || id.includes('gingelly')) {
+        const allText = `${p.handle || ''} ${p.slug || ''} ${p.id || ''} ${p._id || ''} ${p.name || ''} ${p.title || ''} ${p.category || ''}`.toLowerCase();
+        if (allText.includes('seed')) return false;
+        if ((allText.includes('sesame') || allText.includes('gingelly')) && allText.includes('oil')) {
             return true;
         }
-        if (name.includes('coconut') || id.includes('coconut')) {
+        if (allText.includes('coconut') && allText.includes('oil')) {
             return true;
         }
         return false;
@@ -3653,12 +3656,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getOilVariantType(p) {
         if (!p) return null;
-        const name = String(p.name || p.title || '').toLowerCase();
-        const id = String(p._id || p.id || p.handle || p.slug || '').toLowerCase();
-        if (name.includes('sesame') || id.includes('sesame') || name.includes('gingelly') || id.includes('gingelly')) {
+        const allText = `${p.handle || ''} ${p.slug || ''} ${p.id || ''} ${p._id || ''} ${p.name || ''} ${p.title || ''} ${p.category || ''}`.toLowerCase();
+        if (allText.includes('seed')) return null;
+        if ((allText.includes('sesame') || allText.includes('gingelly')) && allText.includes('oil')) {
             return 'sesame-oil';
         }
-        if (name.includes('coconut') || id.includes('coconut')) {
+        if (allText.includes('coconut') && allText.includes('oil')) {
             return 'coconut-oil';
         }
         return null;
@@ -4166,11 +4169,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // 4. Update Main Image & Active Thumbnail for Variant (especially Oils 250ml vs 500ml)
         let targetImg = variant.image || null;
         if (!targetImg && p) {
-            const nameLower = String(p.name || p.title || '').toLowerCase();
-            const idLower = String(p.id || p._id || p.handle || '').toLowerCase();
-            if (nameLower.includes('sesame') || idLower.includes('sesame')) {
+            const allText = `${p.handle || ''} ${p.slug || ''} ${p.id || ''} ${p._id || ''} ${p.name || ''} ${p.title || ''} ${p.category || ''}`.toLowerCase();
+            const isSeed = allText.includes('seed');
+            if (!isSeed && (allText.includes('sesame') || allText.includes('gingelly')) && allText.includes('oil')) {
                 targetImg = String(weightKey).includes('500') ? '/assets/images/products/sesame_oil_500ml.jpg' : '/assets/images/products/sesame_oil_250ml.jpg';
-            } else if (nameLower.includes('coconut') || idLower.includes('coconut')) {
+            } else if (!isSeed && allText.includes('coconut') && allText.includes('oil')) {
                 targetImg = String(weightKey).includes('500') ? '/assets/images/products/coconut_oil_500ml.jpg' : '/assets/images/products/coconut_oil_250ml.jpg';
             }
         }
