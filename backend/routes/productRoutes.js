@@ -73,11 +73,13 @@ const FALLBACK_CATALOG = [
     "countInStock": 40,
     "images": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+      "/assets/images/products/sesame_oil_bowl.jpg"
     ],
     "imageUrls": [
       "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533",
-      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533"
+      "https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533",
+      "/assets/images/products/sesame_oil_bowl.jpg"
     ]
   },
   {
@@ -91,17 +93,21 @@ const FALLBACK_CATALOG = [
     "originalPrice": 112,
     "unit": "250 ml",
     "image": "/assets/images/products/castor_oil_250ml.png",
-    "hoverImage": "/assets/images/products/castor_oil_250ml.png",
+    "hoverImage": "/assets/images/products/castor_oil_comparison.jpg",
     "description": "100% Pure & Organic Cold Pressed Castor Oil.",
     "rating": 4.9,
     "numReviews": 41,
     "isFeatured": true,
     "countInStock": 30,
     "images": [
-      "/assets/images/products/castor_oil_250ml.png"
+      "/assets/images/products/castor_oil_250ml.png",
+      "/assets/images/products/castor_oil_comparison.jpg",
+      "/assets/images/products/castor_oil_benefits.jpg"
     ],
     "imageUrls": [
-      "/assets/images/products/castor_oil_250ml.png"
+      "/assets/images/products/castor_oil_250ml.png",
+      "/assets/images/products/castor_oil_comparison.jpg",
+      "/assets/images/products/castor_oil_benefits.jpg"
     ]
   },
   {
@@ -892,6 +898,12 @@ function formatProduct(p) {
   addCandidate(obj.thumb);
   addCandidate(obj.photo);
   addCandidate(obj.src);
+
+  if (isCastor) {
+    addCandidate('/assets/images/products/castor_oil_250ml.png');
+    addCandidate('/assets/images/products/castor_oil_comparison.jpg');
+    addCandidate('/assets/images/products/castor_oil_benefits.jpg');
+  }
 
   // If no candidates, lookup in FALLBACK_CATALOG or keyword map
   if (extracted.length === 0) {

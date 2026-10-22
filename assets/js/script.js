@@ -666,17 +666,21 @@ document.addEventListener("DOMContentLoaded", () => {
     "originalPrice": 112,
     "unit": "250 ml",
     "image": "/assets/images/products/castor_oil_250ml.png",
-    "hoverImage": "/assets/images/products/castor_oil_250ml.png",
+    "hoverImage": "/assets/images/products/castor_oil_comparison.jpg",
     "description": "100% Pure & authentic Castor Oil (Premium Quality) freshly packed by Arshith Fresh.",
     "rating": 4.9,
     "numReviews": 35,
     "isFeatured": true,
     "countInStock": 40,
     "images": [
-      "/assets/images/products/castor_oil_250ml.png"
+      "/assets/images/products/castor_oil_250ml.png",
+      "/assets/images/products/castor_oil_comparison.jpg",
+      "/assets/images/products/castor_oil_benefits.jpg"
     ],
     "imageUrls": [
-      "/assets/images/products/castor_oil_250ml.png"
+      "/assets/images/products/castor_oil_250ml.png",
+      "/assets/images/products/castor_oil_comparison.jpg",
+      "/assets/images/products/castor_oil_benefits.jpg"
     ]
   },
   {
@@ -1446,6 +1450,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const favProducts = catalogPool.filter(p => p.isFeatured !== false).slice(0, 10);
             if (favProducts.length > 0) {
                 favGrid.innerHTML = favProducts.map(p => createProductCardHTML(p)).join('');
+                favGrid.scrollLeft = 0;
             }
         }
         const wellnessGrid = document.querySelector(".sec-wellness .products-grid");
@@ -1453,6 +1458,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const wellnessProducts = catalogPool.slice(0, 10);
             if (wellnessProducts.length > 0) {
                 wellnessGrid.innerHTML = wellnessProducts.map(p => createProductCardHTML(p)).join('');
+                wellnessGrid.scrollLeft = 0;
             }
         }
 
@@ -2494,7 +2500,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 url = (val.url || val.src || val.path || val.location || '').trim();
             }
             if (!url || url.includes('placeholder.svg')) return;
-            if (isCastorProduct && (url.includes('11.41.18_AM_3.jpg') || url.includes('500ml') || url.includes('500_ml') || url.includes('7.28.40_PM_1'))) return;
+            if (isCastorProduct && (url.includes('11.41.18_AM_3.jpg') || url.includes('500ml') || url.includes('500_ml') || url.includes('7.28.40_PM_1') || url.includes('castor_oil_back.jpg'))) return;
             if (!candidates.includes(url)) {
                 candidates.push(url);
             }
@@ -2512,6 +2518,19 @@ document.addEventListener("DOMContentLoaded", () => {
         addCandidate(p.thumb);
         addCandidate(p.photo);
         addCandidate(p.src);
+
+        if (isCastorProduct) {
+            addCandidate('/assets/images/products/castor_oil_250ml.png');
+            addCandidate('/assets/images/products/castor_oil_comparison.jpg');
+            addCandidate('/assets/images/products/castor_oil_benefits.jpg');
+        }
+
+        const isSesameOilProduct = String(p.handle || p.slug || p.id || p._id || p.name || p.title || '').toLowerCase().includes('sesame') && !String(p.name || p.title || '').toLowerCase().includes('seed');
+        if (isSesameOilProduct) {
+            addCandidate('https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-06_at_4.24.45_PM.jpg?v=1757334050&width=533');
+            addCandidate('https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-06-30_at_8.00.57_PM_64984681-9604-4e2d-9310-2e3b9187bec1.jpg?v=1757334050&width=533');
+            addCandidate('/assets/images/products/sesame_oil_bowl.jpg');
+        }
 
         // If candidates is empty or has no valid non-placeholder images, search catalog or keyword fallbacks
         if (candidates.length === 0) {
@@ -2748,7 +2767,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             return `
                 <div class="product-card ${inStock ? '' : 'product-card-out-of-stock'}" data-product-id="${id}" data-base-id="${baseId}" data-product-name="${safeDisplayNameForJs}" data-product-price="${discPrice}">
-                    <a href="${productUrl}" class="product-card-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; flex: 1 1 auto; cursor: pointer;">
+                    <a href="${productUrl}" class="product-card-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; flex: 1 1 100%; height: 100%; cursor: pointer;">
                         <div class="product-image-container ${hasSecondImage ? 'has-second-img' : ''}" ontouchstart="if (this.classList.contains('has-second-img')) { this.classList.toggle('touch-active'); }">
                             <span class="card-discount-tag">22% OFF</span>
                             <button type="button" class="product-card-wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="event.preventDefault(); event.stopPropagation(); toggleWishlistFromCard('${baseId}', '${safeDisplayNameForJs}', ${discPrice}, '${safeImgForJs}', this)" title="${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}" aria-label="Wishlist">
@@ -2768,12 +2787,12 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <span class="rating-text">4.9 / 5.0 (${reviewsCount})</span>
                             </div>
                             <div class="price-box">
-                                <div class="price-row" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
-                                    <span class="sale-price" style="font-weight: 800; color: #1e293b; font-size: 16px; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
-                                    <span class="regular-price" style="text-decoration: line-through; color: #94a3b8; font-size: 13px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
+                                <div class="price-row" style="display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%;">
+                                    <span class="sale-price" style="font-weight: 800; color: #003805; font-size: 18.5px; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
+                                    <span class="regular-price" style="text-decoration: line-through; color: #94a3b8; font-size: 14px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
                                     <span class="badge-22-off" style="background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 11px; padding: 2.5px 6px; border-radius: 4px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">22% OFF</span>
                                 </div>
-                                <div class="savings-row" style="color: #16a34a; font-size: 12px; font-weight: 700; text-align: center; width: 100%; margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                                <div class="savings-row" style="color: #16a34a; font-size: 13px; font-weight: 700; text-align: center; width: 100%; margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif;">
                                     Save ₹${formatPriceNum(savings)}
                                 </div>
                             </div>
@@ -3559,9 +3578,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     ${allImgs.length > 1 ? `
-                    <div class="product-thumbnails-carousel" style="display: flex; gap: 10px; margin-top: 14px; overflow-x: auto; padding-bottom: 4px;">
+                    <div class="product-thumbnails-carousel" style="display: flex; gap: 12px; margin-top: 16px; overflow-x: auto; padding-bottom: 6px; align-items: center;">
                         ${allImgs.map((imgUrl, i) => `
-                            <div class="detail-thumb-item ${i === 0 ? 'active' : ''}" onclick="switchDetailImage('${imgUrl.replace(/'/g, "\\'")}', this)" style="width: 72px; height: 72px; border-radius: 8px; border: 2px solid ${i === 0 ? '#0f7139' : '#e2e8f0'}; background: #fafbfc; padding: 4px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">
+                            <div class="detail-thumb-item ${i === 0 ? 'active' : ''}" 
+                                 onclick="switchDetailImage('${imgUrl.replace(/'/g, "\\'")}', this)" 
+                                 onmouseenter="switchDetailImage('${imgUrl.replace(/'/g, "\\'")}', this)"
+                                 style="width: 78px; height: 78px; border-radius: 10px; border: 2.5px solid ${i === 0 ? '#0f7139' : '#e2e8f0'}; background: #ffffff; padding: 5px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                                 <img src="${imgUrl}" alt="${name} thumbnail ${i + 1}" style="max-height: 100%; max-width: 100%; object-fit: contain;" onerror="this.onerror=null; this.src='${neutralPlaceholder}';">
                             </div>
                         `).join('')}
@@ -5545,7 +5567,7 @@ async function syncHomepageProductsWithAdminDatabase() {
 
             return `
                 <div class="product-card" data-db-id="${pId}">
-                    <a href="pages/product.html?id=${encodeURIComponent(pId)}" class="product-card-link">
+                    <a href="pages/product.html?id=${encodeURIComponent(pId)}" class="product-card-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
                         <div class="product-image-container ${imgHover !== imgPrimary ? 'has-second-img' : ''}">
                             <img src="${imgPrimary}" alt="${name}" class="primary-img" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';">
                             ${imgHover !== imgPrimary ? `<img src="${imgHover}" alt="${name} Hover" class="hover-img" onerror="this.onerror=null; this.style.display='none';">` : ''}
@@ -5558,12 +5580,12 @@ async function syncHomepageProductsWithAdminDatabase() {
                                 <span class="rating-text">${ratingText}</span>
                             </div>
                             <div class="price-box">
-                                <div class="price-row" style="display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;">
-                                    <span class="sale-price" style="font-weight: 800; color: #1e293b; font-size: 16px; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
-                                    <span class="regular-price" style="text-decoration: line-through; color: #94a3b8; font-size: 13px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
+                                <div class="price-row" style="display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%;">
+                                    <span class="sale-price" style="font-weight: 800; color: #003805; font-size: 18.5px; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
+                                    <span class="regular-price" style="text-decoration: line-through; color: #94a3b8; font-size: 14px; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(origPrice)}</span>
                                     <span class="badge-22-off" style="background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 11px; padding: 2.5px 6px; border-radius: 4px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">22% OFF</span>
                                 </div>
-                                <div class="savings-row" style="color: #16a34a; font-size: 12px; font-weight: 700; text-align: center; width: 100%; margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                                <div class="savings-row" style="color: #16a34a; font-size: 13px; font-weight: 700; text-align: center; width: 100%; margin-top: 3px; font-family: 'Plus Jakarta Sans', sans-serif;">
                                     Save ₹${formatPriceNum(savings)}
                                 </div>
                             </div>
@@ -5578,6 +5600,7 @@ async function syncHomepageProductsWithAdminDatabase() {
         if (favoriteGrid) {
             const favProducts = activeProducts.filter(p => p.isFeatured).concat(activeProducts.filter(p => !p.isFeatured));
             favoriteGrid.innerHTML = favProducts.slice(0, 10).map(buildCardHtml).join('');
+            favoriteGrid.scrollLeft = 0;
         }
 
         // 2. Oils Section
@@ -5589,6 +5612,7 @@ async function syncHomepageProductsWithAdminDatabase() {
             });
             const items = oilProducts.length > 0 ? oilProducts : activeProducts.slice(0, 8);
             oilsGrid.innerHTML = items.map(buildCardHtml).join('');
+            oilsGrid.scrollLeft = 0;
         }
 
         // 3. Dry Fruits Section
@@ -5600,6 +5624,7 @@ async function syncHomepageProductsWithAdminDatabase() {
             });
             const items = dfProducts.length > 0 ? dfProducts : activeProducts.slice(0, 8);
             dryfruitsGrid.innerHTML = items.map(buildCardHtml).join('');
+            dryfruitsGrid.scrollLeft = 0;
         }
 
         // 4. Spice Powders Section
@@ -5611,6 +5636,7 @@ async function syncHomepageProductsWithAdminDatabase() {
             });
             const items = pwProducts.length > 0 ? pwProducts : activeProducts.slice(0, 8);
             powdersGrid.innerHTML = items.map(buildCardHtml).join('');
+            powdersGrid.scrollLeft = 0;
         }
 
         // 5. Wellness Section
@@ -5622,6 +5648,7 @@ async function syncHomepageProductsWithAdminDatabase() {
             });
             const items = wlProducts.length > 0 ? wlProducts : activeProducts.slice(0, 8);
             wellnessGrid.innerHTML = items.map(buildCardHtml).join('');
+            wellnessGrid.scrollLeft = 0;
         }
 
         // 6. Seeds Section
@@ -5633,6 +5660,7 @@ async function syncHomepageProductsWithAdminDatabase() {
             });
             const items = seedProducts.length > 0 ? seedProducts : activeProducts.slice(0, 8);
             seedsGrid.innerHTML = items.map(buildCardHtml).join('');
+            seedsGrid.scrollLeft = 0;
         }
 
     } catch (err) {
