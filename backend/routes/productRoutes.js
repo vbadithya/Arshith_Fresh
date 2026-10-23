@@ -1386,6 +1386,181 @@ router.put('/bulk-status', async (req, res) => {
 // PARAMETERIZED /:id ROUTES
 // =========================================================================
 
+// @route   PUT /api/products/:id
+// @desc    Update an existing product (Admin)
+router.put('/:id', async (req, res) => {
+  try {
+    const rawId = (req.params.id || '').trim();
+    if (!rawId) {
+      return res.status(400).json({ success: false, message: 'Product ID required' });
+    }
+
+    let product = null;
+    if (rawId.match(/^[0-9a-fA-F]{24}$/)) {
+      product = await Product.findById(rawId);
+    }
+    if (!product) {
+      product = await Product.findOne({
+        $or: [
+          { handle: rawId },
+          { slug: rawId },
+          { id: rawId }
+        ]
+      });
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+
+    const data = req.body;
+
+    if (data.name !== undefined && data.name.trim()) {
+      product.name = data.name.trim();
+      product.title = data.name.trim();
+    } else if (data.title !== undefined && data.title.trim()) {
+      product.name = data.title.trim();
+      product.title = data.title.trim();
+    }
+
+    if (data.handle !== undefined && data.handle.trim()) {
+      product.handle = data.handle.trim();
+      product.slug = data.handle.trim();
+    }
+    if (data.category !== undefined && data.category.trim()) product.category = data.category.trim();
+    if (data.subcategory !== undefined) product.subcategory = data.subcategory.trim();
+    if (data.brand !== undefined) product.brand = data.brand.trim();
+    if (data.unit !== undefined) product.unit = data.unit.trim();
+    if (data.description !== undefined) product.description = data.description.trim();
+    if (data.status !== undefined) product.status = data.status.trim();
+    if (data.isFeatured !== undefined) product.isFeatured = Boolean(data.isFeatured);
+
+    if (data.countInStock !== undefined && !isNaN(Number(data.countInStock))) {
+      product.countInStock = Math.max(0, Number(data.countInStock));
+    }
+
+    // Selling Price and Original/MRP Price
+    if (data.price !== undefined && !isNaN(Number(data.price))) {
+      product.price = Number(data.price);
+    }
+    if (data.originalPrice !== undefined && !isNaN(Number(data.originalPrice))) {
+      product.originalPrice = Number(data.originalPrice);
+    }
+    if (data.compareAtPrice !== undefined && !isNaN(Number(data.compareAtPrice))) {
+      product.compareAtPrice = Number(data.compareAtPrice);
+      if (!product.originalPrice) product.originalPrice = Number(data.compareAtPrice);
+    }
+
+    // Media & Images
+    if (Array.isArray(data.images) && data.images.length > 0) {
+      product.images = data.images.map(img => {
+        if (typeof img === 'string') return { url: img.trim(), alt: product.name };
+        if (img && typeof img === 'object') return { url: (img.url || '').trim(), alt: (img.alt || product.name).trim() };
+        return null;
+      }).filter(img => img && img.url);
+
+      if (product.images.length > 0) {
+        product.image = product.images[0].url;
+      }
+    } else if (data.image && typeof data.image === 'string' && data.image.trim()) {
+      product.image = data.image.trim();
+      product.images = [{ url: data.image.trim(), alt: product.name }];
+    }
+
+    const saved = await product.save();
+    const formatted = formatProduct(saved);
+    return res.status(200).json({ success: true, message: 'Product updated successfully', ...formatted, product: formatted });
+  } catch (error) {
+    console.error('Error updating product:', error);
+    return res.status(500).json({ success: false, message: error.message || 'Error updating product' });
+  }
+});
+
+// @route   PATCH /api/products/:id
+// @desc    Patch an existing product (Admin)
+router.patch('/:id', async (req, res) => {
+  try {
+    const rawId = (req.params.id || '').trim();
+    if (!rawId) {
+      return res.status(400).json({ success: false, message: 'Product ID required' });
+    }
+
+    let product = null;
+    if (rawId.match(/^[0-9a-fA-F]{24}$/)) {
+      product = await Product.findById(rawId);
+    }
+    if (!product) {
+      product = await Product.findOne({
+        $or: [
+          { handle: rawId },
+          { slug: rawId },
+          { id: rawId }
+        ]
+      });
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+
+    const data = req.body;
+    if (data.price !== undefined && !isNaN(Number(data.price))) {
+      product.price = Number(data.price);
+    }
+    if (data.originalPrice !== undefined && !isNaN(Number(data.originalPrice))) {
+      product.originalPrice = Number(data.originalPrice);
+    }
+    if (data.countInStock !== undefined && !isNaN(Number(data.countInStock))) {
+      product.countInStock = Math.max(0, Number(data.countInStock));
+    }
+    if (data.name !== undefined) product.name = data.name.trim();
+    if (data.unit !== undefined) product.unit = data.unit.trim();
+    if (data.category !== undefined) product.category = data.category.trim();
+
+    const saved = await product.save();
+    const formatted = formatProduct(saved);
+    return res.status(200).json({ success: true, message: 'Product patched successfully', ...formatted, product: formatted });
+  } catch (error) {
+    console.error('Error patching product:', error);
+    return res.status(500).json({ success: false, message: error.message || 'Error patching product' });
+  }
+});
+
+// @route   DELETE /api/products/:id
+// @desc    Delete a product (Admin)
+router.delete('/:id', async (req, res) => {
+  try {
+    const rawId = (req.params.id || '').trim();
+    if (!rawId) {
+      return res.status(400).json({ success: false, message: 'Product ID required' });
+    }
+
+    let product = null;
+    if (rawId.match(/^[0-9a-fA-F]{24}$/)) {
+      product = await Product.findById(rawId);
+    }
+    if (!product) {
+      product = await Product.findOne({
+        $or: [
+          { handle: rawId },
+          { slug: rawId },
+          { id: rawId }
+        ]
+      });
+    }
+
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+
+    await Product.deleteOne({ _id: product._id });
+    return res.status(200).json({ success: true, message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    return res.status(500).json({ success: false, message: error.message || 'Error deleting product' });
+  }
+});
+
 // @route   GET /api/products/:id/reviews
 // @desc    Get all reviews for a product
 router.get('/:id/reviews', async (req, res) => {

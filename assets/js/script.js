@@ -2728,7 +2728,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const name = String((variant && (variant.title || variant.name)) || p.name || p.title || p.id || p.handle || '').toLowerCase();
         const weight = String((variant && (variant.weight || variant.label)) || p.unit || p.weight || '').toLowerCase();
 
-        // 1. Verified Original Prices (explicitly preserved with genuine 22% discount):
+        // 1. Verified Original Prices (only used as fallback if baseSellingPrice is not set or <= 0):
+        if (baseSellingPrice <= 0) {
         if (name.includes('groundnut')) {
             baseSellingPrice = 399;
             baseOriginalPrice = 512;
@@ -2924,25 +2925,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 baseOriginalPrice = 101;
             }
         }
+        }
 
         // 2. Mathematical calculation for all products:
-        // Formula: Original Price = Current Selling Price ÷ (1 − Discount Percentage / 100)
-        // Default discount is 25%: Original Price = Current Selling Price ÷ 0.75
-        let discount = 25;
+        let discount = 22;
         let finalOriginalPrice = baseOriginalPrice;
 
         if (baseOriginalPrice > baseSellingPrice) {
-            const rawDiscount = ((baseOriginalPrice - baseSellingPrice) / baseOriginalPrice) * 100;
-            if (rawDiscount >= 19.0 && rawDiscount <= 25.5) {
-                discount = Math.round(rawDiscount);
-                finalOriginalPrice = baseOriginalPrice;
-            } else {
-                discount = 25;
-                finalOriginalPrice = Math.round(baseSellingPrice / 0.75);
-            }
+            discount = Math.round(((baseOriginalPrice - baseSellingPrice) / baseOriginalPrice) * 100);
+            finalOriginalPrice = baseOriginalPrice;
         } else if (baseSellingPrice > 0) {
-            discount = 25;
-            finalOriginalPrice = Math.round(baseSellingPrice / 0.75);
+            discount = 22;
+            finalOriginalPrice = Math.round(baseSellingPrice / 0.78);
         }
 
         const savings = Math.max(0, Math.round((finalOriginalPrice - baseSellingPrice) * 100) / 100);
@@ -3726,6 +3720,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     v.saveAmount = Number(v.saveAmount || (v.originalPrice - v.price));
                     v.savings = v.saveAmount;
                 }
+                const dbPrice = Number(p.price || 0);
+                const dbOrig = Number(p.originalPrice || 0);
+                const pUnit = String(p.unit || '').toLowerCase();
+                const defaultKey = pUnit.includes('250') ? '250g' : (pUnit.includes('1000') || pUnit.includes('1kg') ? '1kg' : '500g');
+                if (dbPrice > 0 && variantsClone[defaultKey]) {
+                    variantsClone[defaultKey].price = dbPrice;
+                    variantsClone[defaultKey].discountedPrice = dbPrice;
+                    if (dbOrig > 0) {
+                        variantsClone[defaultKey].originalPrice = dbOrig;
+                        variantsClone[defaultKey].saveAmount = Math.max(0, dbOrig - dbPrice);
+                        variantsClone[defaultKey].savings = variantsClone[defaultKey].saveAmount;
+                        variantsClone[defaultKey].discount = Math.round(((dbOrig - dbPrice) / dbOrig) * 100);
+                    }
+                }
                 return variantsClone;
             }
         }
@@ -3744,6 +3752,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     v.saveAmount = Number(v.saveAmount || (v.originalPrice - v.price));
                     v.savings = v.saveAmount;
                 }
+                const dbPrice = Number(p.price || 0);
+                const dbOrig = Number(p.originalPrice || 0);
+                const pUnit = String(p.unit || '').toLowerCase();
+                const defaultKey = pUnit.includes('500') ? '500ml' : '250ml';
+                if (dbPrice > 0 && variantsClone[defaultKey]) {
+                    variantsClone[defaultKey].price = dbPrice;
+                    variantsClone[defaultKey].discountedPrice = dbPrice;
+                    if (dbOrig > 0) {
+                        variantsClone[defaultKey].originalPrice = dbOrig;
+                        variantsClone[defaultKey].saveAmount = Math.max(0, dbOrig - dbPrice);
+                        variantsClone[defaultKey].savings = variantsClone[defaultKey].saveAmount;
+                        variantsClone[defaultKey].discount = Math.round(((dbOrig - dbPrice) / dbOrig) * 100);
+                    }
+                }
                 return variantsClone;
             }
         }
@@ -3761,6 +3783,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     v.discount = Number(v.discount || 22);
                     v.saveAmount = Number(v.saveAmount || (v.originalPrice - v.price));
                     v.savings = v.saveAmount;
+                }
+                const dbPrice = Number(p.price || 0);
+                const dbOrig = Number(p.originalPrice || 0);
+                if (dbPrice > 0 && variantsClone['100g']) {
+                    variantsClone['100g'].price = dbPrice;
+                    variantsClone['100g'].discountedPrice = dbPrice;
+                    if (dbOrig > 0) {
+                        variantsClone['100g'].originalPrice = dbOrig;
+                        variantsClone['100g'].saveAmount = Math.max(0, dbOrig - dbPrice);
+                        variantsClone['100g'].savings = variantsClone['100g'].saveAmount;
+                        variantsClone['100g'].discount = Math.round(((dbOrig - dbPrice) / dbOrig) * 100);
+                    }
                 }
                 return variantsClone;
             }
@@ -6143,15 +6177,21 @@ async function syncHomepageRealRatingsAndReviews() {
                     if (p.title) prodMap[p.title.toLowerCase().trim()] = p;
                 });
 
-                // Update all product cards on the current page
+                // Update all product cards on the current page with live database ratings, reviews, and prices
                 const cards = document.querySelectorAll('.product-card');
                 cards.forEach(card => {
                     const headingEl = card.querySelector('.card__heading');
-                    const ratingBox = card.querySelector('.rating-box');
-                    if (!headingEl || !ratingBox) return;
+                    if (!headingEl) return;
 
                     const title = headingEl.textContent.trim().toLowerCase();
-                    const matched = prodMap[title] || Object.values(prodMap).find(p => title.includes(p.name.toLowerCase()) || p.name.toLowerCase().includes(title));
+                    const cleanTitle = title.replace(/\(.*?\)/g, '').trim();
+                    const matched = prodMap[title] || 
+                                    prodMap[cleanTitle] || 
+                                    Object.values(prodMap).find(p => {
+                                        const pName = (p.name || p.title || '').toLowerCase().trim();
+                                        const cleanPName = pName.replace(/\(.*?\)/g, '').trim();
+                                        return title.includes(cleanPName) || cleanPName.includes(cleanTitle);
+                                    });
 
                     if (matched) {
                         const count = Number(matched.numReviews || 0);
@@ -6159,16 +6199,68 @@ async function syncHomepageRealRatingsAndReviews() {
                         const starsFilled = Math.round(matched.rating || 5);
                         const starsStr = '★'.repeat(starsFilled) + '☆'.repeat(5 - starsFilled);
 
-                        const starsEl = ratingBox.querySelector('.rating-stars');
-                        const textEl = ratingBox.querySelector('.rating-text');
+                        const starsEl = card.querySelector('.rating-stars');
+                        const textEl = card.querySelector('.rating-text');
 
                         if (starsEl) starsEl.textContent = starsStr;
                         if (textEl) {
                             textEl.textContent = count > 0 ? `${rate} / 5.0 (${count})` : 'No reviews yet';
                         }
+
+                        // 🔥 DYNAMIC PRICE SYNC: Update price, original price, discount tag, savings and add to cart
+                        const pricing = typeof calculateProductPricing === 'function'
+                            ? calculateProductPricing(matched)
+                            : { price: Number(matched.price || 0), originalPrice: Number(matched.originalPrice || 0), discount: 22, savings: Math.max(0, (matched.originalPrice || 0) - (matched.price || 0)) };
+
+                        const saleEl = card.querySelector('.sale-price');
+                        const regEl = card.querySelector('.regular-price');
+                        const savingsEl = card.querySelector('.savings-row');
+                        const discountTags = card.querySelectorAll('.card-discount-tag, .badge-22-off');
+                        const addToCartBtn = card.querySelector('.add-to-cart-btn');
+                        const qtyOverlay = card.querySelector('.product-qty-overlay');
+
+                        if (saleEl) saleEl.textContent = '₹' + pricing.price;
+                        if (regEl) {
+                            if (pricing.originalPrice > pricing.price) {
+                                regEl.textContent = '₹' + pricing.originalPrice;
+                                regEl.style.display = '';
+                            } else {
+                                regEl.style.display = 'none';
+                            }
+                        }
+                        if (savingsEl) {
+                            if (pricing.savings > 0) {
+                                savingsEl.textContent = 'Save ₹' + pricing.savings;
+                                savingsEl.style.display = '';
+                            } else {
+                                savingsEl.style.display = 'none';
+                            }
+                        }
+                        if (discountTags && discountTags.length > 0) {
+                            discountTags.forEach(tag => {
+                                if (pricing.discount > 0) {
+                                    tag.textContent = pricing.discount + '% OFF';
+                                    tag.style.display = '';
+                                } else {
+                                    tag.style.display = 'none';
+                                }
+                            });
+                        }
+                        if (addToCartBtn) {
+                            const pId = matched._id || matched.id || matched.handle || '';
+                            const pName = (matched.name || matched.title || '').replace(/'/g, "\\'");
+                            const pImg = (matched.image || '').replace(/'/g, "\\'");
+                            addToCartBtn.setAttribute('onclick', `addToStoreCart('${pId}', '${pName}', ${pricing.price}, '${pImg}')`);
+                        }
+                        if (qtyOverlay) {
+                            qtyOverlay.setAttribute('data-product-price', pricing.price);
+                            qtyOverlay.setAttribute('data-product-id', matched._id || matched.id || '');
+                            qtyOverlay.setAttribute('data-product-name', matched.name || matched.title || '');
+                            qtyOverlay.setAttribute('data-product-image', matched.image || '');
+                        }
                     } else {
                         // Product without DB match -> show clean no reviews yet
-                        const textEl = ratingBox.querySelector('.rating-text');
+                        const textEl = card.querySelector('.rating-text');
                         if (textEl) textEl.textContent = 'No reviews yet';
                     }
                 });

@@ -2155,6 +2155,7 @@
                 const name = String(item.title || item.name || item.id || '').toLowerCase();
                 const weight = String(item.weight || item.unit || '').toLowerCase();
 
+                if (price <= 0) {
                 if (name.includes('groundnut')) {
                     price = 399;
                     orig = 512;
@@ -2350,19 +2351,14 @@
                         orig = 101;
                     }
                 }
+                }
 
-                let discount = 25;
+                let discount = 22;
                 if (orig > price) {
-                    const raw = ((orig - price) / orig) * 100;
-                    if (raw >= 21.5 && raw <= 25.5) {
-                        discount = Math.round(raw);
-                    } else {
-                        discount = 25;
-                        orig = Math.round(price / 0.75);
-                    }
+                    discount = Math.round(((orig - price) / orig) * 100);
                 } else if (price > 0) {
-                    discount = 25;
-                    orig = Math.round(price / 0.75);
+                    discount = 22;
+                    orig = Math.round(price / 0.78);
                 }
 
                 return {
