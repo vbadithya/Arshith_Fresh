@@ -1526,8 +1526,8 @@
                 </div>
 
                 <div class="input-icon-wrap" style="margin-top: 12px;">
-                    <input type="tel" placeholder="Phone" required class="form-input-control" id="phoneInput">
-                    <span class="input-icon-right">ⓘ</span>
+                    <input type="tel" value="+91 " placeholder="+91 Phone" required class="form-input-control" id="phoneInput" pattern="^\+91\s?[0-9]{5}\s?[0-9]{5}$|^\+91\s?[0-9]{10}$" title="Mobile number must start with +91 followed by 10 digits" maxlength="16">
+                    <span class="input-icon-right" title="In case there's an issue with delivery">ⓘ</span>
                 </div>
 
                 <label class="checkbox-row" style="margin-top: 16px;">
@@ -1635,7 +1635,7 @@
 
                         <div style="margin-top: 12px;">
                             <label style="display: block; font-size: 12.5px; font-weight: 600; color: #374151; margin-bottom: 5px;">Phone number (for billing verification)</label>
-                            <input type="tel" id="billingPhoneInput" placeholder="10-digit phone number" class="form-input-control">
+                            <input type="tel" id="billingPhoneInput" value="+91 " placeholder="+91 10-digit phone number" class="form-input-control" pattern="^\+91\s?[0-9]{5}\s?[0-9]{5}$|^\+91\s?[0-9]{10}$" title="Mobile number must start with +91 followed by 10 digits" maxlength="16">
                         </div>
                     </div>
                 </div>
@@ -2045,6 +2045,98 @@
         function toggleRedeemCoins(checked) {
             isRedeemCoinsChecked = checked;
             renderCheckoutPage();
+        }
+
+        function formatPhoneWithPrefix(raw) {
+            let digits = String(raw || '').replace(/\D/g, '');
+            if (digits.startsWith('91') && digits.length > 2) {
+                digits = digits.slice(2);
+            } else if (digits.startsWith('0')) {
+                digits = digits.replace(/^0+/, '');
+            }
+            if (digits.length > 10) {
+                digits = digits.slice(0, 10);
+            }
+            if (digits.length === 0) {
+                return '+91 ';
+            } else if (digits.length <= 5) {
+                return '+91 ' + digits;
+            } else {
+                return '+91 ' + digits.slice(0, 5) + ' ' + digits.slice(5);
+            }
+        }
+
+        function setupPhonePrefixInput(inputId) {
+            const el = document.getElementById(inputId);
+            if (!el) return;
+
+            if (!el.value || el.value.trim() === '' || el.value.trim() === '+91') {
+                el.value = '+91 ';
+            } else {
+                el.value = formatPhoneWithPrefix(el.value);
+            }
+
+            el.addEventListener('focus', function() {
+                if (!this.value || !this.value.startsWith('+91 ')) {
+                    this.value = formatPhoneWithPrefix(this.value);
+                }
+                setTimeout(() => {
+                    if (this.selectionStart < 4) {
+                        this.setSelectionRange(this.value.length, this.value.length);
+                    }
+                }, 10);
+            });
+
+            el.addEventListener('click', function() {
+                if (this.selectionStart < 4) {
+                    this.setSelectionRange(this.value.length, this.value.length);
+                }
+            });
+
+            el.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace') {
+                    if (this.selectionStart <= 4 && this.selectionEnd <= 4) {
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            el.addEventListener('input', function(e) {
+                const cursor = this.selectionStart;
+                const oldLen = this.value.length;
+                this.value = formatPhoneWithPrefix(this.value);
+                const newLen = this.value.length;
+                
+                let newPos = cursor + (newLen - oldLen);
+                if (newPos < 4) newPos = 4;
+                if (newPos > this.value.length) newPos = this.value.length;
+                this.setSelectionRange(newPos, newPos);
+
+                const digits = this.value.replace(/\D/g, '').replace(/^91/, '');
+                if (digits.length === 10) {
+                    this.setCustomValidity('');
+                } else {
+                    this.setCustomValidity('Please enter a valid 10-digit mobile number starting with +91');
+                }
+            });
+
+            el.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text') || '';
+                this.value = formatPhoneWithPrefix(text);
+                this.setSelectionRange(this.value.length, this.value.length);
+                const digits = this.value.replace(/\D/g, '').replace(/^91/, '');
+                if (digits.length === 10) {
+                    this.setCustomValidity('');
+                } else {
+                    this.setCustomValidity('Please enter a valid 10-digit mobile number starting with +91');
+                }
+            });
+        }
+
+        function setupPhoneInputsWithPrefix() {
+            setupPhonePrefixInput('phoneInput');
+            setupPhonePrefixInput('billingPhoneInput');
         }
 
         function renderCheckoutPage() {
@@ -2482,8 +2574,11 @@
                         document.getElementById('firstNameInput').value = parts[0] || '';
                         document.getElementById('lastNameInput').value = parts.slice(1).join(' ') || '';
                     }
-                    if (currentUser.phone && !document.getElementById('phoneInput').value) {
-                        document.getElementById('phoneInput').value = currentUser.phone;
+                    if (currentUser.phone) {
+                        const pEl = document.getElementById('phoneInput');
+                        if (pEl && (!pEl.value || pEl.value.trim() === '' || pEl.value.trim() === '+91')) {
+                            pEl.value = formatPhoneWithPrefix(currentUser.phone);
+                        }
                     }
                     if (currentUser.street && !document.getElementById('addressInput').value) {
                         document.getElementById('addressInput').value = currentUser.street;
@@ -2682,7 +2777,19 @@
             const city = document.getElementById("cityInput").value.trim();
             const state = document.getElementById("stateSelect").value;
             const pinCode = document.getElementById("pinCodeInput").value.trim();
-            const phone = document.getElementById("phoneInput").value.trim();
+            const rawPhone = document.getElementById("phoneInput").value.trim();
+            const phoneDigits = rawPhone.replace(/\D/g, '').replace(/^91/, '');
+            if (phoneDigits.length !== 10) {
+                alert("Please enter a valid 10-digit mobile number starting with +91 (e.g. +91 98765 43210).");
+                const pInput = document.getElementById("phoneInput");
+                if (pInput) {
+                    pInput.focus();
+                    pInput.style.borderColor = "#ef4444";
+                    setTimeout(() => { pInput.style.borderColor = ""; }, 3000);
+                }
+                return;
+            }
+            const phone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
 
             const items = getActiveCartItems();
             const subtotal = items.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || item.qty || 1)), 0);
@@ -2735,7 +2842,18 @@
                 const bCity = document.getElementById("billingCityInput").value.trim() || city;
                 const bState = document.getElementById("billingStateSelect").value || state;
                 const bPinCode = document.getElementById("billingPinCodeInput").value.trim() || pinCode;
-                const bPhone = document.getElementById("billingPhoneInput").value.trim() || phone;
+                const rawBPhone = document.getElementById("billingPhoneInput").value.trim();
+                const bDigits = rawBPhone.replace(/\D/g, '').replace(/^91/, '');
+                let bPhone = phone;
+                if (bDigits.length > 0) {
+                    if (bDigits.length !== 10) {
+                        alert("Please enter a valid 10-digit billing phone number starting with +91.");
+                        const bpInput = document.getElementById("billingPhoneInput");
+                        if (bpInput) bpInput.focus();
+                        return;
+                    }
+                    bPhone = `+91 ${bDigits.slice(0, 5)} ${bDigits.slice(5)}`;
+                }
 
                 billingAddress = {
                     name: bFullName,
@@ -2805,7 +2923,7 @@
                     prefill: {
                         name: fullName,
                         email: contact.includes("@") ? contact : "customer@example.com",
-                        contact: phone || (contact.match(/^[0-9+]+$/) ? contact : "9876543210")
+                        contact: `+91${phoneDigits}`
                     },
                     theme: {
                         color: "#0f7139"
@@ -4671,6 +4789,7 @@
             renderAvailableCoupons();
             setupAddonsCarouselInteractions();
             initAddressAutocomplete();
+            setupPhoneInputsWithPrefix();
             
             checkPendingRazorpayOrder().catch(err => console.warn(err));
             fetchLiveAddonsFromDB().catch(err => console.warn(err));
