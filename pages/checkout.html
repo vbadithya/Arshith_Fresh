@@ -1463,7 +1463,7 @@
         <!-- LEFT COLUMN FORM PANE -->
         <div class="checkout-form-pane">
             
-            <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+            <form id="checkoutForm" novalidate onsubmit="handlePlaceOrder(event)">
                 
                 <!-- CONTACT SECTION -->
                 <div class="checkout-section-title">
@@ -1526,7 +1526,7 @@
                 </div>
 
                 <div class="input-icon-wrap" style="margin-top: 12px;">
-                    <input type="tel" value="+91 " placeholder="+91 Phone" required class="form-input-control" id="phoneInput" pattern="^\+91\s?[0-9]{5}\s?[0-9]{5}$|^\+91\s?[0-9]{10}$" title="Mobile number must start with +91 followed by 10 digits" maxlength="16">
+                    <input type="tel" placeholder="10-digit mobile number (e.g. 98765 43210)" required class="form-input-control" id="phoneInput">
                     <span class="input-icon-right" title="In case there's an issue with delivery">ⓘ</span>
                 </div>
 
@@ -1635,13 +1635,13 @@
 
                         <div style="margin-top: 12px;">
                             <label style="display: block; font-size: 12.5px; font-weight: 600; color: #374151; margin-bottom: 5px;">Phone number (for billing verification)</label>
-                            <input type="tel" id="billingPhoneInput" value="+91 " placeholder="+91 10-digit phone number" class="form-input-control" pattern="^\+91\s?[0-9]{5}\s?[0-9]{5}$|^\+91\s?[0-9]{10}$" title="Mobile number must start with +91 followed by 10 digits" maxlength="16">
+                            <input type="tel" id="billingPhoneInput" placeholder="10-digit phone number" class="form-input-control">
                         </div>
                     </div>
                 </div>
 
                 <!-- SUBMIT BUTTON -->
-                <button type="submit" id="payNowBtn" class="pay-now-btn" style="margin-top: 24px;">
+                <button type="button" id="payNowBtn" class="pay-now-btn" style="margin-top: 24px;" onclick="handlePlaceOrder(event)">
                     <span id="payNowBtnText">Pay now</span>
                 </button>
 
@@ -1788,10 +1788,11 @@
 
                     <!-- DELIVERY CHARGE ROW -->
                     <div class="bill-row">
-                        <div class="bill-row-label">
+                        <div class="bill-row-label" style="display: flex; align-items: center; flex-wrap: wrap; gap: 4px;">
                             <span class="bill-icon">🛵</span>
                             <span>Delivery charge</span>
-                            <span class="bill-info-icon" title="₹50 for ₹100-₹300 | ₹30 for ₹301-₹999 | FREE for ₹1000+">i</span>
+                            <span class="bill-info-icon" title="Above ₹2,000: FREE Everywhere | Bangalore: ₹50 | South India: ₹145/₹100 | Rest of India: ₹150">i</span>
+                            <span id="checkoutDeliveryRegionBadge" style="display:none; font-size:11px; padding:2px 7px; border-radius:10px; font-weight:600; background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0; margin-left:4px;">Bangalore Local</span>
                         </div>
                         <div class="bill-row-value">
                             <span class="bill-mrp-crossed" id="checkoutShippingMRP" style="display: inline;">₹50</span>
@@ -1874,7 +1875,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/script.js?v=3.8"></script>
     <script>
         let selectedPayment = "Razorpay";
         let selectedBillingOption = "same";
@@ -1894,6 +1895,7 @@
                 selectedDonationAmount = amount;
             }
             updateDonationUI();
+            fetchDeliverySettings();
             renderCheckoutPage();
         }
 
@@ -1951,11 +1953,179 @@
             }
         }
 
-        function getDeliveryCharge(subtotal) {
-            if (!subtotal || subtotal <= 0) return 0;
-            if (subtotal >= 1000) return 0; // FREE Delivery for ₹1000+
-            if (subtotal > 300) return 30;  // ₹30 for ₹301 to ₹999
-            return 50;                     // ₹50 for ₹100 to ₹300 (or under ₹100)
+        function getDeliverySettings() {
+            try {
+                if (window.DELIVERY_SETTINGS) return window.DELIVERY_SETTINGS;
+                const raw = localStorage.getItem('arshith_delivery_settings');
+                if (raw) return JSON.parse(raw);
+            } catch(e) {}
+            return {
+                isFreeShippingForAll: false,
+                freeShippingThreshold: 2000,
+                bangaloreCharge: 50,
+                southIndiaTier1Charge: 145,
+                southIndiaTier2Threshold: 1000,
+                southIndiaTier2Charge: 100,
+                restOfIndiaCharge: 150,
+                southIndiaStates: [
+                    "Tamil Nadu",
+                    "Karnataka",
+                    "Andhra Pradesh",
+                    "Telangana",
+                    "Kerala"
+                ],
+                bangalorePincodes: ["560"],
+                standardCharge: 50,
+                enableMidTier: true,
+                midTierThreshold: 1000,
+                midTierCharge: 100
+            };
+        }
+
+        function getCustomerDeliveryLocation() {
+            const cityEl = document.getElementById("cityInput");
+            const stateEl = document.getElementById("stateSelect");
+            const pinEl = document.getElementById("pinCodeInput");
+            return {
+                city: (cityEl ? cityEl.value : "").trim().toLowerCase(),
+                state: (stateEl ? (stateEl.options && stateEl.selectedIndex >= 0 ? stateEl.options[stateEl.selectedIndex].text : stateEl.value) : "").trim().toLowerCase(),
+                pincode: (pinEl ? pinEl.value : "").trim()
+            };
+        }
+
+        function calculateDeliveryChargeBreakdown(subtotal, customLoc) {
+            if (!subtotal || subtotal <= 0) {
+                return { charge: 0, originalRate: 0, isFree: true, region: 'Free', regionTag: 'Free', ruleText: 'Empty Cart' };
+            }
+            const cfg = getDeliverySettings();
+
+            // 1. Universal Free Shipping Promotion
+            if (cfg.isFreeShippingForAll) {
+                return { charge: 0, originalRate: 150, isFree: true, region: 'All India Free', regionTag: 'Free Delivery', ruleText: '100% Free Shipping Promotion' };
+            }
+
+            const freeThreshold = Number(cfg.freeShippingThreshold !== undefined ? cfg.freeShippingThreshold : 2000);
+            const loc = customLoc || getCustomerDeliveryLocation();
+            const city = (loc.city || "").toLowerCase();
+            const state = (loc.state || "").toLowerCase();
+            const pincode = String(loc.pincode || "").trim();
+
+            // Determine Regional Base Rate
+            let baseRate = 150;
+            let regionName = "Rest of India";
+            let regionTag = "Rest of India";
+
+            const bangalorePincodes = Array.isArray(cfg.bangalorePincodes) ? cfg.bangalorePincodes : ["560"];
+            const isBangalore = city.includes("bangalore") || city.includes("bengaluru") || (pincode && bangalorePincodes.some(p => pincode.startsWith(p)));
+
+            const southStates = (Array.isArray(cfg.southIndiaStates) && cfg.southIndiaStates.length > 0 
+                ? cfg.southIndiaStates 
+                : ["Karnataka", "Tamil Nadu", "Andhra Pradesh", "Telangana", "Kerala"]
+            ).map(s => String(s).trim().toLowerCase());
+
+            const isSouthIndia = southStates.some(s => s && (state.includes(s) || s.includes(state))) ||
+                city.includes('chennai') || city.includes('hyderabad') || city.includes('mysore') || city.includes('kochi') || city.includes('visakhapatnam') || city.includes('vijayawada');
+
+            if (isBangalore) {
+                regionName = "Bangalore";
+                regionTag = "Bangalore Local";
+                baseRate = Number(cfg.bangaloreCharge !== undefined ? cfg.bangaloreCharge : 50);
+            } else if (isSouthIndia) {
+                regionName = "South India";
+                regionTag = "South India";
+                const tier2Threshold = Number(cfg.southIndiaTier2Threshold !== undefined ? cfg.southIndiaTier2Threshold : 1000);
+                if (subtotal >= tier2Threshold) {
+                    baseRate = Number(cfg.southIndiaTier2Charge !== undefined ? cfg.southIndiaTier2Charge : 100);
+                } else {
+                    baseRate = Number(cfg.southIndiaTier1Charge !== undefined ? cfg.southIndiaTier1Charge : 145);
+                }
+            } else {
+                regionName = "Rest of India";
+                regionTag = "Rest of India";
+                baseRate = Number(cfg.restOfIndiaCharge !== undefined ? cfg.restOfIndiaCharge : 150);
+            }
+
+            // Universal Free Shipping if subtotal >= freeThreshold (₹2,000)
+            if (subtotal >= freeThreshold) {
+                return {
+                    charge: 0,
+                    isFree: true,
+                    originalRate: baseRate,
+                    region: regionName,
+                    regionTag: "Free Delivery",
+                    ruleText: `FREE delivery applied for orders above ₹${freeThreshold} (Saved ₹${baseRate})`
+                };
+            }
+
+            return {
+                charge: baseRate,
+                isFree: false,
+                originalRate: baseRate,
+                region: regionName,
+                regionTag: regionTag,
+                ruleText: `₹${baseRate} delivery fee for ${regionName}`
+            };
+        }
+
+        function getDeliveryCharge(subtotal, customLoc) {
+            const breakdown = calculateDeliveryChargeBreakdown(subtotal, customLoc);
+            return breakdown.charge;
+        }
+
+        function setupDeliveryLocationListeners() {
+            if (window._deliveryListenersAttached) return;
+            const locInputs = ['cityInput', 'stateSelect', 'pinCodeInput'];
+            locInputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', () => {
+                        if (typeof renderCheckoutPage === 'function') renderCheckoutPage();
+                    });
+                    el.addEventListener('change', () => {
+                        if (typeof renderCheckoutPage === 'function') renderCheckoutPage();
+                    });
+                }
+            });
+            window._deliveryListenersAttached = true;
+        }
+
+        async function fetchDeliverySettings() {
+            try {
+                const apiHost = (window.location.origin && window.location.origin.includes('http')) ? window.location.origin : 'http://localhost:5000';
+                const res = await fetch(`${apiHost}/api/settings/delivery`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.success && data.settings) {
+                        window.DELIVERY_SETTINGS = data.settings;
+                        try {
+                            localStorage.setItem('arshith_delivery_settings', JSON.stringify(data.settings));
+                        } catch(e) {}
+                        updateDeliveryTooltip(data.settings);
+                        if (typeof renderCheckoutPage === 'function') {
+                            renderCheckoutPage();
+                        }
+                    }
+                }
+            } catch (err) {
+                console.debug('Failed to fetch live delivery settings:', err);
+            }
+        }
+
+        function updateDeliveryTooltip(cfg) {
+            const infoEl = document.querySelector('.bill-row-label .bill-info-icon');
+            if (infoEl && cfg) {
+                if (cfg.isFreeShippingForAll) {
+                    infoEl.title = "100% FREE Delivery on all orders across India!";
+                } else {
+                    const freeTh = cfg.freeShippingThreshold || 2000;
+                    const blr = cfg.bangaloreCharge || 50;
+                    const s1 = cfg.southIndiaTier1Charge || 145;
+                    const s2Th = cfg.southIndiaTier2Threshold || 1000;
+                    const s2 = cfg.southIndiaTier2Charge || 100;
+                    const roi = cfg.restOfIndiaCharge || 150;
+                    infoEl.title = `• Orders ₹${freeTh}+: FREE Delivery Everywhere\n• Bangalore: ₹${blr}\n• South India: ₹${s1} (<₹${s2Th}) | ₹${s2} (₹${s2Th}-₹${freeTh - 1})\n• Rest of India: ₹${roi}`;
+                }
+            }
         }
 
         function getActiveCartItems() {
@@ -2155,210 +2325,196 @@
                 const name = String(item.title || item.name || item.id || '').toLowerCase();
                 const weight = String(item.weight || item.unit || '').toLowerCase();
 
-                if (price <= 0) {
-                if (name.includes('groundnut')) {
-                    price = 399;
-                    orig = 512;
-                } else if (name.includes('sunflower') && (name.includes('oil') || !name.includes('seed'))) {
-                    price = 559;
-                    orig = 699;
-                } else if (name.includes('sesame') && (name.includes('oil') || !name.includes('seed'))) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 229;
-                        orig = 294;
-                    } else {
-                        price = 115;
-                        orig = 147;
+                let fallbackPrice = 0;
+                let fallbackOrig = 0;
+
+                // 1. Try to find matched product from cached products stored from MongoDB Atlas
+                try {
+                    const cachedRaw = localStorage.getItem('arshith_cached_products');
+                    if (cachedRaw) {
+                        const cachedList = JSON.parse(cachedRaw);
+                        if (Array.isArray(cachedList) && cachedList.length > 0) {
+                            const cleanNameKey = name.replace(/[^a-z0-9]/g, '');
+                            const itemId = String(item.id || item._id || item.product || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                            const matched = cachedList.find(cp => {
+                                const cpName = String(cp.name || cp.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                                const cpId = String(cp.id || cp._id || cp.handle || cp.slug || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                                if (itemId && cpId && (itemId === cpId || itemId.includes(cpId) || cpId.includes(itemId))) return true;
+                                if (cleanNameKey && cpName && (cleanNameKey === cpName || cleanNameKey.includes(cpName) || cpName.includes(cleanNameKey))) return true;
+                                return false;
+                            });
+                            if (matched) {
+                                if (Number(matched.originalPrice || 0) > 0) fallbackOrig = Number(matched.originalPrice);
+                                if (Number(matched.price || 0) > 0) fallbackPrice = Number(matched.price);
+                            }
+                        }
                     }
-                } else if (name.includes('castor') && (name.includes('oil') || name.includes('castor-oil'))) {
-                    price = 112;
-                    orig = 147;
-                } else if (name.includes('coconut') && (name.includes('oil') || name.includes('coconut-oil'))) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 349;
-                        orig = 448;
-                    } else {
-                        price = 174;
-                        orig = 223;
-                    }
-                } else if (name.includes('buffalo') && (name.includes('ghee') || name.includes('pure-buffalo'))) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 1224;
-                        orig = 1570;
-                    } else {
-                        price = 612;
-                        orig = 785;
-                    }
-                } else if (name.includes('cow') && (name.includes('ghee') || name.includes('pure-cow'))) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 1124;
-                        orig = 1441;
-                    } else {
-                        price = 562;
-                        orig = 721;
-                    }
-                } else if (name.includes('honey')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 325;
-                        orig = 417;
-                    } else {
-                        price = 162.50;
-                        orig = 208.50;
-                    }
-                } else if (name.includes('cashew') || name.includes('kaju')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 658;
-                        orig = 844;
-                    } else {
-                        price = 329;
-                        orig = 422;
-                    }
-                } else if (name.includes('almond') || name.includes('badam')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 570;
-                        orig = 730;
-                    } else {
-                        price = 285;
-                        orig = 365;
-                    }
-                } else if (name.includes('fig') || name.includes('anjeer')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 950;
-                        orig = 1218;
-                    } else {
-                        price = 475;
-                        orig = 609;
-                    }
-                } else if (name.includes('pistachio') || name.includes('pista')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 788;
-                        orig = 1010;
-                    } else {
-                        price = 394;
-                        orig = 505;
-                    }
-                } else if (name.includes('date') || name.includes('khajoor') || name.includes('kharjur')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 512;
-                        orig = 656;
-                    } else {
-                        price = 256;
-                        orig = 328;
-                    }
-                } else if (name.includes('walnut') || name.includes('akhrot')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 778;
-                        orig = 998;
-                    } else {
-                        price = 389;
-                        orig = 499;
-                    }
-                } else if (name.includes('raisin') || name.includes('kishmish')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 376;
-                        orig = 482;
-                    } else {
-                        price = 188;
-                        orig = 241;
-                    }
-                } else if (name.includes('flax')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 298;
-                        orig = 382;
-                    } else {
-                        price = 149;
-                        orig = 191;
-                    }
-                } else if (name.includes('chia')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 378;
-                        orig = 485;
-                    } else {
-                        price = 189;
-                        orig = 242;
-                    }
-                } else if (name.includes('pumpkin')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 448;
-                        orig = 574;
-                    } else {
-                        price = 224;
-                        orig = 287;
-                    }
-                } else if (name.includes('sunflower') && (name.includes('seed') || !name.includes('oil'))) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 390;
-                        orig = 500;
-                    } else {
-                        price = 195;
-                        orig = 250;
-                    }
-                } else if (name.includes('watermelon')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 450;
-                        orig = 577;
-                    } else {
-                        price = 225;
-                        orig = 288;
-                    }
-                } else if (name.includes('sabja') || name.includes('basil')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 378;
-                        orig = 485;
-                    } else {
-                        price = 189;
-                        orig = 242;
-                    }
-                } else if (name.includes('sesame') || name.includes('til')) {
-                    if (weight.includes('500') || name.includes('500')) {
-                        price = 358;
-                        orig = 459;
-                    } else {
-                        price = 179;
-                        orig = 230;
-                    }
-                } else if (name.includes('chilli') || name.includes('chili') || name.includes('mirchi')) {
-                    price = 699;
-                    orig = 896;
-                } else if (name.includes('coriander') || name.includes('dhania')) {
-                    if (weight.includes('250') || name.includes('250')) {
-                        price = 149;
-                        orig = 191;
-                    } else {
-                        price = 59;
-                        orig = 76;
-                    }
-                } else if (name.includes('garam') && name.includes('masala')) {
-                    if (weight.includes('250') || name.includes('250')) {
-                        price = 99;
-                        orig = 127;
-                    } else {
-                        price = 39;
-                        orig = 50;
-                    }
-                } else if (
-                    name.includes('pappula') || name.includes('chana dal') ||
-                    name.includes('kobbari') ||
-                    name.includes('nalla karam') ||
-                    name.includes('vellulli') || name.includes('garlic') ||
-                    name.includes('karivepaku')
-                ) {
-                    if (weight.includes('250') || name.includes('250')) {
-                        price = 199;
-                        orig = 255;
-                    } else {
-                        price = 79;
-                        orig = 101;
+                } catch(e) {}
+
+                // 2. Verified catalog fallbacks if not resolved from cache
+                if (!fallbackOrig) {
+                    if (name.includes('groundnut')) {
+                        fallbackPrice = 399; fallbackOrig = 512;
+                    } else if (name.includes('sunflower') && (name.includes('oil') || !name.includes('seed'))) {
+                        fallbackPrice = 559; fallbackOrig = 699;
+                    } else if (name.includes('sesame') && (name.includes('oil') || !name.includes('seed'))) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 229; fallbackOrig = 294;
+                        } else {
+                            fallbackPrice = 115; fallbackOrig = 147;
+                        }
+                    } else if (name.includes('castor') && (name.includes('oil') || name.includes('castor-oil'))) {
+                        fallbackPrice = 112; fallbackOrig = 147;
+                    } else if (name.includes('coconut') && (name.includes('oil') || name.includes('coconut-oil'))) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 349; fallbackOrig = 448;
+                        } else {
+                            fallbackPrice = 174; fallbackOrig = 223;
+                        }
+                    } else if (name.includes('buffalo') && (name.includes('ghee') || name.includes('pure-buffalo'))) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 1224; fallbackOrig = 1570;
+                        } else {
+                            fallbackPrice = 612; fallbackOrig = 785;
+                        }
+                    } else if (name.includes('cow') && (name.includes('ghee') || name.includes('pure-cow'))) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 1124; fallbackOrig = 1441;
+                        } else {
+                            fallbackPrice = 562; fallbackOrig = 721;
+                        }
+                    } else if (name.includes('honey')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 325; fallbackOrig = 417;
+                        } else {
+                            fallbackPrice = 162.50; fallbackOrig = 208.50;
+                        }
+                    } else if (name.includes('cashew') || name.includes('kaju')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 650; fallbackOrig = 833;
+                        } else {
+                            fallbackPrice = 325; fallbackOrig = 417;
+                        }
+                    } else if (name.includes('almond') || name.includes('badam')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 570; fallbackOrig = 730;
+                        } else {
+                            fallbackPrice = 285; fallbackOrig = 365;
+                        }
+                    } else if (name.includes('fig') || name.includes('anjeer')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 950; fallbackOrig = 1218;
+                        } else {
+                            fallbackPrice = 475; fallbackOrig = 609;
+                        }
+                    } else if (name.includes('pistachio') || name.includes('pista')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 788; fallbackOrig = 1010;
+                        } else {
+                            fallbackPrice = 394; fallbackOrig = 505;
+                        }
+                    } else if (name.includes('date') || name.includes('khajoor') || name.includes('kharjur')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 512; fallbackOrig = 656;
+                        } else {
+                            fallbackPrice = 256; fallbackOrig = 328;
+                        }
+                    } else if (name.includes('walnut') || name.includes('akhrot')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 778; fallbackOrig = 998;
+                        } else {
+                            fallbackPrice = 389; fallbackOrig = 499;
+                        }
+                    } else if (name.includes('raisin') || name.includes('kishmish')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 376; fallbackOrig = 482;
+                        } else {
+                            fallbackPrice = 188; fallbackOrig = 241;
+                        }
+                    } else if (name.includes('flax')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 298; fallbackOrig = 382;
+                        } else {
+                            fallbackPrice = 149; fallbackOrig = 191;
+                        }
+                    } else if (name.includes('chia')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 450; fallbackOrig = 577;
+                        } else {
+                            fallbackPrice = 225; fallbackOrig = 288;
+                        }
+                    } else if (name.includes('pumpkin')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 560; fallbackOrig = 718;
+                        } else {
+                            fallbackPrice = 280; fallbackOrig = 359;
+                        }
+                    } else if (name.includes('sunflower') && (name.includes('seed') || !name.includes('oil'))) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 390; fallbackOrig = 500;
+                        } else {
+                            fallbackPrice = 195; fallbackOrig = 250;
+                        }
+                    } else if (name.includes('watermelon')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 450; fallbackOrig = 577;
+                        } else {
+                            fallbackPrice = 225; fallbackOrig = 288;
+                        }
+                    } else if (name.includes('sabja') || name.includes('basil')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 378; fallbackOrig = 485;
+                        } else {
+                            fallbackPrice = 189; fallbackOrig = 242;
+                        }
+                    } else if (name.includes('sesame') || name.includes('til')) {
+                        if (weight.includes('500') || name.includes('500')) {
+                            fallbackPrice = 358; fallbackOrig = 459;
+                        } else {
+                            fallbackPrice = 179; fallbackOrig = 230;
+                        }
+                    } else if (name.includes('chilli') || name.includes('chili') || name.includes('mirchi')) {
+                        fallbackPrice = 699; fallbackOrig = 896;
+                    } else if (name.includes('coriander') || name.includes('dhania')) {
+                        if (weight.includes('250') || name.includes('250')) {
+                            fallbackPrice = 149; fallbackOrig = 191;
+                        } else {
+                            fallbackPrice = 59; fallbackOrig = 76;
+                        }
+                    } else if (name.includes('garam') && name.includes('masala')) {
+                        if (weight.includes('250') || name.includes('250')) {
+                            fallbackPrice = 99; fallbackOrig = 127;
+                        } else {
+                            fallbackPrice = 39; fallbackOrig = 50;
+                        }
+                    } else if (
+                        name.includes('pappula') || name.includes('chana dal') ||
+                        name.includes('kobbari') ||
+                        name.includes('nalla karam') ||
+                        name.includes('vellulli') || name.includes('garlic') ||
+                        name.includes('karivepaku')
+                    ) {
+                        if (weight.includes('250') || name.includes('250')) {
+                            fallbackPrice = 199; fallbackOrig = 255;
+                        } else {
+                            fallbackPrice = 79; fallbackOrig = 101;
+                        }
                     }
                 }
+
+                if (price <= 0 && fallbackPrice > 0) {
+                    price = fallbackPrice;
+                }
+                if ((orig <= 0 || orig <= price) && fallbackOrig > 0) {
+                    orig = fallbackOrig;
+                }
+                if (orig <= price && price > 0) {
+                    orig = Math.round(price / 0.78);
                 }
 
                 let discount = 22;
                 if (orig > price) {
                     discount = Math.round(((orig - price) / orig) * 100);
-                } else if (price > 0) {
-                    discount = 22;
-                    orig = Math.round(price / 0.78);
                 }
 
                 return {
@@ -2376,17 +2532,37 @@
                 return sum + (pr.originalPrice * (item.quantity || item.qty || 1));
             }, 0);
 
-            // Dynamic Delivery Fee Tiers: 100-300: ₹50 | 301-999: ₹30 | 1000+: FREE
-            const deliveryCharge = getDeliveryCharge(subtotal);
+            // Dynamic Regional Delivery Fee: Above ₹2,000: FREE | Bangalore: ₹50 | South India: ₹145/₹100 | Rest of India: ₹150
+            const deliveryInfo = calculateDeliveryChargeBreakdown(subtotal);
+            const deliveryCharge = deliveryInfo.charge;
             const shippingEl = document.getElementById("checkoutShipping");
             const shippingMrpEl = document.getElementById("checkoutShippingMRP");
+            const shippingBadgeEl = document.getElementById("checkoutDeliveryRegionBadge");
+
+            if (shippingBadgeEl) {
+                shippingBadgeEl.style.display = "inline-block";
+                shippingBadgeEl.textContent = deliveryInfo.regionTag || "Standard";
+                if (deliveryInfo.isFree) {
+                    shippingBadgeEl.style.background = "#ecfdf5";
+                    shippingBadgeEl.style.color = "#065f46";
+                    shippingBadgeEl.style.borderColor = "#a7f3d0";
+                } else if (deliveryInfo.regionTag && deliveryInfo.regionTag.includes("Bangalore")) {
+                    shippingBadgeEl.style.background = "#eff6ff";
+                    shippingBadgeEl.style.color = "#1e40af";
+                    shippingBadgeEl.style.borderColor = "#bfdbfe";
+                } else {
+                    shippingBadgeEl.style.background = "#fffbeb";
+                    shippingBadgeEl.style.color = "#b45309";
+                    shippingBadgeEl.style.borderColor = "#fde68a";
+                }
+            }
 
             if (shippingEl) {
                 if (deliveryCharge === 0) {
                     shippingEl.textContent = "FREE";
                     shippingEl.className = "bill-free-text";
                     if (shippingMrpEl) {
-                        shippingMrpEl.textContent = subtotal > 300 ? "₹30" : "₹50";
+                        shippingMrpEl.textContent = `₹${deliveryInfo.originalRate || 50}`;
                         shippingMrpEl.style.display = "inline";
                     }
                 } else {
@@ -2488,8 +2664,8 @@
                                     <p class="summary-item-weight">${item.weight || item.unit || 'Standard'}</p>
                                     <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 3px; flex-wrap: wrap;">
                                         <span style="font-weight: 800; color: #1e293b; font-size: 13.5px;">₹${itemSaleTotal.toFixed(0)}</span>
-                                        <span style="text-decoration: line-through; color: #94a3b8; font-size: 11.5px; font-weight: 500;">₹${itemOrigTotal.toFixed(0)}</span>
-                                        <span style="background: #e6f7ed; color: #0f7139; font-size: 9.5px; font-weight: 800; padding: 1px 4px; border-radius: 4px; border: 1px solid #bbf7d0;">${pr.discount}% OFF</span>
+                                        ${itemOrigTotal > itemSaleTotal ? `<span style="text-decoration: line-through; color: #94a3b8; font-size: 11.5px; font-weight: 500;">₹${itemOrigTotal.toFixed(0)}</span>` : ''}
+                                        ${pr.discount > 0 && itemOrigTotal > itemSaleTotal ? `<span style="background: #e6f7ed; color: #0f7139; font-size: 9.5px; font-weight: 800; padding: 1px 4px; border-radius: 4px; border: 1px solid #bbf7d0;">${pr.discount}% OFF</span>` : ''}
                                     </div>
                                     ${itemSavings > 0 ? `<div style="color: #16a34a; font-size: 11px; font-weight: 700; margin-top: 2px;">Save ₹${itemSavings.toFixed(0)}</div>` : ''}
                                 </div>
@@ -2760,36 +2936,95 @@
         }
 
         async function handlePlaceOrder(e) {
-            e.preventDefault();
+            if (e && typeof e.preventDefault === 'function') e.preventDefault();
             const btn = document.getElementById("payNowBtn");
             const btnText = document.getElementById("payNowBtnText");
 
-            const contact = document.getElementById("contactInput").value.trim();
-            const firstName = document.getElementById("firstNameInput").value.trim();
-            const lastName = document.getElementById("lastNameInput").value.trim();
+            const contact = (document.getElementById("contactInput") ? document.getElementById("contactInput").value : "").trim();
+            const firstName = (document.getElementById("firstNameInput") ? document.getElementById("firstNameInput").value : "").trim();
+            const lastName = (document.getElementById("lastNameInput") ? document.getElementById("lastNameInput").value : "").trim();
             const fullName = `${firstName} ${lastName}`.trim();
-            const address = document.getElementById("addressInput").value.trim();
-            const apt = document.getElementById("apartmentInput").value.trim();
-            const city = document.getElementById("cityInput").value.trim();
-            const state = document.getElementById("stateSelect").value;
-            const pinCode = document.getElementById("pinCodeInput").value.trim();
-            const rawPhone = document.getElementById("phoneInput").value.trim();
-            const phoneDigits = rawPhone.replace(/\D/g, '').replace(/^91/, '');
-            if (phoneDigits.length !== 10) {
-                alert("Please enter a valid 10-digit mobile number starting with +91 (e.g. +91 98765 43210).");
-                const pInput = document.getElementById("phoneInput");
-                if (pInput) {
-                    pInput.focus();
-                    pInput.style.borderColor = "#ef4444";
-                    setTimeout(() => { pInput.style.borderColor = ""; }, 3000);
+            const address = (document.getElementById("addressInput") ? document.getElementById("addressInput").value : "").trim();
+            const apt = (document.getElementById("apartmentInput") ? document.getElementById("apartmentInput").value : "").trim();
+            const city = (document.getElementById("cityInput") ? document.getElementById("cityInput").value : "").trim();
+            const state = document.getElementById("stateSelect") ? document.getElementById("stateSelect").value : "Karnataka";
+            const pinCode = (document.getElementById("pinCodeInput") ? document.getElementById("pinCodeInput").value : "").trim();
+            const phoneInputEl = document.getElementById("phoneInput");
+            let rawPhone = phoneInputEl ? phoneInputEl.value.trim() : "";
+
+            // Helper to highlight invalid field and scroll smoothly
+            function markInvalidField(el, msg) {
+                if (msg) alert(msg);
+                if (el) {
+                    el.focus();
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.style.borderColor = "#ef4444";
+                    el.style.boxShadow = "0 0 0 3px rgba(239, 68, 68, 0.25)";
+                    setTimeout(() => {
+                        el.style.borderColor = "";
+                        el.style.boxShadow = "";
+                    }, 3500);
                 }
+            }
+
+            // 1. Validate Contact
+            if (!contact) {
+                markInvalidField(document.getElementById("contactInput"), "Please enter your email or mobile phone number in the Contact section.");
+                return;
+            }
+
+            // 2. Validate First Name
+            if (!firstName) {
+                markInvalidField(document.getElementById("firstNameInput"), "Please enter your first name in the Delivery section.");
+                return;
+            }
+
+            // 3. Validate Address
+            if (!address) {
+                markInvalidField(document.getElementById("addressInput"), "Please enter your street address.");
+                return;
+            }
+
+            // 4. Validate City
+            if (!city) {
+                markInvalidField(document.getElementById("cityInput"), "Please enter your city.");
+                return;
+            }
+
+            // 5. Validate PIN Code
+            const cleanPin = pinCode.replace(/\D/g, '');
+            if (!pinCode || cleanPin.length !== 6) {
+                markInvalidField(document.getElementById("pinCodeInput"), "Please enter a valid 6-digit Indian postal PIN code.");
+                return;
+            }
+
+            // 6. Validate Phone Number
+            let phoneDigits = rawPhone.replace(/\D/g, '').replace(/^91/, '');
+            // Auto-fill from contact if contact is a 10-digit number and phone is empty
+            if (phoneDigits.length !== 10) {
+                const contactDigits = contact.replace(/\D/g, '').replace(/^91/, '');
+                if (contactDigits.length === 10) {
+                    phoneDigits = contactDigits;
+                    rawPhone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
+                    if (phoneInputEl) phoneInputEl.value = rawPhone;
+                }
+            }
+            if (phoneDigits.length !== 10) {
+                markInvalidField(phoneInputEl, "Please enter a valid 10-digit mobile number (e.g. 98765 43210).");
                 return;
             }
             const phone = `+91 ${phoneDigits.slice(0, 5)} ${phoneDigits.slice(5)}`;
 
+            // 7. Validate Cart Items
             const items = getActiveCartItems();
+            if (!items || items.length === 0) {
+                alert("Your cart is empty! Please add products to your cart before proceeding to checkout.");
+                window.location.href = "collections.html";
+                return;
+            }
+
             const subtotal = items.reduce((sum, item) => sum + ((item.price || 0) * (item.quantity || item.qty || 1)), 0);
-            const deliveryCharge = (subtotal > 0 && subtotal < 500) ? 49 : 0;
+            const deliveryCharge = getDeliveryCharge(subtotal, { city, state, pincode: pinCode });
             let userCoinsBalance = parseInt(localStorage.getItem('arshith_user_coins') || '0', 10);
             let redeemedCoinsDiscount = (typeof isRedeemCoinsChecked !== 'undefined' && isRedeemCoinsChecked && userCoinsBalance > 0) ? Math.min(userCoinsBalance, Math.max(0, subtotal - appliedDiscount)) : 0;
             const finalTotal = Math.max(0, subtotal - appliedDiscount - redeemedCoinsDiscount + deliveryCharge + selectedDonationAmount);
@@ -2830,22 +3065,20 @@
 
             let billingAddress = shippingAddress;
             if (selectedBillingOption === "different") {
-                const bFirstName = document.getElementById("billingFirstNameInput").value.trim() || firstName;
-                const bLastName = document.getElementById("billingLastNameInput").value.trim() || lastName;
+                const bFirstName = (document.getElementById("billingFirstNameInput") ? document.getElementById("billingFirstNameInput").value : "").trim() || firstName;
+                const bLastName = (document.getElementById("billingLastNameInput") ? document.getElementById("billingLastNameInput").value : "").trim() || lastName;
                 const bFullName = `${bFirstName} ${bLastName}`.trim() || fullName;
-                const bAddress = document.getElementById("billingAddressInput").value.trim() || address;
-                const bApt = document.getElementById("billingApartmentInput").value.trim();
-                const bCity = document.getElementById("billingCityInput").value.trim() || city;
-                const bState = document.getElementById("billingStateSelect").value || state;
-                const bPinCode = document.getElementById("billingPinCodeInput").value.trim() || pinCode;
-                const rawBPhone = document.getElementById("billingPhoneInput").value.trim();
+                const bAddress = (document.getElementById("billingAddressInput") ? document.getElementById("billingAddressInput").value : "").trim() || address;
+                const bApt = (document.getElementById("billingApartmentInput") ? document.getElementById("billingApartmentInput").value : "").trim();
+                const bCity = (document.getElementById("billingCityInput") ? document.getElementById("billingCityInput").value : "").trim() || city;
+                const bState = document.getElementById("billingStateSelect") ? document.getElementById("billingStateSelect").value : state;
+                const bPinCode = (document.getElementById("billingPinCodeInput") ? document.getElementById("billingPinCodeInput").value : "").trim() || pinCode;
+                const rawBPhone = (document.getElementById("billingPhoneInput") ? document.getElementById("billingPhoneInput").value : "").trim();
                 const bDigits = rawBPhone.replace(/\D/g, '').replace(/^91/, '');
                 let bPhone = phone;
                 if (bDigits.length > 0) {
                     if (bDigits.length !== 10) {
-                        alert("Please enter a valid 10-digit billing phone number starting with +91.");
-                        const bpInput = document.getElementById("billingPhoneInput");
-                        if (bpInput) bpInput.focus();
+                        markInvalidField(document.getElementById("billingPhoneInput"), "Please enter a valid 10-digit billing phone number.");
                         return;
                     }
                     bPhone = `+91 ${bDigits.slice(0, 5)} ${bDigits.slice(5)}`;
@@ -2864,8 +3097,8 @@
             }
 
             // RAZORPAY PAYMENT FLOW
-            btn.disabled = true;
-            btnText.textContent = "Connecting to Razorpay...";
+            if (btn) btn.disabled = true;
+            if (btnText) btnText.textContent = "Connecting to Razorpay...";
 
             try {
                 // Step A: Request Razorpay Order from Backend
@@ -2934,7 +3167,7 @@
                         console.log("==========================================\n");
 
                         if (typeof rzpStatusPoller !== "undefined" && rzpStatusPoller) clearInterval(rzpStatusPoller);
-                        btnText.textContent = "Verifying payment securely with server...";
+                        if (btnText) btnText.textContent = "Verifying payment securely with server...";
                         try {
                             const verifyRes = await fetch(`${API_BASE}/api/payment/verify`, {
                                 method: "POST",
@@ -2961,70 +3194,75 @@
                             } else {
                                 console.error("❌ Payment verification failed:", verifyData);
                                 alert("Payment verification error: " + (verifyData.message || "Invalid signature. Payment could not be verified."));
-                                btn.disabled = false;
-                                btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
+                                if (btn) btn.disabled = false;
+                                if (btnText) btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                             }
                         } catch (vErr) {
                             console.error("❌ Verification network error:", vErr);
                             alert("Payment verification network error: " + vErr.message);
-                            btn.disabled = false;
-                            btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
+                            if (btn) btn.disabled = false;
+                            if (btnText) btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                         }
                     },
                     modal: {
                         ondismiss: function () {
                             console.log("ℹ️ Razorpay checkout modal dismissed by user.");
-                            if (typeof rzpStatusPoller !== "undefined") clearInterval(rzpStatusPoller);
-                            btn.disabled = false;
-                            btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
+                            if (typeof rzpStatusPoller !== "undefined" && rzpStatusPoller) clearInterval(rzpStatusPoller);
+                            if (btn) btn.disabled = false;
+                            if (btnText) btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                         }
                     }
                 };
 
                 let rzpStatusPoller = null;
+                let modalSuccessfullyOpened = false;
 
                 if (typeof Razorpay !== "undefined" && rzpKey) {
-                    rzpInstance = new Razorpay(options);
-                    rzpInstance.on('payment.failed', function (resp){
-                        if (rzpStatusPoller) clearInterval(rzpStatusPoller);
-                        alert('Payment Failed: ' + (resp.error ? resp.error.description : 'Transaction declined'));
-                        btn.disabled = false;
-                        btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
-                    });
-                    rzpInstance.open();
+                    try {
+                        rzpInstance = new Razorpay(options);
+                        rzpInstance.on('payment.failed', function (resp){
+                            if (rzpStatusPoller) clearInterval(rzpStatusPoller);
+                            alert('Payment Failed: ' + (resp.error ? resp.error.description : 'Transaction declined'));
+                            if (btn) btn.disabled = false;
+                            if (btnText) btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
+                        });
+                        rzpInstance.open();
+                        modalSuccessfullyOpened = true;
 
-                    // Start status poller to auto-detect payment completion
-                    rzpStatusPoller = setInterval(async () => {
-                        try {
-                            if (!dbOrderId) return;
-                            const pRes = await fetch(`${API_BASE}/api/payment/check-status/${dbOrderId}`);
-                            if (pRes.ok) {
-                                const pData = await pRes.json();
-                                if (pData.success && pData.isPaid && pData.order) {
-                                    clearInterval(rzpStatusPoller);
-                                    try { if (rzpInstance && typeof rzpInstance.close === "function") rzpInstance.close(); } catch(e) {}
-                                    try { localStorage.removeItem("pending_arshith_order_id"); } catch(e) {}
-                                    finishOrder(pData.order._id || dbOrderId, "Razorpay (Online)", pData.order.razorpayPaymentId || "Paid", finalTotal);
+                        // Start status poller to auto-detect payment completion
+                        rzpStatusPoller = setInterval(async () => {
+                            try {
+                                if (!dbOrderId) return;
+                                const pRes = await fetch(`${API_BASE}/api/payment/check-status/${dbOrderId}`);
+                                if (pRes.ok) {
+                                    const pData = await pRes.json();
+                                    if (pData.success && pData.isPaid && pData.order) {
+                                        clearInterval(rzpStatusPoller);
+                                        try { if (rzpInstance && typeof rzpInstance.close === "function") rzpInstance.close(); } catch(e) {}
+                                        try { localStorage.removeItem("pending_arshith_order_id"); } catch(e) {}
+                                        finishOrder(pData.order._id || dbOrderId, "Razorpay (Online)", pData.order.razorpayPaymentId || "Paid", finalTotal);
+                                    }
                                 }
-                            }
-                        } catch(e) {}
-                    }, 2500);
-                } else if (rzpOrder && rzpOrder.id) {
-                    // Fallback interactive modal if Razorpay checkout SDK script fails to load
-                    openOfficialRazorpayModal(finalTotal, rzpOrder.id, dbOrderId, fullName, contact, phone, function(resp){
+                            } catch(e) {}
+                        }, 2500);
+                    } catch (sdkErr) {
+                        console.warn("⚠️ Razorpay SDK open failed, opening built-in checkout modal:", sdkErr);
+                        modalSuccessfullyOpened = false;
+                    }
+                }
+
+                if (!modalSuccessfullyOpened) {
+                    // Fallback interactive Razorpay checkout modal
+                    openOfficialRazorpayModal(finalTotal, (rzpOrder && rzpOrder.id) ? rzpOrder.id : `order_${Date.now()}`, dbOrderId, fullName, contact, phone, function(resp){
                         finishOrder(dbOrderId, "Razorpay (Online)", resp.razorpay_payment_id, finalTotal);
                     });
-                } else {
-                    alert("Razorpay checkout is unavailable. Please try again.");
-                    btn.disabled = false;
-                    btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
                 }
 
             } catch (err) {
                 console.error("Checkout error:", err);
                 alert("Checkout failed: " + err.message);
-                btn.disabled = false;
-                btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
+                if (btn) btn.disabled = false;
+                if (btnText) btnText.textContent = `Pay ₹${finalTotal.toFixed(2)} via Razorpay`;
             }
         }
 
@@ -4780,6 +5018,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            fetchDeliverySettings();
+            setupDeliveryLocationListeners();
             renderCheckoutPage();
             renderClassicAddons();
             renderAvailableCoupons();

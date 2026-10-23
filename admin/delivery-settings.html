@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Charges Settings - Arshith Fresh Admin</title>
+  
+  <!-- Shared Admin Theme Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1024px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .kpi-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .kpi-icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .kpi-icon-green { background: #dcfce7; color: #15803d; }
+    .kpi-icon-blue { background: #e0f2fe; color: #0284c7; }
+    .kpi-icon-amber { background: #fef3c7; color: #d97706; }
+    .kpi-icon-purple { background: #f3e8ff; color: #7e22ce; }
+
+    /* Layout */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.25fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    @media (max-width: 960px) {
+      .settings-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      margin-bottom: 24px;
+    }
+    .card:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0 0 20px 0;
+    }
+
+    /* Preset Banner */
+    .preset-banner {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .preset-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .preset-btn {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      color: #334155;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .preset-btn:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      color: #0f172a;
+      transform: translateY(-1px);
+    }
+    .preset-btn.highlight-user {
+      background: #ecfdf5;
+      border-color: #10b981;
+      color: #065f46;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.15);
+    }
+    .preset-btn.highlight-user:hover {
+      background: #d1fae5;
+    }
+    .preset-btn.highlight-green {
+      background: #f0fdf4;
+      border-color: #86efac;
+      color: #166534;
+    }
+    .preset-btn.highlight-green:hover {
+      background: #dcfce7;
+    }
+
+    /* Master Switch */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 10px;
+    }
+    .toggle-row.active {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .toggle-label-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 80%;
+    }
+    .toggle-label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .toggle-subtext {
+      font-size: 12.5px;
+      color: #64748b;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .25s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .25s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #16a34a;
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* Distinct Rule Cards */
+    .rule-card {
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: #ffffff;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .rule-card:hover {
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+    .rule-card.rule-green {
+      border-left: 5px solid #16a34a;
+      background: #fafdfa;
+    }
+    .rule-card.rule-emerald {
+      border-left: 5px solid #0f7139;
+      background: #f7fdf9;
+    }
+    .rule-card.rule-blue {
+      border-left: 5px solid #0284c7;
+      background: #f8fbff;
+    }
+    .rule-card.rule-amber {
+      border-left: 5px solid #d97706;
+      background: #fffdf9;
+    }
+
+    .rule-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .rule-badge {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rule-badge.green { background: #dcfce7; color: #15803d; }
+    .rule-badge.emerald { background: #e6f4ea; color: #0f7139; }
+    .rule-badge.blue { background: #e0f2fe; color: #0369a1; }
+    .rule-badge.amber { background: #fef3c7; color: #b45309; }
+
+    .rule-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .rule-desc {
+      font-size: 12.5px;
+      color: #64748b;
+      margin-bottom: 14px;
+    }
+
+    .rule-inputs-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .rule-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 200px;
+    }
+    .rule-input-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .input-with-symbol {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-symbol {
+      position: absolute;
+      left: 12px;
+      font-weight: 700;
+      color: #64748b;
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .form-control {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 14px;
+      font-size: 14.5px;
+      font-weight: 600;
+      font-family: inherit;
+      color: #0f172a;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-control.has-symbol {
+      padding-left: 28px;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: #16a34a;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+    }
+
+    .rule-live-hint {
+      margin-top: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rule-live-hint.green { color: #15803d; border-color: #86efac; background: #f0fdf4; }
+    .rule-live-hint.emerald { color: #0f7139; border-color: #a7f3d0; background: #ecfdf5; }
+    .rule-live-hint.blue { color: #0369a1; border-color: #7dd3fc; background: #f0f9ff; }
+    .rule-live-hint.amber { color: #b45309; border-color: #fcd34d; background: #fffbeb; }
+
+    /* Summary Matrix Table */
+    .summary-table-wrap {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+    .summary-table th {
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-bottom: 1.5px solid #e2e8f0;
+    }
+    .summary-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+    .summary-table tr:last-child td {
+      border-bottom: none;
+    }
+    .summary-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    /* Action Buttons in Header */
+    .btn-save {
+      background: #0f7139;
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 2px 6px rgba(15, 113, 57, 0.25);
+    }
+    .btn-save:hover {
+      background: #0a5228;
+      transform: translateY(-1px);
+    }
+    .btn-reset {
+      background: #ffffff;
+      color: #475569;
+      border: 1.5px solid #cbd5e1;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-reset:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+      border-color: #94a3b8;
+    }
+
+    /* Live Preview Simulator Box */
+    .simulator-box {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .sim-result-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 18px;
+      margin-top: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .sim-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      font-size: 13.5px;
+      color: #475569;
+    }
+    .sim-row.total-row {
+      border-top: 2px solid #e2e8f0;
+      margin-top: 8px;
+      padding-top: 12px;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .sim-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .sim-badge.free {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .sim-badge.tier {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+    .sim-badge.charged {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    /* Toast Notification */
+    .toast-popup {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+    }
+    .toast-popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .toast-icon {
+      color: #22c55e;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. GLOBAL TOP HEADER -->
+  <header class="global-topbar">
+    <div class="topbar-left">
+      <div class="shopify-logo">
+        <svg viewBox="0 0 109.5 124.5">
+          <path d="M74.7 14.1c-.2 0-.4.1-.5.1-.2-.8-.6-1.5-1.1-2.2-2.1-2.9-5.7-4.4-10.7-4.4-1.2 0-2.5.1-3.7.4-4.8 1.1-9.4 3.9-13.6 8.3-3 3.1-6.1 7.6-7.8 11.2-.8 1.7-1.5 3.3-2.1 4.7l-15.6 4.8c-4.8 1.5-5 1.9-5.6 6.9L.1 113.1c-.5 4.3 2.5 8 6.8 8.4.4 0 .9 0 1.3-.1l74-15.3c4.5-.9 7.7-4.9 7.4-9.5l-14.9-82.5z"/>
+        </svg>
+        <span>admin</span>
+      </div>
+    </div>
+
+    <!-- Center Search -->
+    <div class="topbar-center">
+      <div class="search-box-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="global-search-input" placeholder="Search products, orders, settings...">
+        <span class="kbd-shortcut">CTRL K</span>
+      </div>
+    </div>
+
+    <!-- Right Header Actions -->
+    <div class="topbar-right">
+      <a href="../index.html" target="_blank" class="btn-view-as" style="text-decoration:none; color:inherit;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <span>View Store</span>
+      </a>
+      <div class="store-profile-dropdown">
+        <div class="store-avatar">AF</div>
+        <span class="store-name-text">Arshith Fresh</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. APP LAYOUT -->
+  <div class="app-container">
+
+    <!-- Left Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-menu">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Dashboard</span>
+          </div>
+        </a>
+
+        <a href="orders.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span>Orders</span>
+          </div>
+        </a>
+
+        <a href="products.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55L16.5 14.6a1.78 1.78 0 0 0 0-3.2z"></path></svg>
+            <span>Products</span>
+          </div>
+        </a>
+
+        <div class="submenu-list">
+          <a href="collections.html" class="submenu-item">Collections / Categories</a>
+          <a href="inventory.html" class="submenu-item">Inventory</a>
+        </div>
+
+        <a href="customers.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            <span>Customers</span>
+          </div>
+        </a>
+
+        <a href="discounts.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            <span>Discounts</span>
+          </div>
+        </a>
+
+        <!-- Delivery Charges (ACTIVE) -->
+        <a href="delivery-settings.html" class="menu-item active">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-truck-fast" style="font-size:15px; color:#0f7139;"></i>
+            <span style="font-weight: 700;">Delivery Charges</span>
+          </div>
+          <span class="badge-count" style="background:#dcfce7; color:#15803d;">Active</span>
+        </a>
+
+        <a href="banners.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-image" style="font-size:16px;"></i>
+            <span>Home Page Banners</span>
+          </div>
+        </a>
+
+        <a href="reviews.html" class="menu-item">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Reviews</span>
+          </div>
+        </a>
+
+        <a href="support-chat.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-robot" style="font-size:16px; color:#16a34a;"></i>
+            <span>AI Support & Chatbot</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="sidebar-bottom">
+        <a href="delivery-settings.html" class="menu-item active">
+          <div class="menu-item-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Settings</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <!-- 3. MAIN DELIVERY SETTINGS VIEWPORT -->
+    <main class="main-viewport" style="padding: 24px 32px;">
+      
+      <!-- Top Action Bar -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h1 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;">Delivery Charges &amp; Regional Shipping Configuration</h1>
+          <p style="font-size: 13.5px; color: #64748b; margin: 0;">Configure regional delivery rates (Bangalore, South India, Rest of India) and free thresholds. Changes save directly to MongoDB Atlas and apply instantly to checkout.</p>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="button" class="btn-reset" onclick="resetToDefaults()">
+            <i class="fa-solid fa-rotate-left"></i> Reset Defaults
+          </button>
+          <button type="button" class="btn-save" id="btnSaveSettings" onclick="saveDeliverySettings()">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Save &amp; Apply Live
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick 1-Click Preset Bar -->
+      <div class="preset-banner">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span style="font-size: 13px; font-weight: 700; color: #334155;">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color: #0f7139;"></i> Quick Presets:
+          </span>
+          <span style="font-size: 12px; color: #64748b;">Click any preset to auto-populate the rules below</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="preset-btn highlight-user" onclick="applyPreset('regionalRule')">
+            ⭐ <strong>Active Store Policy:</strong> Free ₹2,000+ | Bangalore ₹50 | South India ₹145/₹100 | Rest of India ₹150
+          </button>
+          <button type="button" class="preset-btn highlight-green" onclick="applyPreset('allFree')">
+            🎉 <strong>100% Free Shipping:</strong> ₹0 Delivery on ALL Orders (Festive / Promo)
+          </button>
+          <button type="button" class="preset-btn" onclick="applyPreset('flat50')">
+            📦 <strong>Flat Rate:</strong> Flat ₹50 Across All of India
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Free Delivery Above</div>
+            <div class="kpi-value" id="kpiFreeThreshold" style="color: #15803d;">₹2,000</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-green"><i class="fa-solid fa-gift"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Bangalore Local</div>
+            <div class="kpi-value" id="kpiBangaloreFee" style="color: #0f7139;">₹50</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-green"><i class="fa-solid fa-motorcycle"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">South India Slabs</div>
+            <div class="kpi-value" id="kpiSouthIndiaFee" style="color: #0284c7; font-size: 19px;">₹145 / ₹100</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-blue"><i class="fa-solid fa-location-dot"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div>
+            <div class="kpi-title">Rest of India</div>
+            <div class="kpi-value" id="kpiRestOfIndiaFee" style="color: #d97706;">₹150</div>
+          </div>
+          <div class="kpi-icon-box kpi-icon-amber"><i class="fa-solid fa-truck"></i></div>
+        </div>
+      </div>
+
+      <!-- Main Layout Grid -->
+      <div class="settings-grid">
+        
+        <!-- Left Column: Delivery Rules Form -->
+        <div>
+
+          <!-- Master 100% Free Shipping Switch -->
+          <div class="card" style="padding: 16px 20px;">
+            <div class="toggle-row" id="freeAllToggleRow">
+              <div class="toggle-label-wrap">
+                <span class="toggle-label">🎉 Make 100% Delivery FREE for ALL Orders</span>
+                <span class="toggle-subtext">Turn this ON to give ₹0 free delivery on every order regardless of location or cart amount (useful for festive promotions).</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="inputIsFreeShippingForAll" onchange="handleFreeAllToggle()">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Regional Delivery Rules Container -->
+          <div class="card" id="rulesCard">
+            <h3 class="card-title">
+              <i class="fa-solid fa-sliders" style="color:#0f7139;"></i>
+              Location &amp; Order Value Delivery Rules
+            </h3>
+            <p class="card-desc">Edit thresholds and delivery charges for each region. These values determine the exact shipping fee calculated at checkout.</p>
+
+            <!-- RULE 1: UNIVERSAL FREE DELIVERY -->
+            <div class="rule-card rule-green">
+              <div class="rule-header">
+                <span class="rule-title">
+                  <i class="fa-solid fa-circle-check" style="color:#16a34a;"></i> Rule 1: Universal FREE Delivery (All India)
+                </span>
+                <span class="rule-badge green">FREE (₹0)</span>
+              </div>
+              <div class="rule-desc">When a customer's product subtotal reaches this amount, they get <strong>100% FREE Delivery</strong> anywhere in India.</div>
+
+              <div class="rule-inputs-row">
+                <div class="rule-input-group">
+                  <label class="rule-input-label" for="inputFreeShippingThreshold">Free Delivery on purchase of (and above):</label>
+                  <div class="input-with-symbol">
+                    <span class="input-symbol">₹</span>
+                    <input type="number" id="inputFreeShippingThreshold" class="form-control has-symbol" min="0" step="1" value="2000" oninput="runLiveSimulator()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="rule-live-hint green" id="rule1Hint">
+                <i class="fa-solid fa-tag"></i>
+                <span>Cart of <strong>₹2,000 or more</strong> (e.g. ₹2,050, ₹3,500) → <strong>Delivery is 100% FREE (₹0)</strong> across all of India</span>
+              </div>
+            </div>
+
+            <!-- RULE 2: BANGALORE LOCATION -->
+            <div class="rule-card rule-emerald">
+              <div class="rule-header">
+                <span class="rule-title">
+                  <i class="fa-solid fa-motorcycle" style="color:#0f7139;"></i> Rule 2: Bangalore Location (Local Express)
+                </span>
+                <span class="rule-badge emerald">₹50 Delivery</span>
+              </div>
+              <div class="rule-desc">Applies when shipping city is Bangalore / Bengaluru or delivery PIN code starts with 560.</div>
+
+              <div class="rule-inputs-row">
+                <div class="rule-input-group">
+                  <label class="rule-input-label" for="inputBangaloreCharge">Bangalore Delivery Charge (orders under ₹2,000):</label>
+                  <div class="input-with-symbol">
+                    <span class="input-symbol">₹</span>
+                    <input type="number" id="inputBangaloreCharge" class="form-control has-symbol" min="0" step="1" value="50" oninput="runLiveSimulator()">
+                  </div>
+                </div>
+                <div class="rule-input-group">
+                  <label class="rule-input-label" for="inputBangalorePincodes">Bangalore PIN code prefixes:</label>
+                  <input type="text" id="inputBangalorePincodes" class="form-control" value="560" oninput="runLiveSimulator()">
+                </div>
+              </div>
+
+              <div class="rule-live-hint emerald" id="rule2Hint">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Orders in Bangalore under ₹2,000 → <strong>Delivery is ₹50</strong> | Above ₹2,000 is <strong>FREE</strong></span>
+              </div>
+            </div>
+
+            <!-- RULE 3: SOUTH INDIA -->
+            <div class="rule-card rule-blue">
+              <div class="rule-header">
+                <span class="rule-title">
+                  <i class="fa-solid fa-map-location-dot" style="color:#0284c7;"></i> Rule 3: South India (Tamil Nadu, Andhra Pradesh, Telangana, Karnataka, Kerala)
+                </span>
+                <span class="rule-badge blue">₹145 / ₹100 Delivery</span>
+              </div>
+              <div class="rule-desc">Two-tier delivery pricing for South Indian states based on order purchase amount.</div>
+
+              <div class="rule-inputs-row">
+                <div class="rule-input-group">
+                  <label class="rule-input-label" for="inputSouthIndiaTier1Charge">Orders UNDER ₹1,000 delivery fee:</label>
+                  <div class="input-with-symbol">
+                    <span class="input-symbol">₹</span>
+                    <input type="number" id="inputSouthIndiaTier1Charge" class="form-control has-symbol" min="0" step="1" value="145" oninput="runLiveSimulator()">
+                  </div>
+                </div>
+
+                <div class="rule-input-group">
+                  <label class="rule-input-label" for="inputSouthIndiaTier2Threshold">Tier 2 Qualifying Purchase Amount:</label>
+                  <div class="input-with-symbol">
+                    <span class="input-symbol">₹</span>
+                    <input type="number" id="inputSouthIndiaTier2Threshold" class="form-control has-symbol" min="0" step="1" value="1000" oninput="runLiveSimulator()">
+                  </div>
+                </div>
+
+                <div class="rule-input-group">
+                  <label class="rule-input-label" for="inputSouthIndiaTier2Charge">Orders ₹1,000–₹1,999 delivery fee:</label>
+                  <div class="input-with-symbol">
+                    <span class="input-symbol">₹</span>
+                    <input type="number" id="inputSouthIndiaTier2Charge" class="form-control has-symbol" min="0" step="1" value="100" oninput="runLiveSimulator()">
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 14px;">
+                <label class="rule-input-label" for="inputSouthIndiaStates">South India States List (comma-separated):</label>
+                <input type="text" id="inputSouthIndiaStates" class="form-control" value="Karnataka, Tamil Nadu, Andhra Pradesh, Telangana, Kerala" oninput="runLiveSimulator()">
+              </div>
+
+              <div class="rule-live-hint blue" id="rule3Hint">
+                <i class="fa-solid fa-tag"></i>
+                <span>Under ₹1,000 = <strong>₹145</strong> | ₹1,000 to ₹1,999 = <strong>₹100</strong> | ₹2,000+ = <strong>FREE</strong></span>
+              </div>
+            </div>
+
+            <!-- RULE 4: REST OF INDIA -->
+            <div class="rule-card rule-amber">
+              <div class="rule-header">
+                <span class="rule-title">
+                  <i class="fa-solid fa-truck-moving" style="color:#d97706;"></i> Rule 4: Rest of India (National Shipping)
+                </span>
+                <span class="rule-badge amber">₹150 Delivery</span>
+              </div>
+              <div class="rule-desc">For all other states across India (Maharashtra, Delhi, Gujarat, UP, West Bengal, Rajasthan, etc.).</div>
+
+              <div class="rule-inputs-row">
+                <div class="rule-input-group">
+                  <label class="rule-input-label" for="inputRestOfIndiaCharge">Rest of India Delivery Charge (orders under ₹2,000):</label>
+                  <div class="input-with-symbol">
+                    <span class="input-symbol">₹</span>
+                    <input type="number" id="inputRestOfIndiaCharge" class="form-control has-symbol" min="0" step="1" value="150" oninput="runLiveSimulator()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="rule-live-hint amber" id="rule4Hint">
+                <i class="fa-solid fa-tag"></i>
+                <span>Other states under ₹2,000 → <strong>Delivery is ₹150</strong> | Above ₹2,000 is <strong>FREE</strong></span>
+              </div>
+            </div>
+
+            <!-- LIVE SUMMARY MATRIX TABLE -->
+            <div style="margin-top: 24px;">
+              <h4 style="font-size: 14px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0;">
+                <i class="fa-solid fa-table" style="color: #64748b;"></i> Active Delivery Charges Matrix:
+              </h4>
+              <div class="summary-table-wrap">
+                <table class="summary-table">
+                  <thead>
+                    <tr>
+                      <th>Location / Region</th>
+                      <th>Orders &lt; ₹1,000</th>
+                      <th>Orders ₹1,000 – ₹1,999</th>
+                      <th>Orders ₹2,000 &amp; Above</th>
+                    </tr>
+                  </thead>
+                  <tbody id="summaryTableBody">
+                    <!-- Populated dynamically via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Storefront Announcement Messages -->
+          <div class="card">
+            <h3 class="card-title">
+              <i class="fa-solid fa-bullhorn" style="color:#d97706;"></i>
+              Storefront Delivery Banners &amp; Timelines
+            </h3>
+            <p class="card-desc">Messages displayed to customers across the store, checkout pages, and tracking screens.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div class="rule-input-group">
+                <label class="rule-input-label" for="inputBannerMessage">Storefront Top Promotion Announcement:</label>
+                <input type="text" id="inputBannerMessage" class="form-control" value="FREE Delivery on all orders above ₹2,000 | Bangalore ₹50">
+                <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Displayed in the top promotion bar across all store pages.</div>
+              </div>
+
+              <div class="rule-input-group">
+                <label class="rule-input-label" for="inputEstimatedDeliveryDays">Estimated Delivery Timeline:</label>
+                <input type="text" id="inputEstimatedDeliveryDays" class="form-control" value="2 to 4 business days">
+                <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Shown on checkout summary and order status screens.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Live Customer Bill Simulator -->
+        <div>
+          <div class="card" style="position: sticky; top: 80px;">
+            <h3 class="card-title">
+              <i class="fa-solid fa-calculator" style="color:#7e22ce;"></i>
+              Live Bill Calculator &amp; Simulator
+            </h3>
+            <p class="card-desc">Test any cart amount and location to see the exact delivery charge calculated for the customer at checkout.</p>
+
+            <div class="simulator-box">
+              
+              <!-- 1. Location Select -->
+              <div class="rule-input-group" style="margin-bottom: 14px;">
+                <label class="rule-input-label" for="simLocationSelect">Select Customer Location:</label>
+                <select id="simLocationSelect" class="form-control" onchange="runLiveSimulator()">
+                  <option value="bangalore" selected>🛵 Bangalore Local (Pincode: 560xxx)</option>
+                  <option value="south">🌴 South India (Tamil Nadu, AP, Telangana, Karnataka)</option>
+                  <option value="rest">🇮🇳 Rest of India (Delhi, Mumbai, Kolkata, etc.)</option>
+                </select>
+              </div>
+
+              <!-- 2. Subtotal Input -->
+              <div class="rule-input-group" style="margin-bottom: 12px;">
+                <label class="rule-input-label" for="simSubtotalInput">Enter Test Cart Amount:</label>
+                <div class="input-with-symbol">
+                  <span class="input-symbol">₹</span>
+                  <input type="number" id="simSubtotalInput" class="form-control has-symbol" min="0" value="800" oninput="runLiveSimulator()">
+                </div>
+              </div>
+
+              <!-- Quick subtotal test buttons -->
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                <button type="button" class="preset-btn" style="padding: 4px 9px; font-size: 11.5px;" onclick="setSimSubtotal(500)">₹500</button>
+                <button type="button" class="preset-btn" style="padding: 4px 9px; font-size: 11.5px;" onclick="setSimSubtotal(800)">₹800</button>
+                <button type="button" class="preset-btn" style="padding: 4px 9px; font-size: 11.5px;" onclick="setSimSubtotal(1000)">₹1,000</button>
+                <button type="button" class="preset-btn" style="padding: 4px 9px; font-size: 11.5px;" onclick="setSimSubtotal(1500)">₹1,500</button>
+                <button type="button" class="preset-btn" style="padding: 4px 9px; font-size: 11.5px;" onclick="setSimSubtotal(2000)">₹2,000</button>
+                <button type="button" class="preset-btn" style="padding: 4px 9px; font-size: 11.5px;" onclick="setSimSubtotal(2500)">₹2,500</button>
+              </div>
+
+              <!-- Simulated Bill Breakdown -->
+              <div class="sim-result-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <span style="font-weight: 700; font-size: 14px; color: #1e293b;">Checkout Preview</span>
+                  <span id="simStatusBadge" class="sim-badge tier">₹50 Fee</span>
+                </div>
+
+                <div class="sim-row">
+                  <span>Detected Region</span>
+                  <strong id="simRegionText" style="color: #0f7139;">Bangalore</strong>
+                </div>
+
+                <div class="sim-row">
+                  <span>Product Subtotal</span>
+                  <strong id="simSubtotalText">₹800</strong>
+                </div>
+
+                <div class="sim-row">
+                  <span>Delivery Charge</span>
+                  <strong id="simDeliveryFeeText" style="color: #0284c7;">+ ₹50</strong>
+                </div>
+
+                <div class="sim-row total-row">
+                  <span>Customer Pays</span>
+                  <span id="simGrandTotalText" style="color: #0f7139; font-size: 18px; font-weight: 800;">₹850</span>
+                </div>
+
+                <div id="simSavingsTip" style="font-size: 12px; color: #475569; margin-top: 12px; background: #f1f5f9; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #0284c7;">
+                  Add ₹1,200 more to unlock FREE Delivery!
+                </div>
+              </div>
+
+              <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed #cbd5e1; font-size: 12px; color: #64748b;">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 5px;">
+                  <span style="color: #16a34a;">●</span>
+                  <span>Directly connected with MongoDB Atlas</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="color: #16a34a;">●</span>
+                  <span>Instant reflection in <code>pages/checkout.html</code></span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 16px;">
+              <button type="button" class="btn-save" style="width: 100%; justify-content: center; padding: 12px;" onclick="saveDeliverySettings()">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Save &amp; Apply Rules Live
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastPopup" class="toast-popup">
+    <i class="fa-solid fa-circle-check toast-icon"></i>
+    <span id="toastMessage">Settings saved successfully!</span>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin.includes('http') ? window.location.origin : 'http://localhost:5000';
+
+    let currentSettings = {
+      isFreeShippingForAll: false,
+      freeShippingThreshold: 2000,
+      bangaloreCharge: 50,
+      southIndiaTier1Charge: 145,
+      southIndiaTier2Threshold: 1000,
+      southIndiaTier2Charge: 100,
+      restOfIndiaCharge: 150,
+      southIndiaStates: ['Karnataka', 'Tamil Nadu', 'Andhra Pradesh', 'Telangana', 'Kerala'],
+      bangalorePincodes: ['560'],
+      estimatedDeliveryDays: '2 to 4 business days',
+      bannerMessage: 'FREE Delivery on all orders above ₹2,000 | Bangalore ₹50'
+    };
+
+    // Load live settings from MongoDB
+    async function loadDeliverySettings() {
+      try {
+        const res = await fetch(`${API_BASE}/api/settings/delivery`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success && data.settings) {
+            currentSettings = { ...currentSettings, ...data.settings };
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load settings from server, using local defaults:', err);
+      }
+      populateForm(currentSettings);
+      updateKPICards(currentSettings);
+      runLiveSimulator();
+    }
+
+    function populateForm(s) {
+      document.getElementById('inputIsFreeShippingForAll').checked = Boolean(s.isFreeShippingForAll);
+      document.getElementById('inputFreeShippingThreshold').value = s.freeShippingThreshold !== undefined ? s.freeShippingThreshold : 2000;
+      
+      // Bangalore
+      document.getElementById('inputBangaloreCharge').value = s.bangaloreCharge !== undefined ? s.bangaloreCharge : 50;
+      document.getElementById('inputBangalorePincodes').value = Array.isArray(s.bangalorePincodes) ? s.bangalorePincodes.join(', ') : (s.bangalorePincodes || '560');
+
+      // South India
+      document.getElementById('inputSouthIndiaTier1Charge').value = s.southIndiaTier1Charge !== undefined ? s.southIndiaTier1Charge : 145;
+      document.getElementById('inputSouthIndiaTier2Threshold').value = s.southIndiaTier2Threshold !== undefined ? s.southIndiaTier2Threshold : 1000;
+      document.getElementById('inputSouthIndiaTier2Charge').value = s.southIndiaTier2Charge !== undefined ? s.southIndiaTier2Charge : 100;
+      document.getElementById('inputSouthIndiaStates').value = Array.isArray(s.southIndiaStates) ? s.southIndiaStates.join(', ') : (s.southIndiaStates || 'Karnataka, Tamil Nadu, Andhra Pradesh, Telangana, Kerala');
+
+      // Rest of India
+      document.getElementById('inputRestOfIndiaCharge').value = s.restOfIndiaCharge !== undefined ? s.restOfIndiaCharge : 150;
+
+      // Announcement & timeline
+      document.getElementById('inputEstimatedDeliveryDays').value = s.estimatedDeliveryDays || '2 to 4 business days';
+      document.getElementById('inputBannerMessage').value = s.bannerMessage || 'FREE Delivery on all orders above ₹2,000 | Bangalore ₹50';
+
+      handleFreeAllToggle();
+    }
+
+    function updateKPICards(s) {
+      if (s.isFreeShippingForAll) {
+        document.getElementById('kpiFreeThreshold').textContent = 'All Orders';
+        document.getElementById('kpiBangaloreFee').textContent = '₹0';
+        document.getElementById('kpiSouthIndiaFee').textContent = '₹0';
+        document.getElementById('kpiRestOfIndiaFee').textContent = '₹0';
+      } else {
+        document.getElementById('kpiFreeThreshold').textContent = `₹${(s.freeShippingThreshold || 2000).toLocaleString('en-IN')}`;
+        document.getElementById('kpiBangaloreFee').textContent = `₹${s.bangaloreCharge !== undefined ? s.bangaloreCharge : 50}`;
+        document.getElementById('kpiSouthIndiaFee').textContent = `₹${s.southIndiaTier1Charge || 145} / ₹${s.southIndiaTier2Charge || 100}`;
+        document.getElementById('kpiRestOfIndiaFee').textContent = `₹${s.restOfIndiaCharge !== undefined ? s.restOfIndiaCharge : 150}`;
+      }
+    }
+
+    function handleFreeAllToggle() {
+      const isFree = document.getElementById('inputIsFreeShippingForAll').checked;
+      const toggleRow = document.getElementById('freeAllToggleRow');
+      const rulesCard = document.getElementById('rulesCard');
+
+      if (isFree) {
+        toggleRow.classList.add('active');
+        if (rulesCard) {
+          rulesCard.style.opacity = '0.45';
+          rulesCard.style.pointerEvents = 'none';
+        }
+      } else {
+        toggleRow.classList.remove('active');
+        if (rulesCard) {
+          rulesCard.style.opacity = '1';
+          rulesCard.style.pointerEvents = 'auto';
+        }
+      }
+      runLiveSimulator();
+    }
+
+    function applyPreset(type) {
+      if (type === 'regionalRule') {
+        // User's exact preferred policy: Free 2000+, Bangalore 50, South India 145/100, Rest of India 150
+        document.getElementById('inputIsFreeShippingForAll').checked = false;
+        document.getElementById('inputFreeShippingThreshold').value = 2000;
+        document.getElementById('inputBangaloreCharge').value = 50;
+        document.getElementById('inputBangalorePincodes').value = '560';
+        document.getElementById('inputSouthIndiaTier1Charge').value = 145;
+        document.getElementById('inputSouthIndiaTier2Threshold').value = 1000;
+        document.getElementById('inputSouthIndiaTier2Charge').value = 100;
+        document.getElementById('inputSouthIndiaStates').value = 'Karnataka, Tamil Nadu, Andhra Pradesh, Telangana, Kerala';
+        document.getElementById('inputRestOfIndiaCharge').value = 150;
+        document.getElementById('inputBannerMessage').value = 'FREE Delivery on all orders above ₹2,000 | Bangalore ₹50';
+        showToast('⭐ Preset Applied: Free ₹2,000+ | Bangalore ₹50 | South India ₹145/₹100 | Rest ₹150');
+      } else if (type === 'allFree') {
+        document.getElementById('inputIsFreeShippingForAll').checked = true;
+        document.getElementById('inputBannerMessage').value = '🎉 Festive Offer: 100% FREE Delivery on ALL Orders across India!';
+        showToast('🎉 Preset Applied: 100% Free Delivery on ALL Orders!');
+      } else if (type === 'flat50') {
+        document.getElementById('inputIsFreeShippingForAll').checked = false;
+        document.getElementById('inputFreeShippingThreshold').value = 2000;
+        document.getElementById('inputBangaloreCharge').value = 50;
+        document.getElementById('inputSouthIndiaTier1Charge').value = 50;
+        document.getElementById('inputSouthIndiaTier2Charge').value = 50;
+        document.getElementById('inputRestOfIndiaCharge').value = 50;
+        document.getElementById('inputBannerMessage').value = 'Flat ₹50 Delivery Across India | Free on orders above ₹2,000';
+        showToast('📦 Preset Applied: Flat Rate ₹50 Everywhere');
+      }
+
+      handleFreeAllToggle();
+      runLiveSimulator();
+    }
+
+    function setSimSubtotal(val) {
+      document.getElementById('simSubtotalInput').value = val;
+      runLiveSimulator();
+    }
+
+    function runLiveSimulator() {
+      const subtotal = Math.max(0, parseFloat(document.getElementById('simSubtotalInput').value) || 0);
+      const location = document.getElementById('simLocationSelect').value;
+      const isFreeAll = document.getElementById('inputIsFreeShippingForAll').checked;
+
+      const freeThreshold = Math.max(0, parseFloat(document.getElementById('inputFreeShippingThreshold').value) || 2000);
+      const bangaloreCharge = Math.max(0, parseFloat(document.getElementById('inputBangaloreCharge').value) || 50);
+      const southTier1 = Math.max(0, parseFloat(document.getElementById('inputSouthIndiaTier1Charge').value) || 145);
+      const southTier2Threshold = Math.max(0, parseFloat(document.getElementById('inputSouthIndiaTier2Threshold').value) || 1000);
+      const southTier2 = Math.max(0, parseFloat(document.getElementById('inputSouthIndiaTier2Charge').value) || 100);
+      const restCharge = Math.max(0, parseFloat(document.getElementById('inputRestOfIndiaCharge').value) || 150);
+
+      // Update live hints in cards
+      const r1Hint = document.getElementById('rule1Hint');
+      if (r1Hint) {
+        r1Hint.innerHTML = `<i class="fa-solid fa-tag"></i> Cart of <strong>₹${freeThreshold.toLocaleString('en-IN')} or more</strong> → <strong>Delivery is 100% FREE (₹0)</strong> across all of India`;
+      }
+      const r2Hint = document.getElementById('rule2Hint');
+      if (r2Hint) {
+        r2Hint.innerHTML = `<i class="fa-solid fa-location-dot"></i> Orders in Bangalore under ₹${freeThreshold.toLocaleString('en-IN')} → <strong>Delivery is ₹${bangaloreCharge}</strong> | Above ₹${freeThreshold.toLocaleString('en-IN')} is <strong>FREE</strong>`;
+      }
+      const r3Hint = document.getElementById('rule3Hint');
+      if (r3Hint) {
+        r3Hint.innerHTML = `<i class="fa-solid fa-tag"></i> Under ₹${southTier2Threshold.toLocaleString('en-IN')} = <strong>₹${southTier1}</strong> | ₹${southTier2Threshold.toLocaleString('en-IN')} to ₹${(freeThreshold - 1).toLocaleString('en-IN')} = <strong>₹${southTier2}</strong> | ₹${freeThreshold.toLocaleString('en-IN')}+ = <strong>FREE</strong>`;
+      }
+      const r4Hint = document.getElementById('rule4Hint');
+      if (r4Hint) {
+        r4Hint.innerHTML = `<i class="fa-solid fa-tag"></i> Other states under ₹${freeThreshold.toLocaleString('en-IN')} → <strong>Delivery is ₹${restCharge}</strong> | Above ₹${freeThreshold.toLocaleString('en-IN')} is <strong>FREE</strong>`;
+      }
+
+      // Update Summary Matrix Table
+      updateSummaryTable(freeThreshold, bangaloreCharge, southTier1, southTier2Threshold, southTier2, restCharge, isFreeAll);
+
+      // Calculate for Simulator based on selected location
+      let deliveryCharge = 0;
+      let regionName = "Bangalore";
+      let badgeText = "FREE Delivery";
+      let badgeClass = "sim-badge free";
+      let tipHtml = "🎉 This order qualifies for 100% FREE Delivery!";
+
+      if (subtotal <= 0) {
+        deliveryCharge = 0;
+        badgeText = "Cart Empty";
+        badgeClass = "sim-badge";
+        tipHtml = "Enter an amount above to see delivery charges.";
+      } else if (isFreeAll) {
+        deliveryCharge = 0;
+        badgeText = "100% FREE (All Orders)";
+        badgeClass = "sim-badge free";
+        tipHtml = "🎉 Storewide Promotion Active: FREE Delivery on all orders!";
+      } else if (subtotal >= freeThreshold) {
+        deliveryCharge = 0;
+        badgeText = "FREE Delivery (₹0)";
+        badgeClass = "sim-badge free";
+        tipHtml = `🎉 Free delivery unlocked! (Cart reached ₹${freeThreshold.toLocaleString('en-IN')})`;
+      } else {
+        const remainingForFree = Math.max(0, freeThreshold - subtotal);
+        if (location === 'bangalore') {
+          regionName = "Bangalore";
+          deliveryCharge = bangaloreCharge;
+          badgeText = `Bangalore: ₹${bangaloreCharge}`;
+          badgeClass = "sim-badge tier";
+          tipHtml = `🛵 Bangalore local delivery fee ₹${bangaloreCharge} applied. Add <strong>₹${remainingForFree.toLocaleString('en-IN')}</strong> more to unlock <strong>FREE Delivery</strong>!`;
+        } else if (location === 'south') {
+          regionName = "South India";
+          if (subtotal >= southTier2Threshold) {
+            deliveryCharge = southTier2;
+            badgeText = `South India: ₹${southTier2}`;
+            badgeClass = "sim-badge tier";
+            tipHtml = `🌴 South India tier fee ₹${southTier2} applied for orders above ₹${southTier2Threshold.toLocaleString('en-IN')}. Add <strong>₹${remainingForFree.toLocaleString('en-IN')}</strong> more for <strong>FREE Delivery</strong>!`;
+          } else {
+            deliveryCharge = southTier1;
+            badgeText = `South India: ₹${southTier1}`;
+            badgeClass = "sim-badge charged";
+            const diffTier2 = Math.max(0, southTier2Threshold - subtotal);
+            tipHtml = `📦 Standard South India fee ₹${southTier1}. Add <strong>₹${diffTier2.toLocaleString('en-IN')}</strong> more to reduce delivery to <strong>₹${southTier2}</strong>, or ₹${remainingForFree.toLocaleString('en-IN')} for <strong>FREE Delivery</strong>!`;
+          }
+        } else {
+          regionName = "Rest of India";
+          deliveryCharge = restCharge;
+          badgeText = `Rest of India: ₹${restCharge}`;
+          badgeClass = "sim-badge charged";
+          tipHtml = `🇮🇳 Rest of India courier fee ₹${restCharge} applied. Add <strong>₹${remainingForFree.toLocaleString('en-IN')}</strong> more to unlock <strong>FREE Delivery</strong>!`;
+        }
+      }
+
+      const grandTotal = subtotal + deliveryCharge;
+
+      document.getElementById('simRegionText').textContent = regionName;
+      document.getElementById('simSubtotalText').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+      document.getElementById('simDeliveryFeeText').textContent = deliveryCharge === 0 ? 'FREE' : `+ ₹${deliveryCharge}`;
+      document.getElementById('simGrandTotalText').textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
+      
+      const badgeEl = document.getElementById('simStatusBadge');
+      badgeEl.className = badgeClass;
+      badgeEl.textContent = badgeText;
+
+      document.getElementById('simSavingsTip').innerHTML = tipHtml;
+    }
+
+    function updateSummaryTable(freeThreshold, bangaloreCharge, southTier1, southTier2Threshold, southTier2, restCharge, isFreeAll) {
+      const tbody = document.getElementById('summaryTableBody');
+      if (!tbody) return;
+
+      if (isFreeAll) {
+        tbody.innerHTML = `
+          <tr style="background: #f0fdf4;">
+            <td><strong>All India (All Locations)</strong></td>
+            <td colspan="3" style="text-align: center;"><span class="sim-badge free">100% FREE DELIVERY ON ALL ORDERS</span></td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = `
+        <tr style="background: #f7fdf9;">
+          <td><strong style="color: #0f7139;"><i class="fa-solid fa-motorcycle"></i> Bangalore Local</strong></td>
+          <td><span class="sim-badge tier">₹${bangaloreCharge}</span></td>
+          <td><span class="sim-badge tier">₹${bangaloreCharge}</span></td>
+          <td><span class="sim-badge free">FREE (₹0)</span></td>
+        </tr>
+        <tr style="background: #f8fbff;">
+          <td><strong style="color: #0284c7;"><i class="fa-solid fa-map-location-dot"></i> South India (TN, AP, TS, KA, KL)</strong></td>
+          <td><span class="sim-badge charged">₹${southTier1}</span></td>
+          <td><span class="sim-badge tier">₹${southTier2}</span></td>
+          <td><span class="sim-badge free">FREE (₹0)</span></td>
+        </tr>
+        <tr style="background: #fffdf9;">
+          <td><strong style="color: #d97706;"><i class="fa-solid fa-truck-moving"></i> Rest of India</strong></td>
+          <td><span class="sim-badge charged">₹${restCharge}</span></td>
+          <td><span class="sim-badge charged">₹${restCharge}</span></td>
+          <td><span class="sim-badge free">FREE (₹0)</span></td>
+        </tr>
+      `;
+    }
+
+    async function saveDeliverySettings() {
+      const btn = document.getElementById('btnSaveSettings');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+      btn.disabled = true;
+
+      const southStatesRaw = document.getElementById('inputSouthIndiaStates').value;
+      const bangalorePincodesRaw = document.getElementById('inputBangalorePincodes').value;
+
+      const payload = {
+        isFreeShippingForAll: document.getElementById('inputIsFreeShippingForAll').checked,
+        freeShippingThreshold: Number(document.getElementById('inputFreeShippingThreshold').value),
+        bangaloreCharge: Number(document.getElementById('inputBangaloreCharge').value),
+        bangalorePincodes: bangalorePincodesRaw.split(',').map(s => s.trim()).filter(Boolean),
+        southIndiaTier1Charge: Number(document.getElementById('inputSouthIndiaTier1Charge').value),
+        southIndiaTier2Threshold: Number(document.getElementById('inputSouthIndiaTier2Threshold').value),
+        southIndiaTier2Charge: Number(document.getElementById('inputSouthIndiaTier2Charge').value),
+        southIndiaStates: southStatesRaw.split(',').map(s => s.trim()).filter(Boolean),
+        restOfIndiaCharge: Number(document.getElementById('inputRestOfIndiaCharge').value),
+        estimatedDeliveryDays: document.getElementById('inputEstimatedDeliveryDays').value.trim(),
+        bannerMessage: document.getElementById('inputBannerMessage').value.trim()
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/api/settings/delivery`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.success && data.settings) {
+          currentSettings = data.settings;
+          updateKPICards(currentSettings);
+          // Sync with localStorage so storefront checkout picks it up immediately
+          try {
+            localStorage.setItem('arshith_delivery_settings', JSON.stringify(currentSettings));
+          } catch(e) {}
+          showToast('✅ Saved! Regional delivery rules are now LIVE across checkout.');
+        } else {
+          showToast(`❌ Error: ${data.message || 'Failed to save'}`);
+        }
+      } catch (err) {
+        showToast('❌ Network error while saving delivery settings');
+        console.error(err);
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    async function resetToDefaults() {
+      if (!confirm('Are you sure you want to reset delivery settings to default values?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/api/settings/delivery/reset`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success && data.settings) {
+          currentSettings = data.settings;
+          populateForm(currentSettings);
+          updateKPICards(currentSettings);
+          runLiveSimulator();
+          try {
+            localStorage.setItem('arshith_delivery_settings', JSON.stringify(currentSettings));
+          } catch(e) {}
+          showToast('↺ Delivery settings have been reset to defaults.');
+        }
+      } catch (err) {
+        showToast('❌ Failed to reset settings');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastPopup');
+      const text = document.getElementById('toastMessage');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDeliverySettings();
+    });
+  </script>
+</body>
+</html>

@@ -1,5 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+
+// Ensure .env is loaded from backend directory, backend/utils, and current working directory
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+require('dotenv').config({ path: path.join(__dirname, 'utils', '.env') });
 require('dotenv').config();
 
 const connectDB = require('./config/db');
@@ -17,6 +22,7 @@ const shiprocketRoutes = require('./routes/shiprocketRoutes');
 const bannerRoutes     = require('./routes/bannerRoutes');
 const chatRoutes       = require('./routes/chatRoutes');
 const locationRoutes   = require('./routes/locationRoutes');
+const deliverySettingsRoutes = require('./routes/deliverySettingsRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -46,9 +52,8 @@ app.use('/api/shiprocket',  shiprocketRoutes);
 app.use('/api/banners',     bannerRoutes);
 app.use('/api/chat',        chatRoutes);
 app.use('/api/location',    locationRoutes);
+app.use('/api/settings/delivery', deliverySettingsRoutes);
 
-
-const path = require('path');
 
 // Root Healthcheck
 app.get('/api', (req, res) => {

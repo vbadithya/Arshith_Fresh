@@ -269,6 +269,15 @@ button {
     gap: 20px;
 }
 
+.mobile-search-toggle-btn {
+    display: none;
+}
+
+.mobile-search-expand-bar,
+.mobile-search-row {
+    display: none;
+}
+
 .search-bar-container {
     position: relative;
     width: 290px;
@@ -1060,8 +1069,6 @@ main {
     .instamart-arrow {
         display: none !important;
     }
-}
-    transform: scale(1.2);
 }
 
 @keyframes fadeEffect {
@@ -6345,6 +6352,534 @@ main {
     background: #004738;
 }
 
+
+/* ====================================================
+   PRODUCT DETAIL INFO SECTION - DESKTOP & BASE STYLES
+   ==================================================== */
+.product-info-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+    width: 100%;
+}
+
+.product-detail-category-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.detail-category-pill {
+    background: #e8f5e9;
+    color: #0f7139;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: inline-flex;
+    align-items: center;
+}
+
+.detail-subcategory-pill {
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: inline-flex;
+    align-items: center;
+}
+
+.product-detail-heading {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 26px !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    line-height: 1.25 !important;
+    margin: 0 0 10px 0 !important;
+    word-break: break-word !important;
+    letter-spacing: -0.3px !important;
+}
+
+.product-detail-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.detail-rating-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.detail-stars-visual {
+    color: #f59e0b;
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+.detail-score-num {
+    font-size: 13.5px;
+    color: #1e293b;
+    font-weight: 800;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.detail-reviews-count {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-decoration: none !important;
+    transition: color 0.15s ease;
+}
+
+.detail-rating-link:hover .detail-reviews-count {
+    color: #0284c7;
+    text-decoration: underline !important;
+}
+
+.detail-rating-dot {
+    color: #cbd5e1;
+    font-size: 12px;
+}
+
+.detail-verified-badge {
+    color: #059669;
+    font-size: 11.5px;
+    font-weight: 600;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    padding: 2px 8px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.product-detail-price-box {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.price-main-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.product-detail-sale-price {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    line-height: 1 !important;
+}
+
+.product-detail-regular-price {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 16px !important;
+    color: #94a3b8 !important;
+    text-decoration: line-through !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+}
+
+.product-detail-save-badge {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    color: #047857 !important;
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 1.2 !important;
+}
+
+.badge-22-off {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    color: #0f7139 !important;
+    background: #e6f7ed !important;
+    border: 1px solid #86efac !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 1.2 !important;
+}
+
+.price-tax-subnote {
+    font-size: 11.5px;
+    color: #64748b;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-top: 2px;
+}
+
+.product-detail-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.spec-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 58px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.spec-card-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+    display: block;
+    line-height: 1.2;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.weight-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.detail-weight-dropdown {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230f7139' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 10px center;
+    padding: 4px 28px 4px 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #0f172a;
+    cursor: pointer;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-sizing: border-box;
+    line-height: 1.3;
+    transition: border-color 0.15s ease;
+}
+
+.detail-weight-dropdown:focus {
+    border-color: #0f7139;
+}
+
+.spec-card-static-val {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #0f172a;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.3;
+}
+
+.spec-stock-value {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.3;
+}
+
+.spec-stock-value.in-stock {
+    color: #16a34a;
+}
+
+.spec-stock-value.out-of-stock {
+    color: #dc2626;
+}
+
+.stock-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.product-detail-actions-wrap {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.actions-primary-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.detail-qty-stepper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #ffffff;
+    height: 48px;
+    box-sizing: border-box;
+    flex: 0 0 108px;
+    width: 108px;
+}
+
+.detail-qty-btn {
+    width: 34px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.detail-qty-btn:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+.detail-qty-btn:active {
+    background-color: #e2e8f0;
+}
+
+.detail-qty-input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+    outline: none;
+    background: transparent;
+    pointer-events: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 0;
+}
+
+.detail-btn-cart {
+    flex: 1;
+    min-width: 140px;
+    height: 48px;
+    background: #0f7139;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0.3px;
+    transition: background 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 3px 10px rgba(15, 113, 57, 0.2);
+}
+
+.detail-btn-cart:hover {
+    background: #0b572b;
+}
+
+.detail-btn-cart:active {
+    transform: scale(0.98);
+}
+
+.detail-btn-buy {
+    flex: 1;
+    min-width: 130px;
+    height: 48px;
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0.3px;
+    transition: background 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.2);
+}
+
+.detail-btn-buy:hover {
+    background: #1e293b;
+}
+
+.detail-btn-buy:active {
+    transform: scale(0.98);
+}
+
+.product-detail-outofstock-card {
+    background: #fef2f2;
+    border: 1.5px solid #fca5a5;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.outofstock-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.outofstock-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.outofstock-title {
+    color: #991b1b;
+    font-weight: 800;
+    font-size: 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.outofstock-subtitle {
+    font-size: 12.5px;
+    color: #b91c1c;
+    margin-top: 2px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.outofstock-btn {
+    background: #ffffff;
+    color: #991b1b;
+    border: 1.5px solid #f87171;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.product-detail-desc-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.desc-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f7139;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.desc-card-body {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #475569;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.product-detail-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.trust-badge-pill {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.trust-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.trust-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    line-height: 1.25;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
 .buy-now-cta-btn {
     flex: 1;
     padding: 14px 24px;
@@ -9530,6 +10065,12 @@ body {
     transform: translateX(4px) !important;
 }
 
+/* Mobile Search Elements (Hidden on Desktop) */
+.mobile-header-search-wrap,
+.mobile-search-expand-bar {
+    display: none;
+}
+
 /* Modern Search Bar with Inset Shadow & Glow */
 .search-bar-container {
     width: 320px !important;
@@ -10640,7 +11181,7 @@ body {
         background: #ffffff !important;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
         border-bottom: 1px solid #e8ecef !important;
-        padding-bottom: 6px !important;
+        padding-bottom: 3px !important;
     }
 
     .header-container {
@@ -10648,8 +11189,8 @@ body {
         flex-wrap: wrap !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 8px 12px 4px !important;
-        gap: 8px !important;
+        padding: 6px 12px 2px !important;
+        gap: 6px !important;
     }
 
     .mobile-menu-btn {
@@ -10677,16 +11218,25 @@ body {
         margin: 0 !important;
     }
 
+    /* Clean, Modern 2-Row Mobile Header (Blinkit/Instamart Style) */
+    /* Never overlaps the centered logo; dedicated permanent full-width search on Row 2 */
+
+    /* Hide obsolete inline search button that overlapped logo */
+    .mobile-header-search-wrap {
+        display: none !important;
+    }
+
+    /* Row 1, Center: Arshith Fresh Logo - Perfectly Centered & 100% Clearance */
     .header-logo {
         position: absolute !important;
         left: 50% !important;
-        top: 26px !important;
+        top: 25px !important;
         transform: translate(-50%, -50%) !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        max-width: 42% !important;
-        z-index: 10 !important;
+        max-width: 120px !important;
+        z-index: 5 !important;
         pointer-events: auto !important;
     }
 
@@ -10699,54 +11249,250 @@ body {
 
     .header-logo .logo-img,
     .logo-img {
-        max-height: 33px !important;
-        height: 33px !important;
+        max-height: 29px !important;
+        height: 29px !important;
         width: auto !important;
-        max-width: 135px !important;
+        max-width: 110px !important;
         object-fit: contain !important;
     }
 
+    /* Row 1, Right: Header Actions (Wishlist + Account + Cart) */
     .header-actions {
         order: 3 !important;
         display: flex !important;
         align-items: center !important;
-        gap: 8px !important;
+        gap: 5px !important;
+        margin-left: auto !important;
+        z-index: 10 !important;
     }
 
     .header-actions .search-bar-container {
         display: none !important;
     }
 
-    .search-bar-container {
-        order: 4 !important;
-        width: 100% !important;
-        flex: 0 0 100% !important;
-        margin-top: 4px !important;
-        padding: 0 2px !important;
+    .header-actions .action-btn {
+        width: 35px !important;
+        height: 35px !important;
+        min-width: 35px !important;
+        border-radius: 50% !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        position: relative !important;
+        color: #0f7139 !important;
+        box-sizing: border-box !important;
+        transition: all 0.2s ease !important;
     }
 
-    .search-form {
-        width: 100% !important;
-        height: 42px !important;
-        border-radius: 12px !important;
-        border: 1px solid #e2e8f0 !important;
-        background: #f8fafc !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+    .header-actions .action-btn:active {
+        transform: scale(0.92) !important;
+        background: #f0fdf4 !important;
+    }
+
+    .header-actions .action-btn svg {
+        width: 17px !important;
+        height: 17px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .header-actions .wishlist-btn {
+        display: inline-flex !important;
+    }
+
+    .header-actions .wishlist-btn svg {
+        color: #ef4444 !important;
+    }
+
+    .header-actions .cart-count,
+    .header-actions .wishlist-count {
+        position: absolute !important;
+        top: -4px !important;
+        right: -4px !important;
+        width: 17px !important;
+        height: 17px !important;
+        font-size: 10px !important;
+        line-height: 1 !important;
+        border: 1.5px solid #ffffff !important;
+        font-weight: 800 !important;
+        border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
     }
 
-    .search-form input {
+    .header-actions .wishlist-count {
+        background-color: #ef4444 !important;
+        color: #ffffff !important;
+    }
+
+    .header-actions .cart-count {
+        background-color: #0c831f !important;
+        color: #ffffff !important;
+    }
+
+    /* Mobile Search Toggle Button (Directly beside wishlist icon) */
+    .header-actions .mobile-search-toggle-btn {
+        display: inline-flex !important;
+        color: #0f7139 !important;
+        cursor: pointer !important;
+    }
+
+    .header-actions .mobile-search-toggle-btn.active {
+        background: #0f7139 !important;
+        border-color: #0f7139 !important;
+        color: #ffffff !important;
+    }
+
+    .header-actions .mobile-search-toggle-btn.active svg {
+        color: #ffffff !important;
+    }
+
+    /* Expandable Mobile Search Bar (Hidden by default, opens smoothly when search icon beside wishlist is clicked) */
+    .mobile-search-expand-bar,
+    .mobile-search-row {
+        order: 4 !important;
+        display: none !important;
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        margin: 6px 0 2px 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        animation: mobileSearchSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .mobile-search-expand-bar.active,
+    .mobile-search-row.active {
+        display: block !important;
+    }
+
+    @keyframes mobileSearchSlideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .mobile-search-form {
+        width: 100% !important;
+        height: 38px !important;
+        border-radius: 10px !important;
+        border: 1.5px solid #cbd5e1 !important;
+        background: #f8fafc !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+        display: flex !important;
+        align-items: center !important;
+        padding: 0 4px 0 10px !important;
+        box-sizing: border-box !important;
+        gap: 8px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .mobile-search-form:focus-within {
+        background: #ffffff !important;
+        border-color: #0c831f !important;
+        box-shadow: 0 0 0 3px rgba(12, 131, 31, 0.12) !important;
+    }
+
+    .mobile-search-form svg {
+        color: #0c831f !important;
+        flex-shrink: 0 !important;
+    }
+
+    .mobile-search-form input {
+        border: none !important;
+        background: transparent !important;
+        outline: none !important;
+        flex: 1 !important;
         font-size: 13px !important;
-        padding: 8px 14px !important;
-        color: #1e293b !important;
+        font-weight: 500 !important;
+        color: #0f172a !important;
+        padding: 0 !important;
+        font-family: inherit !important;
+        min-width: 0 !important;
+    }
+
+    .mobile-search-form input::placeholder {
+        color: #94a3b8 !important;
+        font-size: 12px !important;
+    }
+
+    .mobile-search-submit-btn {
+        background: #0c831f !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 7px !important;
+        padding: 6px 13px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
+        flex-shrink: 0 !important;
+        letter-spacing: 0.2px !important;
+        transition: background 0.15s ease !important;
+    }
+
+    .mobile-search-submit-btn:hover,
+    .mobile-search-submit-btn:active {
+        background: #096a18 !important;
+    }
+
+    .mobile-search-close-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #f1f5f9 !important;
+        border: none !important;
+        color: #64748b !important;
+        font-size: 19px !important;
+        font-weight: 500 !important;
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        border-radius: 50% !important;
+        cursor: pointer !important;
+        flex-shrink: 0 !important;
+        padding: 0 !important;
+        line-height: 1 !important;
+        margin-left: 2px !important;
+        transition: all 0.15s ease !important;
+    }
+
+    .mobile-search-close-btn:hover,
+    .mobile-search-close-btn:active {
+        background: #e2e8f0 !important;
+        color: #0f172a !important;
+    }
+
+    /* Mobile Search Autocomplete Dropdown - Positioned directly below the input */
+    .mobile-search-expand-bar .search-suggestions-dropdown {
+        position: absolute !important;
+        top: calc(100% + 6px) !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 60vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        z-index: 10001 !important;
+        background: #ffffff !important;
+        border-radius: 14px !important;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18) !important;
+        border: 1px solid #e2e8f0 !important;
     }
 
     /* 2. Instamart / Blinkit Modern Offer Banners Carousel */
     .hero-carousel-section,
     .instamart-hero-section {
-        padding: 8px 10px !important;
-        margin: 6px auto 10px !important;
+        padding: 4px 10px !important;
+        margin: 4px auto 8px !important;
     }
 
     .carousel-container,
@@ -11309,195 +12055,523 @@ body {
         border-radius: 6px !important;
     }
 
+    /* ====================================================
+       MOBILE PRODUCT DETAIL INFO SECTION POLISH (< 768px)
+       ==================================================== */
     .product-info-side {
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
-        gap: 4px !important;
+        gap: 0 !important;
         width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .product-detail-category-row {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        margin-bottom: 6px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .detail-category-pill {
+        background: #e8f5e9 !important;
+        color: #0f7139 !important;
+        font-size: 10.5px !important;
+        font-weight: 700 !important;
+        padding: 3px 8px !important;
+        border-radius: 14px !important;
+        letter-spacing: 0.4px !important;
+        text-transform: uppercase !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+
+    .detail-subcategory-pill {
+        background: #f1f5f9 !important;
+        color: #475569 !important;
+        font-size: 10.5px !important;
+        font-weight: 600 !important;
+        padding: 3px 8px !important;
+        border-radius: 14px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        display: inline-flex !important;
+        align-items: center !important;
     }
 
     .product-detail-heading {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-size: 22px !important;
+        font-size: 20px !important;
         font-weight: 800 !important;
-        color: #1e293b !important;
+        color: #0f172a !important;
         line-height: 1.25 !important;
-        margin: 2px 0 6px 0 !important;
+        margin: 0 0 6px 0 !important;
         word-break: break-word !important;
+        letter-spacing: -0.2px !important;
         text-align: left !important;
     }
 
-    #topRatingScoreLink {
-        font-size: 11.5px !important;
-        gap: 6px !important;
-        margin-bottom: 6px !important;
+    .product-detail-rating-row {
         display: flex !important;
         align-items: center !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
         flex-wrap: wrap !important;
+        line-height: 1.2 !important;
     }
 
-    #topRatingStarsVisual {
-        font-size: 13px !important;
+    .detail-rating-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+    }
+
+    .detail-stars-visual {
         color: #f59e0b !important;
+        font-size: 13px !important;
+        letter-spacing: 0.5px !important;
+        line-height: 1 !important;
     }
 
-    #topRatingScoreNum {
+    .detail-score-num {
         font-size: 12.5px !important;
         color: #1e293b !important;
+        font-weight: 800 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    .detail-reviews-count {
+        font-size: 11.5px !important;
+        color: #64748b !important;
+        font-weight: 500 !important;
+        text-decoration: none !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    .detail-rating-dot {
+        font-size: 10px !important;
+        color: #cbd5e1 !important;
+    }
+
+    .detail-verified-badge {
+        color: #059669 !important;
+        font-size: 10.5px !important;
         font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #a7f3d0 !important;
+        padding: 2px 7px !important;
+        border-radius: 12px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 3px !important;
+        white-space: nowrap !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    #topRatingCountText {
-        font-size: 11px !important;
-        color: #0284c7 !important;
-    }
-
+    /* Price Box: Clean horizontal row, NO stretched buttons */
     .product-detail-price-box {
         display: flex !important;
-        align-items: center !important;
+        flex-direction: column !important;
         justify-content: flex-start !important;
+        gap: 2px !important;
+        margin-bottom: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .price-main-row {
+        display: flex !important;
+        align-items: baseline !important;
         gap: 8px !important;
-        margin-bottom: 8px !important;
         flex-wrap: wrap !important;
         width: 100% !important;
     }
 
     .product-detail-sale-price {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-size: 24px !important;
         font-weight: 800 !important;
-        color: #1e293b !important;
+        color: #0f172a !important;
         line-height: 1 !important;
     }
 
     .product-detail-regular-price {
         display: inline-block !important;
-        font-size: 16px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 15px !important;
         font-weight: 500 !important;
         color: #94a3b8 !important;
         text-decoration: line-through !important;
+        line-height: 1 !important;
     }
 
     .product-detail-save-badge {
-        font-size: 14px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 11.5px !important;
         font-weight: 700 !important;
-        color: #16a34a !important;
-        background: transparent !important;
-        line-height: 1 !important;
+        color: #047857 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #a7f3d0 !important;
+        padding: 2.5px 7px !important;
+        border-radius: 6px !important;
+        width: auto !important;
         display: inline-flex !important;
         align-items: center !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
     }
 
-    .product-info-side > div:nth-of-type(3) {
+    .badge-22-off {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        color: #0f7139 !important;
+        background: #e6f7ed !important;
+        border: 1px solid #86efac !important;
+        padding: 2.5px 7px !important;
+        border-radius: 6px !important;
+        width: auto !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
+    }
+
+    .price-tax-subnote {
+        font-size: 10.5px !important;
+        color: #64748b !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        margin-top: 2px !important;
+    }
+
+    /* Specs 2-Column Grid */
+    .product-detail-specs-grid {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
         gap: 8px !important;
-        margin-bottom: 10px !important;
-        font-size: 11.5px !important;
-        align-items: stretch !important;
+        margin-bottom: 12px !important;
         width: 100% !important;
+        box-sizing: border-box !important;
     }
 
-    .product-info-side > div:nth-of-type(3) > div {
-        padding: 8px 10px !important;
-        border-radius: 8px !important;
-        border: 1px solid #e2e8f0 !important;
+    .spec-card {
         background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 8px !important;
+        padding: 8px 10px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         min-height: 52px !important;
         box-sizing: border-box !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
     }
 
-    .product-info-side > div:nth-of-type(3) strong {
-        font-size: 10px !important;
+    .spec-card-label {
+        font-size: 9.5px !important;
+        font-weight: 700 !important;
         color: #64748b !important;
         text-transform: uppercase !important;
+        letter-spacing: 0.3px !important;
         margin-bottom: 2px !important;
         display: block !important;
         line-height: 1.2 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    .product-info-side > div:nth-of-type(3) span {
-        font-size: 12px !important;
-        font-weight: 700 !important;
-        line-height: 1.2 !important;
-    }
-        font-size: 12px !important;
-        font-weight: 600 !important;
-    }
-
-    /* Action Row: Quantity + Add to Cart & Buy Now Buttons Inline */
-    .product-info-side > div:nth-of-type(4) {
-        grid-column: 1 / -1 !important;
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        align-items: center !important;
-        gap: 8px !important;
-        margin-bottom: 12px !important;
+    .weight-select-wrapper {
+        position: relative !important;
         width: 100% !important;
     }
 
-    .product-info-side > div:nth-of-type(4) > div:first-child {
-        height: 48px !important;
-        min-height: 48px !important;
-        border-radius: 8px !important;
-        flex: 0 0 auto !important;
-        margin-bottom: 0 !important;
-        background: #ffffff !important;
-        border: 1.5px solid #cbd5e1 !important;
+    .detail-weight-dropdown {
+        width: 100% !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 6px !important;
+        background: #f8fafc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230f7139' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 8px center !important;
+        padding: 3px 22px 3px 6px !important;
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        cursor: pointer !important;
+        outline: none !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        box-sizing: border-box !important;
+        line-height: 1.25 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    .product-info-side button[onclick*="handleDetailAddToCart"] {
-        height: 48px !important;
-        min-height: 48px !important;
-        max-height: 48px !important;
+    .spec-card-static-val {
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        line-height: 1.25 !important;
+    }
+
+    .spec-stock-value {
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        line-height: 1.25 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    .spec-stock-value.in-stock {
+        color: #16a34a !important;
+    }
+
+    .spec-stock-value.out-of-stock {
+        color: #dc2626 !important;
+    }
+
+    .stock-dot {
+        width: 6px !important;
+        height: 6px !important;
+        border-radius: 50% !important;
+        background-color: currentColor !important;
+        display: inline-block !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Actions Layout: Stepper + Add to Cart on Row 1; Buy Now Full Width on Row 2 */
+    .product-detail-actions-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-bottom: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .actions-primary-row {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    .detail-qty-stepper {
+        height: 46px !important;
+        min-height: 46px !important;
+        flex: 0 0 94px !important;
+        width: 94px !important;
+        min-width: 94px !important;
+        border-radius: 8px !important;
+        border: 1.5px solid #cbd5e1 !important;
+        background: #ffffff !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        overflow: hidden !important;
+    }
+
+    .detail-qty-btn {
+        width: 30px !important;
+        height: 100% !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #334155 !important;
+        border: none !important;
+        background: transparent !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        user-select: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
+    .detail-qty-input {
+        width: 34px !important;
+        font-size: 15px !important;
+        font-weight: 800 !important;
+        color: #0f172a !important;
+        border: none !important;
+        outline: none !important;
+        text-align: center !important;
+        background: transparent !important;
+        pointer-events: none !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        padding: 0 !important;
+    }
+
+    .detail-btn-cart {
+        height: 46px !important;
+        min-height: 46px !important;
+        flex: 1 1 auto !important;
         font-size: 13.5px !important;
         font-weight: 800 !important;
         border-radius: 8px !important;
         letter-spacing: 0.3px !important;
-        flex: 1 1 120px !important;
+        padding: 0 10px !important;
+        white-space: nowrap !important;
+        background: #0f7139 !important;
+        color: #ffffff !important;
+        border: none !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        gap: 6px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        box-shadow: 0 2px 8px rgba(15, 113, 57, 0.2) !important;
+        cursor: pointer !important;
+    }
+
+    .detail-btn-buy {
+        height: 46px !important;
+        min-height: 46px !important;
+        width: 100% !important;
+        font-size: 13.5px !important;
+        font-weight: 800 !important;
+        border-radius: 8px !important;
+        letter-spacing: 0.3px !important;
         padding: 0 12px !important;
         white-space: nowrap !important;
+        background: #0f172a !important;
+        color: #ffffff !important;
+        border: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2) !important;
+        cursor: pointer !important;
     }
 
-    /* Description Card on Mobile */
-    .product-info-side > div:nth-of-type(5) {
-        grid-column: 1 / -1 !important;
-        padding: 14px 16px !important;
+    /* Out of Stock Card Mobile */
+    .product-detail-outofstock-card {
+        padding: 12px 14px !important;
+        border-radius: 10px !important;
         margin-bottom: 12px !important;
-        border-radius: 12px !important;
+        gap: 10px !important;
+        background: #fef2f2 !important;
+        border: 1.5px solid #fca5a5 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .outofstock-left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .outofstock-icon {
+        font-size: 22px !important;
+        line-height: 1 !important;
+    }
+
+    .outofstock-title {
+        font-size: 14px !important;
+        font-weight: 800 !important;
+        color: #991b1b !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    .outofstock-subtitle {
+        font-size: 11.5px !important;
+        color: #b91c1c !important;
+        margin-top: 2px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    .outofstock-btn {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 8px 12px !important;
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        color: #991b1b !important;
+        background: #ffffff !important;
+        border: 1.5px solid #f87171 !important;
+        border-radius: 8px !important;
+        text-decoration: none !important;
+        display: block !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    /* Description Card Mobile */
+    .product-detail-desc-card {
+        padding: 12px 14px !important;
+        margin-bottom: 12px !important;
+        border-radius: 10px !important;
         background: #f8fafc !important;
         border: 1px solid #e2e8f0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
-    .product-info-side > div:nth-of-type(5) h3 {
-        font-size: 14px !important;
+    .desc-card-title {
+        font-size: 13px !important;
         font-weight: 700 !important;
         color: #0f7139 !important;
-        margin: 0 0 6px 0 !important;
+        margin: 0 0 5px 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    .product-info-side > div:nth-of-type(5) div {
-        font-size: 13px !important;
+    .desc-card-body {
+        font-size: 12.5px !important;
         line-height: 1.55 !important;
         color: #475569 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    /* Trust Icons on Mobile */
-    .product-info-side > div:nth-of-type(6) {
-        grid-column: 1 / -1 !important;
+    /* Trust Grid Mobile */
+    .product-detail-trust-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+        margin-bottom: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .trust-badge-pill {
+        padding: 8px 4px !important;
+        border-radius: 8px !important;
+        border: 1px solid #e2e8f0 !important;
+        background: #ffffff !important;
         display: flex !important;
-        gap: 12px !important;
-        font-size: 12px !important;
-        color: #64748b !important;
-        flex-wrap: wrap !important;
-        justify-content: space-between !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 3px !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02) !important;
+        box-sizing: border-box !important;
+    }
+
+    .trust-icon {
+        font-size: 15px !important;
+        line-height: 1 !important;
+    }
+
+    .trust-text {
+        font-size: 9.5px !important;
+        font-weight: 600 !important;
+        color: #475569 !important;
+        line-height: 1.2 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
     /* Amazon Customer Reviews Section Compact Mobile Redesign */
@@ -11995,7 +13069,7 @@ body {
 /* Extra Fine-Tuning for 320px - 360px Compact Phones */
 @media screen and (max-width: 360px) {
     .header-container {
-        padding: 6px 8px !important;
+        padding: 6px 8px 3px !important;
     }
     .header-logo {
         top: 24px !important;
@@ -12003,10 +13077,22 @@ body {
     }
     .header-logo .logo-img,
     .logo-img {
-        max-height: 27px !important;
-        height: 27px !important;
-        max-width: 110px !important;
+        max-height: 26px !important;
+        height: 26px !important;
+        max-width: 95px !important;
         object-fit: contain !important;
+    }
+    .header-actions {
+        gap: 4px !important;
+    }
+    .header-actions .action-btn {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+    }
+    .header-actions .action-btn svg {
+        width: 15px !important;
+        height: 15px !important;
     }
     .instamart-banner-card {
         min-width: 275px !important;
@@ -12567,6 +13653,12 @@ body {
 }
 
 @media screen and (min-width: 769px) {
+    .mobile-search-expand-bar,
+    .mobile-search-row,
+    .mobile-header-search-wrap {
+        display: none !important;
+    }
+
     .collections-product-cards-grid {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
@@ -12844,10 +13936,9 @@ body {
     background: #075a14 !important;
 }
 
-    .collection-products-pane {
-        width: 100% !important;
-        padding-bottom: 40px !important;
-    }
+.collection-products-pane {
+    width: 100% !important;
+    padding-bottom: 40px !important;
 }
 
 /* ====================================================

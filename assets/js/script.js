@@ -103,6 +103,186 @@ document.addEventListener("DOMContentLoaded", () => {
         drawerOverlay.addEventListener("click", () => toggleDrawer(false));
     }
 
+    // Dedicated Mobile Search Bar (Row 2, Blinkit/Instamart style - never overlaps logo) & Wishlist Guardian
+    function ensureHeaderWishlist() {
+        const headerActions = document.querySelector(".header-actions");
+        if (!headerActions) return;
+        let wishlistBtn = headerActions.querySelector(".wishlist-btn");
+        if (!wishlistBtn) {
+            wishlistBtn = document.createElement("a");
+            wishlistBtn.href = "javascript:void(0)";
+            wishlistBtn.className = "action-btn wishlist-btn";
+            wishlistBtn.title = "Wishlist";
+            wishlistBtn.setAttribute("onclick", "if(typeof openWishlistModal==='function'){openWishlistModal();}else{window.location.href='/#wishlist';}");
+            wishlistBtn.innerHTML = `
+                <svg class="icon icon-heart" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+                <span class="wishlist-count" id="headerWishlistCount" style="display: none;">0</span>
+            `;
+            const cartBtn = headerActions.querySelector(".cart-btn");
+            if (cartBtn) {
+                headerActions.insertBefore(wishlistBtn, cartBtn);
+            } else {
+                headerActions.appendChild(wishlistBtn);
+            }
+        }
+        if (typeof updateWishlistBadgeCount === 'function') {
+            updateWishlistBadgeCount();
+        }
+    }
+
+    function setupMobileHeaderSearch() {
+        // 1. Clean up any obsolete inline search button that overlapped the logo
+        const oldWrap = document.getElementById("mobileHeaderSearchWrap");
+        if (oldWrap) oldWrap.remove();
+
+        const headerContainer = document.querySelector(".header-container");
+        if (!headerContainer) return;
+
+        // 2. Ensure Wishlist button is present in header actions first
+        ensureHeaderWishlist();
+
+        // 3. Ensure Search Icon button is present in header actions directly beside Wishlist button
+        const headerActions = document.querySelector(".header-actions");
+        if (headerActions) {
+            let searchToggleBtn = headerActions.querySelector(".mobile-search-toggle-btn");
+            if (!searchToggleBtn) {
+                searchToggleBtn = document.createElement("a");
+                searchToggleBtn.href = "javascript:void(0)";
+                searchToggleBtn.className = "action-btn mobile-search-toggle-btn";
+                searchToggleBtn.id = "mobileSearchToggleBtn";
+                searchToggleBtn.title = "Search Products";
+                searchToggleBtn.setAttribute("aria-label", "Search");
+                searchToggleBtn.innerHTML = `
+                    <svg class="icon icon-search" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                `;
+                const wishlistBtn = headerActions.querySelector(".wishlist-btn");
+                if (wishlistBtn) {
+                    headerActions.insertBefore(searchToggleBtn, wishlistBtn);
+                } else {
+                    const cartBtn = headerActions.querySelector(".cart-btn");
+                    if (cartBtn) {
+                        headerActions.insertBefore(searchToggleBtn, cartBtn);
+                    } else {
+                        headerActions.appendChild(searchToggleBtn);
+                    }
+                }
+            }
+
+            searchToggleBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof window.toggleMobileSearch === 'function') {
+                    window.toggleMobileSearch();
+                }
+            };
+        }
+
+        // 4. Ensure Row 2 Dedicated Full-Width Mobile Search Bar exists (hidden by default)
+        let expandBar = document.getElementById("mobileSearchExpandBar");
+        const pathname = window.location.pathname.toLowerCase();
+        let act = "pages/collections.html";
+        if (pathname.includes('/pages/categories/') || pathname.includes('/pages/policies/') || pathname.includes('/pages/auth/')) {
+            act = "../collections.html";
+        } else if (pathname.includes('/pages/')) {
+            act = "collections.html";
+        }
+
+        if (!expandBar) {
+            expandBar = document.createElement("div");
+            expandBar.className = "mobile-search-expand-bar mobile-search-row";
+            expandBar.id = "mobileSearchExpandBar";
+            expandBar.innerHTML = `
+                <form class="mobile-search-form" action="${act}" method="get">
+                    <svg class="icon icon-search" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="mobileSearchInput" name="q" placeholder="Search fresh oils, powders, dry fruits..." autocomplete="off">
+                    <button type="submit" class="mobile-search-submit-btn">Search</button>
+                    <button type="button" class="mobile-search-close-btn" id="mobileSearchCloseBtn" aria-label="Close search">&times;</button>
+                </form>
+            `;
+            headerContainer.appendChild(expandBar);
+        } else {
+            expandBar.classList.add("mobile-search-row");
+            const form = expandBar.querySelector("form");
+            if (form && !form.getAttribute("action")) {
+                form.setAttribute("action", act);
+            }
+            if (!expandBar.querySelector("#mobileSearchCloseBtn") && form) {
+                const closeBtn = document.createElement("button");
+                closeBtn.type = "button";
+                closeBtn.className = "mobile-search-close-btn";
+                closeBtn.id = "mobileSearchCloseBtn";
+                closeBtn.setAttribute("aria-label", "Close search");
+                closeBtn.innerHTML = "&times;";
+                form.appendChild(closeBtn);
+            }
+        }
+
+        const closeBtn = document.getElementById("mobileSearchCloseBtn");
+        if (closeBtn) {
+            closeBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (typeof window.toggleMobileSearch === 'function') {
+                    window.toggleMobileSearch(false);
+                }
+            };
+        }
+
+        // 5. Define global toggle function
+        window.toggleMobileSearch = function(forceOpen) {
+            const bar = document.getElementById("mobileSearchExpandBar");
+            const toggleBtn = document.getElementById("mobileSearchToggleBtn");
+            if (!bar) return;
+            const willOpen = forceOpen !== undefined ? forceOpen : !bar.classList.contains("active");
+            if (willOpen) {
+                bar.classList.add("active");
+                if (toggleBtn) toggleBtn.classList.add("active");
+                const input = bar.querySelector("#mobileSearchInput, input[type='text']");
+                if (input) {
+                    setTimeout(() => input.focus(), 60);
+                    if (typeof window.triggerSearchSuggestions === 'function') {
+                        window.triggerSearchSuggestions(input);
+                    }
+                }
+            } else {
+                bar.classList.remove("active");
+                if (toggleBtn) toggleBtn.classList.remove("active");
+                const dropdown = bar.querySelector(".search-suggestions-dropdown");
+                if (dropdown) dropdown.classList.remove("active");
+            }
+        };
+
+        // 6. Outside click to dismiss mobile search
+        if (!window._mobileSearchGlobalBound) {
+            window._mobileSearchGlobalBound = true;
+            document.addEventListener("click", (e) => {
+                const bar = document.getElementById("mobileSearchExpandBar");
+                const toggleBtn = document.getElementById("mobileSearchToggleBtn");
+                if (!bar || !bar.classList.contains("active")) return;
+                if (!bar.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+                    if (typeof window.toggleMobileSearch === 'function') {
+                        window.toggleMobileSearch(false);
+                    }
+                }
+            });
+        }
+
+        // 7. Ensure autocomplete is initialized on mobile input
+        if (typeof initLiveSearchAutocomplete === 'function') {
+            initLiveSearchAutocomplete();
+        }
+    }
+    setupMobileHeaderSearch();
+
     // Drawer submenu dropdown toggle
     const submenuToggle = document.querySelector(".submenu-toggle");
     if (submenuToggle) {
@@ -2145,7 +2325,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function changeCardItemQty(id, name, price, image, delta) {
+    function changeCardItemQty(id, name, price, image, delta, originalPrice = 0) {
         if (!id && !name) return;
         CART_ITEMS = consolidateCartItems(CART_ITEMS);
         const cleanName = String(name || id || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
@@ -2248,7 +2428,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, true);
     }
 
-    function addToStoreCart(id, name, price, image, qty = 1, weight = '') {
+    function addToStoreCart(id, name, price, image, qty = 1, weight = '', originalPrice = 0) {
         if (!id && !name) return;
         CART_ITEMS = consolidateCartItems(CART_ITEMS);
         const cleanName = String(name || id || '').trim().replace(/([a-zA-Z0-9])\(/g, '$1 (');
@@ -2273,7 +2453,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else finalWeight = '250g';
         }
 
-        const pricing = calculateProductPricing({ id, name: cleanName, price: sanitizedPrice, unit: finalWeight });
+        const pricing = calculateProductPricing({ id, name: cleanName, price: sanitizedPrice, originalPrice: Number(originalPrice || 0), unit: finalWeight });
         sanitizedPrice = pricing.price;
         const origPrice = pricing.originalPrice;
         const discountPct = pricing.discount;
@@ -2432,12 +2612,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const barHeader = document.getElementById("cartBarHeader") || barElement.querySelector('.cart-bar-header');
             if (barHeader) {
-                if (subtotal >= 1000) {
-                    barHeader.textContent = "🎉 You unlocked FREE Shipping!";
+                let freeThreshold = 2000;
+                try {
+                    const raw = localStorage.getItem('arshith_delivery_settings');
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && parsed.freeShippingThreshold !== undefined) {
+                            freeThreshold = Number(parsed.freeShippingThreshold) || 2000;
+                        }
+                    }
+                } catch(e) {}
+
+                if (subtotal >= freeThreshold) {
+                    barHeader.textContent = "🎉 You unlocked FREE Delivery!";
                 } else if (subtotal > 0) {
-                    barHeader.textContent = `FREE Shipping on all orders above ₹1,000 (Add ₹${Math.max(0, 1000 - subtotal).toFixed(0)} more)`;
+                    barHeader.textContent = `FREE Delivery on orders above ₹${freeThreshold.toLocaleString('en-IN')} (Add ₹${Math.max(0, freeThreshold - subtotal).toFixed(0)} more)`;
                 } else {
-                    barHeader.textContent = "FREE Shipping on all orders above ₹1,000";
+                    barHeader.textContent = `FREE Delivery on all orders above ₹${freeThreshold.toLocaleString('en-IN')}`;
                 }
             }
 
@@ -2728,203 +2919,187 @@ document.addEventListener("DOMContentLoaded", () => {
         const name = String((variant && (variant.title || variant.name)) || p.name || p.title || p.id || p.handle || '').toLowerCase();
         const weight = String((variant && (variant.weight || variant.label)) || p.unit || p.weight || '').toLowerCase();
 
-        // 1. Verified Original Prices (only used as fallback if baseSellingPrice is not set or <= 0):
-        if (baseSellingPrice <= 0) {
-        if (name.includes('groundnut')) {
-            baseSellingPrice = 399;
-            baseOriginalPrice = 512;
-        } else if (name.includes('sunflower') && (name.includes('oil') || !name.includes('seed'))) {
-            baseSellingPrice = 559;
-            baseOriginalPrice = 699;
-        } else if (name.includes('sesame') && (name.includes('oil') || !name.includes('seed'))) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 229;
-                baseOriginalPrice = 294;
-            } else {
-                baseSellingPrice = 115;
-                baseOriginalPrice = 147;
+        let fallbackSellingPrice = 0;
+        let fallbackOriginalPrice = 0;
+
+        // Check if matching product in cache has a database originalPrice & price
+        try {
+            const cachedRaw = localStorage.getItem('arshith_cached_products');
+            if (cachedRaw) {
+                const list = JSON.parse(cachedRaw);
+                if (Array.isArray(list) && list.length > 0) {
+                    const cleanKey = name.replace(/[^a-z0-9]/g, '');
+                    const pId = String(p.id || p._id || p.handle || p.slug || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                    const matched = list.find(cp => {
+                        const cpId = String(cp.id || cp._id || cp.handle || cp.slug || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                        const cpName = String(cp.name || cp.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                        if (pId && cpId && (pId === cpId || pId.includes(cpId) || cpId.includes(pId))) return true;
+                        if (cleanKey && cpName && (cleanKey === cpName || cleanKey.includes(cpName) || cpName.includes(cleanKey))) return true;
+                        return false;
+                    });
+                    if (matched) {
+                        if (Number(matched.originalPrice || 0) > 0) fallbackOriginalPrice = Number(matched.originalPrice);
+                        if (Number(matched.price || 0) > 0) fallbackSellingPrice = Number(matched.price);
+                    }
+                }
             }
-        } else if (name.includes('castor') && (name.includes('oil') || name.includes('castor-oil'))) {
-            baseSellingPrice = 112;
-            baseOriginalPrice = 147;
-        } else if (name.includes('coconut') && (name.includes('oil') || name.includes('coconut-oil'))) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 349;
-                baseOriginalPrice = 448;
-            } else {
-                baseSellingPrice = 174;
-                baseOriginalPrice = 223;
-            }
-        } else if (name.includes('buffalo') && (name.includes('ghee') || name.includes('pure-buffalo'))) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 1224;
-                baseOriginalPrice = 1570;
-            } else {
-                baseSellingPrice = 612;
-                baseOriginalPrice = 785;
-            }
-        } else if (name.includes('cow') && (name.includes('ghee') || name.includes('pure-cow'))) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 1124;
-                baseOriginalPrice = 1441;
-            } else {
-                baseSellingPrice = 562;
-                baseOriginalPrice = 721;
-            }
-        } else if (name.includes('honey')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 325;
-                baseOriginalPrice = 417;
-            } else {
-                baseSellingPrice = 162.50;
-                baseOriginalPrice = 208.50;
-            }
-        } else if (name.includes('cashew') || name.includes('kaju')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 658;
-                baseOriginalPrice = 844;
-            } else {
-                baseSellingPrice = 329;
-                baseOriginalPrice = 422;
-            }
-        } else if (name.includes('almond') || name.includes('badam')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 570;
-                baseOriginalPrice = 730;
-            } else {
-                baseSellingPrice = 285;
-                baseOriginalPrice = 365;
-            }
-        } else if (name.includes('fig') || name.includes('anjeer')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 950;
-                baseOriginalPrice = 1218;
-            } else {
-                baseSellingPrice = 475;
-                baseOriginalPrice = 609;
-            }
-        } else if (name.includes('pistachio') || name.includes('pista')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 788;
-                baseOriginalPrice = 1010;
-            } else {
-                baseSellingPrice = 394;
-                baseOriginalPrice = 505;
-            }
-        } else if (name.includes('date') || name.includes('khajoor') || name.includes('kharjur')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 512;
-                baseOriginalPrice = 656;
-            } else {
-                baseSellingPrice = 256;
-                baseOriginalPrice = 328;
-            }
-        } else if (name.includes('walnut') || name.includes('akhrot')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 778;
-                baseOriginalPrice = 998;
-            } else {
-                baseSellingPrice = 389;
-                baseOriginalPrice = 499;
-            }
-        } else if (name.includes('raisin') || name.includes('kishmish')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 376;
-                baseOriginalPrice = 482;
-            } else {
-                baseSellingPrice = 188;
-                baseOriginalPrice = 241;
-            }
-        } else if (name.includes('flax')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 298;
-                baseOriginalPrice = 382;
-            } else {
-                baseSellingPrice = 149;
-                baseOriginalPrice = 191;
-            }
-        } else if (name.includes('chia')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 378;
-                baseOriginalPrice = 485;
-            } else {
-                baseSellingPrice = 189;
-                baseOriginalPrice = 242;
-            }
-        } else if (name.includes('pumpkin')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 448;
-                baseOriginalPrice = 574;
-            } else {
-                baseSellingPrice = 224;
-                baseOriginalPrice = 287;
-            }
-        } else if (name.includes('sunflower') && (name.includes('seed') || !name.includes('oil'))) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 390;
-                baseOriginalPrice = 500;
-            } else {
-                baseSellingPrice = 195;
-                baseOriginalPrice = 250;
-            }
-        } else if (name.includes('watermelon')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 450;
-                baseOriginalPrice = 577;
-            } else {
-                baseSellingPrice = 225;
-                baseOriginalPrice = 288;
-            }
-        } else if (name.includes('sabja') || name.includes('basil')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 378;
-                baseOriginalPrice = 485;
-            } else {
-                baseSellingPrice = 189;
-                baseOriginalPrice = 242;
-            }
-        } else if (name.includes('sesame') || name.includes('til')) {
-            if (weight.includes('500') || name.includes('500')) {
-                baseSellingPrice = 358;
-                baseOriginalPrice = 459;
-            } else {
-                baseSellingPrice = 179;
-                baseOriginalPrice = 230;
-            }
-        } else if (name.includes('chilli') || name.includes('chili') || name.includes('mirchi')) {
-            baseSellingPrice = 699;
-            baseOriginalPrice = 896;
-        } else if (name.includes('coriander') || name.includes('dhania')) {
-            if (weight.includes('250') || name.includes('250')) {
-                baseSellingPrice = 149;
-                baseOriginalPrice = 191;
-            } else {
-                baseSellingPrice = 59;
-                baseOriginalPrice = 76;
-            }
-        } else if (name.includes('garam') && name.includes('masala')) {
-            if (weight.includes('250') || name.includes('250')) {
-                baseSellingPrice = 99;
-                baseOriginalPrice = 127;
-            } else {
-                baseSellingPrice = 39;
-                baseOriginalPrice = 50;
-            }
-        } else if (
-            name.includes('pappula') || name.includes('chana dal') ||
-            name.includes('kobbari') ||
-            name.includes('nalla karam') ||
-            name.includes('vellulli') || name.includes('garlic') ||
-            name.includes('karivepaku')
-        ) {
-            if (weight.includes('250') || name.includes('250')) {
-                baseSellingPrice = 199;
-                baseOriginalPrice = 255;
-            } else {
-                baseSellingPrice = 79;
-                baseOriginalPrice = 101;
+        } catch(e) {}
+
+        if (!fallbackOriginalPrice) {
+            if (name.includes('groundnut')) {
+                fallbackSellingPrice = 399; fallbackOriginalPrice = 512;
+            } else if (name.includes('sunflower') && (name.includes('oil') || !name.includes('seed'))) {
+                fallbackSellingPrice = 559; fallbackOriginalPrice = 699;
+            } else if (name.includes('sesame') && (name.includes('oil') || !name.includes('seed'))) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 229; fallbackOriginalPrice = 294;
+                } else {
+                    fallbackSellingPrice = 115; fallbackOriginalPrice = 147;
+                }
+            } else if (name.includes('castor') && (name.includes('oil') || name.includes('castor-oil'))) {
+                fallbackSellingPrice = 112; fallbackOriginalPrice = 147;
+            } else if (name.includes('coconut') && (name.includes('oil') || name.includes('coconut-oil'))) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 349; fallbackOriginalPrice = 448;
+                } else {
+                    fallbackSellingPrice = 174; fallbackOriginalPrice = 223;
+                }
+            } else if (name.includes('buffalo') && (name.includes('ghee') || name.includes('pure-buffalo'))) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 1224; fallbackOriginalPrice = 1570;
+                } else {
+                    fallbackSellingPrice = 612; fallbackOriginalPrice = 785;
+                }
+            } else if (name.includes('cow') && (name.includes('ghee') || name.includes('pure-cow'))) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 1124; fallbackOriginalPrice = 1441;
+                } else {
+                    fallbackSellingPrice = 562; fallbackOriginalPrice = 721;
+                }
+            } else if (name.includes('honey')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 325; fallbackOriginalPrice = 417;
+                } else {
+                    fallbackSellingPrice = 162.50; fallbackOriginalPrice = 208.50;
+                }
+            } else if (name.includes('cashew') || name.includes('kaju')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 650; fallbackOriginalPrice = 833;
+                } else {
+                    fallbackSellingPrice = 325; fallbackOriginalPrice = 417;
+                }
+            } else if (name.includes('almond') || name.includes('badam')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 570; fallbackOriginalPrice = 730;
+                } else {
+                    fallbackSellingPrice = 285; fallbackOriginalPrice = 365;
+                }
+            } else if (name.includes('fig') || name.includes('anjeer')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 950; fallbackOriginalPrice = 1218;
+                } else {
+                    fallbackSellingPrice = 475; fallbackOriginalPrice = 609;
+                }
+            } else if (name.includes('pistachio') || name.includes('pista')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 788; fallbackOriginalPrice = 1010;
+                } else {
+                    fallbackSellingPrice = 394; fallbackOriginalPrice = 505;
+                }
+            } else if (name.includes('date') || name.includes('khajoor') || name.includes('kharjur')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 512; fallbackOriginalPrice = 656;
+                } else {
+                    fallbackSellingPrice = 256; fallbackOriginalPrice = 328;
+                }
+            } else if (name.includes('walnut') || name.includes('akhrot')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 778; fallbackOriginalPrice = 998;
+                } else {
+                    fallbackSellingPrice = 389; fallbackOriginalPrice = 499;
+                }
+            } else if (name.includes('raisin') || name.includes('kishmish')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 376; fallbackOriginalPrice = 482;
+                } else {
+                    fallbackSellingPrice = 188; fallbackOriginalPrice = 241;
+                }
+            } else if (name.includes('flax')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 298; fallbackOriginalPrice = 382;
+                } else {
+                    fallbackSellingPrice = 149; fallbackOriginalPrice = 191;
+                }
+            } else if (name.includes('chia')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 450; fallbackOriginalPrice = 577;
+                } else {
+                    fallbackSellingPrice = 225; fallbackOriginalPrice = 288;
+                }
+            } else if (name.includes('pumpkin')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 560; fallbackOriginalPrice = 718;
+                } else {
+                    fallbackSellingPrice = 280; fallbackOriginalPrice = 359;
+                }
+            } else if (name.includes('sunflower') && (name.includes('seed') || !name.includes('oil'))) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 390; fallbackOriginalPrice = 500;
+                } else {
+                    fallbackSellingPrice = 195; fallbackOriginalPrice = 250;
+                }
+            } else if (name.includes('watermelon')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 450; fallbackOriginalPrice = 577;
+                } else {
+                    fallbackSellingPrice = 225; fallbackOriginalPrice = 288;
+                }
+            } else if (name.includes('sabja') || name.includes('basil')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 378; fallbackOriginalPrice = 485;
+                } else {
+                    fallbackSellingPrice = 189; fallbackOriginalPrice = 242;
+                }
+            } else if (name.includes('sesame') || name.includes('til')) {
+                if (weight.includes('500') || name.includes('500')) {
+                    fallbackSellingPrice = 358; fallbackOriginalPrice = 459;
+                } else {
+                    fallbackSellingPrice = 179; fallbackOriginalPrice = 230;
+                }
+            } else if (name.includes('chilli') || name.includes('chili') || name.includes('mirchi')) {
+                fallbackSellingPrice = 699; fallbackOriginalPrice = 896;
+            } else if (name.includes('coriander') || name.includes('dhania')) {
+                if (weight.includes('250') || name.includes('250')) {
+                    fallbackSellingPrice = 149; fallbackOriginalPrice = 191;
+                } else {
+                    fallbackSellingPrice = 59; fallbackOriginalPrice = 76;
+                }
+            } else if (name.includes('garam') && name.includes('masala')) {
+                if (weight.includes('250') || name.includes('250')) {
+                    fallbackSellingPrice = 99; fallbackOriginalPrice = 127;
+                } else {
+                    fallbackSellingPrice = 39; fallbackOriginalPrice = 50;
+                }
+            } else if (
+                name.includes('pappula') || name.includes('chana dal') ||
+                name.includes('kobbari') ||
+                name.includes('nalla karam') ||
+                name.includes('vellulli') || name.includes('garlic') ||
+                name.includes('karivepaku')
+            ) {
+                if (weight.includes('250') || name.includes('250')) {
+                    fallbackSellingPrice = 199; fallbackOriginalPrice = 255;
+                } else {
+                    fallbackSellingPrice = 79; fallbackOriginalPrice = 101;
+                }
             }
         }
+
+        if (baseSellingPrice <= 0 && fallbackSellingPrice > 0) {
+            baseSellingPrice = fallbackSellingPrice;
+        }
+        if ((baseOriginalPrice <= 0 || baseOriginalPrice <= baseSellingPrice) && fallbackOriginalPrice > 0) {
+            baseOriginalPrice = fallbackOriginalPrice;
         }
 
         // 2. Mathematical calculation for all products:
@@ -3067,7 +3242,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ` : '';
 
             return `
-                <div class="product-card ${inStock ? '' : 'product-card-out-of-stock'}" data-product-id="${id}" data-base-id="${baseId}" data-product-name="${safeDisplayNameForJs}" data-product-price="${discPrice}">
+                <div class="product-card ${inStock ? '' : 'product-card-out-of-stock'}" data-product-id="${id}" data-base-id="${baseId}" data-product-name="${safeDisplayNameForJs}" data-product-price="${discPrice}" data-product-original-price="${originalPrice}">
                     <a href="${productUrl}" class="product-card-link" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; flex: 1 1 100%; height: 100%; cursor: pointer;">
                         <div class="product-image-container ${hasSecondImage ? 'has-second-img' : ''}" ontouchstart="if (this.classList.contains('has-second-img')) { this.classList.toggle('touch-active'); }">
                             <span class="card-discount-tag">${discount}% OFF</span>
@@ -3100,7 +3275,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </a>
                     ${inStock ? `
-                        <button class="add-to-cart-btn" style="display: none !important;" onclick="addToStoreCart('${id}', '${safeDisplayNameForJs}', ${discPrice}, '${safeImgForJs}')">ADD TO CART</button>
+                        <button class="add-to-cart-btn" style="display: none !important;" onclick="addToStoreCart('${id}', '${safeDisplayNameForJs}', ${discPrice}, '${safeImgForJs}', 1, '${currentVariant ? currentVariant.weight : (p.unit || '')}', ${originalPrice})">ADD TO CART</button>
                     ` : `
                         <button class="add-to-cart-btn disabled" disabled style="background: #f1f5f9; color: #94a3b8; border: 1px solid #cbd5e1; cursor: not-allowed; opacity: 0.85;">OUT OF STOCK</button>
                     `}
@@ -4019,39 +4194,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <!-- RIGHT PRODUCT DETAILS -->
                 <div class="product-info-side">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <span style="background: #e8f5e9; color: #0f7139; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;">${category}</span>
-                        ${subcategory ? `<span style="background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px;">${subcategory}</span>` : ''}
+                    <!-- Category & Subcategory Badges -->
+                    <div class="product-detail-category-row">
+                        <span class="detail-category-pill">${category}</span>
+                        ${subcategory ? `<span class="detail-subcategory-pill">${subcategory}</span>` : ''}
                     </div>
 
+                    <!-- Product Heading -->
                     <h1 class="product-detail-heading">${name}</h1>
 
-                    <!-- 5-Star Rating Beside Photo (Synced with Amazon Reviews Section) -->
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
-                        <a href="#amazonReviewsSection" id="topRatingScoreLink" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; cursor: pointer;" title="Jump to Customer Reviews">
-                            <div id="topRatingStarsVisual" style="color: #f59e0b; font-size: 15px; letter-spacing: 1px;">★★★★★</div>
-                            <strong id="topRatingScoreNum" style="font-size: 14px; color: #1e293b;">${(p.rating || 5.0).toFixed(1)}</strong>
-                            <span id="topRatingCountText" style="font-size: 12.5px; color: #0284c7; text-decoration: underline;">(${p.numReviews || 0} customer ratings)</span>
+                    <!-- 5-Star Rating & Verified Badge Row -->
+                    <div class="product-detail-rating-row">
+                        <a href="#amazonReviewsSection" id="topRatingScoreLink" class="detail-rating-link" title="Jump to Customer Reviews">
+                            <span id="topRatingStarsVisual" class="detail-stars-visual">★★★★★</span>
+                            <span id="topRatingScoreNum" class="detail-score-num">${(p.rating || 5.0).toFixed(1)}</span>
+                            <span id="topRatingCountText" class="detail-reviews-count">(${p.numReviews || 0} customer ratings)</span>
                         </a>
-                        <span style="color: #cbd5e1;">•</span>
-                        <span style="color: #16a34a; font-size: 12px; font-weight: 600; background: #ecfdf5; padding: 2px 8px; border-radius: 12px;">✓ Verified Product</span>
+                        <span class="detail-rating-dot">•</span>
+                        <span class="detail-verified-badge">✓ Verified Product</span>
                     </div>
 
                     <!-- Price Box -->
-                    <div class="product-detail-price-box" style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;">
-                        <span class="product-detail-sale-price" style="font-size: 26px; font-weight: 800; color: #1e293b; line-height: 1; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(discPrice)}</span>
-                        <span class="product-detail-regular-price" style="font-size: 16px; color: #94a3b8; text-decoration: line-through; font-weight: 500; font-family: 'Plus Jakarta Sans', sans-serif;">₹${formatPriceNum(originalPrice)}</span>
-                        <span class="product-detail-save-badge" style="font-size: 13px; font-weight: 700; color: #16a34a; background: #ecfdf5; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">Save ₹${formatPriceNum(savings)}</span>
-                        <span class="badge-22-off" style="background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 12px; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; font-family: 'Plus Jakarta Sans', sans-serif;">${discount}% OFF</span>
+                    <div class="product-detail-price-box">
+                        <div class="price-main-row">
+                            <span class="product-detail-sale-price">₹${formatPriceNum(discPrice)}</span>
+                            <span class="product-detail-regular-price">₹${formatPriceNum(originalPrice)}</span>
+                            <span class="product-detail-save-badge">Save ₹${formatPriceNum(savings)}</span>
+                            <span class="badge-22-off">${discount}% OFF</span>
+                        </div>
+                        <div class="price-tax-subnote">Inclusive of all taxes • ⚡ Fresh Dispatch</div>
                     </div>
 
-                    <!-- Specs List -->
-                    <div style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13.5px; align-items: stretch;">
-                        <div style="background: #fff; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; min-height: 54px; box-sizing: border-box;">
-                            <strong style="color:#64748b; font-size:11.5px; display:block; text-transform:uppercase; margin-bottom: 2px;">UNIT / NET WEIGHT</strong>
+                    <!-- Specs List (Unit / Weight & Availability) -->
+                    <div class="product-detail-specs-grid">
+                        <div class="spec-card spec-card-weight">
+                            <label class="spec-card-label" for="detailWeightSelect">UNIT / NET WEIGHT</label>
                             ${hasWeightVariants ? `
-                            <div style="position: relative; width: 100%;">
-                                <select id="detailWeightSelect" class="detail-weight-dropdown" onchange="window.switchDetailWeightVariant(this.value)" aria-label="Select unit net weight" style="width: 100%; border: 1.5px solid #cbd5e1; border-radius: 6px; background: #ffffff url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230f7139' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E&quot;) no-repeat right 8px center; padding: 3px 24px 3px 6px; font-size: 13.5px; font-weight: 700; color: #1e293b; cursor: pointer; outline: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; font-family: inherit; box-sizing: border-box; line-height: 1.2;">
+                            <div class="weight-select-wrapper">
+                                <select id="detailWeightSelect" class="detail-weight-dropdown" onchange="window.switchDetailWeightVariant(this.value)" aria-label="Select unit net weight">
                                     ${Object.keys(weightVariants).map(key => {
                                         const v = weightVariants[key];
                                         const isSel = (initialKey === key) ? 'selected' : '';
@@ -4060,59 +4240,76 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </select>
                             </div>
                             ` : `
-                            <span style="font-weight:700; color:#1e293b; line-height: 1.2;">${unit}</span>
+                            <span class="spec-card-static-val">${unit}</span>
                             `}
                         </div>
-                        <div style="background: #fff; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; min-height: 54px; box-sizing: border-box;">
-                            <strong style="color:#64748b; font-size:11.5px; display:block; text-transform:uppercase; margin-bottom: 2px;">AVAILABILITY</strong>
-                            <span style="font-weight:700; color:${isInstock ? '#16a34a' : '#dc2626'}; line-height: 1.2;">${isInstock ? `In Stock (${p.countInStock || 15} left)` : 'Out of Stock'}</span>
+                        <div class="spec-card spec-card-stock">
+                            <span class="spec-card-label">AVAILABILITY</span>
+                            <div class="spec-stock-value ${isInstock ? 'in-stock' : 'out-of-stock'}">
+                                <span class="stock-dot"></span>
+                                <span class="stock-text">${isInstock ? `In Stock (${p.countInStock || 15} left)` : 'Out of Stock'}</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Quantity + Action Buttons (Visible ONLY if In Stock) -->
                     ${isInstock ? `
-                    <div style="display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap;">
-                        <div style="display: flex; align-items: center; border: 1.5px solid #cbd5e1; border-radius: 8px; overflow: hidden; background: #fff; height: 50px;">
-                            <button type="button" class="detail-qty-btn" onclick="event.preventDefault(); event.stopPropagation(); changeDetailQty(-1, event);" aria-label="Decrease quantity" style="width: 40px; height: 100%; border: none; background: transparent; font-size: 20px; font-weight: 700; cursor: pointer; color: #475569; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-tap-highlight-color: transparent;">−</button>
-                            <input type="number" id="detailQtyInput" value="1" min="1" readonly style="width: 44px; text-align: center; border: none; font-size: 16px; font-weight: 700; color: #1e293b; outline: none; background: transparent; pointer-events: none;">
-                            <button type="button" class="detail-qty-btn" onclick="event.preventDefault(); event.stopPropagation(); changeDetailQty(1, event);" aria-label="Increase quantity" style="width: 40px; height: 100%; border: none; background: transparent; font-size: 20px; font-weight: 700; cursor: pointer; color: #475569; display: flex; align-items: center; justify-content: center; user-select: none; -webkit-tap-highlight-color: transparent;">+</button>
+                    <div class="product-detail-actions-wrap">
+                        <div class="actions-primary-row">
+                            <div class="detail-qty-stepper">
+                                <button type="button" class="detail-qty-btn qty-btn-minus" onclick="event.preventDefault(); event.stopPropagation(); changeDetailQty(-1, event);" aria-label="Decrease quantity">−</button>
+                                <input type="number" id="detailQtyInput" value="1" min="1" readonly class="detail-qty-input" aria-label="Selected quantity">
+                                <button type="button" class="detail-qty-btn qty-btn-plus" onclick="event.preventDefault(); event.stopPropagation(); changeDetailQty(1, event);" aria-label="Increase quantity">+</button>
+                            </div>
+
+                            <button type="button" class="detail-btn-cart" onclick="handleDetailAddToCart(false)">
+                                <span class="btn-icon">🛒</span> ADD TO CART
+                            </button>
                         </div>
 
-                        <button type="button" onclick="handleDetailAddToCart(false)" style="flex: 1; min-width: 160px; height: 50px; background: #0f7139; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;">
-                            🛒 ADD TO CART
-                        </button>
-
-                        <button type="button" onclick="handleDetailAddToCart(true)" style="flex: 1; min-width: 140px; height: 50px; background: #1e293b; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background 0.2s;">
-                            ⚡ BUY NOW
+                        <button type="button" class="detail-btn-buy" onclick="handleDetailAddToCart(true)">
+                            <span class="btn-icon">⚡</span> BUY NOW
                         </button>
                     </div>
                     ` : `
                     <!-- Out of Stock Message (No Buy Options) -->
-                    <div style="background: #fef2f2; border: 1.5px solid #fca5a5; border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <span style="font-size: 26px; line-height: 1;">🚫</span>
+                    <div class="product-detail-outofstock-card">
+                        <div class="outofstock-left">
+                            <span class="outofstock-icon">🚫</span>
                             <div>
-                                <div style="color: #991b1b; font-weight: 800; font-size: 16px;">Currently Out of Stock</div>
-                                <div style="font-size: 13px; color: #b91c1c; margin-top: 2px;">This product is temporarily sold out and not available for purchase.</div>
+                                <div class="outofstock-title">Currently Out of Stock</div>
+                                <div class="outofstock-subtitle">This product is temporarily sold out and not available for purchase.</div>
                             </div>
                         </div>
-                        <a href="collections.html?category=all" style="background: #ffffff; color: #991b1b; border: 1.5px solid #f87171; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.2s;">
+                        <a href="collections.html?category=all" class="outofstock-btn">
                             Browse Other Products →
                         </a>
                     </div>
                     `}
 
                     <!-- Description Card -->
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-                        <h3 style="font-size: 15px; font-weight: 700; color: #0f7139; margin: 0 0 10px 0;">Product Description & Highlights</h3>
-                        <div style="font-size: 14px; line-height: 1.7; color: #475569;">${description}</div>
+                    <div class="product-detail-desc-card">
+                        <h3 class="desc-card-title">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#0f7139;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Product Description & Highlights
+                        </h3>
+                        <div class="desc-card-body">${description}</div>
                     </div>
 
-                    <!-- Trust Icons -->
-                    <div style="display: flex; gap: 20px; font-size: 12.5px; color: #64748b; flex-wrap: wrap;">
-                        <span>🌿 <strong>100% Pure & Fresh</strong></span>
-                        <span>🚚 <strong>Free Delivery Above ₹1000</strong></span>
-                        <span>🔒 <strong>Secure Checkout</strong></span>
+                    <!-- Trust Badges Row -->
+                    <div class="product-detail-trust-grid">
+                        <div class="trust-badge-pill">
+                            <span class="trust-icon">🌿</span>
+                            <span class="trust-text">100% Pure & Fresh</span>
+                        </div>
+                        <div class="trust-badge-pill">
+                            <span class="trust-icon">🚚</span>
+                            <span class="trust-text">Free Delivery Above ₹1000</span>
+                        </div>
+                        <div class="trust-badge-pill">
+                            <span class="trust-icon">🔒</span>
+                            <span class="trust-text">Secure Checkout</span>
+                        </div>
                     </div>
                 </div>
 
@@ -4165,32 +4362,43 @@ document.addEventListener("DOMContentLoaded", () => {
         // 2. Update Regular Price & Save Badge in Price Box
         const priceBox = document.querySelector('.product-detail-price-box');
         if (priceBox) {
+            const priceRow = priceBox.querySelector('.price-main-row') || priceBox;
             let regPriceEl = priceBox.querySelector('.product-detail-regular-price');
             if (!regPriceEl) {
                 regPriceEl = document.createElement('span');
                 regPriceEl.className = 'product-detail-regular-price';
-                priceBox.appendChild(regPriceEl);
+                priceRow.appendChild(regPriceEl);
             }
             regPriceEl.textContent = `₹${formatPriceNum(origPrice)}`;
-            regPriceEl.style.cssText = 'font-size: 16px; color: #94a3b8; text-decoration: line-through; font-weight: 500; display: inline-flex; align-items: center; font-family: "Plus Jakarta Sans", sans-serif;';
+            regPriceEl.removeAttribute('style');
 
             let saveBadgeEl = priceBox.querySelector('.product-detail-save-badge');
             if (!saveBadgeEl) {
                 saveBadgeEl = document.createElement('span');
                 saveBadgeEl.className = 'product-detail-save-badge';
-                priceBox.appendChild(saveBadgeEl);
+                priceRow.appendChild(saveBadgeEl);
             }
             saveBadgeEl.textContent = `Save ₹${formatPriceNum(savings)}`;
-            saveBadgeEl.style.cssText = 'font-size: 13px; font-weight: 700; color: #16a34a; background: #ecfdf5; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; display: inline-flex; align-items: center; font-family: "Plus Jakarta Sans", sans-serif;';
+            saveBadgeEl.removeAttribute('style');
 
             let badgeEl = priceBox.querySelector('.badge-22-off');
             if (!badgeEl) {
                 badgeEl = document.createElement('span');
                 badgeEl.className = 'badge-22-off';
-                priceBox.appendChild(badgeEl);
+                priceRow.appendChild(badgeEl);
             }
             badgeEl.textContent = `${discount}% OFF`;
-            badgeEl.style.cssText = 'background: #e6f7ed; color: #0f7139; font-weight: 800; font-size: 12px; padding: 3px 8px; border-radius: 6px; border: 1px solid #bbf7d0; display: inline-flex; align-items: center; font-family: "Plus Jakarta Sans", sans-serif;';
+            badgeEl.removeAttribute('style');
+
+            if (savings > 0) {
+                regPriceEl.style.display = '';
+                saveBadgeEl.style.display = '';
+                badgeEl.style.display = '';
+            } else {
+                regPriceEl.style.display = 'none';
+                saveBadgeEl.style.display = 'none';
+                badgeEl.style.display = 'none';
+            }
         }
 
         // 3. Update Discount Tag on Main Image
@@ -4925,7 +5133,9 @@ document.addEventListener("DOMContentLoaded", () => {
    LIVE SEARCH BAR WITH AUTO-COMPLETE WORDS & PRODUCTS DROPDOWN
    ========================================================================== */
 function initLiveSearchAutocomplete() {
-    const searchInputs = document.querySelectorAll('.search-form input[name="q"], .search-form input[type="text"], .search-bar-container input, #searchQueryInput');
+    const searchInputs = document.querySelectorAll(
+        '.search-form input[name="q"], .search-form input[type="text"], .search-bar-container input, .mobile-search-form input, #mobileSearchInput, #searchQueryInput'
+    );
     if (searchInputs.length === 0) return;
 
     function getPathPrefix() {
@@ -4941,9 +5151,9 @@ function initLiveSearchAutocomplete() {
     function getRecentSearches() {
         try {
             const data = localStorage.getItem('arshith_recent_searches');
-            return data ? JSON.parse(data) : ['spices', 'oils', 'dry fruits', 'ghee'];
+            return data ? JSON.parse(data) : ['oils', 'ghee', 'dry fruits', 'seeds', 'honey'];
         } catch (e) {
-            return ['spices', 'oils', 'dry fruits', 'ghee'];
+            return ['oils', 'ghee', 'dry fruits', 'seeds', 'honey'];
         }
     }
 
@@ -4970,7 +5180,7 @@ function initLiveSearchAutocomplete() {
             localStorage.setItem('arshith_recent_searches', JSON.stringify(list));
         } catch (e) {}
         
-        document.querySelectorAll('.search-bar-container, .search-form').forEach(container => {
+        document.querySelectorAll('.search-bar-container, .search-form, .mobile-search-expand-bar, .mobile-search-form').forEach(container => {
             const input = container.querySelector('input');
             const dropdown = container.querySelector('.search-suggestions-dropdown');
             if (input && dropdown && dropdown.classList.contains('active')) {
@@ -4988,7 +5198,7 @@ function initLiveSearchAutocomplete() {
             localStorage.setItem('arshith_recent_searches', JSON.stringify([]));
         } catch (e) {}
 
-        document.querySelectorAll('.search-bar-container, .search-form').forEach(container => {
+        document.querySelectorAll('.search-bar-container, .search-form, .mobile-search-expand-bar, .mobile-search-form').forEach(container => {
             const input = container.querySelector('input');
             const dropdown = container.querySelector('.search-suggestions-dropdown');
             if (input && dropdown && dropdown.classList.contains('active')) {
@@ -5001,53 +5211,82 @@ function initLiveSearchAutocomplete() {
     let isFetchingProducts = false;
 
     const STARTER_SEARCH_CATALOG = [
-        { _id: 's1', title: 'Granular Buffalo Ghee (Traditional Bilona)', category: 'Ghee and Honey', price: 612, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
+        { _id: 's1', title: 'Groundnut Oil (Premium Quality)', category: 'Oils', price: 399, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
         { _id: 's2', title: 'Cold Pressed Sunflower Oil (Premium Quality)', category: 'Oils', price: 559, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
-        { _id: 's3', title: 'Groundnut Oil (Cold Pressed)', category: 'Oils', price: 399, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
-        { _id: 's4', title: 'Flax Seeds (Organic & Premium)', category: 'Dry Seeds', price: 149, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334051&width=533' },
-        { _id: 's5', title: 'Chia Seeds (High Fiber)', category: 'Dry Seeds', price: 189, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533' },
-        { _id: 's6', title: 'Raw Wild Forest Honey', category: 'Ghee and Honey', price: 163, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png?v=1757334051&width=533' },
-        { _id: 's7', title: 'Cashews (W240 Grade Premium)', category: 'Dry Fruits', price: 899, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
-        { _id: 's8', title: 'California Almonds (Badam)', category: 'Dry Fruits', price: 799, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' }
+        { _id: 's3', title: 'Sesame Oil (Premium Quality)', category: 'Oils', price: 449, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
+        { _id: 's4', title: 'Castor Oil (Premium Quality)', category: 'Oils', price: 299, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_3.jpg?v=1757334051&width=533' },
+        { _id: 's5', title: 'Coconut Oil (Premium Quality)', category: 'Oils', price: 360, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334051&width=533' },
+        { _id: 's6', title: 'Granular Buffalo Ghee (Traditional Bilona)', category: 'Ghee and Honey', price: 612, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-09-15_at_4.34.52_PM.jpg?v=1757934372&width=533' },
+        { _id: 's7', title: 'Raw Wild Forest Honey', category: 'Ghee and Honey', price: 163, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/4_6d56df69-1c9f-4f05-b1a7-ca631fc7b9aa.png?v=1757334051&width=533' },
+        { _id: 's8', title: 'Flax Seeds (Organic & Premium)', category: 'Dry Seeds', price: 149, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334051&width=533' },
+        { _id: 's9', title: 'Chia Seeds (High Fiber)', category: 'Dry Seeds', price: 189, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-07-04_at_9.43.11_AM_88a83afd-35c7-4178-ad6f-170645b5294e.jpg?v=1757333987&width=533' },
+        { _id: 's10', title: 'Cashews (W240 Grade Premium)', category: 'Dry Fruits', price: 899, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
+        { _id: 's11', title: 'California Almonds (Badam)', category: 'Dry Fruits', price: 799, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
+        { _id: 's12', title: 'Traditional Homemade Mango Pickle', category: 'Pickles', price: 249, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM.jpg?v=1757334052&width=533' },
+        { _id: 's13', title: 'Pure Turmeric Powder (Lakadong High Curcumin)', category: 'Spice Powders & Podulu', price: 180, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_1.jpg?v=1757334051&width=533' },
+        { _id: 's14', title: 'Guntur Red Chilli Powder (Stone Ground)', category: 'Spice Powders & Podulu', price: 199, image: 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/WhatsApp_Image_2025-08-22_at_11.41.18_AM_2.jpg?v=1757334051&width=533' }
     ];
 
     async function loadSearchProducts() {
-        if (allSearchProducts.length > 0) return;
-        if (isFetchingProducts) return;
+        if (allSearchProducts.length > 0) return allSearchProducts;
+        if (isFetchingProducts) return allSearchProducts;
         isFetchingProducts = true;
         try {
-            let res = await fetch('/api/products');
-            if (!res.ok) res = await fetch('/api/products');
-            if (res.ok) {
+            if (window.PRODUCTS_CACHE && Array.isArray(window.PRODUCTS_CACHE) && window.PRODUCTS_CACHE.length > 0) {
+                allSearchProducts = window.PRODUCTS_CACHE;
+                return allSearchProducts;
+            }
+            if (window.allProducts && Array.isArray(window.allProducts) && window.allProducts.length > 0) {
+                allSearchProducts = window.allProducts;
+                return allSearchProducts;
+            }
+
+            const apiBase = (window.location.origin.startsWith('http') && window.location.port !== '5000') ? 'http://localhost:5000' : '';
+            let res = null;
+            try {
+                res = await fetch(`${apiBase}/api/products`);
+            } catch (err) {
+                try { res = await fetch('/api/products'); } catch (e) {}
+            }
+
+            if (res && res.ok) {
                 const data = await res.json();
                 const fetched = Array.isArray(data) ? data : (data.data || []);
-                if (fetched.length > 0) {
+                if (fetched && fetched.length > 0) {
                     allSearchProducts = fetched;
+                    window.PRODUCTS_CACHE = fetched;
                 } else {
-                    allSearchProducts = [];
+                    allSearchProducts = STARTER_SEARCH_CATALOG;
                 }
             } else {
-                allSearchProducts = [];
+                allSearchProducts = STARTER_SEARCH_CATALOG;
             }
         } catch (e) {
-            allSearchProducts = [];
+            allSearchProducts = STARTER_SEARCH_CATALOG;
         } finally {
             isFetchingProducts = false;
         }
+        return allSearchProducts;
     }
 
+    // Pre-load product data immediately so suggestions render without any lag
+    loadSearchProducts();
+
     searchInputs.forEach(input => {
+        if (input.dataset.autocompleteAttached === 'true') return;
+        input.dataset.autocompleteAttached = 'true';
+
         input.setAttribute('autocomplete', 'off');
         input.setAttribute('autocorrect', 'off');
         input.setAttribute('spellcheck', 'false');
 
         const form = input.closest('form');
-        const container = input.closest('.search-bar-container') || (form ? form.parentElement : input.parentElement);
+        const container = input.closest('.mobile-search-expand-bar') || input.closest('.search-bar-container') || (form ? form.parentElement : input.parentElement);
         if (!container) return;
 
         container.style.position = 'relative';
 
-        if (form && !form.querySelector('.search-clear-btn')) {
+        if (form && !form.querySelector('.search-clear-btn') && !form.classList.contains('mobile-search-form')) {
             const clearBtn = document.createElement('button');
             clearBtn.type = 'button';
             clearBtn.className = 'search-clear-btn';
@@ -5079,9 +5318,10 @@ function initLiveSearchAutocomplete() {
         };
 
         input.addEventListener('focus', () => {
-            loadSearchProducts();
-            updateClearBtnState();
-            renderSuggestions(input.value.trim(), dropdown);
+            loadSearchProducts().then(() => {
+                updateClearBtnState();
+                renderSuggestions(input.value.trim(), dropdown);
+            });
         });
 
         input.addEventListener('input', (e) => {
@@ -5140,11 +5380,12 @@ function initLiveSearchAutocomplete() {
             const matchingProducts = allSearchProducts.filter(p => {
                 const title = (p.title || p.name || '').toLowerCase();
                 const cat = (p.category || '').toLowerCase();
-                const sub = (p.subcategory || '').toLowerCase();
+                const sub = (p.subcategory || p.subCategory || '').toLowerCase();
                 const desc = (p.description || '').toLowerCase();
                 const brand = (p.brand || '').toLowerCase();
-                return title.includes(qLower) || cat.includes(qLower) || sub.includes(qLower) || desc.includes(qLower) || brand.includes(qLower);
-            }).slice(0, 5);
+                const tags = Array.isArray(p.tags) ? p.tags.join(' ').toLowerCase() : (p.tags || '').toLowerCase();
+                return title.includes(qLower) || cat.includes(qLower) || sub.includes(qLower) || desc.includes(qLower) || brand.includes(qLower) || tags.includes(qLower);
+            }).slice(0, 8);
 
             const categories = [...new Set(allSearchProducts.map(p => p.category).filter(Boolean))];
             const matchingCats = categories.filter(c => c.toLowerCase().includes(qLower)).slice(0, 3);
@@ -5162,18 +5403,22 @@ function initLiveSearchAutocomplete() {
             }
 
             if (matchingProducts.length > 0) {
-                html += `<div class="search-suggestion-header">Matching Products</div>`;
+                html += `<div class="search-suggestion-header">Matching Products (${matchingProducts.length})</div>`;
                 matchingProducts.forEach(p => {
                     const prodTitle = p.title || p.name || 'Product';
-                    const imgData = extractProductImageData(p, 0);
-                    const img = imgData.primary;
+                    const imgData = typeof extractProductImageData === 'function' ? extractProductImageData(p, 0) : null;
+                    let img = imgData ? imgData.primary : (p.image || (Array.isArray(p.images) && p.images[0] ? (p.images[0].url || p.images[0]) : 'assets/images/placeholder.svg'));
+                    if (img && !img.startsWith('http') && !img.startsWith('data:') && !img.startsWith('/')) {
+                        img = `${prefix}${img}`;
+                    }
                     const price = p.price ? `₹${p.price}` : '';
                     const catName = p.category || 'General';
-                    const detailUrl = `${prefix}pages/product.html?id=${encodeURIComponent(p._id || p.id || '')}`;
+                    const pId = p._id || p.id || '';
+                    const detailUrl = `${prefix}pages/product.html?id=${encodeURIComponent(pId)}`;
 
                     html += `
-                        <a href="${detailUrl}" class="search-suggestion-item">
-                            <img src="${img}" class="search-suggestion-thumb" alt="${escapeHtml(prodTitle)}" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';">
+                        <a href="${detailUrl}" class="search-suggestion-item" onclick="if(typeof saveRecentSearch==='function'){saveRecentSearch('${escapeHtml(prodTitle).replace(/'/g, "\\'")}');}">
+                            <img src="${img}" class="search-suggestion-thumb" alt="${escapeHtml(prodTitle)}" onerror="this.onerror=null; this.src='${prefix}assets/images/placeholder.svg';">
                             <div class="search-suggestion-info">
                                 <div class="search-suggestion-title">${highlightMatch(prodTitle, query)}</div>
                                 <div class="search-suggestion-meta">
@@ -5237,8 +5482,25 @@ function initLiveSearchAutocomplete() {
         window.location.href = `${prefix}pages/collections.html?search=${encodeURIComponent(q || '')}`;
     };
 
+    window.triggerSearchSuggestions = function(input) {
+        if (!input) return;
+        const form = input.closest('form');
+        const container = input.closest('.mobile-search-expand-bar') || input.closest('.search-bar-container') || (form ? form.parentElement : input.parentElement);
+        if (!container) return;
+        let dropdown = container.querySelector('.search-suggestions-dropdown');
+        if (!dropdown) {
+            dropdown = document.createElement('div');
+            dropdown.className = 'search-suggestions-dropdown';
+            container.appendChild(dropdown);
+        }
+        loadSearchProducts().then(() => {
+            renderSuggestions(input.value.trim(), dropdown);
+        });
+    };
+    window.loadSearchProducts = loadSearchProducts;
+
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-bar-container') && !e.target.closest('.search-form')) {
+        if (!e.target.closest('.search-bar-container') && !e.target.closest('.search-form') && !e.target.closest('.mobile-search-form') && !e.target.closest('.mobile-search-expand-bar') && !e.target.closest('.mobile-search-toggle-btn')) {
             document.querySelectorAll('.search-suggestions-dropdown').forEach(d => d.classList.remove('active'));
         }
     });
@@ -5249,6 +5511,7 @@ function initLiveSearchAutocomplete() {
         }
     });
 }
+window.initLiveSearchAutocomplete = initLiveSearchAutocomplete;
 
 /* ==========================================================================
    GLOBAL UTILITIES (available to all modules outside DOMContentLoaded)
@@ -6250,7 +6513,7 @@ async function syncHomepageRealRatingsAndReviews() {
                             const pId = matched._id || matched.id || matched.handle || '';
                             const pName = (matched.name || matched.title || '').replace(/'/g, "\\'");
                             const pImg = (matched.image || '').replace(/'/g, "\\'");
-                            addToCartBtn.setAttribute('onclick', `addToStoreCart('${pId}', '${pName}', ${pricing.price}, '${pImg}')`);
+                            addToCartBtn.setAttribute('onclick', `addToStoreCart('${pId}', '${pName}', ${pricing.price}, '${pImg}', 1, '${matched.unit || ''}', ${pricing.originalPrice})`);
                         }
                         if (qtyOverlay) {
                             qtyOverlay.setAttribute('data-product-price', pricing.price);
@@ -6434,7 +6697,13 @@ function saveStoredWishlist(items) {
 function updateWishlistBadgeCount() {
     const items = getStoredWishlist();
     const count = items.length;
-    const countBadges = document.querySelectorAll('.wishlist-count, #headerWishlistCount');
+    let countBadges = document.querySelectorAll('.wishlist-count, #headerWishlistCount');
+    if (countBadges.length === 0 && document.querySelector('.header-actions')) {
+        if (typeof ensureHeaderWishlist === 'function') {
+            ensureHeaderWishlist();
+        }
+        countBadges = document.querySelectorAll('.wishlist-count, #headerWishlistCount');
+    }
     countBadges.forEach(badge => {
         if (count > 0) {
             badge.textContent = count;
@@ -8455,3 +8724,24 @@ window.closeBlogModal = closeBlogModal;
 
 
 
+
+
+    // Background sync delivery settings from API
+    async function syncDeliverySettingsStorefront() {
+        try {
+            const apiHost = (typeof window !== 'undefined' && window.location.origin.includes('http')) ? window.location.origin : 'http://localhost:5000';
+            const res = await fetch(`${apiHost}/api/settings/delivery`);
+            if (res && res.ok) {
+                const data = await res.json();
+                if (data && data.success && data.settings) {
+                    try {
+                        localStorage.setItem('arshith_delivery_settings', JSON.stringify(data.settings));
+                    } catch(e) {}
+                    if (typeof updateCartCountBadge === 'function') {
+                        updateCartCountBadge();
+                    }
+                }
+            }
+        } catch(e) {}
+    }
+    syncDeliverySettingsStorefront();

@@ -68,6 +68,7 @@
                 <span class="menu-icon-bar"></span>
             </button>
 
+
             <div class="header-logo">
                 <a href="/">
                     <img src="assets/images/Arshithlogo111.jpg"
@@ -114,6 +115,13 @@
                         <circle cx="12" cy="7" r="4" />
                     </svg>
                 </a>
+                <a href="javascript:void(0)" class="action-btn mobile-search-toggle-btn" id="mobileSearchToggleBtn" title="Search Products" aria-label="Search" onclick="toggleMobileSearch()">
+                    <svg class="icon icon-search" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </a>
                 <a href="javascript:void(0)" class="action-btn wishlist-btn" title="Wishlist" onclick="openWishlistModal()">
                     <svg class="icon icon-heart" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -130,6 +138,19 @@
                     </svg>
                     <span class="cart-count">0</span>
                 </a>
+            </div>
+
+            <!-- Mobile Expandable Search Bar Dropdown -->
+            <div class="mobile-search-expand-bar" id="mobileSearchExpandBar">
+                <form class="mobile-search-form" action="pages/collections.html" method="get">
+                    <svg class="icon icon-search" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="mobileSearchInput" name="q" placeholder="Search fresh oils, powders, dry fruits..." autocomplete="off">
+                    <button type="submit" class="mobile-search-submit-btn">Search</button>
+                    <button type="button" class="mobile-search-close-btn" id="mobileSearchCloseBtn" aria-label="Close search" onclick="toggleMobileSearch(false)">&times;</button>
+                </form>
             </div>
         </div>
     </header>
@@ -2045,7 +2066,7 @@
                 </div>
 
                 <div id="homepageRealReviewsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                    <!-- Dynamically populated from /api/reviews/latest via script.js -->
+                    <!-- Dynamically populated from /api/reviews/latest via script.js?v=3.8 -->
                     <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #64748b;">
                         <div style="font-size: 24px; margin-bottom: 8px;">✨</div>
                         <p style="margin: 0; font-weight: 600;">Loading real customer reviews from database...</p>
@@ -2417,7 +2438,7 @@
     <!-- Sticky Cart Status Bar -->
     <a href="pages/cart.html" class="sticky-cart-bar" id="stickyCartBar" aria-label="Open cart">
         <div class="cart-bar-header" id="cartBarHeader">
-            FREE Shipping on all orders above ₹1,000
+            FREE Delivery on all orders above ₹2,000
         </div>
         <div class="cart-bar-body">
             <span class="cart-bar-icon">🛒</span>
@@ -2440,7 +2461,7 @@
     <!-- Product Detail View Modal -->
     <div class="product-modal-backdrop" id="productDetailModal">
         <div class="product-modal-dialog" id="productModalContent">
-            <!-- Dynamic Content rendered by script.js -->
+            <!-- Dynamic Content rendered by script.js?v=3.8 -->
         </div>
     </div>
 
@@ -2452,7 +2473,7 @@
             <button class="drawer-close-icon" id="cartDrawerCloseBtn">&times;</button>
         </div>
         <div class="cart-drawer-body" id="cartDrawerBody">
-            <!-- Dynamic Cart Items rendered by script.js -->
+            <!-- Dynamic Cart Items rendered by script.js?v=3.8 -->
         </div>
         <div class="cart-drawer-footer" id="cartDrawerFooter">
             <!-- Subtotal & Checkout CTA -->
@@ -2464,7 +2485,7 @@
         <div class="checkout-modal-dialog">
             <button class="modal-close-btn" id="checkoutCloseBtn">&times;</button>
             <div id="checkoutModalBody">
-                <!-- Checkout Form & Order Summary rendered by script.js -->
+                <!-- Checkout Form & Order Summary rendered by script.js?v=3.8 -->
             </div>
         </div>
     </div>
@@ -2473,14 +2494,14 @@
     <div class="checkout-modal-backdrop" id="orderSuccessModal">
         <div class="checkout-modal-dialog" style="max-width: 520px;">
             <div id="orderSuccessContent">
-                <!-- Confirmation details rendered by script.js -->
+                <!-- Confirmation details rendered by script.js?v=3.8 -->
             </div>
         </div>
     </div>
 
     <!-- JavaScript -->
     <script src="assets/js/locationModal.js"></script>
-    <script src="assets/js/script.js?v=3.7"></script>
+    <script src="assets/js/script.js?v=3.8"></script>
 </body>
 
 </html>

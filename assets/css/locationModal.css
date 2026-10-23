@@ -94,17 +94,75 @@
 /* Responsive adjustment for Mobile Header */
 @media screen and (max-width: 991px) {
     .header-location-selector {
-        order: 3 !important;
+        order: 5 !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 6px 0 0 0 !important;
-        padding: 7px 12px !important;
+        margin: 2px 0 0 0 !important;
+        padding: 4px 10px !important;
         background: #f8fafc !important;
-        border-color: #e2e8f0 !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 8px !important;
         display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        height: 30px !important;
+        min-height: 30px !important;
+        box-sizing: border-box !important;
+        gap: 6px !important;
     }
-    .header-loc-address-text {
-        max-width: calc(100vw - 120px) !important;
+    .header-location-selector:hover {
+        background: #f0fdf4 !important;
+        border-color: #86efac !important;
+    }
+    .header-location-selector .header-loc-pin-icon svg {
+        width: 14px !important;
+        height: 14px !important;
+        color: #15803d !important;
+        flex-shrink: 0 !important;
+    }
+    .header-location-selector .header-loc-content {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        gap: 8px !important;
+    }
+    .header-location-selector .header-loc-title {
+        font-size: 10.5px !important;
+        font-weight: 700 !important;
+        color: #15803d !important;
+        order: 2 !important;
+        white-space: nowrap !important;
+        background: #dcfce7 !important;
+        padding: 2px 7px !important;
+        border-radius: 4px !important;
+        line-height: 1.3 !important;
+        flex-shrink: 0 !important;
+    }
+    .header-location-selector .header-loc-desc {
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        color: #1e293b !important;
+        order: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        overflow: hidden !important;
+        min-width: 0 !important;
+        line-height: 1.2 !important;
+    }
+    .header-location-selector .header-loc-address-text {
+        max-width: 170px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    .header-location-selector .header-loc-chevron {
+        width: 11px !important;
+        height: 11px !important;
+        flex-shrink: 0 !important;
     }
 }
 
