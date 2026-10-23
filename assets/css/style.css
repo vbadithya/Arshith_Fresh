@@ -270,7 +270,7 @@ button {
 }
 
 .mobile-search-toggle-btn {
-    display: none;
+    display: none !important;
 }
 
 .mobile-search-expand-bar,
@@ -4855,13 +4855,16 @@ main {
 
 @media screen and (max-width: 991px) {
     .desktop-nav {
-        display: none;
+        display: none !important;
     }
     .mobile-menu-btn {
-        display: flex;
+        display: flex !important;
     }
     .header-actions .search-bar-container {
-        display: none; /* Hide search bar from header, keep login/cart */
+        display: none !important; /* Hide search bar from header, keep login/cart */
+    }
+    .header-actions .mobile-search-toggle-btn {
+        display: inline-flex !important;
     }
     .footer-top {
         grid-template-columns: repeat(2, 1fr);
@@ -9965,13 +9968,15 @@ body {
 
 .header-container {
     max-width: 1440px !important;
-    padding: 12px 28px !important;
+    padding: 10px 24px !important;
     position: relative !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
+    gap: 16px !important;
 }
 
+/* Center Logo - Guaranteed clearance from both left navigation and right search/actions */
 .header-logo {
     position: absolute !important;
     left: 50% !important;
@@ -9982,14 +9987,14 @@ body {
     justify-content: center !important;
     z-index: 10 !important;
     pointer-events: auto !important;
-    max-width: 220px !important;
+    max-width: 190px !important;
 }
 
 .header-logo .logo-img {
-    height: 48px !important;
-    max-height: 50px !important;
+    height: 46px !important;
+    max-height: 48px !important;
     width: auto !important;
-    max-width: 185px !important;
+    max-width: 175px !important;
     object-fit: contain !important;
     transition: transform 0.2s ease !important;
 }
@@ -9998,8 +10003,81 @@ body {
     transform: scale(1.03) !important;
 }
 
+/* Desktop Navigation (Left side) - Strictly bounded so it NEVER encroaches into the center logo */
+@media screen and (min-width: 992px) {
+    .desktop-nav {
+        display: flex !important;
+        align-items: center !important;
+        max-width: calc(50% - 110px) !important;
+        flex: 0 1 auto !important;
+        min-width: 0 !important;
+        z-index: 2 !important;
+    }
+
+    .nav-links {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        gap: 14px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .nav-links > li {
+        flex-shrink: 0 !important;
+    }
+
+    /* Right Section: Header Actions - Strictly capped to right half, keeping safe 110px zone from center */
+    .header-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        max-width: calc(50% - 110px) !important;
+        flex: 0 1 auto !important;
+        gap: 10px !important;
+        min-width: 0 !important;
+        z-index: 2 !important;
+        margin-left: auto !important;
+    }
+
+    /* Redundant mobile search circle button is strictly hidden on desktop */
+    .header-actions .mobile-search-toggle-btn,
+    .mobile-search-toggle-btn {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    /* Fluid Adaptive Search Bar - shrinks safely when zoomed in, never mixes into logo */
+    .search-bar-container {
+        flex: 1 1 auto !important;
+        min-width: 120px !important;
+        max-width: 270px !important;
+        width: clamp(120px, 18vw, 270px) !important;
+        position: relative !important;
+    }
+
+    .search-form {
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .search-form input {
+        width: 100% !important;
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+    }
+}
+
 .nav-links {
-    gap: 16px !important;
+    gap: 14px !important;
 }
 
 .nav-links > li > a {
@@ -10019,7 +10097,15 @@ body {
     background: #f0fdf4 !important;
 }
 
-@media screen and (min-width: 992px) and (max-width: 1280px) {
+/* Medium Desktop & Zoomed Views (1100px - 1300px) */
+@media screen and (min-width: 992px) and (max-width: 1300px) {
+    .header-container {
+        padding: 8px 18px !important;
+        gap: 10px !important;
+    }
+    .desktop-nav {
+        max-width: calc(50% - 98px) !important;
+    }
     .nav-links {
         gap: 8px !important;
     }
@@ -10028,18 +10114,104 @@ body {
         font-size: 13px !important;
     }
     .header-location-selector {
-        max-width: 160px !important;
+        max-width: 155px !important;
         padding: 4px 8px !important;
-        margin-left: 6px !important;
+        margin-left: 4px !important;
     }
     .header-loc-title {
         font-size: 10px !important;
     }
     .header-loc-desc {
-        font-size: 11.5px !important;
+        font-size: 11px !important;
     }
     .header-loc-address-text {
-        max-width: 105px !important;
+        max-width: 95px !important;
+    }
+    .header-logo {
+        max-width: 165px !important;
+    }
+    .header-logo .logo-img {
+        height: 40px !important;
+        max-height: 42px !important;
+        max-width: 155px !important;
+    }
+    .header-actions {
+        max-width: calc(50% - 98px) !important;
+        gap: 8px !important;
+    }
+    .search-bar-container {
+        min-width: 110px !important;
+        max-width: 210px !important;
+        width: clamp(110px, 15vw, 210px) !important;
+    }
+    .action-btn {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+    }
+}
+
+/* Heavy Zoom & Compact Desktop Views (992px - 1100px) */
+@media screen and (min-width: 992px) and (max-width: 1100px) {
+    .header-container {
+        padding: 6px 12px !important;
+        gap: 8px !important;
+    }
+    .desktop-nav {
+        max-width: calc(50% - 85px) !important;
+    }
+    .nav-links {
+        gap: 5px !important;
+    }
+    .nav-links > li > a {
+        padding: 4px 5px !important;
+        font-size: 12px !important;
+    }
+    .header-location-selector {
+        max-width: 135px !important;
+        padding: 3px 6px !important;
+        margin-left: 2px !important;
+    }
+    .header-loc-title {
+        font-size: 9.5px !important;
+    }
+    .header-loc-desc {
+        font-size: 10.5px !important;
+    }
+    .header-loc-address-text {
+        max-width: 78px !important;
+    }
+    .header-logo {
+        max-width: 145px !important;
+    }
+    .header-logo .logo-img {
+        height: 35px !important;
+        max-height: 36px !important;
+        max-width: 135px !important;
+    }
+    .header-actions {
+        max-width: calc(50% - 85px) !important;
+        gap: 6px !important;
+    }
+    .search-bar-container {
+        min-width: 95px !important;
+        max-width: 155px !important;
+        width: clamp(95px, 12vw, 155px) !important;
+    }
+    .search-form {
+        padding: 2px 6px 2px 10px !important;
+    }
+    .search-form input {
+        font-size: 12px !important;
+    }
+    .action-btn {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+    }
+    .action-btn svg {
+        width: 16px !important;
+        height: 16px !important;
     }
 }
 
@@ -10073,7 +10245,10 @@ body {
 
 /* Modern Search Bar with Inset Shadow & Glow */
 .search-bar-container {
-    width: 320px !important;
+    width: clamp(130px, 18vw, 270px) !important;
+    min-width: 95px !important;
+    max-width: 270px !important;
+    flex: 1 1 auto !important;
 }
 
 .search-form {
@@ -10083,6 +10258,10 @@ body {
     background: #f8fafc !important;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03) !important;
     transition: all 0.25s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .search-form:focus-within {
@@ -10096,6 +10275,9 @@ body {
     font-size: 13.5px !important;
     color: #1e293b !important;
     padding: 8px 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
 }
 
 .search-submit {
@@ -10104,6 +10286,7 @@ body {
     height: 32px !important;
     border-radius: 50% !important;
     transition: transform 0.2s ease, background 0.2s ease !important;
+    flex-shrink: 0 !important;
 }
 
 .search-submit:hover {
@@ -10120,6 +10303,7 @@ body {
     border: 1px solid #e2e8f0 !important;
     color: #0f7139 !important;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    flex-shrink: 0 !important;
 }
 
 .action-btn:hover {

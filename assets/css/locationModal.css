@@ -16,7 +16,8 @@
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     margin: 0;
     max-width: 210px;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .nav-location-item {
