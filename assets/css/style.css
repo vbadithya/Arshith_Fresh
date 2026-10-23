@@ -4859,6 +4859,26 @@ main {
     }
     .mobile-menu-btn {
         display: flex !important;
+        order: 1 !important;
+        flex-shrink: 0 !important;
+    }
+    .header-logo {
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
+        order: 2 !important;
+        flex: 1 1 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 0 !important;
+        margin: 0 4px !important;
+    }
+    .header-actions {
+        order: 3 !important;
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
     }
     .header-actions .search-bar-container {
         display: none !important; /* Hide search bar from header, keep login/cart */
@@ -11373,8 +11393,8 @@ body {
         flex-wrap: wrap !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 6px 12px 2px !important;
-        gap: 6px !important;
+        padding: 6px 10px 2px !important;
+        gap: 4px !important;
     }
 
     .mobile-menu-btn {
@@ -11383,14 +11403,16 @@ body {
         justify-content: space-between !important;
         align-items: center !important;
         order: 1 !important;
-        width: 36px !important;
-        height: 36px !important;
-        padding: 9px 7px !important;
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        padding: 8px 6px !important;
         background: #f8fafc !important;
-        border-radius: 10px !important;
+        border-radius: 9px !important;
         border: 1px solid #e2e8f0 !important;
         box-sizing: border-box !important;
         cursor: pointer !important;
+        flex-shrink: 0 !important;
     }
 
     .mobile-menu-btn .menu-icon-bar {
@@ -11410,16 +11432,20 @@ body {
         display: none !important;
     }
 
-    /* Row 1, Center: Arshith Fresh Logo - Perfectly Centered & 100% Clearance */
+    /* Row 1, Center: Arshith Fresh Logo - Flow-Based Center & 100% Clearance (Never Overlaps) */
     .header-logo {
-        position: absolute !important;
-        left: 50% !important;
-        top: 25px !important;
-        transform: translate(-50%, -50%) !important;
+        order: 2 !important;
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        max-width: 120px !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        margin: 0 4px !important;
         z-index: 5 !important;
         pointer-events: auto !important;
     }
@@ -11433,11 +11459,12 @@ body {
 
     .header-logo .logo-img,
     .logo-img {
-        max-height: 29px !important;
-        height: 29px !important;
+        max-height: 27px !important;
+        height: 27px !important;
         width: auto !important;
-        max-width: 110px !important;
+        max-width: 102px !important;
         object-fit: contain !important;
+        flex-shrink: 1 !important;
     }
 
     /* Row 1, Right: Header Actions (Wishlist + Account + Cart) */
@@ -11445,8 +11472,9 @@ body {
         order: 3 !important;
         display: flex !important;
         align-items: center !important;
-        gap: 5px !important;
+        gap: 4px !important;
         margin-left: auto !important;
+        flex-shrink: 0 !important;
         z-index: 10 !important;
     }
 
@@ -11455,9 +11483,10 @@ body {
     }
 
     .header-actions .action-btn {
-        width: 35px !important;
-        height: 35px !important;
-        min-width: 35px !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        max-width: 32px !important;
         border-radius: 50% !important;
         background: #f8fafc !important;
         border: 1px solid #e2e8f0 !important;
@@ -11468,6 +11497,7 @@ body {
         position: relative !important;
         color: #0f7139 !important;
         box-sizing: border-box !important;
+        flex-shrink: 0 !important;
         transition: all 0.2s ease !important;
     }
 
@@ -11477,8 +11507,8 @@ body {
     }
 
     .header-actions .action-btn svg {
-        width: 17px !important;
-        height: 17px !important;
+        width: 16px !important;
+        height: 16px !important;
         flex-shrink: 0 !important;
     }
 
@@ -11493,11 +11523,11 @@ body {
     .header-actions .cart-count,
     .header-actions .wishlist-count {
         position: absolute !important;
-        top: -4px !important;
-        right: -4px !important;
-        width: 17px !important;
-        height: 17px !important;
-        font-size: 10px !important;
+        top: -3px !important;
+        right: -3px !important;
+        width: 16px !important;
+        height: 16px !important;
+        font-size: 9px !important;
         line-height: 1 !important;
         border: 1.5px solid #ffffff !important;
         font-weight: 800 !important;
@@ -13253,30 +13283,49 @@ body {
 /* Extra Fine-Tuning for 320px - 360px Compact Phones */
 @media screen and (max-width: 360px) {
     .header-container {
-        padding: 6px 8px 3px !important;
+        padding: 5px 6px 2px !important;
+        gap: 3px !important;
+    }
+    .mobile-menu-btn {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        padding: 7px 5px !important;
     }
     .header-logo {
-        top: 24px !important;
-        transform: translate(-50%, -50%) !important;
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
+        margin: 0 2px !important;
     }
     .header-logo .logo-img,
     .logo-img {
-        max-height: 26px !important;
-        height: 26px !important;
-        max-width: 95px !important;
+        max-height: 24px !important;
+        height: 24px !important;
+        max-width: 88px !important;
         object-fit: contain !important;
     }
     .header-actions {
-        gap: 4px !important;
+        gap: 3px !important;
     }
     .header-actions .action-btn {
-        width: 32px !important;
-        height: 32px !important;
-        min-width: 32px !important;
+        width: 29px !important;
+        height: 29px !important;
+        min-width: 29px !important;
+        max-width: 29px !important;
     }
     .header-actions .action-btn svg {
-        width: 15px !important;
-        height: 15px !important;
+        width: 14px !important;
+        height: 14px !important;
+    }
+    .header-actions .cart-count,
+    .header-actions .wishlist-count {
+        width: 14px !important;
+        height: 14px !important;
+        font-size: 8px !important;
+        top: -3px !important;
+        right: -3px !important;
     }
     .instamart-banner-card {
         min-width: 275px !important;
