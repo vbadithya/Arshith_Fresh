@@ -12,12 +12,12 @@ const connectDB = async () => {
   // Prevent Mongoose from hanging indefinitely when disconnected
   mongoose.set('bufferTimeoutMS', 3000);
 
-  const primaryUri = process.env.MONGO_URI || 'mongodb+srv://valavalabalaadithya_db_user:arshith@cluster0.hwgf3hh.mongodb.net/arshith_Fresh?appName=Cluster0';
+  const primaryUri = process.env.MONGO_URI || 'mongodb+srv://valavalabalaadithya_db_user:Kranti%40079@cluster0.hwgf3hh.mongodb.net/arshith_Fresh?retryWrites=true&w=majority';
   const fallbackUri = 'mongodb://127.0.0.1:27017/arshith_fresh';
 
   try {
     const conn = await mongoose.connect(primaryUri, {
-      serverSelectionTimeoutMS: 4000,
+      serverSelectionTimeoutMS: 10000,
     });
     console.log(`✅ MongoDB Atlas Connected: ${conn.connection.host}`);
   } catch (error) {
