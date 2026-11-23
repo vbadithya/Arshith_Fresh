@@ -1060,8 +1060,18 @@ router.get('/', async (req, res) => {
       return idxA - idxB;
     });
 
+    if (products.length === 0 && (!keyword && (!category || category === 'All'))) {
+      if (typeof FALLBACK_CATALOG !== 'undefined' && Array.isArray(FALLBACK_CATALOG)) {
+        return res.json(FALLBACK_CATALOG.map(formatProduct));
+      }
+    }
+
     res.json(products.map(formatProduct));
   } catch (error) {
+    console.warn('⚠️ Product.find failed, returning FALLBACK_CATALOG:', error.message);
+    if (typeof FALLBACK_CATALOG !== 'undefined' && Array.isArray(FALLBACK_CATALOG)) {
+      return res.json(FALLBACK_CATALOG.map(formatProduct));
+    }
     res.status(500).json({ message: 'Server error fetching products', error: error.message });
   }
 });
