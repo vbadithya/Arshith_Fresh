@@ -9,6 +9,9 @@ try {
 }
 
 const connectDB = async () => {
+  // Prevent Mongoose from hanging indefinitely when disconnected
+  mongoose.set('bufferTimeoutMS', 3000);
+
   const primaryUri = process.env.MONGO_URI || 'mongodb+srv://valavalabalaadithya_db_user:arshith@cluster0.hwgf3hh.mongodb.net/arshith_Fresh?appName=Cluster0';
   const fallbackUri = 'mongodb://127.0.0.1:27017/arshith_fresh';
 

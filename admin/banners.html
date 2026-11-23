@@ -895,9 +895,16 @@
       }, 3000);
     }
 
+    const API_BASE = (function() {
+      const origin = window.location.origin || '';
+      if (origin.includes(':5000')) return `${origin}/api`;
+      if (origin.startsWith('file:') || origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes(':5500') || origin.includes(':8080') || origin.includes(':3000')) return 'http://localhost:5000/api';
+      return '/api';
+    })();
+
     async function loadBanners() {
       try {
-        const res = await fetch('/api/banners');
+        const res = await fetch(`${API_BASE}/banners`);
         if (!res.ok) throw new Error('Failed to fetch banners');
         allBanners = await res.json();
         
@@ -1123,7 +1130,7 @@
 
       try {
         const method = id ? 'PUT' : 'POST';
-        const url = id ? `/api/banners/${id}` : '/api/banners';
+        const url = id ? `${API_BASE}/banners/${id}` : `${API_BASE}/banners`;
 
         const res = await fetch(url, {
           method,
@@ -1147,7 +1154,7 @@
 
     async function toggleBannerActive(id) {
       try {
-        const res = await fetch(`/api/banners/${id}/toggle`, { method: 'PATCH' });
+        const res = await fetch(`${API_BASE}/banners/${id}/toggle`, { method: 'PATCH' });
         const result = await res.json();
         if (!res.ok || !result.success) throw new Error(result.message || 'Failed to toggle status');
 
@@ -1162,7 +1169,7 @@
       if (!confirm(`Are you sure you want to delete banner "${title}"?`)) return;
 
       try {
-        const res = await fetch(`/api/banners/${id}`, { method: 'DELETE' });
+        const res = await fetch(`${API_BASE}/banners/${id}`, { method: 'DELETE' });
         const result = await res.json();
         if (!res.ok || !result.success) throw new Error(result.message || 'Delete failed');
 

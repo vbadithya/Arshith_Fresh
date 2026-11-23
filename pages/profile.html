@@ -11,7 +11,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../assets/css/style.css?v=3.0">
@@ -31,8 +33,7 @@
 
             <div class="header-logo">
                 <a href="../index.html">
-                    <img src="../assets/images/Arshithlogo111.jpg"
-                        alt="Arshith Fresh Logo" class="logo-img"
+                    <img src="../assets/images/Arshithlogo111.jpg" alt="Arshith Fresh Logo" class="logo-img"
                         onerror="this.onerror=null; this.src='../assets/images/Arshithlogo111.jpg';">
                 </a>
             </div>
@@ -41,13 +42,14 @@
                 <ul class="nav-links">
                     <li><a href="../index.html">Home</a></li>
                     <li class="dropdown">
-                        <a href="collections.html?category=all" class="dropdown-trigger">Collections <span class="arrow-down">▼</span></a>
+                        <a href="collections.html?category=all" class="dropdown-trigger">Collections <span
+                                class="arrow-down">▼</span></a>
                         <ul class="dropdown-menu">
                             <li><a href="categories/oils-natural-extracts.html">Oils</a></li>
                             <li><a href="categories/dry-fruits-nuts.html">Dry Fruits</a></li>
                             <li><a href="categories/dry-seeds.html">Dry Seeds</a></li>
                             <li><a href="categories/ghee-and-honey.html">Ghee and Honey</a></li>
-                            
+
                             <li><a href="categories/spice-powders-podulu.html">Spice Powders</a></li>
                         </ul>
                     </li>
@@ -57,20 +59,24 @@
 
             <div class="header-actions">
                 <a href="profile.html" class="action-btn login-btn" title="My Account" style="color: #0f7139;">
-                    <svg class="icon icon-account" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg class="icon icon-account" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                     </svg>
                 </a>
-                <a href="javascript:void(0)" class="action-btn wishlist-btn" title="Wishlist" onclick="openWishlistModal()">
+                <a href="javascript:void(0)" class="action-btn wishlist-btn" title="Wishlist"
+                    onclick="openWishlistModal()">
                     <svg class="icon icon-heart" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                     </svg>
                     <span class="wishlist-count" id="headerWishlistCount" style="display: none;">0</span>
                 </a>
                 <a href="cart.html" class="action-btn cart-btn" title="Cart">
-                    <svg class="icon icon-cart" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg class="icon icon-cart" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
                         <circle cx="9" cy="21" r="1" />
                         <circle cx="20" cy="21" r="1" />
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
@@ -84,7 +90,7 @@
     <!-- Main Profile Content -->
     <main class="profile-page-section">
         <div class="profile-container">
-            
+
             <!-- Top Identity Card -->
             <div class="profile-header-card">
                 <div class="user-identity-wrap">
@@ -96,7 +102,12 @@
                 </div>
                 <div class="profile-header-actions">
                     <button class="logout-btn-header" onclick="handleLogout()">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
                         Log out
                     </button>
                 </div>
@@ -104,36 +115,57 @@
 
             <!-- Profile Grid -->
             <div class="profile-grid-layout">
-                
+
                 <!-- Sidebar Nav -->
                 <aside class="profile-sidebar-nav">
                     <button class="nav-tab-btn active" onclick="switchTab('profile', this)">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
                         My Profile
                     </button>
                     <button class="nav-tab-btn" onclick="switchTab('current-order', this)">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="22" height="13" rx="2" ry="2"/><line x1="1" y1="9" x2="23" y2="9"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="1" y="3" width="22" height="13" rx="2" ry="2" />
+                            <line x1="1" y1="9" x2="23" y2="9" />
+                        </svg>
                         Current Order
                     </button>
                     <button class="nav-tab-btn" onclick="switchTab('orders', this)">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
                         Order History
                     </button>
                     <button class="nav-tab-btn" onclick="switchTab('security', this)">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
                         Change Password
                     </button>
                 </aside>
 
                 <!-- Main Content Panels -->
                 <div class="profile-content-card">
-                    
+
                     <!-- Tab 1: Profile & Address -->
                     <div id="tab-profile" class="tab-panel active">
                         <h2 class="panel-heading">Personal Details & Address</h2>
-                        
+
                         <div id="saveSuccessAlert" class="alert-success-banner">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
                             <span>Profile details updated successfully!</span>
                         </div>
 
@@ -145,18 +177,21 @@
                                 </div>
                                 <div class="profile-form-group">
                                     <label for="profileEmail">Email Address</label>
-                                    <input type="email" id="profileEmail" readonly class="profile-input" style="background:#f1f5f9; color:#64748b; cursor:not-allowed;">
+                                    <input type="email" id="profileEmail" readonly class="profile-input"
+                                        style="background:#f1f5f9; color:#64748b; cursor:not-allowed;">
                                 </div>
                             </div>
 
                             <div class="form-grid-2col">
                                 <div class="profile-form-group">
                                     <label for="profilePhone">Phone Number</label>
-                                    <input type="tel" id="profilePhone" placeholder="+91 98765 43210" class="profile-input">
+                                    <input type="tel" id="profilePhone" placeholder="+91 98765 43210"
+                                        class="profile-input">
                                 </div>
                                 <div class="profile-form-group">
                                     <label for="profileStreet">Street Address</label>
-                                    <input type="text" id="profileStreet" placeholder="House / Flat No., Street" class="profile-input">
+                                    <input type="text" id="profileStreet" placeholder="House / Flat No., Street"
+                                        class="profile-input">
                                 </div>
                             </div>
 
@@ -167,7 +202,8 @@
                                 </div>
                                 <div class="profile-form-group">
                                     <label for="profilePostalCode">Postal / PIN Code</label>
-                                    <input type="text" id="profilePostalCode" placeholder="e.g. 560076" class="profile-input">
+                                    <input type="text" id="profilePostalCode" placeholder="e.g. 560076"
+                                        class="profile-input">
                                 </div>
                             </div>
 
@@ -190,9 +226,15 @@
                         <h2 class="panel-heading">Order History</h2>
                         <div id="ordersContainer">
                             <div class="orders-empty-state">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <circle cx="9" cy="21" r="1" />
+                                    <circle cx="20" cy="21" r="1" />
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                                </svg>
                                 <h3 style="margin: 0 0 8px 0; color: #1e293b;">No orders placed yet</h3>
-                                <p style="margin: 0 0 16px 0;">Explore our 100% natural, authentic fresh products today!</p>
+                                <p style="margin: 0 0 16px 0;">Explore our 100% natural, authentic fresh products today!
+                                </p>
                                 <a href="collections.html?category=all" class="shop-now-btn">Start Shopping</a>
                             </div>
                         </div>
@@ -201,9 +243,13 @@
                     <!-- Tab 3: Security / Change Password -->
                     <div id="tab-security" class="tab-panel">
                         <h2 class="panel-heading">Change Password</h2>
-                        
+
                         <div id="passwordSuccessAlert" class="alert-success-banner">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
                             <span>Password updated successfully!</span>
                         </div>
 
@@ -211,15 +257,18 @@
                             <div class="form-grid-2col">
                                 <div class="profile-form-group">
                                     <label for="newPass">New Password</label>
-                                    <input type="password" id="newPass" required minlength="6" placeholder="Min 6 characters" class="profile-input">
+                                    <input type="password" id="newPass" required minlength="6"
+                                        placeholder="Min 6 characters" class="profile-input">
                                 </div>
                                 <div class="profile-form-group">
                                     <label for="confirmNewPass">Confirm New Password</label>
-                                    <input type="password" id="confirmNewPass" required minlength="6" placeholder="Re-enter new password" class="profile-input">
+                                    <input type="password" id="confirmNewPass" required minlength="6"
+                                        placeholder="Re-enter new password" class="profile-input">
                                 </div>
                             </div>
                             <div style="margin-top: 10px;">
-                                <button type="submit" id="savePasswordBtn" class="save-profile-btn">Update Password</button>
+                                <button type="submit" id="savePasswordBtn" class="save-profile-btn">Update
+                                    Password</button>
                             </div>
                         </form>
                     </div>
@@ -241,7 +290,8 @@
     <!-- Script -->
     <script src="../assets/js/script.js"></script>
     <script>
-        const API_BASE = '';
+        const API_BASE = (typeof window.getApiHost === 'function' ? window.getApiHost() : '') ||
+            (window.location.origin.includes('http') && window.location.port !== '5000' ? 'http://localhost:5000' : '');
         let currentUser = null;
         let hasFormBeenPopulated = false;
         let isLoggingOut = false;
@@ -262,7 +312,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const hashTab = window.location.hash ? window.location.hash.replace('#', '') : '';
             const activeTab = urlParams.get('tab') || hashTab;
-            
+
             if (activeTab === 'current-order') {
                 const navBtns = document.querySelectorAll('.nav-tab-btn');
                 if (navBtns[1]) switchTab('current-order', navBtns[1]);
@@ -369,13 +419,13 @@
             let localOrders = [];
             try {
                 localOrders = JSON.parse(localStorage.getItem('arshith_user_orders')) || [];
-            } catch(e) {}
+            } catch (e) { }
 
             // Clean & purge any invalid/corrupted orders from localStorage
             localOrders = (localOrders || []).filter(isValidOrder);
             try {
                 localStorage.setItem('arshith_user_orders', JSON.stringify(localOrders));
-            } catch(e) {}
+            } catch (e) { }
 
             apiOrders = (apiOrders || []).filter(isValidOrder);
 
@@ -430,40 +480,40 @@
             container.innerHTML = `
                 <div style="display: flex; flex-direction: column; gap: 24px;">
                     ${activeOrders.map(activeOrder => {
-                        const rawId = String(activeOrder._id || activeOrder.transactionId || '6A912941');
-                        const orderId = activeOrder._id 
-                            ? 'AF-' + String(activeOrder._id).substring(0, 8).toUpperCase() 
-                            : 'AF-' + String(rawId).slice(-8).toUpperCase();
-                        const orderCode = '365/' + (rawId.length > 10 ? rawId.substring(rawId.length - 10) : rawId);
-                        const dateStr = activeOrder.createdAt ? new Date(activeOrder.createdAt).toLocaleString() : new Date().toLocaleString();
-                        const status = activeOrder.status || 'Confirmed';
-                        const statusLower = status.toLowerCase();
-                        const isCancelled = statusLower === 'cancelled';
-                        const isDispatched = statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery' || statusLower === 'delivered' || activeOrder.isDelivered;
-                        const isEligibleForCancel = !isCancelled && !isDispatched;
+                const rawId = String(activeOrder._id || activeOrder.transactionId || '6A912941');
+                const orderId = activeOrder._id
+                    ? 'AF-' + String(activeOrder._id).substring(0, 8).toUpperCase()
+                    : 'AF-' + String(rawId).slice(-8).toUpperCase();
+                const orderCode = '365/' + (rawId.length > 10 ? rawId.substring(rawId.length - 10) : rawId);
+                const dateStr = activeOrder.createdAt ? new Date(activeOrder.createdAt).toLocaleString() : new Date().toLocaleString();
+                const status = activeOrder.status || 'Confirmed';
+                const statusLower = status.toLowerCase();
+                const isCancelled = statusLower === 'cancelled';
+                const isDispatched = statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery' || statusLower === 'delivered' || activeOrder.isDelivered;
+                const isEligibleForCancel = !isCancelled && !isDispatched;
 
-                        const addrObj = activeOrder.shippingAddress || {};
-                        const addrStr = [addrObj.address, addrObj.apartment, addrObj.city, addrObj.state, addrObj.postalCode, addrObj.country || 'India'].filter(Boolean).join(', ') || 'Standard Shipping';
-                        const phoneStr = activeOrder.customerPhone || (currentUser ? currentUser.phone : 'N/A') || 'N/A';
-                        const paymentMode = activeOrder.paymentMethod || 'Razorpay (Online)';
-                        const isPaid = activeOrder.isPaid;
+                const addrObj = activeOrder.shippingAddress || {};
+                const addrStr = [addrObj.address, addrObj.apartment, addrObj.city, addrObj.state, addrObj.postalCode, addrObj.country || 'India'].filter(Boolean).join(', ') || 'Standard Shipping';
+                const phoneStr = activeOrder.customerPhone || (currentUser ? currentUser.phone : 'N/A') || 'N/A';
+                const paymentMode = activeOrder.paymentMethod || 'Razorpay (Online)';
+                const isPaid = activeOrder.isPaid;
 
-                        // Map stages: 1: Placed, 2: Confirmed, 3: Dispatched, 4: Delivered
-                        let currentStepIndex = 1;
-                        if (statusLower === 'placed' || statusLower === 'pending') {
-                            currentStepIndex = 1;
-                        } else if (statusLower === 'confirmed' || statusLower === 'packed' || statusLower === 'processing') {
-                            currentStepIndex = 2;
-                        } else if (statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery') {
-                            currentStepIndex = 3;
-                        } else if (statusLower === 'delivered' || activeOrder.isDelivered) {
-                            currentStepIndex = 4;
-                        }
+                // Map stages: 1: Placed, 2: Confirmed, 3: Dispatched, 4: Delivered
+                let currentStepIndex = 1;
+                if (statusLower === 'placed' || statusLower === 'pending') {
+                    currentStepIndex = 1;
+                } else if (statusLower === 'confirmed' || statusLower === 'packed' || statusLower === 'processing') {
+                    currentStepIndex = 2;
+                } else if (statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery') {
+                    currentStepIndex = 3;
+                } else if (statusLower === 'delivered' || activeOrder.isDelivered) {
+                    currentStepIndex = 4;
+                }
 
-                        const fillWidthPercentage = isCancelled ? 0 : ((currentStepIndex - 1) / 3) * 100;
-                        const checkSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+                const fillWidthPercentage = isCancelled ? 0 : ((currentStepIndex - 1) / 3) * 100;
+                const checkSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
-                        return `
+                return `
                             <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                                 <!-- 1. ORDER SUMMARY HEADER BAR -->
                                 <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
@@ -575,7 +625,7 @@
                                 </div>
                             </div>
                         `;
-                    }).join('')}
+            }).join('')}
                 </div>
             `;
         }
@@ -600,7 +650,7 @@
                 if (typeof showToast === 'function') {
                     showToast('🚫 Order #' + orderIdDisplay + ' has been cancelled successfully.');
                 }
-                
+
                 try {
                     let localOrders = JSON.parse(localStorage.getItem('arshith_user_orders')) || [];
                     localOrders = localOrders.map(o => {
@@ -610,7 +660,7 @@
                         return o;
                     });
                     localStorage.setItem('arshith_user_orders', JSON.stringify(localOrders));
-                } catch(e) {}
+                } catch (e) { }
 
                 loadUserProfile();
             } catch (err) {
@@ -641,23 +691,23 @@
             container.innerHTML = `
                 <div style="display: flex; flex-direction: column; gap: 18px;">
                     ${orders.map(o => {
-                        const rawId = String(o._id || o.transactionId || 'ORDER');
-                        const orderId = o._id ? String(o._id).substring(0, 8).toUpperCase() : rawId.slice(-8).toUpperCase();
-                        const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleString() : 'N/A';
-                        const addr = o.shippingAddress ? [o.shippingAddress.address, o.shippingAddress.city, o.shippingAddress.state, o.shippingAddress.postalCode].filter(Boolean).join(', ') : 'Standard Shipping';
-                        const status = o.status || 'Confirmed';
-                        const statusLower = status.toLowerCase();
-                        const isCancelled = statusLower === 'cancelled';
-                        const isDelivered = statusLower === 'delivered';
-                        const isDispatched = statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery' || isDelivered;
-                        const isEligibleForCancel = !isCancelled && !isDispatched;
-                        
-                        let statusBadgeColor = '#fee2e2; color: #b91c1c;';
-                        if (isDelivered) statusBadgeColor = '#dcfce7; color: #15803d;';
-                        else if (statusLower === 'processing' || statusLower === 'shipped' || statusLower === 'dispatched') statusBadgeColor = '#fef3c7; color: #92400e;';
-                        else if (statusLower === 'placed' || statusLower === 'confirmed' || statusLower === 'pending') statusBadgeColor = '#e0f2fe; color: #0369a1;';
+                const rawId = String(o._id || o.transactionId || 'ORDER');
+                const orderId = o._id ? String(o._id).substring(0, 8).toUpperCase() : rawId.slice(-8).toUpperCase();
+                const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleString() : 'N/A';
+                const addr = o.shippingAddress ? [o.shippingAddress.address, o.shippingAddress.city, o.shippingAddress.state, o.shippingAddress.postalCode].filter(Boolean).join(', ') : 'Standard Shipping';
+                const status = o.status || 'Confirmed';
+                const statusLower = status.toLowerCase();
+                const isCancelled = statusLower === 'cancelled';
+                const isDelivered = statusLower === 'delivered';
+                const isDispatched = statusLower === 'shipped' || statusLower === 'dispatched' || statusLower === 'out for delivery' || isDelivered;
+                const isEligibleForCancel = !isCancelled && !isDispatched;
 
-                        return `
+                let statusBadgeColor = '#fee2e2; color: #b91c1c;';
+                if (isDelivered) statusBadgeColor = '#dcfce7; color: #15803d;';
+                else if (statusLower === 'processing' || statusLower === 'shipped' || statusLower === 'dispatched') statusBadgeColor = '#fef3c7; color: #92400e;';
+                else if (statusLower === 'placed' || statusLower === 'confirmed' || statusLower === 'pending') statusBadgeColor = '#e0f2fe; color: #0369a1;';
+
+                return `
                             <div style="background: #ffffff; border: 1.5px solid ${isCancelled ? '#fecaca' : '#e2e8f0'}; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                                 <div style="background: ${isCancelled ? '#fff5f5' : '#f8fafc'}; padding: 14px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                                     <div>
@@ -677,19 +727,19 @@
                                         <div style="font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">ITEMS ORDERED</div>
                                         <div style="display: flex; flex-direction: column; gap: 12px;">
                                             ${consolidateOrderItemsForDisplay(o.orderItems || []).map((item, itemIdx) => {
-                                                const itemKey = `rating_${o._id}_${itemIdx}`;
-                                                const itemProductId = item.product || item._id || item.productId || '';
-                                                let savedRating = null;
-                                                try {
-                                                    const stored = JSON.parse(localStorage.getItem('arshith_product_ratings') || '{}');
-                                                    savedRating = stored[itemKey] || null;
-                                                } catch(e) {}
+                    const itemKey = `rating_${o._id}_${itemIdx}`;
+                    const itemProductId = item.product || item._id || item.productId || '';
+                    let savedRating = null;
+                    try {
+                        const stored = JSON.parse(localStorage.getItem('arshith_product_ratings') || '{}');
+                        savedRating = stored[itemKey] || null;
+                    } catch (e) { }
 
-                                                const itemNameEscaped = (item.name || item.title || 'Fresh Product').replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                                                const itemImgEscaped = (item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495').replace(/'/g, "\\'");
-                                                const itemTotalMoney = ((item.price || 0) * (item.qty || item.quantity || 1)).toFixed(2);
+                    const itemNameEscaped = (item.name || item.title || 'Fresh Product').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                    const itemImgEscaped = (item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495').replace(/'/g, "\\'");
+                    const itemTotalMoney = ((item.price || 0) * (item.qty || item.quantity || 1)).toFixed(2);
 
-                                                return `
+                    return `
                                                     <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; padding-bottom: 10px; border-bottom: 1px dashed #f1f5f9;">
                                                         <div style="display: flex; align-items: center; gap: 12px;">
                                                             <img src="${item.image || 'https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495'}" style="width: 46px; height: 46px; border-radius: 8px; object-fit: cover; border: 1px solid #e2e8f0;">
@@ -715,7 +765,7 @@
                                                         </div>
                                                     </div>
                                                 `;
-                                            }).join('')}
+                }).join('')}
                                         </div>
                                     </div>
 
@@ -745,7 +795,7 @@
                                 </div>
                             </div>
                         `;
-                    }).join('')}
+            }).join('')}
                 </div>
             `;
         }
@@ -777,7 +827,7 @@
                             return o;
                         });
                         localStorage.setItem('arshith_user_orders', JSON.stringify(localOrders));
-                    } catch (e) {}
+                    } catch (e) { }
                     loadUserProfile();
                 } else {
                     alert(data.message || 'Failed to cancel order.');
@@ -826,7 +876,7 @@
                 });
 
                 let data = null;
-                try { data = await response.json(); } catch(err) {}
+                try { data = await response.json(); } catch (err) { }
 
                 if (response.ok && data) {
                     currentUser = { ...currentUser, ...data };
@@ -921,7 +971,7 @@
             1: '⭐ 1 Star — Poor / Disappointed'
         };
 
-        window.openLiveRatingPopup = function(orderId, itemIdx, productName, productImg, productPrice, productId) {
+        window.openLiveRatingPopup = function (orderId, itemIdx, productName, productImg, productPrice, productId) {
             currentRatingOrderId = orderId;
             currentRatingItemIdx = itemIdx;
             currentRatingProductName = productName || 'Fresh Product';
@@ -951,7 +1001,7 @@
                     const descEl = document.getElementById('popupReviewDescription');
                     if (descEl && stored[itemKey].comment) descEl.value = stored[itemKey].comment;
                 }
-            } catch(e) {}
+            } catch (e) { }
 
             updateLiveStarDisplay(currentSelectedLiveStars);
 
@@ -961,7 +1011,7 @@
             }
         };
 
-        window.closeLiveRatingPopup = function() {
+        window.closeLiveRatingPopup = function () {
             const modal = document.getElementById('liveRatingPopupModal');
             if (modal) {
                 modal.style.display = 'none';
@@ -969,7 +1019,7 @@
             }
         };
 
-        window.setLiveStarRating = function(starVal) {
+        window.setLiveStarRating = function (starVal) {
             currentSelectedLiveStars = Number(starVal);
             updateLiveStarDisplay(currentSelectedLiveStars);
         };
@@ -994,7 +1044,7 @@
             if (dropdown) dropdown.value = String(stars);
         }
 
-        window.handleLiveRatingSubmit = async function(e) {
+        window.handleLiveRatingSubmit = async function (e) {
             e.preventDefault();
             const btn = document.getElementById('submitLiveRatingBtn');
             if (btn) {
@@ -1050,7 +1100,7 @@
                         verifiedPurchase: true,
                         images: []
                     };
-                    const apiRes = await fetch('/api/reviews', {
+                    const apiRes = await fetch(`${API_BASE}/api/reviews`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -1066,7 +1116,7 @@
                             localStorage.setItem('arshith_product_ratings', JSON.stringify(stored));
                         }
                     }
-                } catch(apiErr) {
+                } catch (apiErr) {
                     console.warn('Backend review save failed, review saved locally:', apiErr);
                 }
 
@@ -1105,7 +1155,7 @@
                 localStorage.removeItem('arshith_user');
                 localStorage.removeItem('arshith_user_orders');
                 sessionStorage.clear();
-            } catch (e) {}
+            } catch (e) { }
 
             if (typeof showToast === 'function') {
                 showToast('Logged out successfully');
@@ -1114,49 +1164,82 @@
                 try {
                     localStorage.removeItem('arshith_user');
                     sessionStorage.clear();
-                } catch (e) {}
+                } catch (e) { }
                 window.location.href = '../index.html';
             }, 150);
         }
     </script>
 
     <!-- LIVE RATING & DESCRIPTION POPUP MODAL (ABOVE MONEY TRIGGER) -->
-    <div id="liveRatingPopupModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.65); backdrop-filter: blur(6px); z-index: 99999; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: #ffffff; border-radius: 18px; width: 100%; max-width: 500px; padding: 28px 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); position: relative; animation: fadeInModal 0.25s ease-out; border: 1px solid #e2e8f0;">
-            
+    <div id="liveRatingPopupModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.65); backdrop-filter: blur(6px); z-index: 99999; align-items: center; justify-content: center; padding: 20px;">
+        <div
+            style="background: #ffffff; border-radius: 18px; width: 100%; max-width: 500px; padding: 28px 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.25); position: relative; animation: fadeInModal 0.25s ease-out; border: 1px solid #e2e8f0;">
+
             <!-- Modal Header -->
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
                 <div style="display: flex; align-items: center; gap: 14px;">
-                    <img id="popupProdImg" src="https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495" style="width: 52px; height: 52px; border-radius: 10px; object-fit: cover; border: 1.5px solid #e2e8f0; background: #fafbfc;">
+                    <img id="popupProdImg"
+                        src="https://cdn.shopify.com/s/files/1/0858/0772/6869/collections/spice_200x200_crop_center.png?v=1746963495"
+                        style="width: 52px; height: 52px; border-radius: 10px; object-fit: cover; border: 1.5px solid #e2e8f0; background: #fafbfc;">
                     <div>
-                        <h3 id="popupProdTitle" style="margin: 0 0 3px 0; font-size: 16.5px; color: #0f172a; font-weight: 800; line-height: 1.3;">Product Name</h3>
-                        <span id="popupProdPrice" style="font-size: 14px; font-weight: 700; color: #0f7139;">₹0.00</span>
+                        <h3 id="popupProdTitle"
+                            style="margin: 0 0 3px 0; font-size: 16.5px; color: #0f172a; font-weight: 800; line-height: 1.3;">
+                            Product Name</h3>
+                        <span id="popupProdPrice"
+                            style="font-size: 14px; font-weight: 700; color: #0f7139;">₹0.00</span>
                     </div>
                 </div>
-                <button type="button" onclick="closeLiveRatingPopup()" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 20px; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center; transition: all 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">&times;</button>
+                <button type="button" onclick="closeLiveRatingPopup()"
+                    style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 20px; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center; transition: all 0.15s;"
+                    onmouseover="this.style.background='#e2e8f0'"
+                    onmouseout="this.style.background='#f1f5f9'">&times;</button>
             </div>
 
             <form onsubmit="handleLiveRatingSubmit(event)">
-                
+
                 <!-- Live Interactive Star Rating Row -->
-                <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px; margin-bottom: 18px; text-align: center;">
-                    <div style="font-size: 12.5px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tap to Rate Product</div>
-                    
-                    <div style="display: flex; justify-content: center; gap: 8px; font-size: 32px; cursor: pointer; margin-bottom: 6px;">
-                        <span class="interactive-star-btn" onclick="setLiveStarRating(1)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
-                        <span class="interactive-star-btn" onclick="setLiveStarRating(2)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
-                        <span class="interactive-star-btn" onclick="setLiveStarRating(3)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
-                        <span class="interactive-star-btn" onclick="setLiveStarRating(4)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
-                        <span class="interactive-star-btn" onclick="setLiveStarRating(5)" style="color: #f59e0b; transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">★</span>
+                <div
+                    style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px; margin-bottom: 18px; text-align: center;">
+                    <div
+                        style="font-size: 12.5px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+                        Tap to Rate Product</div>
+
+                    <div
+                        style="display: flex; justify-content: center; gap: 8px; font-size: 32px; cursor: pointer; margin-bottom: 6px;">
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(1)"
+                            style="color: #f59e0b; transition: transform 0.15s ease;"
+                            onmouseover="this.style.transform='scale(1.25)'"
+                            onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(2)"
+                            style="color: #f59e0b; transition: transform 0.15s ease;"
+                            onmouseover="this.style.transform='scale(1.25)'"
+                            onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(3)"
+                            style="color: #f59e0b; transition: transform 0.15s ease;"
+                            onmouseover="this.style.transform='scale(1.25)'"
+                            onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(4)"
+                            style="color: #f59e0b; transition: transform 0.15s ease;"
+                            onmouseover="this.style.transform='scale(1.25)'"
+                            onmouseout="this.style.transform='scale(1)'">★</span>
+                        <span class="interactive-star-btn" onclick="setLiveStarRating(5)"
+                            style="color: #f59e0b; transition: transform 0.15s ease;"
+                            onmouseover="this.style.transform='scale(1.25)'"
+                            onmouseout="this.style.transform='scale(1)'">★</span>
                     </div>
 
-                    <div id="liveStarSelectedLabel" style="font-size: 13.5px; font-weight: 700; color: #0f7139;">⭐⭐⭐⭐⭐ 5 Stars — Excellent / Loved it!</div>
+                    <div id="liveStarSelectedLabel" style="font-size: 13.5px; font-weight: 700; color: #0f7139;">⭐⭐⭐⭐⭐ 5
+                        Stars — Excellent / Loved it!</div>
                 </div>
 
                 <!-- Star Rating Dropdown -->
                 <div style="margin-bottom: 16px;">
-                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Or Choose Rating from Dropdown *</label>
-                    <select id="popupRatingDropdown" onchange="setLiveStarRating(this.value)" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; font-weight: 600; color: #1e293b; background: #ffffff; cursor: pointer; outline: none;">
+                    <label
+                        style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Or
+                        Choose Rating from Dropdown *</label>
+                    <select id="popupRatingDropdown" onchange="setLiveStarRating(this.value)" required
+                        style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; font-weight: 600; color: #1e293b; background: #ffffff; cursor: pointer; outline: none;">
                         <option value="5" selected>⭐⭐⭐⭐⭐ — 5 Stars (Excellent / Highly Recommended)</option>
                         <option value="4">⭐⭐⭐⭐ — 4 Stars (Very Good / High Quality)</option>
                         <option value="3">⭐⭐⭐ — 3 Stars (Good / Average Quality)</option>
@@ -1167,20 +1250,34 @@
 
                 <!-- Customer Name -->
                 <div style="margin-bottom: 16px;">
-                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Your Name *</label>
-                    <input type="text" id="popupReviewerName" required placeholder="e.g. Ramesh Kumar" style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; box-sizing: border-box; outline: none;">
+                    <label
+                        style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Your
+                        Name *</label>
+                    <input type="text" id="popupReviewerName" required placeholder="e.g. Ramesh Kumar"
+                        style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; box-sizing: border-box; outline: none;">
                 </div>
 
                 <!-- Product Description & Feedback -->
                 <div style="margin-bottom: 22px;">
-                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Product Description & Feedback *</label>
-                    <textarea id="popupReviewDescription" required placeholder="Write your live feedback about the product freshness, taste, aroma, purity, and delivery experience..." rows="3" style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; font-family: inherit; box-sizing: border-box; outline: none; resize: vertical; line-height: 1.5;"></textarea>
+                    <label
+                        style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">Product
+                        Description & Feedback *</label>
+                    <textarea id="popupReviewDescription" required
+                        placeholder="Write your live feedback about the product freshness, taste, aroma, purity, and delivery experience..."
+                        rows="3"
+                        style="width: 100%; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 13.5px; font-family: inherit; box-sizing: border-box; outline: none; resize: vertical; line-height: 1.5;"></textarea>
                 </div>
 
                 <!-- Action Buttons -->
                 <div style="display: flex; justify-content: flex-end; gap: 12px;">
-                    <button type="button" onclick="closeLiveRatingPopup()" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">Cancel</button>
-                    <button type="submit" id="submitLiveRatingBtn" style="background: #0f7139; color: #ffffff; border: none; padding: 10px 26px; border-radius: 8px; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#0b542a'" onmouseout="this.style.background='#0f7139'">Submit Live Rating ✨</button>
+                    <button type="button" onclick="closeLiveRatingPopup()"
+                        style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s;"
+                        onmouseover="this.style.background='#e2e8f0'"
+                        onmouseout="this.style.background='#f1f5f9'">Cancel</button>
+                    <button type="submit" id="submitLiveRatingBtn"
+                        style="background: #0f7139; color: #ffffff; border: none; padding: 10px 26px; border-radius: 8px; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: background 0.15s;"
+                        onmouseover="this.style.background='#0b542a'"
+                        onmouseout="this.style.background='#0f7139'">Submit Live Rating ✨</button>
                 </div>
             </form>
         </div>

@@ -887,6 +887,9 @@ function formatProduct(p) {
     } else if (typeof val === 'object') {
       url = (val.url || val.src || val.path || val.location || '').trim();
     }
+    if (url.includes('arshithfresh.com/cdn/shop/files/')) {
+      url = url.replace(/https?:\/\/arshithfresh\.com\/cdn\/shop\/files\//g, 'https://cdn.shopify.com/s/files/1/0858/0772/6869/files/');
+    }
     if (!url || url.includes('placeholder.svg')) return;
     if (isCastor && (url.includes('11.41.18_AM_3.jpg') || url.includes('500ml') || url.includes('500_ml') || url.includes('7.28.40_PM_1'))) return;
     if (url.includes('WhatsApp_Image_2025-08-06_at_4.24.45_PM') || url.includes('WhatsApp_Image_2025-08-22_at_11.41.18_AM_2')) return;

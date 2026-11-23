@@ -268,8 +268,11 @@
             submitBtn.disabled = true;
             submitBtn.innerText = 'Creating account...';
 
+            const apiHost = (typeof window.getApiHost === 'function' ? window.getApiHost() : '') || 
+                (window.location.origin.includes('http') && window.location.port !== '5000' ? 'http://localhost:5000' : '');
+
             try {
-                const res = await fetch('/api/users/register', {
+                const res = await fetch(`${apiHost}/api/users/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name: fullName, email, password, phone })
